@@ -1,0 +1,106 @@
+<ui:composition template="WEB-INF/layout/layout.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<ui:define name="title">Perfil</ui:define>
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="perfil.css"/>
+	</ui:define>
+	<ui:define name="js">
+		<h:outputScript library="js" name="perfil.js"/>
+	</ui:define>
+	<ui:define name="content">
+		<section  id="section_perfil">
+			<h1>Perfil</h1>
+			<div>
+				<h2>Campos generales</h2>
+				<p>Usuario: #{sesionController.usuario.nombre}</p>
+				<p>Contacto: #{sesionController.usuario.nombreContacto}</p>
+				<p>Correo: #{sesionController.usuario.correo}</p>
+				<p>Telefonos: #{sesionController.usuario.telefonos}</p>
+			</div>
+			<div>
+				<h2>Campos de comprador</h2>
+				<p>Ciudad: #{sesionController.usuario.ciudad}</p>
+				<p>Direccion: #{sesionController.usuario.direccion}</p>
+			</div>
+			<div>
+				<h2>Campos de vendedor</h2>
+				<p>Banco: #{sesionController.usuario.banco}</p>
+				<p>Numero de cuenta: #{sesionController.usuario.numeroCuenta}</p>
+			</div>
+		</section>
+		<section id="section_compras">
+			<h1>Compras</h1>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
+				<h:outputLabel value="Producto" styleClass="perfil_tabla_titulo"/>
+				<h:outputLabel value="Estado" styleClass="perfil_tabla_titulo"/>
+
+				<h:graphicImage library="images" name="playstation-3.jpg" width="40" height="40"/>
+				<h:outputLabel value="Consola Playstation 3 500gb Con Juego Grand Theft Auto V Ps3" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
+
+				<h:graphicImage library="images" name="xbox-one.jpg" width="40" height="40"/>
+				<h:outputLabel value="Xbox One + Kinnect+cable Hdm I+auricular+control Inalambrico" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="En envio" styleClass="perfil_tabla_contenido"/>
+
+				<h:graphicImage library="images" name="tablet-pc-7.jpg" width="40" height="40"/>
+				<h:outputLabel value="Tablet Pc 7 3d Capacitiva Android 4.0/ 8 Gb/ 2 Cámaras/wi-fi" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
+			</h:panelGrid>
+		</section>
+
+		<section id="section_ventas">
+			<h1>Ventas</h1>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
+				<h:outputLabel value="Producto" styleClass="perfil_tabla_titulo"/>
+				<h:outputLabel value="Estado" styleClass="perfil_tabla_titulo"/>
+
+				<h:graphicImage library="images" name="samsung-galaxy-s4.jpg" width="40" height="40"/>
+				<h:outputLabel value="Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
+
+				<h:graphicImage library="images" name="iphone-5s.jpg" width="40" height="40"/>
+				<h:outputLabel value="Iphone 5s 16gb Lector Huella 4g Lte Nuevos Libres Sellados" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="En envio" styleClass="perfil_tabla_contenido"/>
+
+				<h:graphicImage library="images" name="lg-g2.jpg" width="40" height="40"/>
+				<h:outputLabel value="Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram" styleClass="perfil_tabla_contenido"/>
+				<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
+			</h:panelGrid>
+		</section>
+
+		<section id="section_mis_productos">
+			<h1>Mis productos</h1>
+			<h:form id="section_mis_productos_form">
+				<h:commandButton value="Crear" action="crear_producto"/>
+				<h:commandButton value="Eliminar" action="#{manejadorDeProductos.eliminarProductos()}" id="boton_eliminar" disabled="true"/>
+				<h:panelGrid columns="4">
+					<h:outputLabel value="Seleccionado" styleClass="perfil_tabla_titulo"/>
+					<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
+					<h:outputLabel value="Producto" styleClass="perfil_tabla_titulo"/>
+					<h:outputLabel value="Estado" styleClass="perfil_tabla_titulo"/>
+
+					<h:selectBooleanCheckbox id="section_mis_productos_sel_01" />
+					<h:graphicImage library="images" name="samsung-galaxy-s4.jpg" width="40" height="40"/>
+					<h:outputLabel value="Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me" styleClass="perfil_tabla_contenido"/>
+					<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
+
+					<h:selectBooleanCheckbox id="section_mis_productos_sel_02" />
+					<h:graphicImage library="images" name="iphone-5s.jpg" width="40" height="40"/>
+					<h:outputLabel value="Iphone 5s 16gb Lector Huella 4g Lte Nuevos Libres Sellados" styleClass="perfil_tabla_contenido"/>
+					<h:outputLabel value="En envio" styleClass="perfil_tabla_contenido"/>
+
+					<h:selectBooleanCheckbox id="section_mis_productos_sel_03" />
+					<h:graphicImage library="images" name="lg-g2.jpg" width="40" height="40"/>
+					<h:outputLabel value="Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram" styleClass="perfil_tabla_contenido"/>
+					<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
+				</h:panelGrid>
+			</h:form>
+		</section>
+
+	</ui:define>
+</ui:composition>

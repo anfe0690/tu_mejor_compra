@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<h:head>
+		<title><ui:insert name="title">Default title</ui:insert></title>
+		<!-- CSS 960.gs -->
+		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/text.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/960_24_col.css"/>
+		<!-- CSS Layout -->
+		<link rel="stylesheet" type="text/css" href="resources/css/layout/layout.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/layout/sesion.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/layout/header.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/layout/categorias.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/layout/footer.css"/>
+		<!-- CSS especifico de la pagina -->
+		<ui:insert name="css"/>
+		<!-- JavaScript especifico de la pagina -->
+		<ui:insert name="js"/>
+	</h:head>
+	<h:body>
+		<ui:debug hotkey="x"/>
+		<div class="container_24">
+			<ui:include src="sesion.xhtml"/>
+			<ui:include src="header.xhtml"/>
+			<div id="cnt" class="grid_24" >
+				<c:choose>
+					<c:when test="#{ (view.viewId != '/perfil.xhtml') and (view.viewId != '/crear_producto.xhtml') }">
+						<ui:include src="categorias.xhtml"/>
+						<div id="contenido" class="grid_18">
+							<ui:insert name="content"/>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div id="contenido" class="grid_24">
+							<ui:insert name="content"/>
+						</div>
+					</c:otherwise>
+				</c:choose>
+
+			</div>
+			<ui:include src="footer.xhtml"/>
+		</div>
+	</h:body>
+</html>

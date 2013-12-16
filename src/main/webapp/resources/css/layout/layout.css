@@ -1,0 +1,23 @@
+/* 
+    Created on : 9/12/2013, 11:55:31 AM
+    Author     : Andres
+*/
+
+.container_24{
+	background-color: lightgreen;
+}
+
+.error_message{
+	color: red;
+	margin: 0px 10px 0px 0px;
+}
+
+#cnt{
+	margin-bottom: 20px;
+	background-color: red;
+}
+
+#contenido{
+	background-color: lightcyan;
+	margin: 0px;
+}

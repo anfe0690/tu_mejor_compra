@@ -1,0 +1,21 @@
+/* 
+    Created on : 11/12/2013, 11:53:41 AM
+    Author     : Andres
+*/
+
+#header{
+	background-color: lightyellow;
+	height: 60px;
+	margin-bottom: 20px;
+}
+
+#header form{
+	display: inline;
+}
+
+#header_form\:boton_buscar {
+	margin: 0px 10px 0px 20px;
+}
+
+#header_form\:texto_buscar {
+}

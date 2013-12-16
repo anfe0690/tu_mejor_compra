@@ -1,0 +1,100 @@
+/* 
+    Created on : 12/12/2013, 05:27:05 PM
+    Author     : Andres
+*/
+
+/* PERFIL */
+#section_perfil{
+	height: 190px;
+	text-align: center;
+	background-color: lightyellow;
+	margin: 0px 0px 20px 0px;
+}
+
+#section_perfil div:nth-of-type(1){
+	display: inline-block;
+	/*background-color: lightcoral;*/
+	vertical-align: top;
+	height: 120px;
+	margin: 0px 50px;
+	text-align: left;
+}
+
+#section_perfil div:nth-of-type(2){
+	display: inline-block;
+	/*background-color: lightseagreen;*/
+	vertical-align: top;
+	height: 120px;
+	margin: 0px 50px;
+	text-align: left;
+}
+
+#section_perfil div:nth-of-type(3){
+	display: inline-block;
+	/*background-color: lightskyblue;*/
+	vertical-align: top;
+	height: 120px;
+	margin: 0px 50px;
+	text-align: left;
+}
+
+#section_perfil h1{
+	font-size: 18px;
+	text-align: center;
+	padding: 10px 0px;
+	margin: 0px;
+}
+
+#section_perfil h2{
+	font-size: 16px;
+	margin: 0px;
+}
+
+#section_perfil p{
+	font-size: 14px;
+	margin: 0px;
+}
+
+/* TABLAS */
+.perfil_tabla_titulo{
+	font-weight: bold;
+}
+
+.perfil_tabla_contenido{
+	
+}
+
+/* COMPRAS  y VENTAS*/
+#section_compras, #section_ventas{
+	height: 300px;
+	background-color: lightyellow;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#section_compras h1, #section_ventas h1, #section_mis_productos h1{
+	font-size: 18px;
+	text-align: center;
+	padding: 10px 0px;
+	margin: 0px;
+}
+
+#section_compras table, #section_ventas table{
+	display: inline-block;
+	margin: 20px 0px 0px 0px;
+	background-color: lightgreen;
+	height: 200px;
+	overflow: scroll;
+}
+
+#section_compras td, #section_ventas td, #section_mis_productos td{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+/* MIS PRODUCTOS */
+#section_mis_productos{
+	height: 370px;
+	background-color: lightyellow;
+	text-align: center;
+}
