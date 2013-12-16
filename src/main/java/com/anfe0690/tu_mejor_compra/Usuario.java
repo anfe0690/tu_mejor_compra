@@ -7,6 +7,7 @@ package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,6 +47,9 @@ public class Usuario {
 	private String banco;
 	@Column(length = 20)
 	private String numeroCuenta;
+
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Producto> productos;
 
 	public long getId() {
 		return id;
@@ -125,6 +129,14 @@ public class Usuario {
 
 	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
 	}
 
 }

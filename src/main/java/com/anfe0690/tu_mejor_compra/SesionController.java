@@ -36,7 +36,6 @@ public class SesionController implements Serializable {
 	private Usuario usuario;
 	
 	public void iniciarSesion() {
-
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {

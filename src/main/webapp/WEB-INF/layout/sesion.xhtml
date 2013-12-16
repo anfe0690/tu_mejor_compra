@@ -23,6 +23,9 @@
 
 				</c:when>
 				<c:otherwise>
+					#{sesionController.usuario.productos[0].nombre}<br/>
+					#{sesionController.usuario.productos[1].nombre}<br/>
+					#{sesionController.usuario.productos[2].nombre}
 					<h:outputLabel id="label_usuario" value="#{sesionController.usuario.nombre}" />
 					<c:if test="#{view.viewId != '/perfil.xhtml'}">
 						<h:commandLink value="Perfil" action="perfil" style="margin: 0px 20px 0px 0px;"/>

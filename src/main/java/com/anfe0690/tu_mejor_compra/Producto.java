@@ -5,6 +5,7 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
