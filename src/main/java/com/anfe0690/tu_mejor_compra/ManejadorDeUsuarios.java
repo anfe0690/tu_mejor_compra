@@ -43,7 +43,7 @@ public class ManejadorDeUsuarios {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		System.out.println("Nombre: '" + nombre + "'");
-		Query q = entityManager.createQuery("SELECT u FROM Usuario u", Usuario.class);
+		Query q = entityManager.createQuery("SELECT u FROM Usuario u WHERE LOWER(u.nombre) = '" + nombre.toLowerCase() + "'", Usuario.class);
 		//Query q = entityManager.createNativeQuery("SELECT * FROM USUARIO");
 		try {
 			Usuario usuario = (Usuario) q.getSingleResult();

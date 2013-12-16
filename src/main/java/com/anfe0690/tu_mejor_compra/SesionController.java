@@ -32,6 +32,7 @@ public class SesionController implements Serializable {
 	private Usuario usuario;
 	
 	public void inicializar(){
+		/*
 		Producto producto = new Producto();
 		producto.setNombreImagen("iphone-5s.jpg");
 		producto.setNombre("Iphone 5s 16gb Lector Huella 4g Lte Nuevos Libres Sellados");
@@ -50,6 +51,7 @@ public class SesionController implements Serializable {
 		pros.add(producto);
 		usuario.setProductos(pros);
 		ManejadorDeUsuarios.getInstancia().guardarUsuario(usuario);
+				*/
 	}
 	
 	public void iniciarSesion() {

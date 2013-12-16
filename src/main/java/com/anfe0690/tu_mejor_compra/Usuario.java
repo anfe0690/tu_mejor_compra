@@ -46,8 +46,6 @@ public class Usuario {
 	private String banco;
 	@Column(length = 20)
 	private String numeroCuenta;
-	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}  )
-	private List<Producto> productos;
 
 	public long getId() {
 		return id;
@@ -127,14 +125,6 @@ public class Usuario {
 
 	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
-	}
-
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
 	}
 
 }
