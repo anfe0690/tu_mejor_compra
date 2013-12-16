@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,40 +27,20 @@ public class SesionController implements Serializable {
 	
 	private static final long serialVersionUID = 42L;
 	
+	@EJB
+	private ManejadorDeUsuarios manejadorDeUsuarios;
+	
 	private String campoNombreUsuario;
 	private String campoContrasena;
 	private boolean sesionIniciada = false;
 	private Usuario usuario;
-	
-	public void inicializar(){
-		/*
-		Producto producto = new Producto();
-		producto.setNombreImagen("iphone-5s.jpg");
-		producto.setNombre("Iphone 5s 16gb Lector Huella 4g Lte Nuevos Libres Sellados");
-		producto.setPrecio("1.600.000");
-		Usuario usuario = new Usuario();
-		usuario.setNombre("pedro");
-		usuario.setContrasena("asdasd");
-		usuario.setNombreContacto("Pedro Jose Arias");
-		usuario.setCorreo("pedrojo@gmail.com");
-		usuario.setTelefonos("313 234 9348");
-		usuario.setCiudad("Barranquilla");
-		usuario.setDireccion("Carrera 45 #5-34");
-		usuario.setBanco("Bancolombia");
-		usuario.setNumeroCuenta("234-5768493");
-		List<Producto> pros = new ArrayList<>();
-		pros.add(producto);
-		usuario.setProductos(pros);
-		ManejadorDeUsuarios.getInstancia().guardarUsuario(usuario);
-				*/
-	}
 	
 	public void iniciarSesion() {
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			Usuario usuario = ManejadorDeUsuarios.getInstancia().buscarUsuarioPorNombre(campoNombreUsuario);
+			Usuario usuario = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
 			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
 				sesionIniciada = true;
 				this.usuario = usuario;

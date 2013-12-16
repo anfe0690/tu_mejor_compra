@@ -5,6 +5,7 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,17 +17,9 @@ import javax.persistence.Query;
  *
  * @author Andres
  */
+@Singleton
 public class ManejadorDeUsuarios {
-
-	private static ManejadorDeUsuarios instancia = new ManejadorDeUsuarios();
-
-	public static ManejadorDeUsuarios getInstancia() {
-		return instancia;
-	}
-
-	private ManejadorDeUsuarios() {
-	}
-
+	
 	public void guardarUsuario(Usuario usuario) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -42,9 +35,7 @@ public class ManejadorDeUsuarios {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		System.out.println("Nombre: '" + nombre + "'");
 		Query q = entityManager.createQuery("SELECT u FROM Usuario u WHERE LOWER(u.nombre) = '" + nombre.toLowerCase() + "'", Usuario.class);
-		//Query q = entityManager.createNativeQuery("SELECT * FROM USUARIO");
 		try {
 			Usuario usuario = (Usuario) q.getSingleResult();
 			return usuario;
