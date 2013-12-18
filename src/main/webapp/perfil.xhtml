@@ -78,6 +78,8 @@
 			<h:form id="section_mis_productos_form">
 				<h:commandButton value="Crear" action="crear_producto"/>
 				<h:commandButton value="Eliminar" action="#{manejadorDeProductos.eliminarProductos()}" id="boton_eliminar" disabled="true"/>
+				<br/>
+				<!--
 				<h:panelGrid columns="4">
 					<h:outputLabel value="Seleccionado" styleClass="perfil_tabla_titulo"/>
 					<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
@@ -98,7 +100,51 @@
 					<h:graphicImage library="images" name="lg-g2.jpg" width="40" height="40"/>
 					<h:outputLabel value="Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram" styleClass="perfil_tabla_contenido"/>
 					<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
+
 				</h:panelGrid>
+				-->
+
+				<!--
+				<ui:repeat value="#{sesionController.usuario.productos}" var="producto">
+					<h:selectBooleanCheckbox id="section_mis_productos_sel_#{producto.id}" />
+					<h:graphicImage library="images" name="usuarios/#{sesionController.usuario.nombre}/#{producto.nombreImagen}" width="40" height="40"/>
+					<h:outputLabel value="#{producto.nombre}" styleClass="perfil_tabla_contenido"/>
+					<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
+				</ui:repeat>
+				-->
+
+				<!--
+				<ui:repeat value="#{sesionController.usuario.productos}" var="producto">
+					#{producto.id}<br/>
+				</ui:repeat>
+				-->
+
+				<h:dataTable id="datatable1" value="#{sesionController.usuario.productos}" var="producto" headerClass="perfil_tabla_titulo">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Seleccion" />
+						</f:facet>
+						<h:selectBooleanCheckbox id="seleccion" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Imagen" />
+						</f:facet>
+						<h:graphicImage library="images/usuarios/#{sesionController.usuario.nombre}/" name="#{producto.nombreImagen}" width="40" height="40"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre" />
+						</f:facet>
+						<h:outputText value="#{producto.nombre}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Precio" />
+						</f:facet>
+						<h:outputText value="#{producto.precio}"/>
+					</h:column>
+				</h:dataTable>
 			</h:form>
 		</section>
 

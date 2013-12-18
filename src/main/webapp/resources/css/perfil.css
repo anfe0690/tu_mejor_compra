@@ -79,7 +79,7 @@
 	margin: 0px;
 }
 
-#section_compras table, #section_ventas table{
+#section_compras table, #section_ventas table, #section_mis_productos table{
 	display: inline-block;
 	margin: 20px 0px 0px 0px;
 	background-color: lightgreen;
@@ -87,7 +87,7 @@
 	overflow: scroll;
 }
 
-#section_compras td, #section_ventas td, #section_mis_productos td{
+#section_compras td, #section_ventas td,#section_mis_productos th, #section_mis_productos td{
 	border: 1px solid black;
 	padding: 5px;
 }
