@@ -3,6 +3,12 @@ window.onload = function() {
 
 	// Eliminar productos
 	var button_eliminar = document.getElementById("section_mis_productos_form:boton_eliminar");
+	button_eliminar.onclick = function(e) {
+		var r = confirm("¿Estas seguro de que deseas eliminar el/los producto(s) seleccionado(s)?");
+		if (!r) {
+			e.preventDefault();
+		}
+	};
 	var numFilas = document.getElementById("section_mis_productos_form:datatable1").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	var sels = new Array();
@@ -19,16 +25,13 @@ window.onload = function() {
 
 	function verificarSiAlgunInputSeleccionado() {
 		for (i = 0; i < sels.length; i++) {
-			if(sels[i].checked){
+			if (sels[i].checked) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	document.getElementById("section_mis_productos_form").onsubmit = function (){
-		return confirm("¿Estas seguro de que deseas eliminar el/los producto(s) seleccionado(s)?");
-	};
+
 };
 
 
