@@ -10,7 +10,9 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,13 +22,12 @@ import javax.persistence.OneToMany;
  * @author Andres
  */
 @Entity
-public class Usuario {
+public class Usuario implements Serializable{
 
-	@Id
-	@GeneratedValue
-	private Long id;
+	private static final long serialVersionUID = 42L;
+	
 	// Campos generales
-
+	@Id
 	@Column(length = 20)
 	private String nombre;
 	@Column(length = 10)
@@ -48,16 +49,8 @@ public class Usuario {
 	@Column(length = 20)
 	private String numeroCuenta;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Producto> productos;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;

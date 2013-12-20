@@ -31,21 +31,17 @@ public class ManejadorDeUsuarios {
 		entityManagerFactory.close();
 	}
 
-	public Usuario buscarUsuarioPorNombre(String nombre) throws Exception {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+	public Usuario buscarUsuarioPorNombre(String nombre) throws IllegalArgumentException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		EntityManager em = emf.createEntityManager();
 
-		Query q = entityManager.createQuery("SELECT u FROM Usuario u WHERE LOWER(u.nombre) = '" + nombre.toLowerCase() + "'", Usuario.class);
 		try {
-			Usuario usuario = (Usuario) q.getSingleResult();
-			return usuario;
-		} catch (NoResultException e) {
-			return null;
-		} catch (Exception e) {
+			return em.find(Usuario.class, nombre.toLowerCase());
+		} catch (IllegalArgumentException e) {
 			throw e;
 		} finally {
-			entityManager.close();
-			entityManagerFactory.close();
+			em.close();
+			emf.close();
 		}
 	}
 

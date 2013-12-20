@@ -3,6 +3,7 @@ window.onload = function() {
 
 	// Eliminar productos
 	var button_eliminar = document.getElementById("section_mis_productos_form:boton_eliminar");
+	button_eliminar.setAttribute("disabled", "disabled");
 	button_eliminar.onclick = function(e) {
 		var r = confirm("¿Estas seguro de que deseas eliminar el/los producto(s) seleccionado(s)?");
 		if (!r) {

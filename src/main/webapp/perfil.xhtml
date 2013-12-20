@@ -77,32 +77,33 @@
 			<h1>Mis productos</h1>
 			<h:form id="section_mis_productos_form">
 				<h:commandButton value="Crear" action="crear_producto"/>
-				<h:commandButton value="Eliminar" action="#{manejadorDeProductos.eliminarProductos()}" id="boton_eliminar" disabled="true"/>
+				<h:commandButton value="Eliminar" actionListener="#{manejadorDeProductos.eliminarProductos()}" id="boton_eliminar"/>
+				<h:commandButton value="Restaurar" actionListener="#{manejadorDeProductos.restaurar()}"/>
 				<br/>
-				<h:dataTable id="datatable1" value="#{sesionController.usuario.productos}" var="producto" headerClass="perfil_tabla_titulo">
+				<h:dataTable id="datatable1" value="#{manejadorDeProductos.selProductos}" var="selproducto" headerClass="perfil_tabla_titulo">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Seleccion" />
 						</f:facet>
-						<h:selectBooleanCheckbox id="seleccion" />
+						<h:selectBooleanCheckbox id="seleccion" value="#{selproducto.seleccionado}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Imagen" />
 						</f:facet>
-						<h:graphicImage library="images/usuarios/#{sesionController.usuario.nombre}/" name="#{producto.nombreImagen}" width="40" height="40"/>
+						<h:graphicImage library="images/usuarios/#{sesionController.usuario.nombre}/" name="#{selproducto.producto.nombreImagen}" width="40" height="40"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Nombre" />
 						</f:facet>
-						<h:outputText value="#{producto.nombre}"/>
+						<h:outputText value="#{selproducto.producto.nombre}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Precio" />
 						</f:facet>
-						<h:outputText value="#{producto.precio}"/>
+						<h:outputText value="#{selproducto.producto.precio}"/>
 					</h:column>
 				</h:dataTable>
 			</h:form>

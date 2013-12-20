@@ -5,36 +5,22 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
-import javax.inject.Named;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author Andres
  */
-@Entity
+@Embeddable
 public class Producto {
 
-	@Id
-	@GeneratedValue
-	private long id;
 	@Column(length = 30)
 	private String nombreImagen;
-	@Column(length = 100)
+	@Column(length = 80)
 	private String nombre;
 	@Column(length = 20)
 	private String precio;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getNombreImagen() {
 		return nombreImagen;
