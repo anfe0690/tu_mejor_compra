@@ -78,7 +78,7 @@
 			<h:form id="section_mis_productos_form">
 				<h:commandButton value="Crear" action="crear_producto"/>
 				<h:commandButton value="Eliminar" actionListener="#{manejadorDeProductos.eliminarProductos()}" id="boton_eliminar"/>
-				<h:commandButton value="Restaurar" actionListener="#{manejadorDeProductos.restaurar()}"/>
+				<h:commandButton value="Restaurar" actionListener="#{manejadorDeProductos.restaurar()}" id="boton_restaurar"/>
 				<br/>
 				<h:dataTable id="datatable1" value="#{manejadorDeProductos.selProductos}" var="selproducto" headerClass="perfil_tabla_titulo">
 					<h:column>

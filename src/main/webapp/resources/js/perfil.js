@@ -5,7 +5,7 @@ window.onload = function() {
 	var button_eliminar = document.getElementById("section_mis_productos_form:boton_eliminar");
 	button_eliminar.setAttribute("disabled", "disabled");
 	button_eliminar.onclick = function(e) {
-		var r = confirm("¿Estas seguro de que deseas eliminar el/los producto(s) seleccionado(s)?");
+		var r = confirm("¿Esta seguro de que desea eliminar el/los producto(s) seleccionado(s)?");
 		if (!r) {
 			e.preventDefault();
 		}
@@ -33,6 +33,15 @@ window.onload = function() {
 		return false;
 	}
 
+	// Restaurar productos
+	var button_restaurar = document.getElementById("section_mis_productos_form:boton_restaurar");
+	button_restaurar.onclick = function (e){
+		var r = confirm("Si continua se eliminara los productos creados\n"
+				+"¿Esta seguro de que desea restaurar los productos originales?");
+		if (!r) {
+			e.preventDefault();
+		}
+	};
 };
 
 
