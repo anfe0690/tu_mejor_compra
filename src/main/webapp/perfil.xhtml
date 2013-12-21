@@ -91,7 +91,7 @@
 						<f:facet name="header">
 							<h:outputText value="Imagen" />
 						</f:facet>
-						<h:graphicImage library="images/usuarios/#{sesionController.usuario.nombre}/" name="#{selproducto.producto.nombreImagen}" width="40" height="40"/>
+						<h:graphicImage value="/img/#{sesionController.usuario.nombre}/#{selproducto.producto.nombreImagen}" width="40" height="40"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">

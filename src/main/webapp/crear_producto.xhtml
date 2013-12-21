@@ -9,5 +9,10 @@
 	</ui:define>
 	<ui:define name="content">
 		<h1>Crear Producto</h1>
+		<h:form id="form_crear_producto" enctype="multipart/form-data">
+			<h:graphicImage library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
+			<h:inputFile id="file" value="#{crearProducto.file}"/>
+			<h:commandButton value="Upload" action="#{crearProducto.upload()}"/>
+		</h:form>
 	</ui:define>
 </ui:composition>

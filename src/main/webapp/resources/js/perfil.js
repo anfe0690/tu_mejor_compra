@@ -10,6 +10,7 @@ window.onload = function() {
 			e.preventDefault();
 		}
 	};
+	//TODO: Aun cuando hay 0 productos de cuenta 1 producto, el cual no existe
 	var numFilas = document.getElementById("section_mis_productos_form:datatable1").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	var sels = new Array();

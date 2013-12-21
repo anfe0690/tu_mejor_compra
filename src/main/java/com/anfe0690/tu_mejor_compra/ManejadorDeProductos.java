@@ -55,8 +55,9 @@ public class ManejadorDeProductos implements Serializable {
 		return selProductos;
 	}
 
+	//TODO: Eliminar tambien los archivos de imagenes
 	public void eliminarProductos() {
-		StringBuilder sb = new StringBuilder();
+		//StringBuilder sb = new StringBuilder();
 		/*
 		 sb.append("############## ");
 		 for (SelProducto sp : selProductos) {
@@ -86,6 +87,8 @@ public class ManejadorDeProductos implements Serializable {
 		emf.close();
 	}
 
+	//TODO: Restaurar los archivos de imagenes tambien
+	//TODO: Restaurar para cada usuario
 	public void restaurar() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
