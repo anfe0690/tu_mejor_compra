@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -21,6 +22,10 @@ import javax.annotation.PreDestroy;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.http.Part;
 
 /**
@@ -36,6 +41,8 @@ public class CrearProducto implements Serializable {
 	@Inject
 	private SesionController sesionController;
 	private Part file;
+	private String nombre;
+	private String precio;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -55,7 +62,23 @@ public class CrearProducto implements Serializable {
 		this.file = file;
 	}
 
-	public void upload() {
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
+
+	public String crearProducto() {
 		//logger.info("############## file.getHeader(\"content-disposition\")=" + file.getHeader("content-disposition"));
 		// form-data; name="form_crear_producto:file"; filename="Crysis.jpg"
 		Pattern p = Pattern.compile(".*filename\\=\"(.*)\"");
@@ -79,7 +102,26 @@ public class CrearProducto implements Serializable {
 			is.close();
 		} catch (IOException ex) {
 			logger.log(Level.SEVERE, null, ex);
-			return;
+			return null;
 		}
+		Producto producto = new Producto();
+		producto.setNombreImagen(fileName);
+		producto.setNombre(nombre);
+		producto.setPrecio(precio);
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		Usuario usuario = sesionController.getUsuario();
+		et.begin();
+		usuario.getProductos().add(producto);
+		em.merge(usuario);
+		et.commit();
+
+		em.close();
+		emf.close();
+		
+		return "perfil";
 	}
 }

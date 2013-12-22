@@ -8,3 +8,64 @@ and open the template in the editor.
     Author     : Andres
 */
 
+#crear_producto{
+	text-align: center;
+}
+
+#crear_producto h1{
+	text-align: center;
+	margin: 0px;
+	padding: 10px 0px;
+	font-size: 18px
+}
+
+#crear_producto div div:nth-of-type(1){
+	display: inline-block;
+	margin-right: 20px;
+	text-align: left;
+}
+
+#crear_producto img{
+	margin-bottom: 10px;
+	display: block;
+	border: 1px solid black;
+}
+
+#crear_producto div div:nth-of-type(2){
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+}
+
+#crear_producto p:nth-of-type(1){
+	font-size: 16px;
+	margin-bottom: 0px;
+}
+
+#form_crear_producto\:nombre_producto{
+	width: 450px;
+	margin-bottom: 20px;
+}
+
+#crear_producto p:nth-of-type(2){
+	font-size: 16px;
+	margin-bottom: 0px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+#form_crear_producto\:precio_producto{
+	width: 150px;
+}
+
+#crear_producto p:nth-of-type(3){
+	font-size: 16px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+#form_crear_producto\:crear{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
