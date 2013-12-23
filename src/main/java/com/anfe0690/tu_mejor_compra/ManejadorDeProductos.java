@@ -64,14 +64,6 @@ public class ManejadorDeProductos implements Serializable {
 
 	public void eliminarProductos() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		//StringBuilder sb = new StringBuilder();
-		/*
-		 sb.append("############## ");
-		 for (SelProducto sp : selProductos) {
-		 sb.append(selProductos.indexOf(sp) + ". " + sp.isSeleccionado() + " ");
-		 }
-		 logger.info(sb.toString());
-		 */
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
@@ -104,12 +96,23 @@ public class ManejadorDeProductos implements Serializable {
 
 	//TODO: Restaurar para cada usuario
 	public void restaurar() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
 		Usuario usuario = sesionController.getUsuario();
 		et.begin();
+		for (Producto p : usuario.getProductos()) {
+			File f = new File("C:\\var\\tuMejorCompra\\img\\" + usuario.getNombre() + "\\" + p.getNombreImagen());
+			try {
+				Files.deleteIfExists(f.toPath());
+			} catch (Exception ex) {
+				fc.addMessage(null, new FacesMessage(ex.toString()));
+				logger.log(Level.SEVERE, null, ex);
+			}
+		}
 		usuario.getProductos().clear();
 		List<Producto> productos = new ArrayList<>();
 		// 1

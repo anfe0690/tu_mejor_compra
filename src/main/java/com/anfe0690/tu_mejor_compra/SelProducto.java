@@ -5,11 +5,13 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andres
  */
-public class SelProducto {
+public class SelProducto implements Serializable{
 
 	private boolean seleccionado;
 	private Producto producto;
