@@ -40,7 +40,6 @@ public class SesionController implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-
 		logger.info("############## postConstruct");
 		Usuario usu = null;
 		try {
