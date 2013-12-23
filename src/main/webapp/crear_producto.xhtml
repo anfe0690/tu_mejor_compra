@@ -7,6 +7,9 @@
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="crear_producto.css"/>
 	</ui:define>
+	<ui:define name="js">
+		<h:outputScript library="js" name="crear_producto.js"/>
+	</ui:define>
 	<ui:define name="content">
 		<section id="crear_producto">
 			<h1>Crear Producto</h1>
@@ -14,7 +17,6 @@
 				<div>
 					<div>
 						<h:graphicImage library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
-						<!-- TODO: Hacer que la seleccion de la imagen sea obligatoria con javascript -->
 						<h:inputFile id="file" value="#{crearProducto.file}" />
 					</div>
 					<div>
