@@ -43,7 +43,7 @@ public class ManejadorDeProductos implements Serializable {
 
 	@Inject
 	private SesionController sesionController;
-	private List<SelProducto> selProductos = new ArrayList<>();
+	private final List<SelProducto> selProductos = new ArrayList<>();
 
 	@PostConstruct
 	public void postConstruct() {

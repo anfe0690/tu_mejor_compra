@@ -79,6 +79,8 @@ public class CrearProducto implements Serializable {
 	}
 
 	public String crearProducto() {
+		nombre = nombre.trim();
+		precio = precio.trim();
 		//logger.info("############## file.getHeader(\"content-disposition\")=" + file.getHeader("content-disposition"));
 		// form-data; name="form_crear_producto:file"; filename="Crysis.jpg"
 		Pattern p = Pattern.compile(".*filename\\=\"(.*)\"");
@@ -87,6 +89,14 @@ public class CrearProducto implements Serializable {
 		//logger.info("############## m.find()=" + m.find());
 		String fileName = m.group(1);
 		//logger.info("############## fileName=" + fileName);
+
+		Usuario usuario = sesionController.getUsuario();
+		for (Producto producto : usuario.getProductos()) {
+			if (producto.getNombre().equalsIgnoreCase(nombre) || producto.getNombreImagen().equalsIgnoreCase(fileName)) {
+				logger.log(Level.WARNING, "Intento de agregar un producto con valores ya encontrados en la base de datos: \"{0}\" y \"{1}\"", new Object[]{nombre, fileName});
+				return "perfil";
+			}
+		}
 
 		File f = new File("C:\\var\\tuMejorCompra\\img\\" + sesionController.getUsuario().getNombre() + "\\" + fileName);
 		try {
@@ -108,12 +118,11 @@ public class CrearProducto implements Serializable {
 		producto.setNombreImagen(fileName);
 		producto.setNombre(nombre);
 		producto.setPrecio(precio);
-		
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
-		
-		Usuario usuario = sesionController.getUsuario();
+
 		et.begin();
 		usuario.getProductos().add(producto);
 		em.merge(usuario);
@@ -121,7 +130,9 @@ public class CrearProducto implements Serializable {
 
 		em.close();
 		emf.close();
-		
+
+		logger.log(Level.INFO, "############## Producto \"{0}\" creado", producto.getNombre());
+
 		return "perfil";
 	}
 }
