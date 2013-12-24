@@ -16,7 +16,7 @@
 			<h:form id="form_crear_producto" enctype="multipart/form-data">
 				<div>
 					<div>
-						<h:graphicImage library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
+						<h:graphicImage id="imagen" library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
 						<h:inputFile id="file" value="#{crearProducto.file}" />
 					</div>
 					<div>
@@ -30,7 +30,6 @@
 						<p>pesos</p>
 					</div>
 				</div>
-				<!-- TODO: Agregar confirmacion antes de crear producto -->
 				<h:commandButton id="crear" value="Crear" action="#{crearProducto.crearProducto()}"/>
 			</h:form>
 		</section>
