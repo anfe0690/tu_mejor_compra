@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -41,10 +42,12 @@ public class SesionController implements Serializable {
 	@PostConstruct
 	public void postConstruct() {
 		logger.info("############## postConstruct");
+		// ANDRES
 		Usuario usu = null;
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("andres");
 		} catch (IllegalArgumentException e) {
+			logger.log(Level.SEVERE,e.toString(),e);
 		}
 		if (usu == null) {
 			// Productos
@@ -81,6 +84,92 @@ public class SesionController implements Serializable {
 			u.setProductos(productos);
 			manejadorDeUsuarios.guardarUsuario(u);
 			logger.info("############## creado usuario andres");
+		}
+		// CARLOS
+		usu = null;
+		try {
+			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("carlos");
+		} catch (IllegalArgumentException e) {
+			logger.log(Level.SEVERE,e.toString(),e);
+		}
+		if (usu == null) {
+			// Productos
+			List<Producto> productos = new ArrayList<>();
+			// 1
+			Producto p = new Producto();
+			p.setNombreImagen("playstation-4.jpg");
+			p.setNombre("Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus");
+			p.setPrecio("1.400.000");
+			productos.add(p);
+			// 2
+			p = new Producto();
+			p.setNombreImagen("wii-u.jpg");
+			p.setNombre("Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base");
+			p.setPrecio("704.990");
+			productos.add(p);
+			// 3
+			p = new Producto();
+			p.setNombreImagen("xbox-one.jpg");
+			p.setNombre("Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2");
+			p.setPrecio("1.449.990");
+			productos.add(p);
+			// Usuario
+			Usuario u = new Usuario();
+			u.setNombre("carlos");
+			u.setContrasena("456");
+			u.setNombreContacto("Carlos Jose Perez");
+			u.setCorreo("carlosperez@gmail.com");
+			u.setTelefonos("311 934 3045");
+			u.setCiudad("Medellin");
+			u.setDireccion("Calle 56 #83-41");
+			u.setBanco("Bancolombia");
+			u.setNumeroCuenta("456-1856");
+			u.setProductos(productos);
+			manejadorDeUsuarios.guardarUsuario(u);
+			logger.info("############## creado usuario carlos");
+		}
+		// FERNANDO
+		usu = null;
+		try {
+			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("fernando");
+		} catch (IllegalArgumentException e) {
+			logger.log(Level.SEVERE,e.toString(),e);
+		}
+		if (usu == null) {
+			// Productos
+			List<Producto> productos = new ArrayList<>();
+			// 1
+			Producto p = new Producto();
+			p.setNombreImagen("google-nexus-10.jpg");
+			p.setNombre("Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb");
+			p.setPrecio("919.000");
+			productos.add(p);
+			// 2
+			p = new Producto();
+			p.setNombreImagen("tablet-sony-xperia-z.jpg");
+			p.setNombre("Xperia Tablet Sony Z 32gb");
+			p.setPrecio("840.000");
+			productos.add(p);
+			// 3
+			p = new Producto();
+			p.setNombreImagen("toshiba-excite.jpg");
+			p.setNombre("Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1");
+			p.setPrecio("598.000");
+			productos.add(p);
+			// Usuario
+			Usuario u = new Usuario();
+			u.setNombre("fernando");
+			u.setContrasena("789");
+			u.setNombreContacto("Fernando Rodriguez");
+			u.setCorreo("fernandorodriguez@gmail.com");
+			u.setTelefonos("315 285 0948");
+			u.setCiudad("Bogota");
+			u.setDireccion("Carrera 89 #34-84");
+			u.setBanco("Avvillas");
+			u.setNumeroCuenta("845-3029");
+			u.setProductos(productos);
+			manejadorDeUsuarios.guardarUsuario(u);
+			logger.info("############## creado usuario fernando");
 		}
 	}
 
