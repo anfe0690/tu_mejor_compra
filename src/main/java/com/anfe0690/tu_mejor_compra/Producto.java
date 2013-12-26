@@ -5,6 +5,7 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -13,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Andres
  */
 @Embeddable
-public class Producto {
+public class Producto implements Serializable{
 
 	@Column(length = 30)
 	private String nombreImagen;
@@ -44,6 +45,11 @@ public class Producto {
 
 	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto{" + "nombreImagen=" + nombreImagen + ", nombre=" + nombre + ", precio=" + precio + '}';
 	}
 
 }

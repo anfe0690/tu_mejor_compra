@@ -1,15 +1,23 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html">
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 	<header id="header" class="grid_24" >
 		<h:graphicImage name="logo.jpg" library="images" width="310" height="60"/>
-		
-		<h:form id="header_form">
-			<h:commandButton value="Buscar" action="buscar.xhtml" id="boton_buscar"/>
-			<h:inputText id="texto_buscar" size="80"/>
+
+		<h:form id="header_form" >
+			<h:commandButton id="boton_buscar" value="Buscar" action="buscar.xhtml"/>
+			<c:choose>
+				<c:when test="#{(view.viewId != '/buscar.xhtml')}">
+					<h:inputText id="texto_buscar" size="80"/>
+				</c:when>
+				<c:otherwise>
+					<h:inputText id="texto_buscar" size="80" value="#{buscar.texto}" />
+				</c:otherwise>
+			</c:choose>
 		</h:form>
-		
+
 	</header>
 
 

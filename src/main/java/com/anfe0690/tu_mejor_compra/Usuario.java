@@ -22,10 +22,10 @@ import javax.persistence.OneToMany;
  * @author Andres
  */
 @Entity
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 42L;
-	
+
 	// Campos generales
 	@Id
 	@Column(length = 20)
@@ -130,6 +130,11 @@ public class Usuario implements Serializable{
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario{" + "nombre=" + nombre + ", nombreContacto=" + nombreContacto + '}';
 	}
 
 }

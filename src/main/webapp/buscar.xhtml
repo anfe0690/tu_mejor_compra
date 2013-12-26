@@ -1,9 +1,28 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html">
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 	<ui:define name="title">Buscar</ui:define>
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="buscar.css"/>
+	</ui:define>
+	<ui:define name="js">
+		<h:outputScript library="js" name="buscar.js"/>
+	</ui:define>
 	<ui:define name="content">
-		<h1>Buscar</h1>
+		<section id="buscar">
+			<h1>Buscar</h1>
+			<ui:repeat value="#{buscar.resultados}" var="resultado" >
+				<div id="resultado">
+					<h:graphicImage value="/img/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150"/>
+					<h:link outcome="producto?u=#{resultado.usuario.nombre}&amp;p=#{resultado.indice}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
+					<div>
+						<span class="precioResultado">Precio:</span>
+						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>
+					</div>
+				</div>
+			</ui:repeat>
+		</section>
 	</ui:define>
 </ui:composition>
