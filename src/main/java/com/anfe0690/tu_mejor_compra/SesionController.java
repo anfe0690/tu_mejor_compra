@@ -150,6 +150,25 @@ public class SesionController implements Serializable {
 			p.setNombre("Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2");
 			p.setPrecio("1.449.990");
 			productos.add(p);
+			
+			// Compras
+			List<Compra> compras = new ArrayList<>();
+			// 1
+			Compra c = new Compra();
+			c.setVendedor("andres");
+			c.setIndiceProducto(1);
+			c.setEstado(EstadoCompraVenta.EN_ENVIO);
+			compras.add(c);
+			
+			// Ventas
+			List<Venta> ventas = new ArrayList<>();
+			// 1
+			Venta v = new Venta();
+			v.setComprador("andres");
+			v.setIndiceProducto(0);
+			v.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+			ventas.add(v);
+			
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("carlos");
@@ -161,7 +180,10 @@ public class SesionController implements Serializable {
 			u.setDireccion("Calle 56 #83-41");
 			u.setBanco("Bancolombia");
 			u.setNumeroCuenta("456-1856");
+			
 			u.setProductos(productos);
+			u.setCompras(compras);
+			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
 			logger.info("############## creado usuario carlos");
 		}
@@ -193,6 +215,25 @@ public class SesionController implements Serializable {
 			p.setNombre("Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1");
 			p.setPrecio("598.000");
 			productos.add(p);
+			
+			// Compras
+			List<Compra> compras = new ArrayList<>();
+			// 1
+			Compra c = new Compra();
+			c.setVendedor("andres");
+			c.setIndiceProducto(2);
+			c.setEstado(EstadoCompraVenta.TERMINADO);
+			compras.add(c);
+			
+			// Ventas
+			List<Venta> ventas = new ArrayList<>();
+			// 1
+			Venta v = new Venta();
+			v.setComprador("andres");
+			v.setIndiceProducto(2);
+			v.setEstado(EstadoCompraVenta.EN_ENVIO);
+			ventas.add(v);
+			
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("fernando");
@@ -204,7 +245,10 @@ public class SesionController implements Serializable {
 			u.setDireccion("Carrera 89 #34-84");
 			u.setBanco("Avvillas");
 			u.setNumeroCuenta("845-3029");
+			
 			u.setProductos(productos);
+			u.setCompras(compras);
+			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
 			logger.info("############## creado usuario fernando");
 		}

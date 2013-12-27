@@ -69,21 +69,21 @@
 			</h:form>
 		</section>
 
-		<!-- TODO: Obtener los valores de las compras y ventas -->
+		<!-- TODO: Agregar controles para las compras y ventas -->
 		<section id="section_compras">
 			<h1>Compras</h1>
 			<h:dataTable id="datatable_compras" value="#{sesionController.usuario.compras}" var="compra" headerClass="perfil_tabla_titulo">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Vendedor" />
+						<h:outputText value="Imagen" />
 					</f:facet>
-					<h:outputText value="#{compra.vendedor}"/>
+					<h:graphicImage value="/img/#{compra.vendedor}/#{perfil.getProductoPorIndice(compra.vendedor,compra.indiceProducto).nombreImagen}" width="40" height="40"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="IndiceProducto" />
+						<h:outputText value="Nombre" />
 					</f:facet>
-					<h:outputText value="#{compra.indiceProducto}"/>
+					<h:outputText value="#{perfil.getProductoPorIndice(compra.vendedor,compra.indiceProducto).nombre}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -99,15 +99,15 @@
 			<h:dataTable id="datatable_ventas" value="#{sesionController.usuario.ventas}" var="venta" headerClass="perfil_tabla_titulo">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Comprador" />
+						<h:outputText value="Imagen" />
 					</f:facet>
-					<h:outputText value="#{venta.comprador}"/>
+					<h:graphicImage value="/img/#{sesionController.usuario.nombre}/#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombreImagen}" width="40" height="40"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="IndiceProducto" />
+						<h:outputText value="Nombre" />
 					</f:facet>
-					<h:outputText value="#{venta.indiceProducto}"/>
+					<h:outputText value="#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombre}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
