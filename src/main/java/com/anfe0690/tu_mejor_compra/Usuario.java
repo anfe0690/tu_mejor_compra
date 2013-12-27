@@ -52,6 +52,12 @@ public class Usuario implements Serializable {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Producto> productos;
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<Compra> compras;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<Venta> ventas;
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -130,6 +136,22 @@ public class Usuario implements Serializable {
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
+
+	public List<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Venta> ventas) {
+		this.ventas = ventas;
 	}
 
 	@Override

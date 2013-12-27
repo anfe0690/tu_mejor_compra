@@ -31,7 +31,7 @@
 			<ui:include src="header.xhtml"/>
 			<div id="cnt" class="grid_24" >
 				<c:choose>
-					<c:when test="#{ (view.viewId != '/perfil.xhtml') and (view.viewId != '/crear_producto.xhtml') }">
+					<c:when test="#{ (view.viewId != '/perfil.xhtml') and (view.viewId != '/crear_producto.xhtml') and (view.viewId != '/producto.xhtml')}">
 						<ui:include src="categorias.xhtml"/>
 						<div id="contenido" class="grid_18">
 							<ui:insert name="content"/>

@@ -8,3 +8,56 @@ and open the template in the editor.
     Author     : Andres
 */
 
+#producto h1{
+	text-align: center;
+	margin: 0px;
+	padding: 10px 0px;
+	font-size: 18px
+}
+
+#producto img{
+	border: 1px solid black;
+	margin-left: 20px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+#producto>div{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 10px;
+	width: 490px;
+}
+
+#producto #nombre_producto{
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+}
+
+#producto #tag_precio_producto{
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+}
+
+#producto #precio_producto{
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+	width: 80px;
+	display: inline-block;
+	text-align: right;
+}
+
+#producto #boton_comprar{
+	display: block;
+	margin-top: 20px;
+}
+
+#producto #adv_iniciar_sesion{
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+	margin-top: 20px;
+}

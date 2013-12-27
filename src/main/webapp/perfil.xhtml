@@ -11,6 +11,7 @@
 		<h:outputScript library="js" name="perfil.js"/>
 	</ui:define>
 	<ui:define name="content">
+
 		<section  id="section_perfil">
 			<h1>Perfil</h1>
 			<div>
@@ -30,47 +31,6 @@
 				<p>Banco: #{sesionController.usuario.banco}</p>
 				<p>Numero de cuenta: #{sesionController.usuario.numeroCuenta}</p>
 			</div>
-		</section>
-		<section id="section_compras">
-			<h1>Compras</h1>
-			<h:panelGrid columns="3">
-				<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
-				<h:outputLabel value="Producto" styleClass="perfil_tabla_titulo"/>
-				<h:outputLabel value="Estado" styleClass="perfil_tabla_titulo"/>
-
-				<h:graphicImage library="images" name="playstation-3.jpg" width="40" height="40"/>
-				<h:outputLabel value="Consola Playstation 3 500gb Con Juego Grand Theft Auto V Ps3" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
-
-				<h:graphicImage library="images" name="xbox-one.jpg" width="40" height="40"/>
-				<h:outputLabel value="Xbox One + Kinnect+cable Hdm I+auricular+control Inalambrico" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="En envio" styleClass="perfil_tabla_contenido"/>
-
-				<h:graphicImage library="images" name="tablet-pc-7.jpg" width="40" height="40"/>
-				<h:outputLabel value="Tablet Pc 7 3d Capacitiva Android 4.0/ 8 Gb/ 2 Cámaras/wi-fi" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
-			</h:panelGrid>
-		</section>
-
-		<section id="section_ventas">
-			<h1>Ventas</h1>
-			<h:panelGrid columns="3">
-				<h:outputLabel value="Imagen" styleClass="perfil_tabla_titulo"/>
-				<h:outputLabel value="Producto" styleClass="perfil_tabla_titulo"/>
-				<h:outputLabel value="Estado" styleClass="perfil_tabla_titulo"/>
-
-				<h:graphicImage library="images" name="samsung-galaxy-s4.jpg" width="40" height="40"/>
-				<h:outputLabel value="Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="Esperando pago" styleClass="perfil_tabla_contenido"/>
-
-				<h:graphicImage library="images" name="iphone-5s.jpg" width="40" height="40"/>
-				<h:outputLabel value="Iphone 5s 16gb Lector Huella 4g Lte Nuevos Libres Sellados" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="En envio" styleClass="perfil_tabla_contenido"/>
-
-				<h:graphicImage library="images" name="lg-g2.jpg" width="40" height="40"/>
-				<h:outputLabel value="Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram" styleClass="perfil_tabla_contenido"/>
-				<h:outputLabel value="Terminado" styleClass="perfil_tabla_contenido"/>
-			</h:panelGrid>
 		</section>
 
 		<section id="section_mis_productos">
@@ -107,6 +67,55 @@
 					</h:column>
 				</h:dataTable>
 			</h:form>
+		</section>
+
+		<!-- TODO: Obtener los valores de las compras y ventas -->
+		<section id="section_compras">
+			<h1>Compras</h1>
+			<h:dataTable id="datatable_compras" value="#{sesionController.usuario.compras}" var="compra" headerClass="perfil_tabla_titulo">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Vendedor" />
+					</f:facet>
+					<h:outputText value="#{compra.vendedor}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="IndiceProducto" />
+					</f:facet>
+					<h:outputText value="#{compra.indiceProducto}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Estado" />
+					</f:facet>
+					<h:outputText value="#{compra.estado}"/>
+				</h:column>
+			</h:dataTable>
+		</section>
+
+		<section id="section_ventas">
+			<h1>Ventas</h1>
+			<h:dataTable id="datatable_ventas" value="#{sesionController.usuario.ventas}" var="venta" headerClass="perfil_tabla_titulo">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Comprador" />
+					</f:facet>
+					<h:outputText value="#{venta.comprador}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="IndiceProducto" />
+					</f:facet>
+					<h:outputText value="#{venta.indiceProducto}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Estado" />
+					</f:facet>
+					<h:outputText value="#{venta.estado}"/>
+				</h:column>
+			</h:dataTable>
 		</section>
 
 	</ui:define>

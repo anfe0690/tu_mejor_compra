@@ -14,12 +14,31 @@
 	<ui:define name="content">
 		<section id="producto">
 			<h1>Producto</h1>
-			<c:forEach var="parameter" items="#{paramValues}">
-				<h:outputText value="#{parameter.key}"/> =
-				<c:forEach var="value" items="#{parameter.value}">
-					<h:outputText value="#{value}" escape="false"/><br/>
-				</c:forEach>
-			</c:forEach>
+			<h:graphicImage value="/img/#{comprarProducto.usuarioVendedor.nombre}/#{comprarProducto.producto.nombreImagen}" width="400" height="400"/>
+			<div>
+				<h:outputText id="nombre_producto" value="#{comprarProducto.producto.nombre}"/>
+				<span id="tag_precio_producto">Precio:</span>
+				<h:outputText id="precio_producto" value="#{comprarProducto.producto.precio}"/>
+				<c:choose >
+					<c:when test="#{sesionController.sesionIniciada}">
+						<h:form id="form_cv">
+							<h:commandButton id="boton_comprar" value="Comprar" action="#{comprarProducto.comprar()}"/>
+							<h:inputHidden id="v_nombre_contacto" value="#{comprarProducto.usuarioVendedor.nombreContacto}"/>
+							<h:inputHidden id="v_correo" value="#{comprarProducto.usuarioVendedor.correo}"/>
+							<h:inputHidden id="v_telefonos" value="#{comprarProducto.usuarioVendedor.telefonos}"/>
+							<h:inputHidden id="v_banco" value="#{comprarProducto.usuarioVendedor.banco}"/>
+							<h:inputHidden id="v_numero_cuenta" value="#{comprarProducto.usuarioVendedor.numeroCuenta}"/>
+
+							<h:inputHidden id="c_nombre_contacto" value="#{sesionController.usuario.nombreContacto}"/>
+							<h:inputHidden id="c_correo" value="#{sesionController.usuario.correo}"/>
+							<h:inputHidden id="c_telefonos" value="#{sesionController.usuario.telefonos}"/>
+						</h:form>
+					</c:when>
+					<c:otherwise>
+						<p id="adv_iniciar_sesion">Para poder comprar es necesario iniciar sesion!</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</section>
 	</ui:define>
 </ui:composition>

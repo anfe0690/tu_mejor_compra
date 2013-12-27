@@ -65,7 +65,14 @@
 }
 
 /* COMPRAS  y VENTAS*/
-#section_compras, #section_ventas{
+#section_mis_productos{
+	height: 370px;
+	background-color: lightyellow;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#section_compras{
 	height: 300px;
 	background-color: lightyellow;
 	text-align: center;
@@ -93,9 +100,8 @@
 	vertical-align: middle;
 }
 
-/* MIS PRODUCTOS */
-#section_mis_productos{
-	height: 370px;
+#section_ventas{
+	height: 300px;
 	background-color: lightyellow;
 	text-align: center;
 }

@@ -18,6 +18,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -47,7 +50,7 @@ public class SesionController implements Serializable {
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("andres");
 		} catch (IllegalArgumentException e) {
-			logger.log(Level.SEVERE,e.toString(),e);
+			logger.log(Level.SEVERE, e.toString(), e);
 		}
 		if (usu == null) {
 			// Productos
@@ -70,6 +73,37 @@ public class SesionController implements Serializable {
 			p.setNombre("Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram");
 			p.setPrecio("1.349.990");
 			productos.add(p);
+			
+			// Compras
+			List<Compra> compras = new ArrayList<>();
+			// 1
+			Compra c = new Compra();
+			c.setVendedor("carlos");
+			c.setIndiceProducto(0);
+			c.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+			compras.add(c);
+			// 2
+			c = new Compra();
+			c.setVendedor("fernando");
+			c.setIndiceProducto(2);
+			c.setEstado(EstadoCompraVenta.EN_ENVIO);
+			compras.add(c);
+			
+			// Ventas
+			List<Venta> ventas = new ArrayList<>();
+			// 1
+			Venta v = new Venta();
+			v.setComprador("carlos");
+			v.setIndiceProducto(1);
+			v.setEstado(EstadoCompraVenta.EN_ENVIO);
+			ventas.add(v);
+			// 2
+			v = new Venta();
+			v.setComprador("fernando");
+			v.setIndiceProducto(2);
+			v.setEstado(EstadoCompraVenta.TERMINADO);
+			ventas.add(v);
+			
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("andres");
@@ -81,7 +115,10 @@ public class SesionController implements Serializable {
 			u.setDireccion("Carrera 24 #45-05");
 			u.setBanco("Banco Bogota");
 			u.setNumeroCuenta("123-4623");
+			
 			u.setProductos(productos);
+			u.setCompras(compras);
+			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
 			logger.info("############## creado usuario andres");
 		}
@@ -90,7 +127,7 @@ public class SesionController implements Serializable {
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("carlos");
 		} catch (IllegalArgumentException e) {
-			logger.log(Level.SEVERE,e.toString(),e);
+			logger.log(Level.SEVERE, e.toString(), e);
 		}
 		if (usu == null) {
 			// Productos
@@ -133,7 +170,7 @@ public class SesionController implements Serializable {
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("fernando");
 		} catch (IllegalArgumentException e) {
-			logger.log(Level.SEVERE,e.toString(),e);
+			logger.log(Level.SEVERE, e.toString(), e);
 		}
 		if (usu == null) {
 			// Productos
