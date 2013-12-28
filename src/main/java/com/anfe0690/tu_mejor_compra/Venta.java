@@ -23,7 +23,7 @@ public class Venta implements Serializable{
 	private int indiceProducto;
 	@Column(length = 20)
 	@Enumerated(EnumType.STRING)
-	private EstadoCompraVenta estado;
+	private Estado estado;
 
 	public String getComprador() {
 		return comprador;
@@ -41,11 +41,11 @@ public class Venta implements Serializable{
 		this.indiceProducto = indiceProducto;
 	}
 
-	public EstadoCompraVenta getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoCompraVenta estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 

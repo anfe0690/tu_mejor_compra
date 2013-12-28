@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -74,13 +73,13 @@ public class ComprarProducto implements Serializable {
 		Compra compra = new Compra();
 		compra.setVendedor(usuarioVendedor.getNombre());
 		compra.setIndiceProducto(usuarioVendedor.getProductos().indexOf(producto));
-		compra.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+		compra.setEstado(Estado.ESPERANDO_PAGO);
 		usuarioComprador.getCompras().add(compra);
 		
 		Venta venta = new Venta();
 		venta.setComprador(usuarioComprador.getNombre());
 		venta.setIndiceProducto(usuarioVendedor.getProductos().indexOf(producto));
-		venta.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+		venta.setEstado(Estado.ESPERANDO_PAGO);
 		usuarioVendedor.getVentas().add(venta);
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");

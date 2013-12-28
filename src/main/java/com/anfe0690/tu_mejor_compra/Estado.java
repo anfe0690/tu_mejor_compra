@@ -6,11 +6,13 @@
 
 package com.anfe0690.tu_mejor_compra;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andres
  */
-public enum EstadoCompraVenta {
+public enum Estado implements Serializable{
 	
 	ESPERANDO_PAGO,
 	EN_ENVIO,

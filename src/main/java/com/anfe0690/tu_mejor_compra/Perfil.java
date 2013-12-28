@@ -40,4 +40,9 @@ public class Perfil {
 		return u.getProductos().get(indice);
 	}
 
+	public boolean compararEnumCompra(Compra compra, String strEstado) {
+		logger.info("######### compra.getEstado():\"" + compra.getEstado() + "\" strEstado:\"" + strEstado + "\"");
+		return compra.getEstado().toString().equals(strEstado);
+	}
+
 }

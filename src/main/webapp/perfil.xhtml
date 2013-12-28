@@ -2,7 +2,8 @@
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 	<ui:define name="title">Perfil</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="perfil.css"/>
@@ -68,54 +69,69 @@
 				</h:dataTable>
 			</h:form>
 		</section>
-
 		<!-- TODO: Agregar controles para las compras y ventas -->
 		<section id="section_compras">
-			<h1>Compras</h1>
-			<h:dataTable id="datatable_compras" value="#{sesionController.usuario.compras}" var="compra" headerClass="perfil_tabla_titulo">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Imagen" />
-					</f:facet>
-					<h:graphicImage value="/img/#{compra.vendedor}/#{perfil.getProductoPorIndice(compra.vendedor,compra.indiceProducto).nombreImagen}" width="40" height="40"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Nombre" />
-					</f:facet>
-					<h:outputText value="#{perfil.getProductoPorIndice(compra.vendedor,compra.indiceProducto).nombre}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
-					<h:outputText value="#{compra.estado}"/>
-				</h:column>
-			</h:dataTable>
+			<h1>Mis compras</h1>
+			<h:form id="form_compras">
+				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misCompras.actualizar()}"/>
+				<br/>
+				<h:dataTable id="datatable_compras" value="#{misCompras.filas}" var="fila" headerClass="perfil_tabla_titulo">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Imagen" />
+						</f:facet>
+						<h:graphicImage value="#{fila.direccionImagen}" width="40" height="40"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre" />
+						</f:facet>
+						<h:outputText value="#{fila.nombreProducto}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<h:selectOneMenu rendered="#{fila.estado == 'EN_ENVIO'}" value="#{fila.estado} " >
+							<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+							<f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
+						</h:selectOneMenu>
+						<h:outputText rendered="#{fila.estado != 'EN_ENVIO'}" value="#{fila.estado}" /> 
+					</h:column>
+				</h:dataTable>
+			</h:form>
 		</section>
 
 		<section id="section_ventas">
-			<h1>Ventas</h1>
-			<h:dataTable id="datatable_ventas" value="#{sesionController.usuario.ventas}" var="venta" headerClass="perfil_tabla_titulo">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Imagen" />
-					</f:facet>
-					<h:graphicImage value="/img/#{sesionController.usuario.nombre}/#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombreImagen}" width="40" height="40"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Nombre" />
-					</f:facet>
-					<h:outputText value="#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombre}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
-					<h:outputText value="#{venta.estado}"/>
-				</h:column>
-			</h:dataTable>
+			<h1>Mis ventas</h1>
+			<h:form id="form_ventas">
+				<h:commandButton id="btn_actualizar" value="Actualizar"/>
+				<br/>
+				<h:dataTable id="datatable_ventas" value="#{sesionController.usuario.ventas}" var="venta" headerClass="perfil_tabla_titulo">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Imagen" />
+						</f:facet>
+						<h:graphicImage value="/img/#{sesionController.usuario.nombre}/#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombreImagen}" width="40" height="40"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre" />
+						</f:facet>
+						<h:outputText value="#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombre}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<h:selectOneMenu value="Esperando pago" rendered="#{venta.estado == 'ESPERANDO_PAGO'}">
+							<f:selectItem itemLabel="Esperando pago" itemValue="Esperando pago"/>
+							<f:selectItem itemLabel="En envio" itemValue="En envio"/>
+						</h:selectOneMenu>
+						<h:outputText value="#{venta.estado}" rendered="#{venta.estado != 'ESPERANDO_PAGO'}"/>
+					</h:column>
+				</h:dataTable>
+			</h:form>
 		</section>
 
 	</ui:define>

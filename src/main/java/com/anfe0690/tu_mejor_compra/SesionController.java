@@ -80,13 +80,13 @@ public class SesionController implements Serializable {
 			Compra c = new Compra();
 			c.setVendedor("carlos");
 			c.setIndiceProducto(0);
-			c.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+			c.setEstado(Estado.ESPERANDO_PAGO);
 			compras.add(c);
 			// 2
 			c = new Compra();
 			c.setVendedor("fernando");
 			c.setIndiceProducto(2);
-			c.setEstado(EstadoCompraVenta.EN_ENVIO);
+			c.setEstado(Estado.EN_ENVIO);
 			compras.add(c);
 			
 			// Ventas
@@ -95,13 +95,13 @@ public class SesionController implements Serializable {
 			Venta v = new Venta();
 			v.setComprador("carlos");
 			v.setIndiceProducto(1);
-			v.setEstado(EstadoCompraVenta.EN_ENVIO);
+			v.setEstado(Estado.ESPERANDO_PAGO);
 			ventas.add(v);
 			// 2
 			v = new Venta();
 			v.setComprador("fernando");
 			v.setIndiceProducto(2);
-			v.setEstado(EstadoCompraVenta.TERMINADO);
+			v.setEstado(Estado.TERMINADO);
 			ventas.add(v);
 			
 			// Usuario
@@ -157,7 +157,7 @@ public class SesionController implements Serializable {
 			Compra c = new Compra();
 			c.setVendedor("andres");
 			c.setIndiceProducto(1);
-			c.setEstado(EstadoCompraVenta.EN_ENVIO);
+			c.setEstado(Estado.ESPERANDO_PAGO);
 			compras.add(c);
 			
 			// Ventas
@@ -166,7 +166,7 @@ public class SesionController implements Serializable {
 			Venta v = new Venta();
 			v.setComprador("andres");
 			v.setIndiceProducto(0);
-			v.setEstado(EstadoCompraVenta.ESPERANDO_PAGO);
+			v.setEstado(Estado.ESPERANDO_PAGO);
 			ventas.add(v);
 			
 			// Usuario
@@ -222,7 +222,7 @@ public class SesionController implements Serializable {
 			Compra c = new Compra();
 			c.setVendedor("andres");
 			c.setIndiceProducto(2);
-			c.setEstado(EstadoCompraVenta.TERMINADO);
+			c.setEstado(Estado.TERMINADO);
 			compras.add(c);
 			
 			// Ventas
@@ -231,7 +231,7 @@ public class SesionController implements Serializable {
 			Venta v = new Venta();
 			v.setComprador("andres");
 			v.setIndiceProducto(2);
-			v.setEstado(EstadoCompraVenta.EN_ENVIO);
+			v.setEstado(Estado.EN_ENVIO);
 			ventas.add(v);
 			
 			// Usuario
