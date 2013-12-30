@@ -5,11 +5,13 @@
  */
 package com.anfe0690.tu_mejor_compra.perfil;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andres
  */
-public class Fila {
+public class Fila implements Serializable{
 
 	private String direccionImagen;
 	private String nombreProducto;

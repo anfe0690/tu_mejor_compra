@@ -69,7 +69,7 @@
 				</h:dataTable>
 			</h:form>
 		</section>
-		<!-- TODO: Agregar controles para las compras y ventas -->
+		
 		<section id="section_compras">
 			<h1>Mis compras</h1>
 			<h:form id="form_compras">
@@ -92,7 +92,7 @@
 						<f:facet name="header">
 							<h:outputText value="Estado" />
 						</f:facet>
-						<h:selectOneMenu rendered="#{fila.estado == 'EN_ENVIO'}" value="#{fila.estado} " >
+						<h:selectOneMenu rendered="#{fila.estado == 'EN_ENVIO'}" value="#{fila.estado}" >
 							<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
 							<f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
 						</h:selectOneMenu>
@@ -102,33 +102,34 @@
 			</h:form>
 		</section>
 
+		<!-- TODO: Implementar manejo de ventas -->
 		<section id="section_ventas">
 			<h1>Mis ventas</h1>
 			<h:form id="form_ventas">
-				<h:commandButton id="btn_actualizar" value="Actualizar"/>
+				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misVentas.actualizar()}"/>
 				<br/>
-				<h:dataTable id="datatable_ventas" value="#{sesionController.usuario.ventas}" var="venta" headerClass="perfil_tabla_titulo">
+				<h:dataTable id="datatable_ventas" value="#{misVentas.filas}" var="fila" headerClass="perfil_tabla_titulo">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Imagen" />
 						</f:facet>
-						<h:graphicImage value="/img/#{sesionController.usuario.nombre}/#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombreImagen}" width="40" height="40"/>
+						<h:graphicImage value="#{fila.direccionImagen}" width="40" height="40"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Nombre" />
 						</f:facet>
-						<h:outputText value="#{perfil.getProductoPorIndice(sesionController.usuario.nombre,venta.indiceProducto).nombre}"/>
+						<h:outputText value="#{fila.nombreProducto}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Estado" />
 						</f:facet>
-						<h:selectOneMenu value="Esperando pago" rendered="#{venta.estado == 'ESPERANDO_PAGO'}">
-							<f:selectItem itemLabel="Esperando pago" itemValue="Esperando pago"/>
-							<f:selectItem itemLabel="En envio" itemValue="En envio"/>
+						<h:selectOneMenu rendered="#{fila.estado == 'ESPERANDO_PAGO'}" value="#{fila.estado}">
+							<f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
+							<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
 						</h:selectOneMenu>
-						<h:outputText value="#{venta.estado}" rendered="#{venta.estado != 'ESPERANDO_PAGO'}"/>
+						<h:outputText rendered="#{fila.estado != 'ESPERANDO_PAGO'}" value="#{fila.estado}"/>
 					</h:column>
 				</h:dataTable>
 			</h:form>

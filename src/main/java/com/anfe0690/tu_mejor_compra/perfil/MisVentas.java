@@ -32,10 +32,10 @@ import javax.persistence.Persistence;
  */
 @Named
 @ViewScoped
-public class MisCompras implements Serializable {
+public class MisVentas implements Serializable{
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(MisCompras.class.getName());
+	private static final Logger logger = Logger.getLogger(MisVentas.class.getName());
 
 	// Otros
 	@Inject
@@ -50,14 +50,13 @@ public class MisCompras implements Serializable {
 	public void postConstruct() {
 		logger.info("########## postConstruct");
 
-		for (Compra compra : sc.getUsuario().getCompras()) {
-			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = usuarioVendedor.getProductos().get(compra.getIndiceProducto());
+		for (Venta venta : sc.getUsuario().getVentas()) {
+			//Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
+			Producto producto = sc.getUsuario().getProductos().get(venta.getIndiceProducto());
 			Fila fila = new Fila();
-			fila.setDireccionImagen("/img/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
+			fila.setDireccionImagen("/img/" + sc.getUsuario().getNombre() + "/" + producto.getNombreImagen());
 			fila.setNombreProducto(producto.getNombre());
-			fila.setEstado(compra.getEstado().toString());
-			//logger.info("######### " + fila);
+			fila.setEstado(venta.getEstado().toString());
 			filas.add(fila);
 		}
 	}
@@ -67,33 +66,34 @@ public class MisCompras implements Serializable {
 		logger.info("########## preDestroy");
 	}
 
-	public void actualizar() {
-		Usuario usuarioComprador = sc.getUsuario();
+	public void actualizar(){
 		logger.info("########## actualizar");
-		for (Compra compra : usuarioComprador.getCompras()) {
-			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = usuarioVendedor.getProductos().get(compra.getIndiceProducto());
-
-			for (Fila fila : filas) {
+		
+		for(Venta venta:sc.getUsuario().getVentas()){
+			Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
+			
+			Producto producto = sc.getUsuario().getProductos().get(venta.getIndiceProducto());
+			
+			for(Fila fila:filas){
 				if (producto.getNombre().equals(fila.getNombreProducto())) {
-					if (!compra.getEstado().toString().equals(fila.getEstado())) {
+					if(!venta.getEstado().toString().equals(fila.getEstado())){
 						logger.info(fila.toString());
-
-						compra.setEstado(Estado.TERMINADO);
-
-						for (Venta venta : usuarioVendedor.getVentas()) {
-							if (compra.getIndiceProducto() == venta.getIndiceProducto()) {
-								venta.setEstado(Estado.TERMINADO);
+						
+						venta.setEstado(Estado.EN_ENVIO);
+						
+						for(Compra compra:usuarioComprador.getCompras()){
+							if(compra.getIndiceProducto() == venta.getIndiceProducto()){
+								compra.setEstado(Estado.EN_ENVIO);
 							}
 						}
-
+						
 						EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 						EntityManager em = emf.createEntityManager();
 						EntityTransaction et = em.getTransaction();
 
 						et.begin();
 						em.merge(usuarioComprador);
-						em.merge(usuarioVendedor);
+						em.merge(sc.getUsuario());
 						et.commit();
 
 						em.close();
@@ -103,7 +103,7 @@ public class MisCompras implements Serializable {
 			}
 		}
 	}
-
+	
 	public List<Fila> getFilas() {
 		return filas;
 	}
