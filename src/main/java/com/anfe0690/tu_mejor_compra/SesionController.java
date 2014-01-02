@@ -37,8 +37,6 @@ public class SesionController implements Serializable {
 
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
-	//@EJB
-	//private Usu us;
 
 	private String campoNombreUsuario;
 	private String campoContrasena;
@@ -52,7 +50,6 @@ public class SesionController implements Serializable {
 		Usuario usu = null;
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("andres");
-			//usu = us.getUsuarioPorNombre("andres");
 		} catch (IllegalArgumentException e) {
 			logger.log(Level.SEVERE, e.toString(), e);
 		}

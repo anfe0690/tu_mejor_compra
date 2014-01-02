@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ import javax.persistence.Persistence;
 public class ComprarProducto implements Serializable {
 
 	private static final Logger logger = Logger.getLogger(ComprarProducto.class.getName());
-	@Inject
+	@EJB
 	private ManejadorDeUsuarios mdu;
 	@Inject
 	private SesionController sc;

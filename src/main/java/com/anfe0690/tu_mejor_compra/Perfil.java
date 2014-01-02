@@ -8,6 +8,7 @@ package com.anfe0690.tu_mejor_compra;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,7 +23,7 @@ public class Perfil {
 
 	private static final Logger logger = Logger.getLogger(Perfil.class.getName());
 
-	@Inject
+	@EJB
 	private ManejadorDeUsuarios mu;
 
 	@PostConstruct
