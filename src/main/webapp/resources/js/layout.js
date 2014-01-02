@@ -6,6 +6,17 @@
 
 window.onload = function() {
 	
+	/*
+	var btnAyuda = document.getElementById("ayuda");
+	btnAyuda.onclick = function (){
+		alert("Los usuarios y sus respectivas contraseñas son los siguientes:\n\n" +
+				"andres = '123'\n" +
+				"carlos = '456'\n" +
+				"fernando = '789'\n"
+				);
+	};
+	*/
+	
 	var inputBuscar = document.getElementById("header_form:texto_buscar");
 	inputBuscar.setAttribute("required","required");
 	

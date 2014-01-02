@@ -4,7 +4,21 @@
 */
 
 #categorias{
-	background-color: lightskyblue;
-	margin: 0px 10px 0px 0px;
+	/*background-color: lightskyblue;*/
 	height: 600px;
+	margin-left: 0px;
+	margin-right: 10px;
+}
+
+#categorias h1{
+	text-align: center;
+	font-size: 18px;
+	padding: 10px 0px;
+	margin-bottom: 0px;
+}
+
+#categorias a{
+	margin-left: 10px;
+	display: block;
+	margin-bottom: 5px;
 }

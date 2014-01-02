@@ -10,6 +10,14 @@
 	text-align: right;
 }
 
+#sesion_form{
+	display: inline-block;
+}
+
+#sesion button{
+	margin-right: 30px;
+}
+
 #sesion label{
 	line-height: 60px;
 	margin: 0px 10px 0px 0px;

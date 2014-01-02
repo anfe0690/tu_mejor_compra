@@ -7,15 +7,10 @@ package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -68,17 +63,45 @@ public class Buscar implements Serializable {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		texto = ec.getRequestParameterMap().get("header_form:texto_buscar");
 
+		List<Resultado> res = new ArrayList<>();
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		List<Usuario> rl = q.getResultList();
 
-		List<Resultado> res = new ArrayList<>();
-		for (Usuario u : rl) {
-			for (Producto pro : u.getProductos()) {
-				if (pro.getNombre().toLowerCase().contains(texto.toLowerCase())) {
-					res.add(new Resultado(u, pro));
-					//logger.log(Level.INFO, "Usuario: {0} con Producto: {1}", new Object[]{u, pro});
+		if (texto != null) {
+			for (Usuario u : rl) {
+				for (Producto pro : u.getProductos()) {
+					if (pro.getNombre().toLowerCase().contains(texto.toLowerCase())) {
+						res.add(new Resultado(u, pro));
+					}
+				}
+			}
+		} else {
+			if (ec.getRequestParameterMap().get("form_categorias:telefonos_inteligentes") != null) {
+				for (Usuario u : rl) {
+					for (Producto pro : u.getProductos()) {
+						if (pro.getCategoria().equals(Categoria.TELEFONOS_INTELIGENTES)) {
+							res.add(new Resultado(u, pro));
+						}
+					}
+				}
+			} else if (ec.getRequestParameterMap().get("form_categorias:consolas_video_juegos") != null) {
+				for (Usuario u : rl) {
+					for (Producto pro : u.getProductos()) {
+						if (pro.getCategoria().equals(Categoria.CONSOLAS_VIDEO_JUEGOS)) {
+							res.add(new Resultado(u, pro));
+						}
+					}
+				}
+			} else if (ec.getRequestParameterMap().get("form_categorias:tabletas") != null) {
+				for (Usuario u : rl) {
+					for (Producto pro : u.getProductos()) {
+						if (pro.getCategoria().equals(Categoria.TABLETAS)) {
+							res.add(new Resultado(u, pro));
+						}
+					}
 				}
 			}
 		}

@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -115,17 +116,17 @@ public class ManejadorDeProductos implements Serializable {
 		usuario.getProductos().clear();
 		List<Producto> productos = new ArrayList<>();
 		if (usuario.getNombre().equalsIgnoreCase("andres")) {
-			productos.add(restaurarProducto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000"));
-			productos.add(restaurarProducto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900"));
-			productos.add(restaurarProducto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990"));
+			productos.add(restaurarProducto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000", Categoria.TELEFONOS_INTELIGENTES));
+			productos.add(restaurarProducto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900", Categoria.TELEFONOS_INTELIGENTES));
+			productos.add(restaurarProducto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990", Categoria.TELEFONOS_INTELIGENTES));
 		} else if (usuario.getNombre().equalsIgnoreCase("carlos")) {
-			productos.add(restaurarProducto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000"));
-			productos.add(restaurarProducto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990"));
-			productos.add(restaurarProducto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990"));
+			productos.add(restaurarProducto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000", Categoria.CONSOLAS_VIDEO_JUEGOS));
+			productos.add(restaurarProducto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990", Categoria.CONSOLAS_VIDEO_JUEGOS));
+			productos.add(restaurarProducto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990", Categoria.CONSOLAS_VIDEO_JUEGOS));
 		} else if (usuario.getNombre().equalsIgnoreCase("fernando")) {
-			productos.add(restaurarProducto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000"));
-			productos.add(restaurarProducto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000"));
-			productos.add(restaurarProducto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000"));
+			productos.add(restaurarProducto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000", Categoria.TABLETAS));
+			productos.add(restaurarProducto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS));
+			productos.add(restaurarProducto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", Categoria.TABLETAS));
 		} else {
 			logger.log(Level.SEVERE, "ERROR. Usuario desconocido: \"{0}\"", usuario.getNombre());
 			em.close();
@@ -147,7 +148,7 @@ public class ManejadorDeProductos implements Serializable {
 		logger.info("Restaurados los productos de " + sesionController.getUsuario().getNombre());
 	}
 
-	private Producto restaurarProducto(String nombreImagen, String nombre, String precio) {
+	private Producto restaurarProducto(String nombreImagen, String nombre, String precio, Categoria categoria) {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String dirOrigenBase = ec.getRealPath("resources\\images\\restaurar") + "\\" + sesionController.getUsuario().getNombre() + "\\";
 		String dirDestinoBase = "C:\\var\\tuMejorCompra\\img\\" + sesionController.getUsuario().getNombre() + "\\";
@@ -155,6 +156,8 @@ public class ManejadorDeProductos implements Serializable {
 		p.setNombreImagen(nombreImagen);
 		p.setNombre(nombre);
 		p.setPrecio(precio);
+		p.setFechaDeCreacion(new Date());
+		p.setCategoria(categoria);
 		File fOrigen = new File(dirOrigenBase + nombreImagen);
 		File fDestino = new File(dirDestinoBase + nombreImagen);
 		if (!fDestino.exists()) {

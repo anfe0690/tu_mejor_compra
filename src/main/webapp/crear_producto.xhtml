@@ -28,6 +28,14 @@
 						<p>Precio</p>
 						<h:inputText id="precio_producto" value="#{crearProducto.precio}" required="true" requiredMessage="Campo obligatorio"/>
 						<p>pesos</p>
+						<br/>
+						<br/>
+						<span style="font-size: 16px; margin-right: 10px;">Categoria</span>
+						<h:selectOneMenu value="#{crearProducto.categoria}">
+							<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
+							<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
+							<f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
+						</h:selectOneMenu>
 					</div>
 				</div>
 				<h:commandButton id="crear" value="Crear" action="#{crearProducto.crearProducto()}"/>

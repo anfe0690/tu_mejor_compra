@@ -1,7 +1,8 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html">
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<ui:define name="title">Tu mejor compra</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="index.css"/>
@@ -10,7 +11,18 @@
 		<h:outputScript library="js" name="index.js"/>
 	</ui:define>
 	<ui:define name="content">
-		<h1>Productos recientes</h1>
-		<h:graphicImage name="samsung-galaxy-s4.jpg" library="images" width="150" height="150"/>
+		<section id="index">
+			<h1>Productos recientes</h1>
+			<ui:repeat value="#{index.productosRecientes}" var="productoReciente" >
+				<div class="producto_reciente">
+					<h:graphicImage value="/img/#{productoReciente.usuario.nombre}/#{productoReciente.producto.nombreImagen}" width="150" height="150"/>
+					<h:link outcome="producto?u=#{productoReciente.usuario.nombre}&amp;p=#{productoReciente.usuario.productos.indexOf(productoReciente.producto)}" value="#{productoReciente.producto.nombre}" styleClass="nombreResultado"/>
+					<div>
+						<span class="precioResultado">Precio:</span>
+						<h:outputText value="#{productoReciente.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>
+					</div>
+				</div>
+			</ui:repeat>
+		</section>
 	</ui:define>
 </ui:composition>

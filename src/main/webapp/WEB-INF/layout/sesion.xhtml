@@ -4,6 +4,10 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 	<div id="sesion" class="grid_24" >
+		<button id="ayuda" onclick="alert('Los usuarios y sus respectivas contraseñas son los siguientes:\n\n' +
+						'andres = 123\n' +
+						'carlos = 456\n' +
+						'fernando = 789\n');">Ayuda</button>		
 		<h:form id="sesion_form">
 			<c:choose>
 				<c:when test="#{!sesionController.sesionIniciada}">

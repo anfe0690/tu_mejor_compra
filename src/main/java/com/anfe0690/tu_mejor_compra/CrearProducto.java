@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,7 @@ public class CrearProducto implements Serializable {
 	private Part file;
 	private String nombre;
 	private String precio;
+	private String categoria;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -76,6 +78,14 @@ public class CrearProducto implements Serializable {
 
 	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 	public String crearProducto() {
@@ -118,6 +128,8 @@ public class CrearProducto implements Serializable {
 		producto.setNombreImagen(fileName);
 		producto.setNombre(nombre);
 		producto.setPrecio(precio);
+		producto.setFechaDeCreacion(new Date());
+		producto.setCategoria(Categoria.valueOf(categoria));
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();

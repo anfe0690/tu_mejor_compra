@@ -4,12 +4,10 @@
 
 	<aside id="categorias" class="grid_6" >
 		<h1>Categorias</h1>
-		<h:form>
-			<h:link outcome="buscar.xhtml" value="Telefonos inteligentes"/><br/>
-			<h:link outcome="buscar.xhtml" value="Libros"/><br/>
-			<h:link outcome="buscar.xhtml" value="Consolas de video juegos"/><br/>
-			<h:link outcome="buscar.xhtml" value="Musica"/><br/>
-			<h:link outcome="buscar.xhtml" value="Peliculas"/><br/>
+		<h:form id="form_categorias">
+			<h:commandLink value="Telefonos inteligentes" action="buscar" id="telefonos_inteligentes"/>
+			<h:commandLink value="Consolas de video juegos" action="buscar" id="consolas_video_juegos"/>
+			<h:commandLink value="Tabletas" action="buscar" id="tabletas"/>
 		</h:form>
 	</aside>
 
