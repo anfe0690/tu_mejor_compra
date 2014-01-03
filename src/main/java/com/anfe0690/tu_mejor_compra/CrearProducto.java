@@ -131,6 +131,7 @@ public class CrearProducto implements Serializable {
 		producto.setFechaDeCreacion(new Date());
 		producto.setCategoria(Categoria.valueOf(categoria));
 
+		// TODO: No se puede utilizar EntityTransaction con JTA
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();

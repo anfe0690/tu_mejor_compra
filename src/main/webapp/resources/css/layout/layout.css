@@ -4,7 +4,7 @@
 */
 
 .container_24{
-	background-color: lightgreen;
+	background-color: white;
 }
 
 .error_message{
@@ -13,10 +13,10 @@
 }
 
 #cnt{
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 #contenido{
-	background-color: lightcyan;
+	background-color: white;
 	margin: 0px;
 }

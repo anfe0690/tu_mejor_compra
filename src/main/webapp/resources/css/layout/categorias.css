@@ -4,8 +4,7 @@
 */
 
 #categorias{
-	/*background-color: lightskyblue;*/
-	height: 600px;
+	background-color: #E7F5FE;
 	margin-left: 0px;
 	margin-right: 10px;
 }
@@ -20,5 +19,5 @@
 #categorias a{
 	margin-left: 10px;
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }

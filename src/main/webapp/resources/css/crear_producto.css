@@ -28,7 +28,6 @@ and open the template in the editor.
 #crear_producto img{
 	margin-bottom: 10px;
 	display: block;
-	border: 1px solid black;
 }
 
 #crear_producto div div:nth-of-type(2){

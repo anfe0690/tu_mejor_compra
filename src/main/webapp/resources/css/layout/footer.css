@@ -4,6 +4,12 @@
 */
 
 #footer{
-	background-color: lightyellow;
+	background-color: #E7F5FE;
 	height: 60px;
+	padding-top: 10px;
+}
+
+#footer p{
+	text-align: center;
+	margin: 0px;
 }
