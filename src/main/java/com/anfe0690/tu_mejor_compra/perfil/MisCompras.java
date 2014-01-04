@@ -22,10 +22,6 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -88,17 +84,19 @@ public class MisCompras implements Serializable {
 							}
 						}
 
-						EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-						EntityManager em = emf.createEntityManager();
-						EntityTransaction et = em.getTransaction();
+						//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+						//EntityManager em = emf.createEntityManager();
+						//EntityTransaction et = em.getTransaction();
 
-						et.begin();
-						em.merge(usuarioComprador);
-						em.merge(usuarioVendedor);
-						et.commit();
+						//et.begin();
+						//em.merge(usuarioComprador);
+						mu.mergeUsuario(usuarioComprador);
+						//em.merge(usuarioVendedor);
+						mu.mergeUsuario(usuarioVendedor);
+						//et.commit();
 
-						em.close();
-						emf.close();
+						//em.close();
+						//emf.close();
 					}
 				}
 			}

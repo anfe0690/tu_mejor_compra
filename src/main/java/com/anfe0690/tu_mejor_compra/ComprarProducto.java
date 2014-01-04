@@ -15,10 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -83,17 +79,19 @@ public class ComprarProducto implements Serializable {
 		venta.setEstado(Estado.ESPERANDO_PAGO);
 		usuarioVendedor.getVentas().add(venta);
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction et = em.getTransaction();
 		
-		et.begin();
-		em.merge(usuarioComprador);
-		em.merge(usuarioVendedor);
-		et.commit();
+		//et.begin();
+		//em.merge(usuarioComprador);
+		mdu.mergeUsuario(usuarioComprador);
+		//em.merge(usuarioVendedor);
+		mdu.mergeUsuario(usuarioVendedor);
+		//et.commit();
 
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 		
 		logger.info("########### " + usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
 		return "perfil";

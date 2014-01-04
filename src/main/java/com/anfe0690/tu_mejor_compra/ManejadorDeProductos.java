@@ -6,31 +6,23 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -45,6 +37,9 @@ public class ManejadorDeProductos implements Serializable {
 	@Inject
 	private SesionController sesionController;
 	private final List<SelProducto> selProductos = new ArrayList<>();
+	
+	@EJB
+	private ManejadorDeUsuarios mu;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -63,15 +58,16 @@ public class ManejadorDeProductos implements Serializable {
 		return selProductos;
 	}
 
+	// TODO: Cuando se elimina un producto, tambien se debe eliminar las compras y ventas relacionadas con el
 	public void eliminarProductos() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction et = em.getTransaction();
 
 		Usuario usuario = sesionController.getUsuario();
-		et.begin();
+		//et.begin();
 		Iterator<SelProducto> it = selProductos.iterator();
 		while (it.hasNext()) {
 			SelProducto sp = it.next();
@@ -88,22 +84,24 @@ public class ManejadorDeProductos implements Serializable {
 				}
 			}
 		}
-		em.merge(usuario);
-		et.commit();
+		//em.merge(usuario);
+		mu.mergeUsuario(usuario);
+		//et.commit();
 
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 	}
 
+	// TODO: Tambien se debe poder restaurar las compras y ventas
 	public void restaurar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction et = em.getTransaction();
 
 		Usuario usuario = sesionController.getUsuario();
-		et.begin();
+		//et.begin();
 		for (Producto p : usuario.getProductos()) {
 			File f = new File("C:\\var\\tuMejorCompra\\img\\" + usuario.getNombre() + "\\" + p.getNombreImagen());
 			try {
@@ -129,17 +127,18 @@ public class ManejadorDeProductos implements Serializable {
 			productos.add(restaurarProducto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", Categoria.TABLETAS));
 		} else {
 			logger.log(Level.SEVERE, "ERROR. Usuario desconocido: \"{0}\"", usuario.getNombre());
-			em.close();
-			emf.close();
+			//em.close();
+			//emf.close();
 			return;
 		}
 
 		usuario.setProductos(productos);
-		em.merge(usuario);
-		et.commit();
+		//em.merge(usuario);
+		mu.mergeUsuario(usuario);
+		//et.commit();
 
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 
 		selProductos.clear();
 		for (Producto producto : usuario.getProductos()) {

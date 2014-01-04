@@ -6,27 +6,22 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.servlet.http.Part;
 
 /**
@@ -45,6 +40,9 @@ public class CrearProducto implements Serializable {
 	private String nombre;
 	private String precio;
 	private String categoria;
+	
+	@EJB
+	private ManejadorDeUsuarios mu;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -132,17 +130,18 @@ public class CrearProducto implements Serializable {
 		producto.setCategoria(Categoria.valueOf(categoria));
 
 		// TODO: No se puede utilizar EntityTransaction con JTA
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+		//EntityManager em = emf.createEntityManager();
+		//EntityTransaction et = em.getTransaction();
 
-		et.begin();
+		//et.begin();
 		usuario.getProductos().add(producto);
-		em.merge(usuario);
-		et.commit();
+		mu.mergeUsuario(usuario);
+		//em.merge(usuario);
+		//et.commit();
 
-		em.close();
-		emf.close();
+		//em.close();
+		//emf.close();
 
 		logger.log(Level.INFO, "############## Producto \"{0}\" creado", producto.getNombre());
 
