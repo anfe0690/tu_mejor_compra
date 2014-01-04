@@ -16,7 +16,7 @@ import javax.persistence.Enumerated;
  * @author Andres
  */
 @Embeddable
-public class Compra implements Serializable{
+public class Compra implements Serializable {
 
 	@Column(length = 20)
 	private String vendedor;
@@ -47,6 +47,11 @@ public class Compra implements Serializable{
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Compra{" + "vendedor=" + vendedor + ", indiceProducto=" + indiceProducto + ", estado=" + estado + '}';
 	}
 
 }

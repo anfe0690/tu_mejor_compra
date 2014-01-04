@@ -5,6 +5,7 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import com.anfe0690.tu_mejor_compra.perfil.MisVentas;
 import java.io.File;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -37,9 +38,11 @@ public class ManejadorDeProductos implements Serializable {
 	@Inject
 	private SesionController sesionController;
 	private final List<SelProducto> selProductos = new ArrayList<>();
-	
+
 	@EJB
 	private ManejadorDeUsuarios mu;
+	@Inject
+	private MisVentas misVentas;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -62,17 +65,33 @@ public class ManejadorDeProductos implements Serializable {
 	public void eliminarProductos() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
-		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction et = em.getTransaction();
-
 		Usuario usuario = sesionController.getUsuario();
-		//et.begin();
 		Iterator<SelProducto> it = selProductos.iterator();
 		while (it.hasNext()) {
 			SelProducto sp = it.next();
 			if (sp.isSeleccionado()) {
 				Producto producto = sp.getProducto();
+				// Remover ventas relacionadas
+				Iterator<Venta> ventasIt = usuario.getVentas().iterator();
+				while (ventasIt.hasNext()) {
+					Venta venta = ventasIt.next();
+					if (usuario.getProductos().get(venta.getIndiceProducto()).equals(producto)) {
+						Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
+						Iterator<Compra> comprasIt = usuarioComprador.getCompras().iterator();
+						// Remover compras relacionadas
+						while(comprasIt.hasNext()){
+							Compra compra = comprasIt.next();
+							logger.info("Eliminada compra: " + compra);
+							if(compra.getVendedor().equals(usuario.getNombre()) && compra.getIndiceProducto()==venta.getIndiceProducto()){
+								comprasIt.remove();
+								mu.mergeUsuario(usuarioComprador);
+							}
+						}
+						ventasIt.remove();
+						logger.info("Eliminada venta: " + venta);
+					}
+				}
+				// Remover producto
 				usuario.getProductos().remove(producto);
 				it.remove();
 				File f = new File("C:\\var\\tuMejorCompra\\img\\" + sesionController.getUsuario().getNombre() + "\\" + producto.getNombreImagen());
@@ -84,12 +103,10 @@ public class ManejadorDeProductos implements Serializable {
 				}
 			}
 		}
-		//em.merge(usuario);
 		mu.mergeUsuario(usuario);
-		//et.commit();
-
-		//em.close();
-		//emf.close();
+		// TODO: Como las ventas y compras se refieren a los productos por el indice de estos, al eliminar un producto se generan problemas
+		misVentas.postConstruct();
+				
 	}
 
 	// TODO: Tambien se debe poder restaurar las compras y ventas
@@ -99,7 +116,6 @@ public class ManejadorDeProductos implements Serializable {
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
 		//EntityManager em = emf.createEntityManager();
 		//EntityTransaction et = em.getTransaction();
-
 		Usuario usuario = sesionController.getUsuario();
 		//et.begin();
 		for (Producto p : usuario.getProductos()) {
@@ -139,7 +155,6 @@ public class ManejadorDeProductos implements Serializable {
 
 		//em.close();
 		//emf.close();
-
 		selProductos.clear();
 		for (Producto producto : usuario.getProductos()) {
 			selProductos.add(new SelProducto(producto));

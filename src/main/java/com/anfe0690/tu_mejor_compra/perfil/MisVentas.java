@@ -47,6 +47,7 @@ public class MisVentas implements Serializable{
 	public void postConstruct() {
 		logger.info("########## postConstruct");
 
+		filas.clear();
 		for (Venta venta : sc.getUsuario().getVentas()) {
 			//Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
 			Producto producto = sc.getUsuario().getProductos().get(venta.getIndiceProducto());

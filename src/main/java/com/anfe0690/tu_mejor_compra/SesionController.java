@@ -43,6 +43,7 @@ public class SesionController implements Serializable {
 	@PostConstruct
 	public void postConstruct() {
 		logger.info("############## postConstruct");
+		// TODO: Cuando se crean los usuarios por primera vez, no se crean las imagenes
 		// ANDRES
 		Usuario usu = null;
 		try {
