@@ -49,7 +49,7 @@ public class MisCompras implements Serializable {
 
 		for (Compra compra : sc.getUsuario().getCompras()) {
 			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = usuarioVendedor.getProductos().get(compra.getIndiceProducto());
+			Producto producto = compra.getProducto();
 			Fila fila = new Fila();
 			fila.setDireccionImagen("/img/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
 			fila.setNombreProducto(producto.getNombre());
@@ -69,7 +69,7 @@ public class MisCompras implements Serializable {
 		logger.info("########## actualizar");
 		for (Compra compra : usuarioComprador.getCompras()) {
 			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = usuarioVendedor.getProductos().get(compra.getIndiceProducto());
+			Producto producto = compra.getProducto();
 
 			for (Fila fila : filas) {
 				if (producto.getNombre().equals(fila.getNombreProducto())) {
@@ -79,7 +79,7 @@ public class MisCompras implements Serializable {
 						compra.setEstado(Estado.TERMINADO);
 
 						for (Venta venta : usuarioVendedor.getVentas()) {
-							if (compra.getIndiceProducto() == venta.getIndiceProducto()) {
+							if (compra.getProducto().equals(venta.getProducto())) {
 								venta.setEstado(Estado.TERMINADO);
 							}
 						}

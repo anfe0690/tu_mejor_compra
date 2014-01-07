@@ -14,8 +14,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -48,14 +50,15 @@ public class Usuario implements Serializable {
 	private String banco;
 	@Column(length = 20)
 	private String numeroCuenta;
-
-	@ElementCollection(fetch = FetchType.EAGER)
+	
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Producto> productos;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	// TODO: Se genera una exepcion de llave duplicada al utilizar cascada con compras y ventas, no utilizar cascada
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Compra> compras;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Venta> ventas;
 
 	public String getNombre() {
@@ -156,7 +159,7 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario{" + "nombre=" + nombre + ", nombreContacto=" + nombreContacto + '}';
+		return "Usuario{" + "nombre=" + nombre + ", contrasena=" + contrasena + ", nombreContacto=" + nombreContacto + '}';
 	}
 
 }

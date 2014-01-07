@@ -6,24 +6,41 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Andres
  */
-@Embeddable
+@Entity
 public class Compra implements Serializable {
 
+	@Id
+	@GeneratedValue
+	private long id;
 	@Column(length = 20)
 	private String vendedor;
-	private int indiceProducto;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Producto producto; 
 	@Column(length = 20)
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getVendedor() {
 		return vendedor;
@@ -33,12 +50,12 @@ public class Compra implements Serializable {
 		this.vendedor = vendedor;
 	}
 
-	public int getIndiceProducto() {
-		return indiceProducto;
+	public Producto getProducto() {
+		return producto;
 	}
 
-	public void setIndiceProducto(int indiceProducto) {
-		this.indiceProducto = indiceProducto;
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 	public Estado getEstado() {
@@ -51,7 +68,7 @@ public class Compra implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Compra{" + "vendedor=" + vendedor + ", indiceProducto=" + indiceProducto + ", estado=" + estado + '}';
+		return "Compra{" + "id=" + id + ", vendedor=" + vendedor + ", producto=" + producto.getId() + ", estado=" + estado + '}';
 	}
 
 }

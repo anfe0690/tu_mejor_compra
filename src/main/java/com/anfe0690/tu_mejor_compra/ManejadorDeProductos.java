@@ -75,14 +75,14 @@ public class ManejadorDeProductos implements Serializable {
 				Iterator<Venta> ventasIt = usuario.getVentas().iterator();
 				while (ventasIt.hasNext()) {
 					Venta venta = ventasIt.next();
-					if (usuario.getProductos().get(venta.getIndiceProducto()).equals(producto)) {
+					if (venta.getProducto().equals(producto)) {
 						Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
 						Iterator<Compra> comprasIt = usuarioComprador.getCompras().iterator();
 						// Remover compras relacionadas
 						while(comprasIt.hasNext()){
 							Compra compra = comprasIt.next();
 							logger.info("Eliminada compra: " + compra);
-							if(compra.getVendedor().equals(usuario.getNombre()) && compra.getIndiceProducto()==venta.getIndiceProducto()){
+							if(compra.getVendedor().equals(usuario.getNombre()) && compra.getProducto().equals(venta.getProducto())){
 								comprasIt.remove();
 								mu.mergeUsuario(usuarioComprador);
 							}

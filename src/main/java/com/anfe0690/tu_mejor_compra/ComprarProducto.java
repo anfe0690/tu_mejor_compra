@@ -69,29 +69,18 @@ public class ComprarProducto implements Serializable {
 		Usuario usuarioComprador = sc.getUsuario();
 		Compra compra = new Compra();
 		compra.setVendedor(usuarioVendedor.getNombre());
-		compra.setIndiceProducto(usuarioVendedor.getProductos().indexOf(producto));
+		compra.setProducto(producto);
 		compra.setEstado(Estado.ESPERANDO_PAGO);
 		usuarioComprador.getCompras().add(compra);
 		
 		Venta venta = new Venta();
 		venta.setComprador(usuarioComprador.getNombre());
-		venta.setIndiceProducto(usuarioVendedor.getProductos().indexOf(producto));
+		venta.setProducto(producto);
 		venta.setEstado(Estado.ESPERANDO_PAGO);
 		usuarioVendedor.getVentas().add(venta);
 		
-		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		//EntityManager em = emf.createEntityManager();
-		//EntityTransaction et = em.getTransaction();
-		
-		//et.begin();
-		//em.merge(usuarioComprador);
 		mdu.mergeUsuario(usuarioComprador);
-		//em.merge(usuarioVendedor);
 		mdu.mergeUsuario(usuarioVendedor);
-		//et.commit();
-
-		//em.close();
-		//emf.close();
 		
 		logger.info("########### " + usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
 		return "perfil";

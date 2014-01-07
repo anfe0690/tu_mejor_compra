@@ -50,7 +50,7 @@ public class MisVentas implements Serializable{
 		filas.clear();
 		for (Venta venta : sc.getUsuario().getVentas()) {
 			//Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
-			Producto producto = sc.getUsuario().getProductos().get(venta.getIndiceProducto());
+			Producto producto = venta.getProducto();
 			Fila fila = new Fila();
 			fila.setDireccionImagen("/img/" + sc.getUsuario().getNombre() + "/" + producto.getNombreImagen());
 			fila.setNombreProducto(producto.getNombre());
@@ -70,7 +70,7 @@ public class MisVentas implements Serializable{
 		for(Venta venta:sc.getUsuario().getVentas()){
 			Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
 			
-			Producto producto = sc.getUsuario().getProductos().get(venta.getIndiceProducto());
+			Producto producto = venta.getProducto();
 			
 			for(Fila fila:filas){
 				if (producto.getNombre().equals(fila.getNombreProducto())) {
@@ -80,7 +80,7 @@ public class MisVentas implements Serializable{
 						venta.setEstado(Estado.EN_ENVIO);
 						
 						for(Compra compra:usuarioComprador.getCompras()){
-							if(compra.getIndiceProducto() == venta.getIndiceProducto()){
+							if(compra.getProducto().equals(venta.getProducto())){
 								compra.setEstado(Estado.EN_ENVIO);
 							}
 						}

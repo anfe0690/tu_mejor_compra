@@ -9,8 +9,12 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -19,9 +23,12 @@ import javax.validation.constraints.NotNull;
  *
  * @author Andres
  */
-@Embeddable
+@Entity
 public class Producto implements Serializable {
 
+	@Id
+	@GeneratedValue
+	private long id;
 	@Column(length = 30)
 	private String nombreImagen;
 	@NotNull
@@ -34,6 +41,25 @@ public class Producto implements Serializable {
 	@Column(length = 30)
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
+
+	public Producto() {
+	}
+
+	public Producto(String nombreImagen, String nombre, String precio, Categoria categoria) {
+		this.nombreImagen = nombreImagen;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.fechaDeCreacion = new Date();
+		this.categoria = categoria;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getNombreImagen() {
 		return nombreImagen;
@@ -77,7 +103,7 @@ public class Producto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Producto{" + "nombreImagen=" + nombreImagen + ", nombre=" + nombre + ", precio=" + precio + '}';
+		return "Producto{" + "id=" + id + ", nombreImagen=" + nombreImagen + ", nombre=" + nombre + ", precio=" + precio + ", fechaDeCreacion=" + fechaDeCreacion + ", categoria=" + categoria + '}';
 	}
 
 }

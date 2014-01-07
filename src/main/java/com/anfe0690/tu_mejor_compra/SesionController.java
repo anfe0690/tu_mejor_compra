@@ -51,64 +51,91 @@ public class SesionController implements Serializable {
 		} catch (IllegalArgumentException e) {
 			logger.log(Level.SEVERE, e.toString(), e);
 		}
+		List<Producto> productosAndres = null;
+		List<Producto> productosCarlos = null;
+		List<Producto> productosFernando = null;
+		if (usu == null) {
+			// Andres
+			productosAndres = new ArrayList<>();
+			// 1
+			Producto p = new Producto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000", Categoria.TELEFONOS_INTELIGENTES);
+			productosAndres.add(p);
+			// 2
+			p = new Producto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900", Categoria.TELEFONOS_INTELIGENTES);
+			productosAndres.add(p);
+			// 3
+			p = new Producto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990", Categoria.TELEFONOS_INTELIGENTES);
+			productosAndres.add(p);
+
+			// Carlos
+			productosCarlos = new ArrayList<>();
+			// 1
+			p = new Producto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			productosCarlos.add(p);
+			// 2
+			p = new Producto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			productosCarlos.add(p);
+			// 3
+			p = new Producto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			productosCarlos.add(p);
+
+			// Fernando
+			productosFernando = new ArrayList<>();
+			// 1
+			p = new Producto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000", Categoria.TABLETAS);
+			productosFernando.add(p);
+			// 2
+			p = new Producto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS);
+			productosFernando.add(p);
+			// 3
+			p = new Producto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", Categoria.TABLETAS);
+			productosFernando.add(p);
+		}
 		if (usu == null) {
 			// Productos
-			List<Producto> productos = new ArrayList<>();
-			// 1
-			Producto p = new Producto();
-			p.setNombreImagen("samsung-galaxy-s4.jpg");
-			p.setNombre("Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me");
-			p.setPrecio("1.139.000");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TELEFONOS_INTELIGENTES);
-			productos.add(p);
-			// 2
-			p = new Producto();
-			p.setNombreImagen("iphone-5s.jpg");
-			p.setNombre("Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella");
-			p.setPrecio("1.619.900");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TELEFONOS_INTELIGENTES);
-			productos.add(p);
-			// 3
-			p = new Producto();
-			p.setNombreImagen("lg-g2.jpg");
-			p.setNombre("Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram");
-			p.setPrecio("1.349.990");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TELEFONOS_INTELIGENTES);
-			productos.add(p);
-			
+			//List<Producto> productos = productosAndres;
+			/*
+			 // 1
+			 Producto p = new Producto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000", Categoria.TELEFONOS_INTELIGENTES);
+			 productos.add(p);
+			 // 2
+			 p = new Producto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900", Categoria.TELEFONOS_INTELIGENTES);
+			 productos.add(p);
+			 // 3
+			 p = new Producto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990", Categoria.TELEFONOS_INTELIGENTES);
+			 productos.add(p);
+			 */
+
 			// Compras
 			List<Compra> compras = new ArrayList<>();
 			// 1
 			Compra c = new Compra();
 			c.setVendedor("carlos");
-			c.setIndiceProducto(0);
+			c.setProducto(productosCarlos.get(0));
 			c.setEstado(Estado.ESPERANDO_PAGO);
 			compras.add(c);
 			// 2
 			c = new Compra();
 			c.setVendedor("fernando");
-			c.setIndiceProducto(2);
+			c.setProducto(productosFernando.get(2));
 			c.setEstado(Estado.EN_ENVIO);
 			compras.add(c);
-			
+
 			// Ventas
 			List<Venta> ventas = new ArrayList<>();
 			// 1
 			Venta v = new Venta();
 			v.setComprador("carlos");
-			v.setIndiceProducto(1);
+			v.setProducto(productosAndres.get(1));
 			v.setEstado(Estado.ESPERANDO_PAGO);
 			ventas.add(v);
 			// 2
 			v = new Venta();
 			v.setComprador("fernando");
-			v.setIndiceProducto(2);
+			v.setProducto(productosAndres.get(2));
 			v.setEstado(Estado.TERMINADO);
 			ventas.add(v);
-			
+
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("andres");
@@ -120,8 +147,8 @@ public class SesionController implements Serializable {
 			u.setDireccion("Carrera 24 #45-05");
 			u.setBanco("Banco Bogota");
 			u.setNumeroCuenta("123-4623");
-			
-			u.setProductos(productos);
+
+			u.setProductos(productosAndres);
 			u.setCompras(compras);
 			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
@@ -136,50 +163,37 @@ public class SesionController implements Serializable {
 		}
 		if (usu == null) {
 			// Productos
-			List<Producto> productos = new ArrayList<>();
-			// 1
-			Producto p = new Producto();
-			p.setNombreImagen("playstation-4.jpg");
-			p.setNombre("Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus");
-			p.setPrecio("1.400.000");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.CONSOLAS_VIDEO_JUEGOS);
-			productos.add(p);
-			// 2
-			p = new Producto();
-			p.setNombreImagen("wii-u.jpg");
-			p.setNombre("Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base");
-			p.setPrecio("704.990");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.CONSOLAS_VIDEO_JUEGOS);
-			productos.add(p);
-			// 3
-			p = new Producto();
-			p.setNombreImagen("xbox-one.jpg");
-			p.setNombre("Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2");
-			p.setPrecio("1.449.990");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.CONSOLAS_VIDEO_JUEGOS);
-			productos.add(p);
-			
+			//List<Producto> productos = productosCarlos;
+			/*
+			 // 1
+			 Producto p = new Producto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			 productos.add(p);
+			 // 2
+			 p = new Producto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			 productos.add(p);
+			 // 3
+			 p = new Producto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990", Categoria.CONSOLAS_VIDEO_JUEGOS);
+			 productos.add(p);
+			 */
+
 			// Compras
 			List<Compra> compras = new ArrayList<>();
 			// 1
 			Compra c = new Compra();
 			c.setVendedor("andres");
-			c.setIndiceProducto(1);
+			c.setProducto(productosAndres.get(1));
 			c.setEstado(Estado.ESPERANDO_PAGO);
 			compras.add(c);
-			
+
 			// Ventas
 			List<Venta> ventas = new ArrayList<>();
 			// 1
 			Venta v = new Venta();
 			v.setComprador("andres");
-			v.setIndiceProducto(0);
+			v.setProducto(productosCarlos.get(0));
 			v.setEstado(Estado.ESPERANDO_PAGO);
 			ventas.add(v);
-			
+
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("carlos");
@@ -191,8 +205,8 @@ public class SesionController implements Serializable {
 			u.setDireccion("Calle 56 #83-41");
 			u.setBanco("Bancolombia");
 			u.setNumeroCuenta("456-1856");
-			
-			u.setProductos(productos);
+
+			u.setProductos(productosCarlos);
 			u.setCompras(compras);
 			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
@@ -207,50 +221,37 @@ public class SesionController implements Serializable {
 		}
 		if (usu == null) {
 			// Productos
-			List<Producto> productos = new ArrayList<>();
-			// 1
-			Producto p = new Producto();
-			p.setNombreImagen("google-nexus-10.jpg");
-			p.setNombre("Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb");
-			p.setPrecio("919.000");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TABLETAS);
-			productos.add(p);
-			// 2
-			p = new Producto();
-			p.setNombreImagen("tablet-sony-xperia-z.jpg");
-			p.setNombre("Xperia Tablet Sony Z 32gb");
-			p.setPrecio("840.000");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TABLETAS);
-			productos.add(p);
-			// 3
-			p = new Producto();
-			p.setNombreImagen("toshiba-excite.jpg");
-			p.setNombre("Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1");
-			p.setPrecio("598.000");
-			p.setFechaDeCreacion(new Date());
-			p.setCategoria(Categoria.TABLETAS);
-			productos.add(p);
-			
+			//List<Producto> productos = productosFernando;
+			/*
+			 // 1
+			 Producto p = new Producto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000", Categoria.TABLETAS);
+			 productos.add(p);
+			 // 2
+			 p = new Producto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS);
+			 productos.add(p);
+			 // 3
+			 p = new Producto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", Categoria.TABLETAS);
+			 productos.add(p);
+			 */
+
 			// Compras
 			List<Compra> compras = new ArrayList<>();
 			// 1
 			Compra c = new Compra();
 			c.setVendedor("andres");
-			c.setIndiceProducto(2);
+			c.setProducto(productosAndres.get(2));
 			c.setEstado(Estado.TERMINADO);
 			compras.add(c);
-			
+
 			// Ventas
 			List<Venta> ventas = new ArrayList<>();
 			// 1
 			Venta v = new Venta();
 			v.setComprador("andres");
-			v.setIndiceProducto(2);
+			v.setProducto(productosFernando.get(2));
 			v.setEstado(Estado.EN_ENVIO);
 			ventas.add(v);
-			
+
 			// Usuario
 			Usuario u = new Usuario();
 			u.setNombre("fernando");
@@ -262,8 +263,8 @@ public class SesionController implements Serializable {
 			u.setDireccion("Carrera 89 #34-84");
 			u.setBanco("Avvillas");
 			u.setNumeroCuenta("845-3029");
-			
-			u.setProductos(productos);
+
+			u.setProductos(productosFernando);
 			u.setCompras(compras);
 			u.setVentas(ventas);
 			manejadorDeUsuarios.guardarUsuario(u);
