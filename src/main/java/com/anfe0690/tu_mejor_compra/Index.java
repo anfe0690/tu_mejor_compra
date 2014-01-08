@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.view.ViewScoped;
@@ -21,7 +19,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import org.eclipse.persistence.internal.core.helper.CoreClassConstants;
 
 /**
  *
@@ -31,66 +28,66 @@ import org.eclipse.persistence.internal.core.helper.CoreClassConstants;
 @ViewScoped
 public class Index implements Serializable {
 
-	// Logger
-	private static final Logger logger = Logger.getLogger(Index.class.getName());
+    // Logger
+    private static final MiLogger miLogger = new MiLogger(Index.class);
 
-	// Modelo
-	private List<ProductoReciente> productosRecientes = new ArrayList<>();
+    // Modelo
+    private List<ProductoReciente> productosRecientes = new ArrayList<>();
 
-	@PostConstruct
-	public void postConstruct() {
-		logger.info("########## postConstruct");
+    @PostConstruct
+    public void postConstruct() {
+        miLogger.log("postConstruct");
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
-		try {
-			List<Usuario> rl = q.getResultList();
-			for (Usuario u : rl) {
-				//logger.info("usuario: " + u.getNombre());
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+        try {
+            List<Usuario> rl = q.getResultList();
+            for (Usuario u : rl) {
+                //logger.info("usuario: " + u.getNombre());
 
-				for (Producto p : u.getProductos()) {
-					
-					ProductoReciente pr = new ProductoReciente();
-					pr.setUsuario(u);
-					pr.setProducto(p);
-					productosRecientes.add(pr);
-				}
+                for (Producto p : u.getProductos()) {
 
-			} 
-			
-			Collections.sort(productosRecientes, new Comparator<ProductoReciente>() {
+                    ProductoReciente pr = new ProductoReciente();
+                    pr.setUsuario(u);
+                    pr.setProducto(p);
+                    productosRecientes.add(pr);
+                }
 
-				@Override
-				public int compare(ProductoReciente o1, ProductoReciente o2) {
-					Date date1 = o1.getProducto().getFechaDeCreacion();
-					Date date2 = o2.getProducto().getFechaDeCreacion();
-					return date1.compareTo(date2);
-				}
-			});
-			Collections.reverse(productosRecientes);
-			
-			productosRecientes = productosRecientes.subList(0, 3);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
-		}
+            }
 
-		em.close();
-		emf.close();
+            Collections.sort(productosRecientes, new Comparator<ProductoReciente>() {
 
-	}
+                @Override
+                public int compare(ProductoReciente o1, ProductoReciente o2) {
+                    Date date1 = o1.getProducto().getFechaDeCreacion();
+                    Date date2 = o2.getProducto().getFechaDeCreacion();
+                    return date1.compareTo(date2);
+                }
+            });
+            Collections.reverse(productosRecientes);
 
-	@PreDestroy
-	public void preDestroy() {
-		logger.info("########## preDestroy");
-	}
+            productosRecientes = productosRecientes.subList(0, 3);
+        } catch (Exception e) {
+            miLogger.error(e);
+        }
 
-	public List<ProductoReciente> getProductosRecientes() {
-		return productosRecientes;
-	}
+        em.close();
+        emf.close();
 
-	public void setProductosRecientes(List<ProductoReciente> productosRecientes) {
-		this.productosRecientes = productosRecientes;
-	}
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        miLogger.log("preDestroy");
+    }
+
+    public List<ProductoReciente> getProductosRecientes() {
+        return productosRecientes;
+    }
+
+    public void setProductosRecientes(List<ProductoReciente> productosRecientes) {
+        this.productosRecientes = productosRecientes;
+    }
 
 }

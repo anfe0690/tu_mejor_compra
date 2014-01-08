@@ -28,7 +28,7 @@ public class Compra implements Serializable {
 	private long id;
 	@Column(length = 20)
 	private String vendedor;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	private Producto producto; 
 	@Column(length = 20)
 	@Enumerated(EnumType.STRING)

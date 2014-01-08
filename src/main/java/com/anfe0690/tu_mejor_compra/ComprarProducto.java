@@ -7,7 +7,6 @@ package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -24,66 +23,67 @@ import javax.inject.Named;
 @ViewScoped
 public class ComprarProducto implements Serializable {
 
-	private static final Logger logger = Logger.getLogger(ComprarProducto.class.getName());
-	@EJB
-	private ManejadorDeUsuarios mdu;
-	@Inject
-	private SesionController sc;
-	private Usuario usuarioVendedor;
-	private Producto producto;
+    private static final MiLogger miLogger = new MiLogger(ComprarProducto.class);
 
-	@PostConstruct
-	public void postConstruct() {
-		logger.info("############ postConstruct");
-		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		//logger.info("usuario: " + pm.get("u") + " - indiceProducto: " + pm.get("p"));
-		String nombreUsuario = pm.get("u");
-		String indiceProducto = pm.get("p");
+    @EJB
+    private ManejadorDeUsuarios mdu;
+    @Inject
+    private SesionController sc;
+    private Usuario usuarioVendedor;
+    private Producto producto;
 
-		usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
-		producto = usuarioVendedor.getProductos().get(Integer.parseInt(indiceProducto));
-	}
+    @PostConstruct
+    public void postConstruct() {
+        miLogger.log("postConstruct");
+        Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        //logger.info("usuario: " + pm.get("u") + " - indiceProducto: " + pm.get("p"));
+        String nombreUsuario = pm.get("u");
+        String indiceProducto = pm.get("p");
 
-	@PreDestroy
-	public void preDestroy() {
-		logger.info("############ preDestroy");
-	}
+        usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
+        producto = usuarioVendedor.getProductos().get(Integer.parseInt(indiceProducto));
+    }
 
-	public Usuario getUsuarioVendedor() {
-		return usuarioVendedor;
-	}
+    @PreDestroy
+    public void preDestroy() {
+        miLogger.log("preDestroy");
+    }
 
-	public void setUsuarioVendedor(Usuario usuarioVendedor) {
-		this.usuarioVendedor = usuarioVendedor;
-	}
+    public Usuario getUsuarioVendedor() {
+        return usuarioVendedor;
+    }
 
-	public Producto getProducto() {
-		return producto;
-	}
+    public void setUsuarioVendedor(Usuario usuarioVendedor) {
+        this.usuarioVendedor = usuarioVendedor;
+    }
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
+    public Producto getProducto() {
+        return producto;
+    }
 
-	public String comprar() {
-		Usuario usuarioComprador = sc.getUsuario();
-		Compra compra = new Compra();
-		compra.setVendedor(usuarioVendedor.getNombre());
-		compra.setProducto(producto);
-		compra.setEstado(Estado.ESPERANDO_PAGO);
-		usuarioComprador.getCompras().add(compra);
-		
-		Venta venta = new Venta();
-		venta.setComprador(usuarioComprador.getNombre());
-		venta.setProducto(producto);
-		venta.setEstado(Estado.ESPERANDO_PAGO);
-		usuarioVendedor.getVentas().add(venta);
-		
-		mdu.mergeUsuario(usuarioComprador);
-		mdu.mergeUsuario(usuarioVendedor);
-		
-		logger.info("########### " + usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
-		return "perfil";
-	}
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public String comprar() {
+        Usuario usuarioComprador = sc.getUsuario();
+        Compra compra = new Compra();
+        compra.setVendedor(usuarioVendedor.getNombre());
+        compra.setProducto(producto);
+        compra.setEstado(Estado.ESPERANDO_PAGO);
+        usuarioComprador.getCompras().add(compra);
+
+        Venta venta = new Venta();
+        venta.setComprador(usuarioComprador.getNombre());
+        venta.setProducto(producto);
+        venta.setEstado(Estado.ESPERANDO_PAGO);
+        usuarioVendedor.getVentas().add(venta);
+
+        mdu.mergeUsuario(usuarioComprador);
+        mdu.mergeUsuario(usuarioVendedor);
+
+        miLogger.log(usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
+        return "perfil";
+    }
 
 }

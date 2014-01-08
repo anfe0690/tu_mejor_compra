@@ -54,11 +54,10 @@ public class Usuario implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Producto> productos;
 
-	// TODO: Se genera una exepcion de llave duplicada al utilizar cascada con compras y ventas, no utilizar cascada
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Compra> compras;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Venta> ventas;
 
 	public String getNombre() {

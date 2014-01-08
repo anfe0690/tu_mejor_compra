@@ -5,7 +5,6 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
-import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
@@ -19,9 +18,9 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class ManejadorDeCompras implements Serializable {
+public class ManejadorDeVentas {
 
-    private static final MiLogger miLogger = new MiLogger(ManejadorDeCompras.class);
+    private static final MiLogger miLogger = new MiLogger(ManejadorDeVentas.class);
 
     @PersistenceContext(name = "tuMejorCompra")
     private EntityManager em;
@@ -36,7 +35,8 @@ public class ManejadorDeCompras implements Serializable {
         miLogger.log("preDestroy");
     }
 
-    public void guardarCompra(Compra compra) {
-        em.persist(compra);
+    public void guardarVenta(Venta venta) {
+        em.persist(venta);
     }
+
 }

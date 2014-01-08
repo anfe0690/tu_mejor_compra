@@ -8,6 +8,7 @@ package com.anfe0690.tu_mejor_compra.perfil;
 import com.anfe0690.tu_mejor_compra.Compra;
 import com.anfe0690.tu_mejor_compra.Estado;
 import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.MiLogger;
 import com.anfe0690.tu_mejor_compra.Producto;
 import com.anfe0690.tu_mejor_compra.SesionController;
 import com.anfe0690.tu_mejor_compra.Usuario;
@@ -15,7 +16,6 @@ import com.anfe0690.tu_mejor_compra.Venta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -31,84 +31,83 @@ import javax.inject.Named;
 @ViewScoped
 public class MisCompras implements Serializable {
 
-	// Logger
-	private static final Logger logger = Logger.getLogger(MisCompras.class.getName());
+    // Logger
+    private static final MiLogger miLogger = new MiLogger(MisCompras.class);
 
-	// Otros
-	@Inject
-	private SesionController sc;
-	@EJB
-	private ManejadorDeUsuarios mu;
+    // Otros
+    @Inject
+    private SesionController sc;
+    @EJB
+    private ManejadorDeUsuarios mu;
 
-	// Modelo
-	private List<Fila> filas = new ArrayList<>();
+    // Modelo
+    private List<Fila> filas = new ArrayList<>();
 
-	@PostConstruct
-	public void postConstruct() {
-		logger.info("########## postConstruct");
+    @PostConstruct
+    public void postConstruct() {
+        miLogger.log("postConstruct");
 
-		for (Compra compra : sc.getUsuario().getCompras()) {
-			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = compra.getProducto();
-			Fila fila = new Fila();
-			fila.setDireccionImagen("/img/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
-			fila.setNombreProducto(producto.getNombre());
-			fila.setEstado(compra.getEstado().toString());
-			//logger.info("######### " + fila);
-			filas.add(fila);
-		}
-	}
+        for (Compra compra : sc.getUsuario().getCompras()) {
+            Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
+            Producto producto = compra.getProducto();
+            Fila fila = new Fila();
+            fila.setDireccionImagen("/img/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
+            fila.setNombreProducto(producto.getNombre());
+            fila.setEstado(compra.getEstado().toString());
+            //logger.info("######### " + fila);
+            filas.add(fila);
+        }
+    }
 
-	@PreDestroy
-	public void preDestroy() {
-		logger.info("########## preDestroy");
-	}
+    @PreDestroy
+    public void preDestroy() {
+        miLogger.log("preDestroy");
+    }
 
-	public void actualizar() {
-		Usuario usuarioComprador = sc.getUsuario();
-		logger.info("########## actualizar");
-		for (Compra compra : usuarioComprador.getCompras()) {
-			Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
-			Producto producto = compra.getProducto();
+    public void actualizar() {
+        Usuario usuarioComprador = sc.getUsuario();
+        miLogger.log("actualizar");
+        for (Compra compra : usuarioComprador.getCompras()) {
+            Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
+            Producto producto = compra.getProducto();
 
-			for (Fila fila : filas) {
-				if (producto.getNombre().equals(fila.getNombreProducto())) {
-					if (!compra.getEstado().toString().equals(fila.getEstado())) {
-						logger.info(fila.toString());
+            for (Fila fila : filas) {
+                if (producto.getNombre().equals(fila.getNombreProducto())) {
+                    if (!compra.getEstado().toString().equals(fila.getEstado())) {
+                        miLogger.log(fila.toString());
 
-						compra.setEstado(Estado.TERMINADO);
+                        compra.setEstado(Estado.TERMINADO);
 
-						for (Venta venta : usuarioVendedor.getVentas()) {
-							if (compra.getProducto().equals(venta.getProducto())) {
-								venta.setEstado(Estado.TERMINADO);
-							}
-						}
+                        for (Venta venta : usuarioVendedor.getVentas()) {
+                            if (compra.getProducto().equals(venta.getProducto())) {
+                                venta.setEstado(Estado.TERMINADO);
+                            }
+                        }
 
 						//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-						//EntityManager em = emf.createEntityManager();
-						//EntityTransaction et = em.getTransaction();
-
-						//et.begin();
-						//em.merge(usuarioComprador);
-						mu.mergeUsuario(usuarioComprador);
-						//em.merge(usuarioVendedor);
-						mu.mergeUsuario(usuarioVendedor);
+                        //EntityManager em = emf.createEntityManager();
+                        //EntityTransaction et = em.getTransaction();
+                        //et.begin();
+                        //em.merge(usuarioComprador);
+                        mu.mergeUsuario(usuarioComprador);
+                        //em.merge(usuarioVendedor);
+                        mu.mergeUsuario(usuarioVendedor);
 						//et.commit();
 
-						//em.close();
-						//emf.close();
-					}
-				}
-			}
-		}
-	}
+                        //em.close();
+                        //emf.close();
+                    }
+                }
+            }
+        }
+    }
 
-	public List<Fila> getFilas() {
-		return filas;
-	}
+    public List<Fila> getFilas() {
+        return filas;
+    }
 
-	public void setFilas(List<Fila> filas) {
-		this.filas = filas;
-	}
+    public void setFilas(List<Fila> filas) {
+        this.filas = filas;
+    }
 
 }

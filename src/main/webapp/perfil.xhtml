@@ -13,7 +13,7 @@
 	</ui:define>
 	<ui:define name="content">
 
-		<section  id="section_perfil">
+        <section  id="section_perfil" class="tema">
 			<h1>Perfil</h1>
 			<div>
 				<h2>Campos generales</h2>
@@ -34,7 +34,7 @@
 			</div>
 		</section>
 
-		<section id="section_mis_productos">
+		<section id="section_mis_productos" class="tema">
 			<h1>Mis productos</h1>
 			<h:form id="section_mis_productos_form">
 				<h:commandButton value="Crear" action="crear_producto"/>
@@ -70,7 +70,7 @@
 			</h:form>
 		</section>
 		
-		<section id="section_compras">
+		<section id="section_compras" class="tema">
 			<h1>Mis compras</h1>
 			<h:form id="form_compras">
 				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misCompras.actualizar()}"/>
@@ -102,7 +102,7 @@
 			</h:form>
 		</section>
 
-		<section id="section_ventas">
+		<section id="section_ventas" class="tema">
 			<h1>Mis ventas</h1>
 			<h:form id="form_ventas">
 				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misVentas.actualizar()}"/>

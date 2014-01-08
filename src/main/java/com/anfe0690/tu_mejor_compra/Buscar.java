@@ -8,7 +8,6 @@ package com.anfe0690.tu_mejor_compra;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.ExternalContext;
@@ -28,19 +27,19 @@ import javax.persistence.Query;
 @ViewScoped
 public class Buscar implements Serializable {
 
-	private static final Logger logger = Logger.getLogger(Buscar.class.getName());
+    private static final MiLogger miLogger = new MiLogger(Buscar.class);
 	private List<Resultado> resultados;
 	private String texto;
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.info("############ postConstruct");
+		miLogger.log("postConstruct");
 		resultados = buscarProductos();
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.info("############ preDestroy");
+		miLogger.log("preDestroy");
 	}
 
 	public List<Resultado> getResultados() {

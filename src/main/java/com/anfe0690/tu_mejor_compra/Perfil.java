@@ -5,12 +5,10 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -21,29 +19,29 @@ import javax.inject.Named;
 @RequestScoped
 public class Perfil {
 
-	private static final Logger logger = Logger.getLogger(Perfil.class.getName());
+    private static final MiLogger miLogger = new MiLogger(Perfil.class);
 
-	@EJB
-	private ManejadorDeUsuarios mu;
+    @EJB
+    private ManejadorDeUsuarios mu;
 
-	@PostConstruct
-	public void postConstruct() {
-		logger.info("######### postConstruct");
-	}
+    @PostConstruct
+    public void postConstruct() {
+        miLogger.log("postConstruct");
+    }
 
-	@PreDestroy
-	public void preDestroy() {
-		logger.info("######### preDestroy");
-	}
+    @PreDestroy
+    public void preDestroy() {
+        miLogger.log("preDestroy");
+    }
 
-	public Producto getProductoPorIndice(String usuario, int indice) {
-		Usuario u = mu.buscarUsuarioPorNombre(usuario);
-		return u.getProductos().get(indice);
-	}
+    public Producto getProductoPorIndice(String usuario, int indice) {
+        Usuario u = mu.buscarUsuarioPorNombre(usuario);
+        return u.getProductos().get(indice);
+    }
 
-	public boolean compararEnumCompra(Compra compra, String strEstado) {
-		logger.info("######### compra.getEstado():\"" + compra.getEstado() + "\" strEstado:\"" + strEstado + "\"");
-		return compra.getEstado().toString().equals(strEstado);
-	}
+    public boolean compararEnumCompra(Compra compra, String strEstado) {
+        miLogger.log("compra.getEstado():\"" + compra.getEstado() + "\" strEstado:\"" + strEstado + "\"");
+        return compra.getEstado().toString().equals(strEstado);
+    }
 
 }
