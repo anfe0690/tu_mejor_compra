@@ -170,12 +170,12 @@ public class SesionController implements Serializable {
             //
             usuarioAndres.setCompras(compras);
             usuarioAndres.setVentas(ventas);
-            for(Compra compra:compras){
-                manejadorDeCompras.guardarCompra(compra);
-            }
-            for(Venta venta:ventas){
-                manejadorDeVentas.guardarVenta(venta);
-            }
+//            for(Compra compra:compras){
+//                manejadorDeCompras.guardarCompra(compra);
+//            }
+//            for(Venta venta:ventas){
+//                manejadorDeVentas.guardarVenta(venta);
+//            }
             manejadorDeUsuarios.mergeUsuario(usuarioAndres);
             
             // ################## Carlos
@@ -198,12 +198,12 @@ public class SesionController implements Serializable {
             //
             usuarioCarlos.setCompras(compras);
             usuarioCarlos.setVentas(ventas);
-            for(Compra compra:compras){
-                manejadorDeCompras.guardarCompra(compra);
-            }
-            for(Venta venta:ventas){
-                manejadorDeVentas.guardarVenta(venta);
-            }
+//            for(Compra compra:compras){
+//                manejadorDeCompras.guardarCompra(compra);
+//            }
+//            for(Venta venta:ventas){
+//                manejadorDeVentas.guardarVenta(venta);
+//            }
             manejadorDeUsuarios.mergeUsuario(usuarioCarlos);
             
             // ################## Fernando
@@ -225,13 +225,15 @@ public class SesionController implements Serializable {
             //
             usuarioFernando.setCompras(compras);
             usuarioFernando.setVentas(ventas);
-            for(Compra compra:compras){
-                manejadorDeCompras.guardarCompra(compra);
-            }
-            for(Venta venta:ventas){
-                manejadorDeVentas.guardarVenta(venta);
-            }
+//            for(Compra compra:compras){
+//                manejadorDeCompras.guardarCompra(compra);
+//            }
+//            for(Venta venta:ventas){
+//                manejadorDeVentas.guardarVenta(venta);
+//            }
             manejadorDeUsuarios.mergeUsuario(usuarioFernando);
+            
+            miLogger.log("Usuarios inicializados.");
 		}
 	}
 

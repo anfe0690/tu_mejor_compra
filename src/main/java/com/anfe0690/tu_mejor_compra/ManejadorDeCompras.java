@@ -39,4 +39,9 @@ public class ManejadorDeCompras implements Serializable {
     public void guardarCompra(Compra compra) {
         em.persist(compra);
     }
+
+    public void removeCompra(Compra compra){
+        em.remove(em.find(Compra.class, compra.getId()));
+    }
+
 }

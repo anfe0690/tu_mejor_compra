@@ -38,5 +38,9 @@ public class ManejadorDeVentas {
     public void guardarVenta(Venta venta) {
         em.persist(venta);
     }
+    
+    public void removeVenta(Venta venta){
+        em.remove(em.find(Venta.class, venta.getId()));
+    }
 
 }

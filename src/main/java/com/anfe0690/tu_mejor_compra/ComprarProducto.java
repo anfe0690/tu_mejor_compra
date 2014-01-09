@@ -27,6 +27,10 @@ public class ComprarProducto implements Serializable {
 
     @EJB
     private ManejadorDeUsuarios mdu;
+    @EJB
+    private ManejadorDeCompras manejadorDeCompras;
+    @EJB
+    private ManejadorDeVentas manejadorDeVentas;
     @Inject
     private SesionController sc;
     private Usuario usuarioVendedor;
@@ -79,7 +83,10 @@ public class ComprarProducto implements Serializable {
         venta.setEstado(Estado.ESPERANDO_PAGO);
         usuarioVendedor.getVentas().add(venta);
 
+        //manejadorDeCompras.guardarCompra(compra);
         mdu.mergeUsuario(usuarioComprador);
+        
+        //manejadorDeVentas.guardarVenta(venta);
         mdu.mergeUsuario(usuarioVendedor);
 
         miLogger.log(usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
