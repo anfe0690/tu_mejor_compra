@@ -10,6 +10,10 @@
 	text-align: right;
 }
 
+#sesion #restaurar{
+    display: inline-block;
+}
+
 #sesion_form{
 	display: inline-block;
 }

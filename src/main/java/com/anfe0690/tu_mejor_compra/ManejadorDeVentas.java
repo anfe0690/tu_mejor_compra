@@ -43,4 +43,7 @@ public class ManejadorDeVentas {
         em.remove(em.find(Venta.class, venta.getId()));
     }
 
+    public void mergeVenta(Venta venta){
+        em.merge(venta);
+    }
 }

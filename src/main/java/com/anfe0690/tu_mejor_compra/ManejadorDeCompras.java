@@ -44,4 +44,7 @@ public class ManejadorDeCompras implements Serializable {
         em.remove(em.find(Compra.class, compra.getId()));
     }
 
+    public void mergeCompra(Compra compra){
+        em.merge(compra);
+    }
 }

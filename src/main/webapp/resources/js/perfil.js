@@ -34,11 +34,11 @@ window.onload = function() {
 		return false;
 	}
 
-	// Restaurar productos
-	var button_restaurar = document.getElementById("section_mis_productos_form:boton_restaurar");
+	// Restaurar productos, compras y ventas
+	var button_restaurar = document.getElementById("section_perfil_form:boton_restaurar");
 	button_restaurar.onclick = function (e){
-		var r = confirm("Si continua se eliminara los productos creados\n"
-				+"¿Esta seguro de que desea restaurar los productos originales?");
+		var r = confirm("Si continua se eliminara los productos creados, las compras y ventas agregadas.\n"
+				+"¿Esta seguro de que desea restaurar los productos, compras y ventas?");
 		if (!r) {
 			e.preventDefault();
 		}

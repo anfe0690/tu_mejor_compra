@@ -118,15 +118,10 @@ public class MisProductos implements Serializable {
         misVentas.postConstruct();
     }
 
-    // TODO: Tambien se debe poder restaurar las compras y ventas, ademas de que se duplican algunas entradas
     public void restaurar() {
         FacesContext fc = FacesContext.getCurrentInstance();
 
-        //EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-        //EntityManager em = emf.createEntityManager();
-        //EntityTransaction et = em.getTransaction();
         Usuario usuario = sesionController.getUsuario();
-        //et.begin();
         for (Producto p : usuario.getProductos()) {
             File f = new File("C:\\var\\tuMejorCompra\\img\\" + usuario.getNombre() + "\\" + p.getNombreImagen());
             try {
@@ -152,18 +147,12 @@ public class MisProductos implements Serializable {
             productos.add(restaurarProducto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", Categoria.TABLETAS));
         } else {
             miLogger.log("ERROR. Usuario desconocido: \"" + usuario.getNombre() + "\"");
-            //em.close();
-            //emf.close();
             return;
         }
 
         usuario.setProductos(productos);
-        //em.merge(usuario);
         manejadorDeUsuarios.mergeUsuario(usuario);
-		//et.commit();
-
-        //em.close();
-        //emf.close();
+        
         selProductos.clear();
         for (Producto producto : usuario.getProductos()) {
             selProductos.add(new SelProducto(producto));

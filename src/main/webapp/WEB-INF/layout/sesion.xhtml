@@ -4,6 +4,10 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 	<div id="sesion" class="grid_24 tema" >
+        
+        <h:form id="restaurar" rendered="#{!sesionController.sesionIniciada}">
+            <h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionController.restaurarTodosLosDatos()}"/>
+        </h:form>
 		<button id="ayuda" onclick="alert('Los usuarios y sus respectivas contraseñas son los siguientes:\n\n' +
 						'andres = 123\n' +
 						'carlos = 456\n' +

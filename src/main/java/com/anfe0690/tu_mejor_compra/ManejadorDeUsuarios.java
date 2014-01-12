@@ -41,4 +41,7 @@ public class ManejadorDeUsuarios implements Serializable{
 		}
 	}
 
+    public void removeUsuario(Usuario usuario){
+        em.remove(em.find(Usuario.class, usuario.getNombre()));
+    }
 }
