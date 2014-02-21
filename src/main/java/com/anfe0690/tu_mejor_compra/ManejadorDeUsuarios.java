@@ -1,6 +1,11 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -15,6 +20,16 @@ public class ManejadorDeUsuarios implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(name = "tuMejorCompra")
 	private EntityManager em;
+	
+	@PostConstruct
+	private void postConstruct(){
+		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "postConstruct");
+	}
+	
+	@PreDestroy
+	private void preDestroy(){
+		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "preDestroy");
+	}
 	
 	public void guardarUsuario(Usuario usuario) {
 		em.persist(usuario);

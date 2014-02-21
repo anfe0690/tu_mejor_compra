@@ -2,16 +2,20 @@ package com.anfe0690.tu_mejor_compra.perfil;
 
 import com.anfe0690.tu_mejor_compra.Compra;
 import com.anfe0690.tu_mejor_compra.Estado;
+import com.anfe0690.tu_mejor_compra.ManejadorDeCompras;
 import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.ManejadorDeVentas;
 import com.anfe0690.tu_mejor_compra.Producto;
 import com.anfe0690.tu_mejor_compra.SesionController;
 import com.anfe0690.tu_mejor_compra.Usuario;
 import com.anfe0690.tu_mejor_compra.Venta;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -28,7 +32,11 @@ public class MisVentas implements Serializable {
     private SesionController sc;
     @EJB
     private ManejadorDeUsuarios mu;
-
+    @EJB
+    private ManejadorDeVentas manejadorDeVentas;
+    @EJB
+    private ManejadorDeCompras manejadorDeCompras;
+    
     // Modelo
     private List<Fila> filas = new ArrayList<>();
 
@@ -67,10 +75,14 @@ public class MisVentas implements Serializable {
 						Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, fila.toString());
 
                         venta.setEstado(Estado.EN_ENVIO);
+                        manejadorDeVentas.mergeVenta(venta);
+                        Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, "venta = " + venta);
 
                         for (Compra compra : usuarioComprador.getCompras()) {
-                            if (compra.getProducto().equals(venta.getProducto())) {
+                            if (compra.getProducto().getId() == venta.getProducto().getId()) {
                                 compra.setEstado(Estado.EN_ENVIO);
+                                manejadorDeCompras.mergeCompra(compra);
+                                Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, "compra = " + compra);
                             }
                         }
 
@@ -79,6 +91,16 @@ public class MisVentas implements Serializable {
                     }
                 }
             }
+        }
+        sc.getUsuario().setVentas(mu.buscarUsuarioPorNombre(sc.getUsuario().getNombre()).getVentas());
+        filas.clear();
+        for (Venta venta : sc.getUsuario().getVentas()) {
+            Producto producto = venta.getProducto();
+            Fila fila = new Fila();
+            fila.setDireccionImagen("/imgs/" + sc.getUsuario().getNombre() + "/" + producto.getNombreImagen());
+            fila.setNombreProducto(producto.getNombre());
+            fila.setEstado(venta.getEstado().toString());
+            filas.add(fila);
         }
         return "";
     }

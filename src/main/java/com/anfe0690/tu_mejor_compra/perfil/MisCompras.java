@@ -2,16 +2,20 @@ package com.anfe0690.tu_mejor_compra.perfil;
 
 import com.anfe0690.tu_mejor_compra.Compra;
 import com.anfe0690.tu_mejor_compra.Estado;
+import com.anfe0690.tu_mejor_compra.ManejadorDeCompras;
 import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.ManejadorDeVentas;
 import com.anfe0690.tu_mejor_compra.Producto;
 import com.anfe0690.tu_mejor_compra.SesionController;
 import com.anfe0690.tu_mejor_compra.Usuario;
 import com.anfe0690.tu_mejor_compra.Venta;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -28,6 +32,10 @@ public class MisCompras implements Serializable {
     private SesionController sc;
     @EJB
     private ManejadorDeUsuarios mu;
+    @EJB
+    private ManejadorDeVentas manejadorDeVentas;
+    @EJB
+    private ManejadorDeCompras manejadorDeCompras;
 
     // Modelo
     private List<Fila> filas = new ArrayList<>();
@@ -43,7 +51,6 @@ public class MisCompras implements Serializable {
             fila.setDireccionImagen("/imgs/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
             fila.setNombreProducto(producto.getNombre());
             fila.setEstado(compra.getEstado().toString());
-            //logger.info("######### " + fila);
             filas.add(fila);
         }
     }
@@ -66,10 +73,14 @@ public class MisCompras implements Serializable {
 						Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, fila.toString());
 
                         compra.setEstado(Estado.TERMINADO);
-
+                        manejadorDeCompras.mergeCompra(compra);
+                        Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, "compra = " + compra);
+ 
                         for (Venta venta : usuarioVendedor.getVentas()) {
-                            if (compra.getProducto().equals(venta.getProducto())) {
+                            if (compra.getProducto().getId() == venta.getProducto().getId()) {
                                 venta.setEstado(Estado.TERMINADO);
+                                manejadorDeVentas.mergeVenta(venta);
+                                Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, "venta = " + venta);
                             }
                         }
 
@@ -78,6 +89,17 @@ public class MisCompras implements Serializable {
                     }
                 }
             }
+        }
+        sc.getUsuario().setCompras(mu.buscarUsuarioPorNombre(sc.getUsuario().getNombre()).getCompras());
+        filas.clear();
+        for (Compra compra : sc.getUsuario().getCompras()) {
+            Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
+            Producto producto = compra.getProducto();
+            Fila fila = new Fila();
+            fila.setDireccionImagen("/imgs/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
+            fila.setNombreProducto(producto.getNombre());
+            fila.setEstado(compra.getEstado().toString());
+            filas.add(fila);
         }
         return "";
     }

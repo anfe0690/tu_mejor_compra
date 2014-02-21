@@ -43,7 +43,7 @@ public class Fila implements Serializable{
 
 	@Override
 	public String toString() {
-		return "FilaComprasDataTable{" + "dirImagen=" + direccionImagen + ", nombreProducto=" + nombreProducto + ", estado=" + estado + '}';
+		return "Fila{" + "dirImagen=" + direccionImagen + ", nombreProducto=" + nombreProducto + ", estado=" + estado + '}';
 	}
 
 }

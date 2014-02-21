@@ -1,16 +1,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<header id="header" class="grid_24 tema" >
-		<h:graphicImage name="logo.jpg" library="images" width="310" height="60"/>
-		<!--<h:graphicImage value="/imgs/awesome_face_shades.png" width="310" height="60"/>-->
-		<h:form id="header_form" >
-			<h:commandButton id="boton_buscar" value="Buscar" action="buscar.xhtml"/>
+	<header id="header" class="grid_24 tema">
+		<h:outputLink value="index.xhtml">
+			<h:graphicImage name="logo.jpg" library="images" width="310" height="60" />
+		</h:outputLink>
+		<h:form id="header_form">
+			<h:commandButton id="boton_buscar" value="Buscar" action="buscar.xhtml" />
 			<c:choose>
 				<c:when test="#{(view.viewId != '/buscar.xhtml')}">
-					<h:inputText id="texto_buscar" size="80"/>
+					<h:inputText id="texto_buscar" size="80" />
 				</c:when>
 				<c:otherwise>
 					<h:inputText id="texto_buscar" size="80" value="#{buscar.texto}" />
