@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.ExternalContext;
@@ -15,31 +13,28 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author Andres
- */
 @Named
 @ViewScoped
 public class Buscar implements Serializable {
-
-    private static final MiLogger miLogger = new MiLogger(Buscar.class);
+	
+	private static final long serialVersionUID = 1L;
+	@PersistenceContext
+	private EntityManager em;
 	private List<Resultado> resultados;
 	private String texto;
 
 	@PostConstruct
 	public void postConstruct() {
-		miLogger.log("postConstruct");
+		Logger.getLogger(Buscar.class.getName()).log(Level.INFO, "postConstruct");
 		resultados = buscarProductos();
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		miLogger.log("preDestroy");
+		Logger.getLogger(Buscar.class.getName()).log(Level.INFO, "preDestroy");
 	}
 
 	public List<Resultado> getResultados() {
@@ -64,8 +59,6 @@ public class Buscar implements Serializable {
 
 		List<Resultado> res = new ArrayList<>();
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		List<Usuario> rl = q.getResultList();
 

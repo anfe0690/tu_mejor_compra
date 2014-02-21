@@ -5,6 +5,8 @@
  */
 package com.anfe0690.tu_mejor_compra;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Andres
@@ -18,7 +20,8 @@ public class Resultado {
 	public Resultado(Usuario usuario, Producto producto) {
 		this.usuario = usuario;
 		this.producto = producto;
-		this.indice = usuario.getProductos().indexOf(producto);
+		this.indice = new ArrayList<>(usuario.getProductos()).indexOf(producto);
+//		this.indice = usuario.getProductos().indexOf(producto);
 	}
 
 	public Usuario getUsuario() {

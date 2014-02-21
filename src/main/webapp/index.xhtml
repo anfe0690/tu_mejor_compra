@@ -15,13 +15,14 @@
 			<h1>Productos recientes</h1>
 			<ui:repeat value="#{index.productosRecientes}" var="productoReciente" >
 				<div class="producto_reciente">
-					<h:graphicImage value="/img/#{productoReciente.usuario.nombre}/#{productoReciente.producto.nombreImagen}" width="150" height="150"/>
-					<h:link outcome="producto?u=#{productoReciente.usuario.nombre}&amp;p=#{productoReciente.usuario.productos.indexOf(productoReciente.producto)}" value="#{productoReciente.producto.nombre}" styleClass="nombreResultado"/>
+					<h:graphicImage value="/imgs/#{productoReciente.usuario.nombre}/#{productoReciente.producto.nombreImagen}" width="150" height="150"/>
+					<h:link outcome="producto?u=#{productoReciente.usuario.nombre}&amp;p=#{productoReciente.indiceDeProducto(productoReciente.producto)}" value="#{productoReciente.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>
 						<h:outputText value="#{productoReciente.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>
 					</div>
 				</div>
+				
 			</ui:repeat>
 		</section>
 	</ui:define>

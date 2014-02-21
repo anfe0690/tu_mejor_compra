@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.anfe0690.tu_mejor_compra.perfil;
 
 import com.anfe0690.tu_mejor_compra.Compra;
 import com.anfe0690.tu_mejor_compra.Estado;
 import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.MiLogger;
 import com.anfe0690.tu_mejor_compra.Producto;
 import com.anfe0690.tu_mejor_compra.SesionController;
 import com.anfe0690.tu_mejor_compra.Usuario;
@@ -16,6 +10,8 @@ import com.anfe0690.tu_mejor_compra.Venta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -23,16 +19,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- *
- * @author Andres
- */
 @Named
 @ViewScoped
 public class MisVentas implements Serializable {
-
-    // Logger
-    private static final MiLogger miLogger = new MiLogger(MisVentas.class);
 
     // Otros
     @Inject
@@ -45,14 +34,14 @@ public class MisVentas implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
-        miLogger.log("postConstruct");
+		Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, "postConstruct");
 
         filas.clear();
         for (Venta venta : sc.getUsuario().getVentas()) {
             //Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
             Producto producto = venta.getProducto();
             Fila fila = new Fila();
-            fila.setDireccionImagen("/img/" + sc.getUsuario().getNombre() + "/" + producto.getNombreImagen());
+            fila.setDireccionImagen("/imgs/" + sc.getUsuario().getNombre() + "/" + producto.getNombreImagen());
             fila.setNombreProducto(producto.getNombre());
             fila.setEstado(venta.getEstado().toString());
             filas.add(fila);
@@ -61,11 +50,11 @@ public class MisVentas implements Serializable {
 
     @PreDestroy
     public void preDestroy() {
-        miLogger.log("preDestroy");
+		Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, "preDestroy");
     }
 
-    public void actualizar() {
-        miLogger.log("actualizar");
+    public String actualizar() {
+		Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, "actualizar");
 
         for (Venta venta : sc.getUsuario().getVentas()) {
             Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
@@ -75,7 +64,7 @@ public class MisVentas implements Serializable {
             for (Fila fila : filas) {
                 if (producto.getNombre().equals(fila.getNombreProducto())) {
                     if (!venta.getEstado().toString().equals(fila.getEstado())) {
-                        miLogger.log(fila.toString());
+						Logger.getLogger(MisVentas.class.getName()).log(Level.INFO, fila.toString());
 
                         venta.setEstado(Estado.EN_ENVIO);
 
@@ -85,22 +74,13 @@ public class MisVentas implements Serializable {
                             }
                         }
 
-						//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-                        //EntityManager em = emf.createEntityManager();
-                        //EntityTransaction et = em.getTransaction();
-						//et.begin();
-                        //em.merge(usuarioComprador);
                         mu.mergeUsuario(usuarioComprador);
-                        //em.merge(sc.getUsuario());
                         mu.mergeUsuario(sc.getUsuario());
-						//et.commit();
-
-						//em.close();
-                        //emf.close();
                     }
                 }
             }
         }
+        return "";
     }
 
     public List<Fila> getFilas() {

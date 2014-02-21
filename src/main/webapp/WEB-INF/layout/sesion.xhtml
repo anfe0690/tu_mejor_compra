@@ -2,40 +2,42 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<div id="sesion" class="grid_24 tema">
 
-	<div id="sesion" class="grid_24 tema" >
-        
-        <h:form id="restaurar" rendered="#{!sesionController.sesionIniciada}">
-            <h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionController.restaurarTodosLosDatos()}"/>
-        </h:form>
-		<button id="ayuda" onclick="alert('Los usuarios y sus respectivas contraseñas son los siguientes:\n\n' +
+		<h:form id="restaurar" rendered="#{!sesionController.sesionIniciada}">
+			<h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionController.restaurarTodosLosDatos()}" />
+		</h:form>
+		<button id="ayuda"
+			onclick="alert('Los usuarios y sus respectivas contraseñas son los siguientes:\n\n' +
 						'andres = 123\n' +
 						'carlos = 456\n' +
-						'fernando = 789\n');">Ayuda</button>		
+						'fernando = 789\n');">Ayuda</button>
 		<h:form id="sesion_form">
 			<c:choose>
 				<c:when test="#{!sesionController.sesionIniciada}">
 
-					<h:message for="input_sesion" styleClass="error_message" showSummary="true" showDetail="false"/>
-					<h:inputHidden id="input_sesion" value="vacio"/>
+					<h:message for="input_sesion" styleClass="error_message" showSummary="true" showDetail="false" />
+					<h:inputHidden id="input_sesion" value="vacio" />
 
-					<h:outputLabel value="Usuario"/>
-					<h:message for="input_usuario" styleClass="error_message" showSummary="true" showDetail="false"/>
-					<h:inputText id="input_usuario" value="#{sesionController.campoNombreUsuario}" required="true" requiredMessage="*Campo obligatorio"/>
+					<h:outputLabel value="Usuario" />
+					<h:message for="input_usuario" styleClass="error_message" showSummary="true" showDetail="false" />
+					<h:inputText id="input_usuario" value="#{sesionController.campoNombreUsuario}" required="true"
+						requiredMessage="*Campo obligatorio" />
 
-					<h:outputLabel value="Contraseña"/>
-					<h:message for="input_contrasena" styleClass="error_message" showSummary="true" showDetail="false"/>
-					<h:inputSecret id="input_contrasena" value="#{sesionController.campoContrasena}" required="true" requiredMessage="*Campo obligatorio"/>
+					<h:outputLabel value="Contraseña" />
+					<h:message for="input_contrasena" styleClass="error_message" showSummary="true" showDetail="false" />
+					<h:inputSecret id="input_contrasena" value="#{sesionController.campoContrasena}" required="true"
+						requiredMessage="*Campo obligatorio" />
 
-					<h:commandButton id="boton_iniciar_sesion" value="Iniciar sesion"  action="#{sesionController.iniciarSesion()}"/>
+					<h:commandButton id="boton_iniciar_sesion" value="Iniciar sesion" action="#{sesionController.iniciarSesion()}" />
 
 				</c:when>
 				<c:otherwise>
 					<h:outputLabel id="label_usuario" value="#{sesionController.usuario.nombre}" />
 					<c:if test="#{view.viewId != '/perfil.xhtml'}">
-						<h:commandLink value="Perfil" action="perfil" style="margin: 0px 20px 0px 0px;"/>
+						<h:commandLink value="Perfil" action="perfil" style="margin: 0px 20px 0px 0px;" />
 					</c:if>
-					<h:commandButton value="Cerrar sesion" action="#{sesionController.cerrarSesion()}"/>
+					<h:commandButton value="Cerrar sesion" action="#{sesionController.cerrarSesion()}" />
 				</c:otherwise>
 			</c:choose>
 		</h:form>

@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -30,108 +32,106 @@ import javax.servlet.http.Part;
 @ViewScoped
 public class CrearProducto implements Serializable {
 
-    private static final MiLogger miLogger = new MiLogger(CrearProducto.class);
+	@Inject
+	private SesionController sesionController;
+	private Part file;
+	private String nombre;
+	private String precio;
+	private String categoria;
 
-    @Inject
-    private SesionController sesionController;
-    private Part file;
-    private String nombre;
-    private String precio;
-    private String categoria;
+	@EJB
+	private ManejadorDeUsuarios mu;
 
-    @EJB
-    private ManejadorDeUsuarios mu;
+	@PostConstruct
+	public void postConstruct() {
+		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "postConstruct");
+	}
 
-    @PostConstruct
-    public void postConstruct() {
-        miLogger.log("postConstruct");
-    }
+	@PreDestroy
+	public void preDestroy() {
+		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "preDestroy");
+	}
 
-    @PreDestroy
-    public void preDestroy() {
-        miLogger.log("preDestroy");
-    }
+	public Part getFile() {
+		return file;
+	}
 
-    public Part getFile() {
-        return file;
-    }
+	public void setFile(Part file) {
+		this.file = file;
+	}
 
-    public void setFile(Part file) {
-        this.file = file;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getPrecio() {
+		return precio;
+	}
 
-    public String getPrecio() {
-        return precio;
-    }
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
 
-    public void setPrecio(String precio) {
-        this.precio = precio;
-    }
+	public String getCategoria() {
+		return categoria;
+	}
 
-    public String getCategoria() {
-        return categoria;
-    }
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String crearProducto() {
-        nombre = nombre.trim();
-        precio = precio.trim();
+	public String crearProducto() {
+		nombre = nombre.trim();
+		precio = precio.trim();
         //logger.info("############## file.getHeader(\"content-disposition\")=" + file.getHeader("content-disposition"));
-        // form-data; name="form_crear_producto:file"; filename="Crysis.jpg"
-        Pattern p = Pattern.compile(".*filename\\=\"(.*)\"");
-        Matcher m = p.matcher(file.getHeader("content-disposition"));
-        m.find();
-        //logger.info("############## m.find()=" + m.find());
-        String fileName = m.group(1);
-        //logger.info("############## fileName=" + fileName);
+		// form-data; name="form_crear_producto:file"; filename="Crysis.jpg"
+		Pattern p = Pattern.compile(".*filename\\=\"(.*)\"");
+		Matcher m = p.matcher(file.getHeader("content-disposition"));
+		m.find();
+		//logger.info("############## m.find()=" + m.find());
+		String fileName = m.group(1);
+		//logger.info("############## fileName=" + fileName);
 
-        Usuario usuario = sesionController.getUsuario();
-        for (Producto producto : usuario.getProductos()) {
-            if (producto.getNombre().equalsIgnoreCase(nombre) || producto.getNombreImagen().equalsIgnoreCase(fileName)) {
-                miLogger.log("Intento de agregar un producto con valores ya encontrados en la base de datos: \"" + nombre + "\" y \"" + fileName + "\"");
-                return "perfil";
-            }
-        }
+		Usuario usuario = sesionController.getUsuario();
+		for (Producto producto : usuario.getProductos()) {
+			if (producto.getNombre().equalsIgnoreCase(nombre) || producto.getNombreImagen().equalsIgnoreCase(fileName)) {
+				Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "Intento de agregar un producto con valores ya encontrados en la base de datos: \"" + nombre + "\" y \"" + fileName + "\"");
+				return "perfil";
+			}
+		}
 
-        File f = new File("C:\\var\\tuMejorCompra\\img\\" + sesionController.getUsuario().getNombre() + "\\" + fileName);
-        try {
-            f.createNewFile();
-            OutputStream os = new FileOutputStream(f);
-            InputStream is = file.getInputStream();
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = is.read(buf)) > 0) {
-                os.write(buf, 0, len);
-            }
-            os.close();
-            is.close();
-        } catch (IOException ex) {
-            miLogger.error(ex);
-            return null;
-        }
-        Producto producto = new Producto();
-        producto.setNombreImagen(fileName);
-        producto.setNombre(nombre);
-        producto.setPrecio(precio);
-        producto.setFechaDeCreacion(new Date());
-        producto.setCategoria(Categoria.valueOf(categoria));
+		File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "\\" + fileName);
+		try {
+			f.createNewFile();
+			OutputStream os = new FileOutputStream(f);
+			InputStream is = file.getInputStream();
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = is.read(buf)) > 0) {
+				os.write(buf, 0, len);
+			}
+			os.close();
+			is.close();
+		} catch (IOException ex) {
+			Logger.getLogger(CrearProducto.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
+		Producto producto = new Producto();
+		producto.setNombreImagen(fileName);
+		producto.setNombre(nombre);
+		producto.setPrecio(precio);
+		producto.setFechaDeCreacion(new Date());
+		producto.setCategoria(Categoria.valueOf(categoria));
 
-        usuario.getProductos().add(producto);
-        mu.mergeUsuario(usuario);
+		usuario.getProductos().add(producto);
+		mu.mergeUsuario(usuario);
 
-        miLogger.log("Producto \"" + producto.getNombre() + "\" creado");
+		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "Producto \"" + producto.getNombre() + "\" creado");
 
-        return "perfil";
-    }
+		return "perfil";
+	}
 }

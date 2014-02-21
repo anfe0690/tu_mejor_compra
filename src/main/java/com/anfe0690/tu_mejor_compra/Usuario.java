@@ -1,32 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Named;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-/**
- *
- * @author Andres
- */
 @Entity
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 1L;
 
 	// Campos generales
 	@Id
@@ -51,14 +40,14 @@ public class Usuario implements Serializable {
 	@Column(length = 20)
 	private String numeroCuenta;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Producto> productos;
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<Producto> productos;
 
-	@OneToMany
-	private List<Compra> compras;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Compra> compras;
 
-	@OneToMany
-	private List<Venta> ventas;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Venta> ventas;
 
 	public String getNombre() {
 		return nombre;
@@ -132,27 +121,27 @@ public class Usuario implements Serializable {
 		this.numeroCuenta = numeroCuenta;
 	}
 
-	public List<Producto> getProductos() {
+	public Set<Producto> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(List<Producto> productos) {
+	public void setProductos(Set<Producto> productos) {
 		this.productos = productos;
 	}
 
-	public List<Compra> getCompras() {
+	public Set<Compra> getCompras() {
 		return compras;
 	}
 
-	public void setCompras(List<Compra> compras) {
+	public void setCompras(Set<Compra> compras) {
 		this.compras = compras;
 	}
 
-	public List<Venta> getVentas() {
+	public Set<Venta> getVentas() {
 		return ventas;
 	}
 
-	public void setVentas(List<Venta> ventas) {
+	public void setVentas(Set<Venta> ventas) {
 		this.ventas = ventas;
 	}
 

@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.anfe0690.tu_mejor_compra.perfil;
 
 import com.anfe0690.tu_mejor_compra.Compra;
 import com.anfe0690.tu_mejor_compra.Estado;
 import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.MiLogger;
 import com.anfe0690.tu_mejor_compra.Producto;
 import com.anfe0690.tu_mejor_compra.SesionController;
 import com.anfe0690.tu_mejor_compra.Usuario;
@@ -16,6 +10,8 @@ import com.anfe0690.tu_mejor_compra.Venta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -23,16 +19,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- *
- * @author Andres
- */
 @Named
 @ViewScoped
 public class MisCompras implements Serializable {
-
-    // Logger
-    private static final MiLogger miLogger = new MiLogger(MisCompras.class);
 
     // Otros
     @Inject
@@ -45,13 +34,13 @@ public class MisCompras implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
-        miLogger.log("postConstruct");
+		Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, "postConstruct");
 
         for (Compra compra : sc.getUsuario().getCompras()) {
             Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
             Producto producto = compra.getProducto();
             Fila fila = new Fila();
-            fila.setDireccionImagen("/img/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
+            fila.setDireccionImagen("/imgs/" + usuarioVendedor.getNombre() + "/" + producto.getNombreImagen());
             fila.setNombreProducto(producto.getNombre());
             fila.setEstado(compra.getEstado().toString());
             //logger.info("######### " + fila);
@@ -61,12 +50,12 @@ public class MisCompras implements Serializable {
 
     @PreDestroy
     public void preDestroy() {
-        miLogger.log("preDestroy");
+		Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, "preDestroy");
     }
 
-    public void actualizar() {
+    public String actualizar() {
         Usuario usuarioComprador = sc.getUsuario();
-        miLogger.log("actualizar");
+		Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, "actualizar");
         for (Compra compra : usuarioComprador.getCompras()) {
             Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
             Producto producto = compra.getProducto();
@@ -74,7 +63,7 @@ public class MisCompras implements Serializable {
             for (Fila fila : filas) {
                 if (producto.getNombre().equals(fila.getNombreProducto())) {
                     if (!compra.getEstado().toString().equals(fila.getEstado())) {
-                        miLogger.log(fila.toString());
+						Logger.getLogger(MisCompras.class.getName()).log(Level.INFO, fila.toString());
 
                         compra.setEstado(Estado.TERMINADO);
 
@@ -84,22 +73,13 @@ public class MisCompras implements Serializable {
                             }
                         }
 
-						//EntityManagerFactory emf = Persistence.createEntityManagerFactory("tuMejorCompra");
-                        //EntityManager em = emf.createEntityManager();
-                        //EntityTransaction et = em.getTransaction();
-                        //et.begin();
-                        //em.merge(usuarioComprador);
                         mu.mergeUsuario(usuarioComprador);
-                        //em.merge(usuarioVendedor);
                         mu.mergeUsuario(usuarioVendedor);
-						//et.commit();
-
-                        //em.close();
-                        //emf.close();
                     }
                 }
             }
         }
+        return "";
     }
 
     public List<Fila> getFilas() {
