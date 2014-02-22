@@ -94,12 +94,20 @@ public class MisProductos implements Serializable {
 				}
 				// Remover de la colleccion el producto
 				usuario.getProductos().remove(producto);
+				Logger.getLogger(MisProductos.class.getName()).log(
+						Level.INFO,
+						"manejadorDeProductos.obtenerProductoPorId(producto.getId()) = "
+								+ manejadorDeProductos.obtenerProductoPorId(producto.getId()));
 				manejadorDeUsuarios.mergeUsuario(usuario);
-				manejadorDeProductos.removerProducto(producto);
+				Logger.getLogger(MisProductos.class.getName()).log(
+						Level.INFO,
+						"manejadorDeProductos.obtenerProductoPorId(producto.getId()) = "
+								+ manejadorDeProductos.obtenerProductoPorId(producto.getId()));
+				// manejadorDeProductos.removerProducto(producto);
 				// Remover de selProductos
 				it.remove();
 				File f =
-						new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "\\"
+						new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "/"
 								+ producto.getNombreImagen());
 				try {
 					Files.deleteIfExists(f.toPath());
@@ -154,7 +162,7 @@ public class MisProductos implements Serializable {
 			return;
 		}
 		usuario.setProductos(new HashSet<>(productos));
-//		usuario.setProductos(productos);
+		// usuario.setProductos(productos);
 		manejadorDeUsuarios.mergeUsuario(usuario);
 		selProductos.clear();
 		for (Producto producto : usuario.getProductos()) {

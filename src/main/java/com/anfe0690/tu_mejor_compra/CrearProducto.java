@@ -104,7 +104,8 @@ public class CrearProducto implements Serializable {
 			}
 		}
 
-		File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "\\" + fileName);
+		File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "/" + fileName);
+		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "f = " + f);
 		try {
 			f.createNewFile();
 			OutputStream os = new FileOutputStream(f);

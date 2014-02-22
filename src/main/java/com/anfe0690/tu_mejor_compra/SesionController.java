@@ -3,6 +3,7 @@ package com.anfe0690.tu_mejor_compra;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -258,8 +259,16 @@ public class SesionController implements Serializable {
 
 	private void crearImagen(Usuario usuario, Producto producto) {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		String dirOrigenBase = ec.getRealPath("resources\\images\\restaurar") + "\\" + usuario.getNombre() + "\\";
-		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS) + usuario.getNombre() + "\\";
+//		String dirOrigenBase = ec.getRealPath("resources\\images\\restaurar") + "\\" + usuario.getNombre() + "\\";
+		String dirOrigenBase = null;
+		try {
+			dirOrigenBase = ec.getResource("/resources/images/restaurar/" + usuario.getNombre() + "/").getPath();
+		} catch (MalformedURLException e) {
+			Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, e);
+		}
+		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "dirOrigenBase = " + dirOrigenBase);
+		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS) + usuario.getNombre() + "/";
+		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "dirDestinoBase = " + dirDestinoBase);
 		File fOrigen = new File(dirOrigenBase + producto.getNombreImagen());
 		File fDestino = new File(dirDestinoBase + producto.getNombreImagen());
 		if (!fDestino.exists()) {
