@@ -4,9 +4,7 @@
 	<persistence-unit name="tuMejorCompra" transaction-type="JTA">
 		<!-- Local Glassfish -->
 		<!-- <jta-data-source>jdbc/TuMejorCompra</jta-data-source> -->
-		<!-- Local Wildfly -->
-<!-- 		<jta-data-source>java:/jboss/datasources/TuMejorCompra</jta-data-source> -->
-		<!-- Openshift Wildfly -->
+		<!-- Wildfly -->
 		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
