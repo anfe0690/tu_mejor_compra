@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,4 +61,5 @@ public class ManejadorDeUsuarios implements Serializable {
 						.setParameter("productoId", productoId);
 		return typedQuery.getSingleResult();
 	}
+
 }

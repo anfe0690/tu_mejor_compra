@@ -40,7 +40,7 @@ public class CrearProducto implements Serializable {
 	private String categoria;
 
 	@EJB
-	private ManejadorDeUsuarios mu;
+	private ManejadorDeUsuarios manejadorDeUsuarios;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -129,9 +129,10 @@ public class CrearProducto implements Serializable {
 		producto.setCategoria(Categoria.valueOf(categoria));
 
 		usuario.getProductos().add(producto);
-		mu.mergeUsuario(usuario);
+		manejadorDeUsuarios.mergeUsuario(usuario);
+		usuario.setProductos(manejadorDeUsuarios.buscarUsuarioPorNombre(usuario.getNombre()).getProductos());
 
-		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "Producto \"" + producto.getNombre() + "\" creado");
+		Logger.getLogger(CrearProducto.class.getName()).log(Level.INFO, "Creado producto: " + producto.getNombre());
 
 		return "perfil";
 	}

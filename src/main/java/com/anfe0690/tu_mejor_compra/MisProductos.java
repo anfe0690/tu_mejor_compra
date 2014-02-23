@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -93,17 +94,14 @@ public class MisProductos implements Serializable {
 					}
 				}
 				// Remover de la colleccion el producto
-				usuario.getProductos().remove(producto);
-				Logger.getLogger(MisProductos.class.getName()).log(
-						Level.INFO,
-						"manejadorDeProductos.obtenerProductoPorId(producto.getId()) = "
-								+ manejadorDeProductos.obtenerProductoPorId(producto.getId()));
+				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
+						"Arrays.toString(usuario.getProductos().toArray()) = " + Arrays.toString(usuario.getProductos().toArray()));
+				boolean res = usuario.getProductos().remove(producto);
+				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "res = " + res);
+				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
+						"Arrays.toString(usuario.getProductos().toArray()) = " + Arrays.toString(usuario.getProductos().toArray()));
 				manejadorDeUsuarios.mergeUsuario(usuario);
-				Logger.getLogger(MisProductos.class.getName()).log(
-						Level.INFO,
-						"manejadorDeProductos.obtenerProductoPorId(producto.getId()) = "
-								+ manejadorDeProductos.obtenerProductoPorId(producto.getId()));
-				// manejadorDeProductos.removerProducto(producto);
+				 manejadorDeProductos.removerProducto(producto);
 				// Remover de selProductos
 				it.remove();
 				File f =
