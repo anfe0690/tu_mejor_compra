@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,9 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 @Stateless
 @LocalBean
@@ -38,6 +42,7 @@ public class ManejadorDeUsuarios implements Serializable {
 	}
 
 	public void mergeUsuario(Usuario usuario) {
+		entityManager.flush();
 		entityManager.merge(usuario);
 	}
 
@@ -62,4 +67,13 @@ public class ManejadorDeUsuarios implements Serializable {
 		return typedQuery.getSingleResult();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public void refreshUsuario(Usuario usuario){
+		Usuario usuarioRefrescado = entityManager.find(Usuario.class, usuario.getNombre());
+		try {
+			PropertyUtils.copyProperties(usuario, usuarioRefrescado);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.SEVERE, null, e);
+		}
+	}
 }

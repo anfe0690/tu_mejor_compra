@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.TypedQuery;
 
 @Named
 @ViewScoped
@@ -61,14 +62,14 @@ public class MisProductos implements Serializable {
 	}
 
 	public void eliminarProductos() {
-		Usuario usuario = sesionController.getUsuario();
+		Usuario usuarioVendedor = sesionController.getUsuario();
 		Iterator<SelProducto> it = selProductos.iterator();
 		while (it.hasNext()) {
 			SelProducto sp = it.next();
 			if (sp.isSeleccionado()) {
 				Producto producto = sp.getProducto();
 				// Remover ventas relacionadas
-				Iterator<Venta> ventasIt = usuario.getVentas().iterator();
+				Iterator<Venta> ventasIt = usuarioVendedor.getVentas().iterator();
 				while (ventasIt.hasNext()) {
 					Venta venta = ventasIt.next();
 					if (venta.getProducto().equals(producto)) {
@@ -77,7 +78,7 @@ public class MisProductos implements Serializable {
 						// Remover compras relacionadas
 						while (comprasIt.hasNext()) {
 							Compra compra = comprasIt.next();
-							if (compra.getVendedor().equals(usuario.getNombre())
+							if (compra.getVendedor().equals(usuarioVendedor.getNombre())
 									&& compra.getProducto().getId() == venta.getProducto().getId()) {
 								// Remover de la colleccion la compra
 								comprasIt.remove();
@@ -87,23 +88,25 @@ public class MisProductos implements Serializable {
 							}
 						}
 						// Remover de la colleccion la venta
+//						Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
+//								"Ventas: " + Arrays.toString(usuarioVendedor.getVentas().toArray()));
 						ventasIt.remove();
-						manejadorDeUsuarios.mergeUsuario(usuario);
+						manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 						manejadorDeVentas.removeVenta(venta);
 						Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "Eliminada venta: " + venta);
 					}
 				}
-				// Remover de la colleccion el producto
-				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-						"Arrays.toString(usuario.getProductos().toArray()) = " + Arrays.toString(usuario.getProductos().toArray()));
-				boolean res = usuario.getProductos().remove(producto);
-				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "res = " + res);
-				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-						"Arrays.toString(usuario.getProductos().toArray()) = " + Arrays.toString(usuario.getProductos().toArray()));
-				manejadorDeUsuarios.mergeUsuario(usuario);
-				 manejadorDeProductos.removerProducto(producto);
+				usuarioVendedor.setVentas(manejadorDeUsuarios.buscarUsuarioPorNombre(usuarioVendedor.getNombre()).getVentas());
+//				manejadorDeUsuarios.refreshUsuario(usuarioVendedor);
 				// Remover de selProductos
 				it.remove();
+				// Remover de la colleccion el producto
+				boolean res = usuarioVendedor.getProductos().remove(producto);
+//				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
+//						"Ventas: " + Arrays.toString(usuarioVendedor.getVentas().toArray()));
+				manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
+				manejadorDeProductos.removerProducto(producto);
+				
 				File f =
 						new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "/"
 								+ producto.getNombreImagen());

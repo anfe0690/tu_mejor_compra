@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 @LocalBean
@@ -40,4 +42,5 @@ public class ManejadorDeVentas implements Serializable{
     public void mergeVenta(Venta venta){
         em.merge(venta);
     }
+    
 }

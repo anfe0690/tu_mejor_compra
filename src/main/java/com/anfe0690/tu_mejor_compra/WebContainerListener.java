@@ -1,5 +1,6 @@
 package com.anfe0690.tu_mejor_compra;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,11 +26,12 @@ public class WebContainerListener implements ServletContextListener {
 		} else {
 			System.setProperty(DIR_DATOS, "C:\\Users\\Andres\\Downloads\\test\\TuMejorCompra\\img\\");
 		}
-//		TypedQuery<Usuario> typedQuery = entityManager.createQuery(
-//				"SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :productoId"
-//				, Usuario.class).setParameter("productoId", 5L);
-//		Logger.getLogger(WebContainerListener.class.getName()).log(Level.INFO,
-//				"typedQuery.getSingleResult() = " + typedQuery.getSingleResult());
+		// TypedQuery<Usuario> typedQuery = entityManager.createQuery(
+		// "SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :productoId"
+		// , Usuario.class).setParameter("productoId", 5L);
+		// Logger.getLogger(WebContainerListener.class.getName()).log(Level.INFO,
+		// "typedQuery.getSingleResult() = " + typedQuery.getSingleResult());
+		
 	}
 
 	@Override
