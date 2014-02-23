@@ -20,7 +20,7 @@ import javax.inject.Named;
 public class ComprarProducto implements Serializable {
 
 	@EJB
-	private ManejadorDeUsuarios mdu;
+	private ManejadorDeUsuarios manejadorDeUsuarios;
 	@EJB
 	private ManejadorDeProductos manejadorDeProductos;
 	@EJB
@@ -36,22 +36,18 @@ public class ComprarProducto implements Serializable {
 	public void postConstruct() {
 		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "postConstruct");
 		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		
-//		String nombreUsuario = pm.get("u");
-//		String indiceProducto = pm.get("p");
-//		usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
-//		producto = new ArrayList<>(usuarioVendedor.getProductos()).get(Integer.parseInt(indiceProducto));
-		
+		// String nombreUsuario = pm.get("u");
+		// String indiceProducto = pm.get("p");
+		// usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
+		// producto = new ArrayList<>(usuarioVendedor.getProductos()).get(Integer.parseInt(indiceProducto));
 		String productoId = pm.get("pid");
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
-		usuarioVendedor = mdu.getUsuarioPadreDeProducto(Long.parseLong(productoId));
-		
+		usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
 	}
 
 	@PreDestroy
 	public void preDestroy() {
 		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "preDestroy");
-
 	}
 
 	public Usuario getUsuarioVendedor() {
@@ -71,27 +67,28 @@ public class ComprarProducto implements Serializable {
 	}
 
 	public String comprar() {
+		// Compra
 		Usuario usuarioComprador = sc.getUsuario();
 		Compra compra = new Compra();
 		compra.setVendedor(usuarioVendedor.getNombre());
 		compra.setProducto(producto);
 		compra.setEstado(Estado.ESPERANDO_PAGO);
+		manejadorDeCompras.guardarCompra(compra);
+		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "compra : " + compra);
 		usuarioComprador.getCompras().add(compra);
-
+		manejadorDeUsuarios.mergeUsuario(usuarioComprador);
+		// Venta
 		Venta venta = new Venta();
 		venta.setComprador(usuarioComprador.getNombre());
 		venta.setProducto(producto);
 		venta.setEstado(Estado.ESPERANDO_PAGO);
+		manejadorDeVentas.guardarVenta(venta);
+		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "venta: " + venta);
 		usuarioVendedor.getVentas().add(venta);
+		manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 
-		//manejadorDeCompras.guardarCompra(compra);
-		mdu.mergeUsuario(usuarioComprador);
-
-		//manejadorDeVentas.guardarVenta(venta);
-		mdu.mergeUsuario(usuarioVendedor);
-
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, usuarioComprador.getNombre() + " compro \"" + producto.getNombre() + "\" de " + usuarioVendedor.getNombre());
+		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO,
+				"Usuario " + usuarioComprador.getNombre() + " compro " + producto.getNombre());
 		return "perfil";
 	}
-
 }
