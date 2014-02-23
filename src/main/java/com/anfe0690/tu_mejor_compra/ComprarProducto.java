@@ -22,6 +22,8 @@ public class ComprarProducto implements Serializable {
 	@EJB
 	private ManejadorDeUsuarios mdu;
 	@EJB
+	private ManejadorDeProductos manejadorDeProductos;
+	@EJB
 	private ManejadorDeCompras manejadorDeCompras;
 	@EJB
 	private ManejadorDeVentas manejadorDeVentas;
@@ -34,13 +36,16 @@ public class ComprarProducto implements Serializable {
 	public void postConstruct() {
 		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "postConstruct");
 		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		//logger.info("usuario: " + pm.get("u") + " - indiceProducto: " + pm.get("p"));
-		String nombreUsuario = pm.get("u");
-		String indiceProducto = pm.get("p");
-
-		usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
-		producto = new ArrayList<>(usuarioVendedor.getProductos()).get(Integer.parseInt(indiceProducto));
-//		producto = usuarioVendedor.getProductos().get(Integer.parseInt(indiceProducto));
+		
+//		String nombreUsuario = pm.get("u");
+//		String indiceProducto = pm.get("p");
+//		usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
+//		producto = new ArrayList<>(usuarioVendedor.getProductos()).get(Integer.parseInt(indiceProducto));
+		
+		String productoId = pm.get("pid");
+		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
+		usuarioVendedor = mdu.getUsuarioPadreDeProducto(Long.parseLong(productoId));
+		
 	}
 
 	@PreDestroy

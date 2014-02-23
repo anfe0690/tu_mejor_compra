@@ -16,7 +16,8 @@
 			<ui:repeat value="#{buscar.resultados}" var="resultado" >
 				<div id="resultado">
 					<h:graphicImage value="/imgs/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150"/>
-					<h:link outcome="producto?u=#{resultado.usuario.nombre}&amp;p=#{resultado.indice}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
+<!-- 					<h:link outcome="producto?u=#{resultado.usuario.nombre}&amp;p=#{resultado.indice}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/> -->
+					<h:link outcome="producto?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>
 						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>

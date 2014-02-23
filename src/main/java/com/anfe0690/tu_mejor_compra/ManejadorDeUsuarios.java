@@ -12,43 +12,52 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 @LocalBean
-public class ManejadorDeUsuarios implements Serializable{
-	
+public class ManejadorDeUsuarios implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(name = "tuMejorCompra")
-	private EntityManager em;
-	
+	private EntityManager entityManager;
+
 	@PostConstruct
-	private void postConstruct(){
+	private void postConstruct() {
 		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "postConstruct");
 	}
-	
+
 	@PreDestroy
-	private void preDestroy(){
+	private void preDestroy() {
 		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "preDestroy");
 	}
-	
+
 	public void guardarUsuario(Usuario usuario) {
-		em.persist(usuario);
+		entityManager.persist(usuario);
 	}
-	
-	public void mergeUsuario(Usuario usuario){
-		em.merge(usuario);
+
+	public void mergeUsuario(Usuario usuario) {
+		entityManager.merge(usuario);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public Usuario buscarUsuarioPorNombre(String nombre) throws IllegalArgumentException {
 		try {
-			return em.find(Usuario.class, nombre.toLowerCase());
+			return entityManager.find(Usuario.class, nombre.toLowerCase());
 		} catch (IllegalArgumentException e) {
 			throw e;
 		}
 	}
 
-    public void removeUsuario(Usuario usuario){
-        em.remove(em.find(Usuario.class, usuario.getNombre()));
-    }
+	public void removeUsuario(Usuario usuario) {
+		entityManager.remove(entityManager.find(Usuario.class, usuario.getNombre()));
+	}
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public Usuario getUsuarioPadreDeProducto(long productoId) {
+		TypedQuery<Usuario> typedQuery =
+				entityManager.createQuery("SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :productoId", Usuario.class)
+						.setParameter("productoId", productoId);
+		return typedQuery.getSingleResult();
+	}
 }
