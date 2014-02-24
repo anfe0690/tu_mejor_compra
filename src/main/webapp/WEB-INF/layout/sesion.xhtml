@@ -4,9 +4,10 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 	<div id="sesion" class="grid_24 tema">
 
-		<h:form id="restaurar" rendered="#{!sesionController.sesionIniciada}">
-			<h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionController.restaurarTodosLosDatos()}" />
-		</h:form>
+<!-- 		<h:form id="restaurar" rendered="#{!sesionController.sesionIniciada}"> -->
+<!-- 			<h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionController.restaurarTodosLosDatos()}" /> -->
+<!-- 		</h:form> -->
+		
 		<h:panelGroup rendered="#{!sesionController.sesionIniciada}">
 			<button id="contrasenas">Contraseñas</button>
 		</h:panelGroup>
@@ -16,7 +17,6 @@
 
 					<h:message for="input_sesion" styleClass="error_message" showSummary="true" showDetail="false" />
 					<h:inputHidden id="input_sesion" value="vacio" />
-
 					<h:outputLabel value="Usuario" />
 					<h:message for="input_usuario" styleClass="error_message" showSummary="true" showDetail="false" />
 					<h:inputText id="input_usuario" value="#{sesionController.campoNombreUsuario}" required="true"
