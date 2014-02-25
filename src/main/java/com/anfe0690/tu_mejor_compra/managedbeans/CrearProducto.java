@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.managedbeans;
 
+import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.entity.Categoria;
+import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

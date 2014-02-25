@@ -1,6 +1,16 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.perfil.MisVentas;
+import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.managedbeans.md.SelProducto;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeCompras;
+import com.anfe0690.tu_mejor_compra.entity.Categoria;
+import com.anfe0690.tu_mejor_compra.entity.Compra;
+import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Venta;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
 
 import java.io.File;
 import java.io.Serializable;

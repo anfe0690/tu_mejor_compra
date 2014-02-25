@@ -1,5 +1,9 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.managedbeans;
 
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.entity.Compra;
+import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

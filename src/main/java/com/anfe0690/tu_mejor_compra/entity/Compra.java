@@ -1,8 +1,10 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.entity;
 
+import com.anfe0690.tu_mejor_compra.entity.Producto;
 import java.io.Serializable;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,16 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Venta implements Serializable {
+public class Compra implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private long id;
 	@Column(length = 20)
-	private String comprador;
+	private String vendedor;
 	@OneToOne
-	private Producto producto;
+	private Producto producto; 
 	@Column(length = 20)
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
@@ -33,12 +34,12 @@ public class Venta implements Serializable {
 		this.id = id;
 	}
 
-	public String getComprador() {
-		return comprador;
+	public String getVendedor() {
+		return vendedor;
 	}
 
-	public void setComprador(String comprador) {
-		this.comprador = comprador;
+	public void setVendedor(String vendedor) {
+		this.vendedor = vendedor;
 	}
 
 	public Producto getProducto() {
@@ -59,7 +60,7 @@ public class Venta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Venta{" + "id=" + id + ", comprador=" + comprador + ", producto=" + producto.getId() + ", estado=" + estado + '}';
+		return "Compra{" + "id=" + id + ", vendedor=" + vendedor + ", producto=" + producto.getId() + ", estado=" + estado + '}';
 	}
 
 }

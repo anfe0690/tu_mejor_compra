@@ -1,5 +1,6 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.ejb;
 
+import com.anfe0690.tu_mejor_compra.entity.Producto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;

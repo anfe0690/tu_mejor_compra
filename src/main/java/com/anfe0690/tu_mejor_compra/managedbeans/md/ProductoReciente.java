@@ -1,5 +1,7 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.managedbeans.md;
 
+import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 

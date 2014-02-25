@@ -1,14 +1,15 @@
-package com.anfe0690.tu_mejor_compra.perfil;
+package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.Compra;
-import com.anfe0690.tu_mejor_compra.Estado;
-import com.anfe0690.tu_mejor_compra.ManejadorDeCompras;
-import com.anfe0690.tu_mejor_compra.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.ManejadorDeVentas;
-import com.anfe0690.tu_mejor_compra.Producto;
-import com.anfe0690.tu_mejor_compra.SesionController;
-import com.anfe0690.tu_mejor_compra.Usuario;
-import com.anfe0690.tu_mejor_compra.Venta;
+import com.anfe0690.tu_mejor_compra.managedbeans.md.Fila;
+import com.anfe0690.tu_mejor_compra.entity.Compra;
+import com.anfe0690.tu_mejor_compra.entity.Estado;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeCompras;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
+import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.managedbeans.SesionController;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
+import com.anfe0690.tu_mejor_compra.entity.Venta;
 
 import java.io.Serializable;
 import java.util.ArrayList;

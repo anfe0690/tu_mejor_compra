@@ -16,15 +16,12 @@
 			<ui:repeat value="#{index.productosRecientes}" var="productoReciente" >
 				<div class="producto_reciente">
 					<h:graphicImage value="/imgs/#{productoReciente.usuario.nombre}/#{productoReciente.producto.nombreImagen}" width="150" height="150"/>
-					<!-- TODO: Se debe mostrar los producto por su id -->
-<!-- 					<h:link outcome="producto?u=#{productoReciente.usuario.nombre}&amp;p=#{productoReciente.indiceDeProducto(productoReciente.producto)}" value="#{productoReciente.producto.nombre}" styleClass="nombreResultado"/> -->
 					<h:link outcome="producto?pid=#{productoReciente.producto.id}" value="#{productoReciente.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>
 						<h:outputText value="#{productoReciente.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>
 					</div>
 				</div>
-				
 			</ui:repeat>
 		</section>
 	</ui:define>

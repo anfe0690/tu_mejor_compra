@@ -1,4 +1,4 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.managedbeans.md;
 
 import java.io.Serializable;
 

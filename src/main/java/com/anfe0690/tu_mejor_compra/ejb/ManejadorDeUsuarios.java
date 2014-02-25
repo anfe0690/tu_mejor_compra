@@ -1,5 +1,6 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.ejb;
 
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;

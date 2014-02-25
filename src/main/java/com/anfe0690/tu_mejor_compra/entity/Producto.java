@@ -1,4 +1,4 @@
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.entity;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.anfe0690.tu_mejor_compra.perfil;
+package com.anfe0690.tu_mejor_compra.managedbeans.md;
 
 import java.io.Serializable;
 

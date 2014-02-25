@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.anfe0690.tu_mejor_compra;
+package com.anfe0690.tu_mejor_compra.entity;
 
 import java.io.Serializable;
 
@@ -12,10 +12,10 @@ import java.io.Serializable;
  *
  * @author Andres
  */
-public enum Estado implements Serializable{
+public enum Categoria implements Serializable{
 	
-	ESPERANDO_PAGO,
-	EN_ENVIO,
-	TERMINADO
+	TELEFONOS_INTELIGENTES,
+	CONSOLAS_VIDEO_JUEGOS,
+	TABLETAS
 	
 }
