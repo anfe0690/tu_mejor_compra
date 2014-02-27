@@ -5,23 +5,23 @@
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:f="http://xmlns.jcp.org/jsf/core">
-	<ui:define name="title">Buscar</ui:define>
+	<f:metadata>
+		<f:viewParam name="c" value="#{categoriaBean.valor}"/>
+	</f:metadata>
+	<ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></ui:define>
 	<ui:define name="css">
-		<h:outputStylesheet library="css" name="buscar.css"/>
+		<h:outputStylesheet library="css" name="categoria.css"/>
 	</ui:define>
 	<ui:define name="js">
-		<h:outputScript library="js" name="buscar.js"/>
+		<!--<h:outputScript library="js" name=".js"/>-->
 	</ui:define>
 	<ui:define name="content">
-		<f:metadata>
-			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
-		</f:metadata>
-		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
-		<section id="buscar">
-			<h1>Buscar</h1>
-			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
-				<div id="resultado">
-					<h:graphicImage value="/imgs/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150"/>
+		<f:event type="preRenderView" listener="#{categoriaBean.buscar()}"/>
+		<section class="tema categoria">
+			<h1><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
+			<ui:repeat value="#{categoriaBean.resultados}" var="resultado">
+				<div class="resultado">
+					<h:graphicImage value="/imgs/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150" styleClass="resultado_img"/>
 					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>

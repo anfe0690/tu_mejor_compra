@@ -325,7 +325,7 @@ public class SesionBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
-		return "index?faces-redirect=true";
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public String restaurarTodosLosDatos() {

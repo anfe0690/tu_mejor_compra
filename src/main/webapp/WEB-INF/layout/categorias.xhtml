@@ -1,14 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html">
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-	<aside id="categorias" class="grid_6 tema" >
+	<aside class="grid_6 tema categorias" >
 		<h1>Categorias</h1>
-		<h:form id="form_categorias">
-			<h:commandLink value="Telefonos inteligentes" action="buscar" id="telefonos_inteligentes"/>
-			<h:commandLink value="Consolas de video juegos" action="buscar" id="consolas_video_juegos"/>
-			<h:commandLink value="Tabletas" action="buscar" id="tabletas"/>
-		</h:form>
+		<h:link value="Telefonos inteligentes" outcome="categoria.xhtml" includeViewParams="true" >
+			<f:param name="c" value="TELEFONOS_INTELIGENTES"/>
+		</h:link>
+		<h:link value="Consolas de video juegos" outcome="categoria.xhtml" includeViewParams="true" >
+			<f:param name="c" value="CONSOLAS_VIDEO_JUEGOS"/>
+		</h:link>
+		<h:link value="Tabletas" outcome="categoria.xhtml" includeViewParams="true" >
+			<f:param name="c" value="TABLETAS"/>
+		</h:link>
 	</aside>
 
 
