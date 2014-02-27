@@ -1,4 +1,4 @@
-package com.anfe0690.tu_mejor_compra.managedbeans.md;
+package com.anfe0690.tu_mejor_compra.managedbeans.datos;
 
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;

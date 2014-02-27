@@ -1,18 +1,18 @@
-/* 
-    Created on : 11/12/2013, 11:53:41 AM
-    Author     : Andres
-*/
 
-#header{
+.header{
 	background-color: #E7F5FE;
 	height: 60px;
 	margin-bottom: 10px;
 }
 
-#header form{
+.header_form{
 	display: inline;
 }
 
-#header_form\:boton_buscar {
+.header_form-input{
+	
+}
+
+.header_form-submit {
 	margin: 0px 10px 0px 20px;
 }

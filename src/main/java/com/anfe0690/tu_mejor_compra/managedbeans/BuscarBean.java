@@ -1,6 +1,6 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.managedbeans.md.Resultado;
+import com.anfe0690.tu_mejor_compra.managedbeans.datos.Resultado;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -21,24 +22,23 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Named
-@ViewScoped
-public class Buscar implements Serializable {
-	
+@RequestScoped
+public class BuscarBean implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext
 	private EntityManager em;
 	private List<Resultado> resultados;
-	private String texto;
+	private String valor;
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(Buscar.class.getName()).log(Level.INFO, "postConstruct");
-		resultados = buscarProductos();
+		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(Buscar.class.getName()).log(Level.INFO, "preDestroy");
+		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "preDestroy");
 	}
 
 	public List<Resultado> getResultados() {
@@ -49,27 +49,29 @@ public class Buscar implements Serializable {
 		this.resultados = resultados;
 	}
 
-	public String getTexto() {
-		return texto;
+	public String getValor() {
+		return valor;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setValor(String valor) {
+		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "setValor()");
+		this.valor = valor;
 	}
 
-	private List<Resultado> buscarProductos() {
+	public void buscar() {
+		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "buscar " + valor);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		texto = ec.getRequestParameterMap().get("header_form:texto_buscar");
+//		valor = ec.getRequestParameterMap().get("header_form:texto_buscar");
 
 		List<Resultado> res = new ArrayList<>();
 
 		Query q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		List<Usuario> rl = q.getResultList();
 
-		if (texto != null) {
+		if (valor != null) {
 			for (Usuario u : rl) {
 				for (Producto pro : u.getProductos()) {
-					if (pro.getNombre().toLowerCase().contains(texto.toLowerCase())) {
+					if (pro.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 						res.add(new Resultado(u, pro));
 					}
 				}
@@ -101,7 +103,7 @@ public class Buscar implements Serializable {
 				}
 			}
 		}
-		return res;
+		resultados = res;
 	}
 
 }

@@ -17,20 +17,20 @@
 			<h1>Perfil</h1>
 			<div>
 				<h2>Campos generales</h2>
-				<p>Usuario: <h:outputText value="#{sesionController.usuario.nombre}"/></p>
-				<p>Contacto: <h:outputText value="#{sesionController.usuario.nombreContacto}"/> </p>
-				<p>Correo: <h:outputText value="#{sesionController.usuario.correo}" /> </p>
-				<p>Telefonos: <h:outputText value="#{sesionController.usuario.telefonos}" /> </p>
+				<p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
+				<p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/> </p>
+				<p>Correo: <h:outputText value="#{sesionBean.usuario.correo}" /> </p>
+				<p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" /> </p>
 			</div>
 			<div>
 				<h2>Campos de comprador</h2>
-				<p>Ciudad: #{sesionController.usuario.ciudad}</p>
-				<p>Direccion: #{sesionController.usuario.direccion}</p>
+				<p>Ciudad: #{sesionBean.usuario.ciudad}</p>
+				<p>Direccion: #{sesionBean.usuario.direccion}</p>
 			</div>
 			<div>
 				<h2>Campos de vendedor</h2>
-				<p>Banco: #{sesionController.usuario.banco}</p>
-				<p>Numero de cuenta: #{sesionController.usuario.numeroCuenta}</p>
+				<p>Banco: #{sesionBean.usuario.banco}</p>
+				<p>Numero de cuenta: #{sesionBean.usuario.numeroCuenta}</p>
 			</div>
 		</section>
 
@@ -51,7 +51,7 @@
 						<f:facet name="header">
 							<h:outputText value="Imagen" />
 						</f:facet>
-						<h:graphicImage value="/imgs/#{sesionController.usuario.nombre}/#{selproducto.producto.nombreImagen}" width="40" height="40"/>
+						<h:graphicImage value="/imgs/#{sesionBean.usuario.nombre}/#{selproducto.producto.nombreImagen}" width="40" height="40"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">

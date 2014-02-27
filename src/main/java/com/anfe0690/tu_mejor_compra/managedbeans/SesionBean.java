@@ -1,26 +1,29 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.WebContainerListener;
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeCompras;
-import com.anfe0690.tu_mejor_compra.entity.Estado;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Compra;
+import com.anfe0690.tu_mejor_compra.entity.Estado;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
-import com.anfe0690.tu_mejor_compra.entity.Venta;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
+import com.anfe0690.tu_mejor_compra.entity.Venta;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -32,11 +35,12 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Named
 @SessionScoped
-public class SesionController implements Serializable {
+public class SesionBean implements Serializable {
 
 	private static final long serialVersionUID = 42L;
 	@PersistenceContext
@@ -47,20 +51,22 @@ public class SesionController implements Serializable {
 	private ManejadorDeCompras manejadorDeCompras;
 	@EJB
 	private ManejadorDeVentas manejadorDeVentas;
+	// Campos
 	private String campoNombreUsuario;
 	private String campoContrasena;
-	private boolean sesionIniciada = false;
+	// Datos
 	private Usuario usuario;
+	private boolean sesionIniciada = false;
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "postConstruct");
+		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "postConstruct");
 		// ANDRES
 		Usuario usu = null;
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("andres");
 		} catch (IllegalArgumentException e) {
-			Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, e);
 		}
 		// Usuarios
 		Usuario usuarioAndres = null;
@@ -74,18 +80,18 @@ public class SesionController implements Serializable {
 			// ################## Andres
 			productosAndres = new ArrayList<>();
 			// 1
-			Producto p =
-					new Producto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000",
+			Producto p
+					= new Producto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000",
 							Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			// 2
-			p =
-					new Producto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900",
+			p
+					= new Producto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900",
 							Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			// 3
-			p =
-					new Producto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990",
+			p
+					= new Producto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990",
 							Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			//
@@ -108,18 +114,18 @@ public class SesionController implements Serializable {
 			// ################## Carlos
 			productosCarlos = new ArrayList<>();
 			// 1
-			p =
-					new Producto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000",
+			p
+					= new Producto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			// 2
-			p =
-					new Producto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990",
+			p
+					= new Producto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			// 3
-			p =
-					new Producto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990",
+			p
+					= new Producto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			//
@@ -142,16 +148,16 @@ public class SesionController implements Serializable {
 			// ################## Fernando
 			productosFernando = new ArrayList<>();
 			// 1
-			p =
-					new Producto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000",
+			p
+					= new Producto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000",
 							Categoria.TABLETAS);
 			productosFernando.add(p);
 			// 2
 			p = new Producto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS);
 			productosFernando.add(p);
 			// 3
-			p =
-					new Producto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000",
+			p
+					= new Producto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000",
 							Categoria.TABLETAS);
 			productosFernando.add(p);
 			//
@@ -263,7 +269,7 @@ public class SesionController implements Serializable {
 				manejadorDeVentas.guardarVenta(venta);
 			}
 			manejadorDeUsuarios.mergeUsuario(usuarioFernando);
-			Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "Usuarios inicializados.");
+			Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "Usuarios inicializados.");
 		}
 	}
 
@@ -274,11 +280,11 @@ public class SesionController implements Serializable {
 		try {
 			dirOrigenBase = ec.getResource("/resources/images/restaurar/" + usuario.getNombre() + "/").getPath();
 		} catch (MalformedURLException e) {
-			Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, e);
 		}
-		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "dirOrigenBase = " + dirOrigenBase);
+		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "dirOrigenBase = " + dirOrigenBase);
 		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS) + usuario.getNombre() + "/";
-		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "dirDestinoBase = " + dirDestinoBase);
+		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "dirDestinoBase = " + dirDestinoBase);
 		File fOrigen = new File(dirOrigenBase + producto.getNombreImagen());
 		File fDestino = new File(dirDestinoBase + producto.getNombreImagen());
 		if (!fDestino.exists()) {
@@ -286,16 +292,17 @@ public class SesionController implements Serializable {
 				Files.copy(fOrigen.toPath(), fDestino.toPath());
 			} catch (Exception ex) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.toString()));
-				Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "preDestroy");
+		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "preDestroy");
 	}
 
+	// Acciones
 	public String iniciarSesion() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
@@ -309,7 +316,7 @@ public class SesionController implements Serializable {
 		} catch (Exception e) {
 			fc.addMessage("sesion_form:input_sesion", new FacesMessage(e.toString()));
 		}
-		return "";
+		return fc.getViewRoot().getViewId().substring(1) + "?faces-redirect=true&amp;includeViewParams=true";
 	}
 
 	public String cerrarSesion() throws IOException {
@@ -318,6 +325,41 @@ public class SesionController implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
+		return "index?faces-redirect=true";
+	}
+
+	public String restaurarTodosLosDatos() {
+		TypedQuery<Usuario> q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+		for (Usuario u : q.getResultList()) {
+			Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, u.toString());
+			List<Venta> vs = new ArrayList<>(u.getVentas());
+			u.setVentas(null);
+			manejadorDeUsuarios.mergeUsuario(u);
+			for (Venta v : vs) {
+				manejadorDeVentas.removeVenta(v);
+			}
+			vs.clear();
+			List<Compra> cs = new ArrayList<>(u.getCompras());
+			u.setCompras(null);
+			manejadorDeUsuarios.mergeUsuario(u);
+			for (Compra c : cs) {
+				manejadorDeCompras.removeCompra(c);
+			}
+			cs.clear();
+			for (Producto p : u.getProductos()) {
+				File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + u.getNombre() + "\\" + p.getNombreImagen());
+				try {
+					Files.deleteIfExists(f.toPath());
+				} catch (Exception ex) {
+					Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		for (Usuario u : q.getResultList()) {
+			manejadorDeUsuarios.removeUsuario(u);
+		}
+		postConstruct();
+		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "La base de datos fue restaurada.");
 		return "index?faces-redirect=true";
 	}
 
@@ -350,38 +392,4 @@ public class SesionController implements Serializable {
 		return usuario;
 	}
 
-	public String restaurarTodosLosDatos() {
-		TypedQuery<Usuario> q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
-		for (Usuario u : q.getResultList()) {
-			Logger.getLogger(SesionController.class.getName()).log(Level.INFO, u.toString());
-			List<Venta> vs = new ArrayList<>(u.getVentas());
-			u.setVentas(null);
-			manejadorDeUsuarios.mergeUsuario(u);
-			for (Venta v : vs) {
-				manejadorDeVentas.removeVenta(v);
-			}
-			vs.clear();
-			List<Compra> cs = new ArrayList<>(u.getCompras());
-			u.setCompras(null);
-			manejadorDeUsuarios.mergeUsuario(u);
-			for (Compra c : cs) {
-				manejadorDeCompras.removeCompra(c);
-			}
-			cs.clear();
-			for (Producto p : u.getProductos()) {
-				File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + u.getNombre() + "\\" + p.getNombreImagen());
-				try {
-					Files.deleteIfExists(f.toPath());
-				} catch (Exception ex) {
-					Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
-				}
-			}
-		}
-		for (Usuario u : q.getResultList()) {
-			manejadorDeUsuarios.removeUsuario(u);
-		}
-		postConstruct();
-		Logger.getLogger(SesionController.class.getName()).log(Level.INFO, "La base de datos fue restaurada.");
-		return "index?faces-redirect=true";
-	}
 }

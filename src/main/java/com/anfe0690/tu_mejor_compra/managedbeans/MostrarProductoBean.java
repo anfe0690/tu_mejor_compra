@@ -19,14 +19,16 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 @Named
 @ViewScoped
-public class ComprarProducto implements Serializable {
+public class MostrarProductoBean implements Serializable {
 
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
@@ -37,18 +39,14 @@ public class ComprarProducto implements Serializable {
 	@EJB
 	private ManejadorDeVentas manejadorDeVentas;
 	@Inject
-	private SesionController sc;
+	private SesionBean sc;
 	private Usuario usuarioVendedor;
 	private Producto producto;
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "postConstruct");
+		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "postConstruct");
 		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		// String nombreUsuario = pm.get("u");
-		// String indiceProducto = pm.get("p");
-		// usuarioVendedor = mdu.buscarUsuarioPorNombre(nombreUsuario);
-		// producto = new ArrayList<>(usuarioVendedor.getProductos()).get(Integer.parseInt(indiceProducto));
 		String productoId = pm.get("pid");
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
 		usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
@@ -56,7 +54,7 @@ public class ComprarProducto implements Serializable {
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "preDestroy");
+		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "preDestroy");
 	}
 
 	public Usuario getUsuarioVendedor() {
@@ -83,7 +81,7 @@ public class ComprarProducto implements Serializable {
 		compra.setProducto(producto);
 		compra.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeCompras.guardarCompra(compra);
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "compra : " + compra);
+		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "compra : " + compra);
 		usuarioComprador.getCompras().add(compra);
 		manejadorDeUsuarios.mergeUsuario(usuarioComprador);
 		// Venta
@@ -92,11 +90,11 @@ public class ComprarProducto implements Serializable {
 		venta.setProducto(producto);
 		venta.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeVentas.guardarVenta(venta);
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO, "venta: " + venta);
+		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "venta: " + venta);
 		usuarioVendedor.getVentas().add(venta);
 		manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 
-		Logger.getLogger(ComprarProducto.class.getName()).log(Level.INFO,
+		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO,
 				"Usuario " + usuarioComprador.getNombre() + " compro " + producto.getNombre());
 		return "perfil";
 	}

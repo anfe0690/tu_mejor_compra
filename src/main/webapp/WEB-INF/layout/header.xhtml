@@ -4,23 +4,16 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<header id="header" class="grid_24 tema">
-		<h:outputLink value="index.xhtml">
+	<header class="grid_24 tema header">
+		<h:link outcome="index.xhtml">
 			<h:graphicImage name="logo.jpg" library="images" width="310" height="60" />
-		</h:outputLink>
-		<h:form id="header_form">
-			<h:commandButton id="boton_buscar" value="Buscar" action="buscar.xhtml" />
-			<c:choose>
-				<c:when test="#{(view.viewId != '/buscar.xhtml')}">
-					<h:inputText id="texto_buscar" size="80" />
-				</c:when>
-				<c:otherwise>
-					<h:inputText id="texto_buscar" size="80" value="#{buscar.texto}" />
-				</c:otherwise>
-			</c:choose>
-		</h:form>
+		</h:link>
+		
+		<form action="buscar.xhtml" method="GET" class="header_form">
+			<input type="submit" value="Buscar" class="header_form-submit"/>
+			<input type="text" name="valor" value="#{param['valor']}" size="80" class="header_form-input"/>
+		</form>
 
 	</header>
-
 
 </ui:composition>

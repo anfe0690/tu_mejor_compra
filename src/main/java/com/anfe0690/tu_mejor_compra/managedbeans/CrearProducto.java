@@ -38,7 +38,7 @@ import javax.servlet.http.Part;
 public class CrearProducto implements Serializable {
 
 	@Inject
-	private SesionController sesionController;
+	private SesionBean sesionController;
 	private Part file;
 	private String nombre;
 	private String precio;

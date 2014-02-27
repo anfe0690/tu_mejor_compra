@@ -1,7 +1,7 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.WebContainerListener;
-import com.anfe0690.tu_mejor_compra.managedbeans.md.SelProducto;
+import com.anfe0690.tu_mejor_compra.managedbeans.datos.SelProducto;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
@@ -41,7 +41,7 @@ public class MisProductos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private SesionController sesionController;
+	private SesionBean sesionController;
 	private final List<SelProducto> selProductos = new ArrayList<>();
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
