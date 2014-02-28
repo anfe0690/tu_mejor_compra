@@ -7,24 +7,26 @@ import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Named
 @RequestScoped
 public class BuscarBean implements Serializable {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(BuscarBean.class);
+	
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext
 	private EntityManager em;
@@ -33,12 +35,12 @@ public class BuscarBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	public List<Resultado> getResultados() {
@@ -54,12 +56,12 @@ public class BuscarBean implements Serializable {
 	}
 
 	public void setValor(String valor) {
-		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "setValor()");
+		logger.debug("setValor()");
 		this.valor = valor;
 	}
 
 	public void buscar() {
-		Logger.getLogger(BuscarBean.class.getName()).log(Level.INFO, "buscar " + valor);
+		logger.debug("buscar {}", valor);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 //		valor = ec.getRequestParameterMap().get("header_form:texto_buscar");
 

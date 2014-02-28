@@ -13,8 +13,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -25,11 +23,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @ViewScoped
 public class MostrarProductoBean implements Serializable {
 
+	private static final Logger logger = LoggerFactory.getLogger(MostrarProductoBean.class);
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
 	@EJB
@@ -45,7 +46,7 @@ public class MostrarProductoBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String productoId = pm.get("pid");
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
@@ -54,7 +55,7 @@ public class MostrarProductoBean implements Serializable {
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	public Usuario getUsuarioVendedor() {
@@ -81,7 +82,7 @@ public class MostrarProductoBean implements Serializable {
 		compra.setProducto(producto);
 		compra.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeCompras.guardarCompra(compra);
-		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "compra : " + compra);
+		logger.debug("compra : {}", compra);
 		usuarioComprador.getCompras().add(compra);
 		manejadorDeUsuarios.mergeUsuario(usuarioComprador);
 		// Venta
@@ -90,12 +91,11 @@ public class MostrarProductoBean implements Serializable {
 		venta.setProducto(producto);
 		venta.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeVentas.guardarVenta(venta);
-		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO, "venta: " + venta);
+		logger.debug("venta: {}", venta);
 		usuarioVendedor.getVentas().add(venta);
 		manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 
-		Logger.getLogger(MostrarProductoBean.class.getName()).log(Level.INFO,
-				"Usuario " + usuarioComprador.getNombre() + " compro " + producto.getNombre());
+		logger.debug("Usuario {} compro {}", usuarioComprador.getNombre(), producto.getNombre());
 		return "perfil";
 	}
 }

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-// TODO: Continuar con el reemplazo de las entidades Compra y Venta por Transaccion
+// TODO 02: Continuar con el reemplazo de las entidades Compra y Venta por Transaccion
 @Entity
 public class Transaccion implements Serializable {
 

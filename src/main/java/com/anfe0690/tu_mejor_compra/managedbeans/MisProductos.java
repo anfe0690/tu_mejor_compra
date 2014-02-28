@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -34,11 +32,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @ViewScoped
 public class MisProductos implements Serializable {
 
+	private static final Logger logger = LoggerFactory.getLogger(MisProductos.class);
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private SesionBean sesionController;
@@ -56,7 +57,7 @@ public class MisProductos implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 		for (Producto producto : sesionController.getUsuario().getProductos()) {
 			selProductos.add(new SelProducto(producto));
 		}
@@ -64,7 +65,7 @@ public class MisProductos implements Serializable {
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	public List<SelProducto> getSelProductos() {
@@ -94,7 +95,7 @@ public class MisProductos implements Serializable {
 								comprasIt.remove();
 								manejadorDeUsuarios.mergeUsuario(usuarioComprador);
 								manejadorDeCompras.removeCompra(compra);
-								Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "Eliminada compra: " + compra);
+								logger.debug("Eliminada compra: {}", compra);
 							}
 						}
 						// Remover de la colleccion la venta
@@ -103,7 +104,7 @@ public class MisProductos implements Serializable {
 						ventasIt.remove();
 						manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 						manejadorDeVentas.removeVenta(venta);
-						Logger.getLogger(MisProductos.class.getName()).log(Level.INFO, "Eliminada venta: " + venta);
+						logger.debug("Eliminada venta: {}", venta);
 					}
 				}
 				usuarioVendedor.setVentas(manejadorDeUsuarios.buscarUsuarioPorNombre(usuarioVendedor.getNombre()).getVentas());
@@ -118,14 +119,13 @@ public class MisProductos implements Serializable {
 				manejadorDeProductos.removerProducto(producto);
 				
 				File f =
-						new File(System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "/"
-								+ producto.getNombreImagen());
+						new File(System.getProperty(WebContainerListener.DIR_DATOS) + producto.getDireccionImagen());
 				try {
 					Files.deleteIfExists(f.toPath());
 				} catch (Exception ex) {
 					FacesContext fc = FacesContext.getCurrentInstance();
 					fc.addMessage(null, new FacesMessage(ex.toString()));
-					Logger.getLogger(MisProductos.class.getName()).log(Level.SEVERE, null, ex);
+					logger.error(null, ex);
 				}
 			}
 		}
@@ -133,77 +133,4 @@ public class MisProductos implements Serializable {
 		misVentas.postConstruct();
 	}
 
-	public void restaurar() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Usuario usuario = sesionController.getUsuario();
-		for (Producto p : usuario.getProductos()) {
-			File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + usuario.getNombre() + "\\" + p.getNombreImagen());
-			try {
-				Files.deleteIfExists(f.toPath());
-			} catch (Exception ex) {
-				fc.addMessage(null, new FacesMessage(ex.toString()));
-				Logger.getLogger(MisProductos.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		usuario.getProductos().clear();
-		List<Producto> productos = new ArrayList<>();
-		if (usuario.getNombre().equalsIgnoreCase("andres")) {
-			productos.add(restaurarProducto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me",
-					"1.139.000", Categoria.TELEFONOS_INTELIGENTES));
-			productos.add(restaurarProducto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900",
-					Categoria.TELEFONOS_INTELIGENTES));
-			productos.add(restaurarProducto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990",
-					Categoria.TELEFONOS_INTELIGENTES));
-		} else if (usuario.getNombre().equalsIgnoreCase("carlos")) {
-			productos.add(restaurarProducto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus",
-					"1.400.000", Categoria.CONSOLAS_VIDEO_JUEGOS));
-			productos.add(restaurarProducto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990",
-					Categoria.CONSOLAS_VIDEO_JUEGOS));
-			productos.add(restaurarProducto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2",
-					"1.449.990", Categoria.CONSOLAS_VIDEO_JUEGOS));
-		} else if (usuario.getNombre().equalsIgnoreCase("fernando")) {
-			productos.add(restaurarProducto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb",
-					"919.000", Categoria.TABLETAS));
-			productos.add(restaurarProducto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS));
-			productos.add(restaurarProducto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1",
-					"598.000", Categoria.TABLETAS));
-		} else {
-			Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-					"ERROR. Usuario desconocido: \"" + usuario.getNombre() + "\"");
-			return;
-		}
-		usuario.setProductos(new HashSet<>(productos));
-		// usuario.setProductos(productos);
-		manejadorDeUsuarios.mergeUsuario(usuario);
-		selProductos.clear();
-		for (Producto producto : usuario.getProductos()) {
-			selProductos.add(new SelProducto(producto));
-		}
-		Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-				"Restaurados los productos de " + sesionController.getUsuario().getNombre());
-	}
-
-	private Producto restaurarProducto(String nombreImagen, String nombre, String precio, Categoria categoria) {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		String dirOrigenBase =
-				ec.getRealPath("resources\\images\\restaurar") + "\\" + sesionController.getUsuario().getNombre() + "\\";
-		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS) + sesionController.getUsuario().getNombre() + "\\";
-		Producto p = new Producto();
-		p.setNombreImagen(nombreImagen);
-		p.setNombre(nombre);
-		p.setPrecio(precio);
-		p.setFechaDeCreacion(new Date());
-		p.setCategoria(categoria);
-		File fOrigen = new File(dirOrigenBase + nombreImagen);
-		File fDestino = new File(dirDestinoBase + nombreImagen);
-		if (!fDestino.exists()) {
-			try {
-				Files.copy(fOrigen.toPath(), fDestino.toPath());
-			} catch (Exception ex) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.toString()));
-				Logger.getLogger(MisProductos.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		return p;
-	}
 }

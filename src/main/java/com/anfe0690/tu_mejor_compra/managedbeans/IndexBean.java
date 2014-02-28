@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -25,11 +23,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @RequestScoped
 public class IndexBean implements Serializable {
 
+	private static final Logger logger = LoggerFactory.getLogger(IndexBean.class);
 	private static final long serialVersionUID = 1L;
 	// Modelo
 	private List<ProductoReciente> productosRecientes = new ArrayList<>();
@@ -38,12 +39,11 @@ public class IndexBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(IndexBean.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 		TypedQuery<Usuario> q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		try {
 			List<Usuario> rl = q.getResultList();
 			for (Usuario u : rl) {
-				// logger.info("usuario: " + u.getNombre());
 				for (Producto p : u.getProductos()) {
 					ProductoReciente pr = new ProductoReciente();
 					pr.setUsuario(u);
@@ -63,13 +63,13 @@ public class IndexBean implements Serializable {
 			Collections.reverse(productosRecientes);
 			productosRecientes = productosRecientes.subList(0, 3);
 		} catch (Exception e) {
-			Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, e);
+			logger.error(null, e);
 		}
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(IndexBean.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	public List<ProductoReciente> getProductosRecientes() {

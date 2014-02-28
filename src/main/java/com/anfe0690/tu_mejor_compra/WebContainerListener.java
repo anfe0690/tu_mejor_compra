@@ -1,12 +1,10 @@
 package com.anfe0690.tu_mejor_compra;
 
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -14,13 +12,16 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class WebContainerListener implements ServletContextListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(WebContainerListener.class);
+
 	public static final String DIR_DATOS = "dir_datos";
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	// TODO 03: Habiliar el uso de logs de niveles inferiores a INFO
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		Logger.getLogger(WebContainerListener.class.getName()).log(Level.INFO, "contextInitialized");
+		logger.info("contextInitialized");
 		if (System.getenv("OPENSHIFT_DATA_DIR") != null) {
 			System.setProperty(DIR_DATOS, System.getenv("OPENSHIFT_DATA_DIR"));
 		} else {
@@ -29,13 +30,11 @@ public class WebContainerListener implements ServletContextListener {
 		// TypedQuery<Usuario> typedQuery = entityManager.createQuery(
 		// "SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :productoId"
 		// , Usuario.class).setParameter("productoId", 5L);
-		// Logger.getLogger(WebContainerListener.class.getName()).log(Level.INFO,
-		// "typedQuery.getSingleResult() = " + typedQuery.getSingleResult());
-		
+
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		Logger.getLogger(WebContainerListener.class.getName()).log(Level.INFO, "contextDestroyed");
+		logger.info("contextDestroyed");
 	}
 }

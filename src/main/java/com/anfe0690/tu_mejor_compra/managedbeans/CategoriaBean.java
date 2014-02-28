@@ -6,8 +6,6 @@ import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import com.anfe0690.tu_mejor_compra.managedbeans.datos.Resultado;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -15,11 +13,14 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @RequestScoped
 public class CategoriaBean {
 
+	private static final Logger logger = LoggerFactory.getLogger(CategoriaBean.class);
 	@PersistenceContext
 	private EntityManager em;
 	// 
@@ -28,16 +29,16 @@ public class CategoriaBean {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(CategoriaBean.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(CategoriaBean.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	public void buscar() {
-		Logger.getLogger(CategoriaBean.class.getName()).log(Level.INFO, "buscar " + valor);
+		logger.debug("buscar {}", valor);
 		List<Resultado> res = new ArrayList<>();
 
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = '" + valor + "'", Producto.class);
@@ -61,7 +62,7 @@ public class CategoriaBean {
 	}
 
 	public void setValor(String valor) {
-		Logger.getLogger(CategoriaBean.class.getName()).log(Level.INFO, "setValor " + valor);
+		logger.debug("setValor {}", valor);
 		this.valor = valor;
 	}
 

@@ -16,14 +16,8 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -35,14 +29,18 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @SessionScoped
 public class SesionBean implements Serializable {
 
 	private static final long serialVersionUID = 42L;
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(SesionBean.class);
+
 	@PersistenceContext
 	private EntityManager em;
 	@EJB
@@ -60,13 +58,13 @@ public class SesionBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
 		// ANDRES
 		Usuario usu = null;
 		try {
 			usu = manejadorDeUsuarios.buscarUsuarioPorNombre("andres");
 		} catch (IllegalArgumentException e) {
-			Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, e);
+			logger.error(null, e);
 		}
 		// Usuarios
 		Usuario usuarioAndres = null;
@@ -80,18 +78,16 @@ public class SesionBean implements Serializable {
 			// ################## Andres
 			productosAndres = new ArrayList<>();
 			// 1
-			Producto p
-					= new Producto("samsung-galaxy-s4.jpg", "Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me", "1.139.000",
-							Categoria.TELEFONOS_INTELIGENTES);
+			Producto p = new Producto("Samsung Galaxy S4 I9500 8.nucleos 2gb.ram 13mpx.cam 32gb.me",
+					"1.139.000", "andres/" + "samsung-galaxy-s4.jpg", Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			// 2
-			p
-					= new Producto("iphone-5s.jpg", "Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900",
-							Categoria.TELEFONOS_INTELIGENTES);
+			p = new Producto("Iphone 5s 16gb Lte Libre Caja Sellada Lector Huella", "1.619.900", "andres/" + "iphone-5s.jpg",
+					Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			// 3
 			p
-					= new Producto("lg-g2.jpg", "Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990",
+					= new Producto("Lg G2 D805 Android 4.2 Quad Core 2.26 Ghz 16gb 13mpx 2gb Ram", "1.349.990", "andres/" + "lg-g2.jpg",
 							Categoria.TELEFONOS_INTELIGENTES);
 			productosAndres.add(p);
 			//
@@ -115,17 +111,17 @@ public class SesionBean implements Serializable {
 			productosCarlos = new ArrayList<>();
 			// 1
 			p
-					= new Producto("playstation-4.jpg", "Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000",
+					= new Producto("Ps4 500gb Con Dualshock 4 + Bluray,wifi,hdmi,membresia Plus", "1.400.000", "carlos/" + "playstation-4.jpg",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			// 2
 			p
-					= new Producto("wii-u.jpg", "Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990",
+					= new Producto("Nintendo Wii U 32gb Negro + Juego Nintendo Land + Hdmi+base", "704.990", "carlos/" + "wii-u.jpg",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			// 3
 			p
-					= new Producto("xbox-one.jpg", "Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990",
+					= new Producto("Xbox One 500gb + Control + Hdmi + Auricular+ Sensor Kinect 2", "1.449.990", "carlos/" + "xbox-one.jpg",
 							Categoria.CONSOLAS_VIDEO_JUEGOS);
 			productosCarlos.add(p);
 			//
@@ -149,15 +145,15 @@ public class SesionBean implements Serializable {
 			productosFernando = new ArrayList<>();
 			// 1
 			p
-					= new Producto("google-nexus-10.jpg", "Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000",
+					= new Producto("Tablet Samsung Google Nexus 10pul 16gb Gorilla Glass Ram 2gb", "919.000", "fernando/" + "google-nexus-10.jpg",
 							Categoria.TABLETAS);
 			productosFernando.add(p);
 			// 2
-			p = new Producto("tablet-sony-xperia-z.jpg", "Xperia Tablet Sony Z 32gb", "840.000", Categoria.TABLETAS);
+			p = new Producto("Xperia Tablet Sony Z 32gb", "840.000", "fernando/" + "tablet-sony-xperia-z.jpg", Categoria.TABLETAS);
 			productosFernando.add(p);
 			// 3
 			p
-					= new Producto("toshiba-excite.jpg", "Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000",
+					= new Producto("Tablet Toshiba Excite Se 305 Original Ram 1gb Android 4.1.1", "598.000", "fernando/" + "toshiba-excite.jpg",
 							Categoria.TABLETAS);
 			productosFernando.add(p);
 			//
@@ -269,7 +265,7 @@ public class SesionBean implements Serializable {
 				manejadorDeVentas.guardarVenta(venta);
 			}
 			manejadorDeUsuarios.mergeUsuario(usuarioFernando);
-			Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "Usuarios inicializados.");
+			logger.debug("Usuarios inicializados.");
 		}
 	}
 
@@ -278,28 +274,28 @@ public class SesionBean implements Serializable {
 //		String dirOrigenBase = ec.getRealPath("resources\\images\\restaurar") + "\\" + usuario.getNombre() + "\\";
 		String dirOrigenBase = null;
 		try {
-			dirOrigenBase = ec.getResource("/resources/images/restaurar/" + usuario.getNombre() + "/").getPath();
+			dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
 		} catch (MalformedURLException e) {
-			Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, e);
+			logger.error(null, e);
 		}
-		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "dirOrigenBase = " + dirOrigenBase);
-		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS) + usuario.getNombre() + "/";
-		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "dirDestinoBase = " + dirDestinoBase);
-		File fOrigen = new File(dirOrigenBase + producto.getNombreImagen());
-		File fDestino = new File(dirDestinoBase + producto.getNombreImagen());
+		logger.debug("dirOrigenBase = {}", dirOrigenBase);
+		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS);
+		logger.debug("dirDestinoBase = {}", dirDestinoBase);
+		File fOrigen = new File(dirOrigenBase + producto.getDireccionImagen());
+		File fDestino = new File(dirDestinoBase + producto.getDireccionImagen());
 		if (!fDestino.exists()) {
 			try {
 				Files.copy(fOrigen.toPath(), fDestino.toPath());
 			} catch (Exception ex) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.toString()));
-				Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, ex);
+				logger.error(null, ex);
 			}
 		}
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
 	}
 
 	// Acciones
@@ -326,41 +322,6 @@ public class SesionBean implements Serializable {
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
 		return "index.xhtml?faces-redirect=true";
-	}
-
-	public String restaurarTodosLosDatos() {
-		TypedQuery<Usuario> q = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
-		for (Usuario u : q.getResultList()) {
-			Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, u.toString());
-			List<Venta> vs = new ArrayList<>(u.getVentas());
-			u.setVentas(null);
-			manejadorDeUsuarios.mergeUsuario(u);
-			for (Venta v : vs) {
-				manejadorDeVentas.removeVenta(v);
-			}
-			vs.clear();
-			List<Compra> cs = new ArrayList<>(u.getCompras());
-			u.setCompras(null);
-			manejadorDeUsuarios.mergeUsuario(u);
-			for (Compra c : cs) {
-				manejadorDeCompras.removeCompra(c);
-			}
-			cs.clear();
-			for (Producto p : u.getProductos()) {
-				File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + u.getNombre() + "\\" + p.getNombreImagen());
-				try {
-					Files.deleteIfExists(f.toPath());
-				} catch (Exception ex) {
-					Logger.getLogger(SesionBean.class.getName()).log(Level.SEVERE, null, ex);
-				}
-			}
-		}
-		for (Usuario u : q.getResultList()) {
-			manejadorDeUsuarios.removeUsuario(u);
-		}
-		postConstruct();
-		Logger.getLogger(SesionBean.class.getName()).log(Level.INFO, "La base de datos fue restaurada.");
-		return "index?faces-redirect=true";
 	}
 
 	// Getters and Setters

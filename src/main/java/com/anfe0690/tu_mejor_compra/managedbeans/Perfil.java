@@ -5,30 +5,31 @@ import com.anfe0690.tu_mejor_compra.entity.Compra;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Named
 @RequestScoped
 public class Perfil {
 
+	private static final Logger logger = LoggerFactory.getLogger(Perfil.class);
     @EJB
     private ManejadorDeUsuarios mu;
 
     @PostConstruct
     public void postConstruct() {
-		Logger.getLogger(Perfil.class.getName()).log(Level.INFO, "postConstruct");
+		logger.debug("postConstruct");
     }
 
     @PreDestroy
     public void preDestroy() {
-		Logger.getLogger(Perfil.class.getName()).log(Level.INFO, "preDestroy");
+		logger.debug("preDestroy");
     }
 
     public Producto getProductoPorIndice(String usuario, int indice) {
@@ -38,7 +39,7 @@ public class Perfil {
     }
 
     public boolean compararEnumCompra(Compra compra, String strEstado) {
-		Logger.getLogger(Perfil.class.getName()).log(Level.INFO, "compra.getEstado():\"" + compra.getEstado() + "\" strEstado:\"" + strEstado + "\"");
+		logger.debug("compra.getEstado(): \"{}\" strEstado: \"{}\"", compra.getEstado(), strEstado);
         return compra.getEstado().toString().equals(strEstado);
     }
 

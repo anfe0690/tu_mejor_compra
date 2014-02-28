@@ -21,7 +21,7 @@
 			<h1>Buscar</h1>
 			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
 				<div id="resultado">
-					<h:graphicImage value="/imgs/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150"/>
+					<h:graphicImage value="/imgs/#{resultado.producto.direccionImagen}" width="150" height="150"/>
 					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>

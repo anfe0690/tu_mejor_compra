@@ -15,30 +15,27 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Producto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private long id;
-	@Column(length = 30)
-	private String nombreImagen;
 	@NotNull
-	@Column(length = 80)
 	private String nombre;
-	@Column(length = 20)
 	private String precio;
+	private String direccionImagen;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaDeCreacion;
-	@Column(length = 30)
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 
 	public Producto() {
 	}
 
-	public Producto(String nombreImagen, String nombre, String precio, Categoria categoria) {
-		this.nombreImagen = nombreImagen;
+	public Producto(String nombre, String precio, String direccionImagen, Categoria categoria) {
 		this.nombre = nombre;
 		this.precio = precio;
+		this.direccionImagen = direccionImagen;
 		this.fechaDeCreacion = new Date();
 		this.categoria = categoria;
 	}
@@ -49,14 +46,6 @@ public class Producto implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getNombreImagen() {
-		return nombreImagen;
-	}
-
-	public void setNombreImagen(String nombreImagen) {
-		this.nombreImagen = nombreImagen;
 	}
 
 	public String getNombre() {
@@ -73,6 +62,14 @@ public class Producto implements Serializable {
 
 	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+
+	public String getDireccionImagen() {
+		return direccionImagen;
+	}
+
+	public void setDireccionImagen(String direccionImagen) {
+		this.direccionImagen = direccionImagen;
 	}
 
 	public Date getFechaDeCreacion() {
@@ -93,7 +90,7 @@ public class Producto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Producto{" + "id=" + id + ", nombreImagen=" + nombreImagen + ", nombre=" + nombre + ", precio=" + precio + ", fechaDeCreacion=" + fechaDeCreacion + ", categoria=" + categoria + '}';
+		return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", direccionImagen=" + direccionImagen + ", fechaDeCreacion=" + fechaDeCreacion + ", categoria=" + categoria + '}';
 	}
 
 }

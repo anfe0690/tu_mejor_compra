@@ -4,10 +4,6 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 	<div id="sesion" class="grid_24 tema">
 
-<!-- 		<h:form id="restaurar" rendered="#{!sesionBean.sesionIniciada}"> -->
-<!-- 			<h:commandButton id="boton" value="Restaurar base de datos" action="#{sesionBean.restaurarTodosLosDatos()}" /> -->
-			<!-- 		</h:form> -->
-
 		<c:if test="#{!sesionBean.sesionIniciada}">
 			<button id="contrasenas">Contraseñas</button>
 		</c:if>

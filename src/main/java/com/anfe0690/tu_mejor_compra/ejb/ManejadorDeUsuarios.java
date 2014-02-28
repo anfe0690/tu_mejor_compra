@@ -4,8 +4,6 @@ import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -15,27 +13,31 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 @LocalBean
 public class ManejadorDeUsuarios implements Serializable {
 
+	private static final Logger logger = LoggerFactory.getLogger(ManejadorDeUsuarios.class);
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(name = "tuMejorCompra")
 	private EntityManager entityManager;
 
 	@PostConstruct
-	private void postConstruct() {
-		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "postConstruct");
+	public void postConstruct() {
+		logger.debug("postConstruct");
 	}
 
 	@PreDestroy
-	private void preDestroy() {
-		Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.INFO, "preDestroy");
+	public void preDestroy() {
+		logger.debug("preDestroy");
 	}
 
 	public void guardarUsuario(Usuario usuario) {
@@ -60,6 +62,11 @@ public class ManejadorDeUsuarios implements Serializable {
 		entityManager.remove(entityManager.find(Usuario.class, usuario.getNombre()));
 	}
 
+	public int removerTodosLosUsuarios(){
+		Query q = entityManager.createQuery("DELETE FROM Usuario u");
+		return q.executeUpdate();
+	}
+	
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public Usuario getUsuarioPadreDeProducto(long productoId) {
 		TypedQuery<Usuario> typedQuery =
@@ -74,7 +81,7 @@ public class ManejadorDeUsuarios implements Serializable {
 		try {
 			PropertyUtils.copyProperties(usuario, usuarioRefrescado);
 		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-			Logger.getLogger(ManejadorDeUsuarios.class.getName()).log(Level.SEVERE, null, e);
+			logger.error(null, e);
 		}
 	}
 }

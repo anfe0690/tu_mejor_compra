@@ -15,7 +15,7 @@
 			<h1>Productos recientes</h1>
 			<ui:repeat value="#{indexBean.productosRecientes}" var="productoReciente" >
 				<div class="producto_reciente">
-					<h:graphicImage value="/imgs/#{productoReciente.usuario.nombre}/#{productoReciente.producto.nombreImagen}" width="150" height="150"/>
+					<h:graphicImage value="/imgs/#{productoReciente.producto.direccionImagen}" width="150" height="150"/>
 					<h:link outcome="producto.xhtml" value="#{productoReciente.producto.nombre}" includeViewParams="true" styleClass="nombreResultado">
 						<f:param name="pid" value="#{productoReciente.producto.id}"/>
 					</h:link>

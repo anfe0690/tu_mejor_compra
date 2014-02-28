@@ -21,7 +21,7 @@
 			<h1><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
 			<ui:repeat value="#{categoriaBean.resultados}" var="resultado">
 				<div class="resultado">
-					<h:graphicImage value="/imgs/#{resultado.usuario.nombre}/#{resultado.producto.nombreImagen}" width="150" height="150" styleClass="resultado_img"/>
+					<h:graphicImage value="/imgs/#{resultado.producto.direccionImagen}" width="150" height="150" styleClass="resultado_img"/>
 					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>

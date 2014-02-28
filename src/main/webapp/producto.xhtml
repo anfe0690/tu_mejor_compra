@@ -17,7 +17,7 @@
 		</f:metadata>
 		<section id="producto">
 			<h1>Producto</h1>
-			<h:graphicImage value="/imgs/#{mostrarProductoBean.usuarioVendedor.nombre}/#{mostrarProductoBean.producto.nombreImagen}" width="400" height="400"/>
+			<h:graphicImage value="/imgs/#{mostrarProductoBean.producto.direccionImagen}" width="400" height="400"/>
 			<div>
 				<h:outputText id="nombre_producto" value="#{mostrarProductoBean.producto.nombre}"/>
 				<span id="tag_precio_producto">Precio:</span>
