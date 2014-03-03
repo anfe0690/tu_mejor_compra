@@ -35,6 +35,18 @@ public class SesionBean implements Serializable {
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("postConstruct");
+//		campoNombreUsuario = "andres";
+//		campoContrasena ="123";
+//		try {
+//			Usuario usuario = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
+//			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
+//				sesionIniciada = true;
+//				this.usuario = usuario;
+//				logger.info("Sesion iniciada: {}", usuario.getNombre());
+//			} else {
+//			}
+//		} catch (Exception e) {
+//		}
 	}
 
 	@PreDestroy

@@ -1,16 +1,14 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.WebContainerListener;
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeCompras;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeVentas;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
-import com.anfe0690.tu_mejor_compra.entity.Compra;
 import com.anfe0690.tu_mejor_compra.entity.Estado;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Transaccion;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import com.anfe0690.tu_mejor_compra.entity.Venta;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -22,19 +20,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,11 +43,9 @@ public class AdminBean implements Serializable {
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
 	@EJB
-	private ManejadorDeCompras manejadorDeCompras;
-	@EJB
-	private ManejadorDeVentas manejadorDeVentas;
-	@EJB
 	private ManejadorDeProductos manejadorDeProductos;
+	@EJB
+	private ManejadorDeTransacciones manejadorDeTransacciones;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -79,9 +67,8 @@ public class AdminBean implements Serializable {
 
 	public void limpiarBaseDeDatos() {
 		logger.info("Inicia limpieza de base de datos...");
+		logger.debug("Eliminadas {} entidades del tipo Transaccion", manejadorDeTransacciones.removerTodasLasTransacciones());
 		logger.debug("Eliminadas {} entidades del tipo Usuario", manejadorDeUsuarios.removerTodosLosUsuarios());
-		logger.debug("Eliminadas {} entidades del tipo Compra", manejadorDeCompras.removerTodasLasCompras());
-		logger.debug("Eliminadas {} entidades del tipo Venta", manejadorDeVentas.removerTodasLasVentas());
 
 		for (Producto p : manejadorDeProductos.obtenerTodosLosProductos()) {
 			File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + p.getDireccionImagen());
@@ -114,10 +101,8 @@ public class AdminBean implements Serializable {
 		Usuario usuarioFernando = crearUsuarioFernando();
 		List<Producto> productosFernando = new ArrayList<>(usuarioFernando.getProductos());
 
-		// Crear compras y ventas
-		crearComprasVentasAndres(usuarioAndres, productosAndres, productosCarlos, productosFernando);
-		crearComprasVentasCarlos(usuarioCarlos, productosAndres, productosCarlos);
-		crearComprasVentasFernando(usuarioFernando, productosAndres, productosFernando);
+		// Crear transacciones
+		crearTransacciones(usuarioAndres, usuarioCarlos, usuarioFernando, productosAndres, productosCarlos, productosFernando);
 
 		logger.info("La base de datos fue restaurada.");
 		return "index.xhtml?faces-redirect=true";
@@ -225,123 +210,60 @@ public class AdminBean implements Serializable {
 		return usuarioFernando;
 	}
 
-	private void crearComprasVentasAndres(Usuario usuarioAndres, List<Producto> productosAndres, List<Producto> productosCarlos,
-			List<Producto> productosFernando) {
-		// Compras
-		List<Compra> compras = new ArrayList<>();
+	private void crearTransacciones(Usuario usuarioAndres,Usuario usuarioCarlos,Usuario usuarioFernando, List<Producto> productosAndres,
+			List<Producto> productosCarlos, List<Producto> productosFernando){
+		List<Transaccion> transacciones = new ArrayList<>();
 		// 1
-		Compra c = new Compra();
-		c.setVendedor("carlos");
-		c.setProducto(productosCarlos.get(0));
-		c.setEstado(Estado.ESPERANDO_PAGO);
-		compras.add(c);
+		Transaccion t = new Transaccion();
+		t.setProducto(productosCarlos.get(0));
+		t.setEstado(Estado.ESPERANDO_PAGO);
+		t.setUsuarioVendedor(usuarioCarlos);
+		t.setUsuarioComprador(usuarioAndres);
+		transacciones.add(t);
 		// 2
-		c = new Compra();
-		c.setVendedor("fernando");
-		c.setProducto(productosFernando.get(2));
-		c.setEstado(Estado.EN_ENVIO);
-		compras.add(c);
-		// Ventas
-		List<Venta> ventas = new ArrayList<>();
-		// 1
-		Venta v = new Venta();
-		v.setComprador("carlos");
-		v.setProducto(productosAndres.get(1));
-		v.setEstado(Estado.ESPERANDO_PAGO);
-		ventas.add(v);
-		// 2
-		v = new Venta();
-		v.setComprador("fernando");
-		v.setProducto(productosAndres.get(2));
-		v.setEstado(Estado.TERMINADO);
-		ventas.add(v);
-		usuarioAndres.setCompras(new HashSet<>(compras));
-		usuarioAndres.setVentas(new HashSet<>(ventas));
-		for (Compra compra : compras) {
-			manejadorDeCompras.guardarCompra(compra);
+		t = new Transaccion();
+		t.setProducto(productosFernando.get(2));
+		t.setEstado(Estado.EN_ENVIO);
+		t.setUsuarioVendedor(usuarioFernando);
+		t.setUsuarioComprador(usuarioAndres);
+		transacciones.add(t);
+		// 3
+		t = new Transaccion();
+		t.setProducto(productosAndres.get(1));
+		t.setEstado(Estado.ESPERANDO_PAGO);
+		t.setUsuarioVendedor(usuarioAndres);
+		t.setUsuarioComprador(usuarioCarlos);
+		transacciones.add(t);
+		// 4
+		t = new Transaccion();
+		t.setProducto(productosAndres.get(2));
+		t.setEstado(Estado.TERMINADO);
+		t.setUsuarioVendedor(usuarioAndres);
+		t.setUsuarioComprador(usuarioFernando);
+		transacciones.add(t);
+		
+		for(Transaccion tra:transacciones){
+			manejadorDeTransacciones.guardarTransaccion(tra);
 		}
-		for (Venta venta : ventas) {
-			manejadorDeVentas.guardarVenta(venta);
-		}
-		manejadorDeUsuarios.mergeUsuario(usuarioAndres);
 	}
-
-	private void crearComprasVentasCarlos(Usuario usuarioCarlos, List<Producto> productosAndres, List<Producto> productosCarlos) {
-		// Compras
-		List<Compra> compras = new ArrayList<>();
-		// 1
-		Compra c = new Compra();
-		c.setVendedor("andres");
-		c.setProducto(productosAndres.get(1));
-		c.setEstado(Estado.ESPERANDO_PAGO);
-		compras.add(c);
-		// Ventas
-		List<Venta> ventas = new ArrayList<>();
-		// 1
-		Venta v = new Venta();
-		v.setComprador("andres");
-		v.setProducto(productosCarlos.get(0));
-		v.setEstado(Estado.ESPERANDO_PAGO);
-		ventas.add(v);
-		//
-		usuarioCarlos.setCompras(new HashSet<>(compras));
-		usuarioCarlos.setVentas(new HashSet<>(ventas));
-		for (Compra compra : compras) {
-			manejadorDeCompras.guardarCompra(compra);
-		}
-		for (Venta venta : ventas) {
-			manejadorDeVentas.guardarVenta(venta);
-		}
-		manejadorDeUsuarios.mergeUsuario(usuarioCarlos);
-	}
-
-	private void crearComprasVentasFernando(Usuario usuarioFernando, List<Producto> productosAndres, List<Producto> productosFernando) {
-		// Compras
-		List<Compra> compras = new ArrayList<>();
-		// 1
-		Compra c = new Compra();
-		c.setVendedor("andres");
-		c.setProducto(productosAndres.get(2));
-		c.setEstado(Estado.TERMINADO);
-		compras.add(c);
-		// Ventas
-		List<Venta> ventas = new ArrayList<>();
-		// 1
-		Venta v = new Venta();
-		v.setComprador("andres");
-		v.setProducto(productosFernando.get(2));
-		v.setEstado(Estado.EN_ENVIO);
-		ventas.add(v);
-		//
-		usuarioFernando.setCompras(new HashSet<>(compras));
-		usuarioFernando.setVentas(new HashSet<>(ventas));
-		for (Compra compra : compras) {
-			manejadorDeCompras.guardarCompra(compra);
-		}
-		for (Venta venta : ventas) {
-			manejadorDeVentas.guardarVenta(venta);
-		}
-		manejadorDeUsuarios.mergeUsuario(usuarioFernando);
-	}
-
+	
 	private void crearImagen(Producto producto) {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//		String dirOrigenBase = ec.getRealPath("resources\\images\\restaurar") + "\\" + usuario.getNombre() + "\\";
 		String dirOrigenBase = null;
 		try {
 			dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
 		} catch (MalformedURLException e) {
 			logger.error(null, e);
 		}
-		logger.debug("dirOrigenBase = {}", dirOrigenBase);
 		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS);
-		logger.debug("dirDestinoBase = {}", dirDestinoBase);
-		File fOrigen = new File(dirOrigenBase + producto.getDireccionImagen());
-		File fDestino = new File(dirDestinoBase + producto.getDireccionImagen());
-		if (!fDestino.exists()) {
+		File fileImagenOrigen = new File(dirOrigenBase + producto.getDireccionImagen());
+		File fileImagenDestino=  new File(dirDestinoBase + producto.getDireccionImagen());
+		logger.debug("fileImagenOrigen = {}", fileImagenOrigen);
+		logger.debug("fileImagenDestino = {}", fileImagenDestino);
+		if (!fileImagenDestino.exists()) {
 			try {
-				Files.copy(fOrigen.toPath(), fDestino.toPath());
-			} catch (Exception ex) {
+				Files.copy(fileImagenOrigen.toPath(), fileImagenDestino.toPath());
+			} catch (IOException ex) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.toString()));
 				logger.error(null, ex);
 			}

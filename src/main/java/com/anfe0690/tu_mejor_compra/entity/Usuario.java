@@ -39,15 +39,9 @@ public class Usuario implements Serializable {
 	private String banco;
 	@Column(length = 20)
 	private String numeroCuenta;
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Producto> productos;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Compra> compras;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	private Set<Venta> ventas;
 
 	public String getNombre() {
 		return nombre;
@@ -127,22 +121,6 @@ public class Usuario implements Serializable {
 
 	public void setProductos(Set<Producto> productos) {
 		this.productos = productos;
-	}
-
-	public Set<Compra> getCompras() {
-		return compras;
-	}
-
-	public void setCompras(Set<Compra> compras) {
-		this.compras = compras;
-	}
-
-	public Set<Venta> getVentas() {
-		return ventas;
-	}
-
-	public void setVentas(Set<Venta> ventas) {
-		this.ventas = ventas;
 	}
 
 	@Override

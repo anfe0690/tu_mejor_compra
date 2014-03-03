@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-// TODO 02: Continuar con el reemplazo de las entidades Compra y Venta por Transaccion
 @Entity
 public class Transaccion implements Serializable {
 
@@ -65,6 +64,12 @@ public class Transaccion implements Serializable {
 
 	public void setUsuarioComprador(Usuario usuarioComprador) {
 		this.usuarioComprador = usuarioComprador;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaccion{" + "id=" + id + ", estado=" + estado + ", productoId=" + producto.getId() + ", usuarioVendedor="
+				+ usuarioVendedor.getNombre() + ", usuarioComprador=" + usuarioComprador.getNombre() + '}';
 	}
 
 }
