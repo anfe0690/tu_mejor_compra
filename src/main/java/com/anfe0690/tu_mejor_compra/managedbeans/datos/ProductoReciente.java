@@ -7,15 +7,10 @@ import java.util.ArrayList;
 
 public class ProductoReciente implements Serializable{
 
-	private Usuario usuario;
 	private Producto producto;
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public ProductoReciente(Producto producto) {
+		this.producto = producto;
 	}
 
 	public Producto getProducto() {
@@ -26,8 +21,4 @@ public class ProductoReciente implements Serializable{
 		this.producto = producto;
 	}
 
-	public int indiceDeProducto(Producto producto){
-		return new ArrayList<>(usuario.getProductos()).indexOf(producto);
-	}
-	
 }

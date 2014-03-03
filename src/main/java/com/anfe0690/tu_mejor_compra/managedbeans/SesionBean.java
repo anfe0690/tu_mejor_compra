@@ -34,12 +34,12 @@ public class SesionBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	// Acciones
@@ -50,6 +50,7 @@ public class SesionBean implements Serializable {
 			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
 				sesionIniciada = true;
 				this.usuario = usuario;
+				logger.info("Sesion iniciada: {}", usuario.getNombre());
 			} else {
 				fc.addMessage("sesion_form:input_sesion", new FacesMessage("Usuario y/o contraseña incorrectos"));
 			}

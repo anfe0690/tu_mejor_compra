@@ -21,12 +21,12 @@ public class ManejadorDeProductos {
 
     @PostConstruct
     public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
     }
 
     @PreDestroy
     public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
     }
 
     public Producto obtenerProductoPorId(long id){

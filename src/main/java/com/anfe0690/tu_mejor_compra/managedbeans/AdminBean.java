@@ -50,8 +50,6 @@ public class AdminBean implements Serializable {
 	// Campos
 	private String password;
 	// Beans
-	@PersistenceContext
-	private EntityManager em;
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
 	@EJB
@@ -63,18 +61,18 @@ public class AdminBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public String identificarse() {
 		if (password.equalsIgnoreCase("asd123")) {
 			identificado = true;
-			logger.debug("Identificado como Administrador");
+			logger.info("Identificado como Administrador");
 		}
 		return null;
 	}

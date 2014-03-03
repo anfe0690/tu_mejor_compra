@@ -41,12 +41,12 @@ public class CrearProducto implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public Part getFile() {
@@ -127,7 +127,7 @@ public class CrearProducto implements Serializable {
 		manejadorDeUsuarios.mergeUsuario(usuario);
 		usuario.setProductos(manejadorDeUsuarios.buscarUsuarioPorNombre(usuario.getNombre()).getProductos());
 
-		logger.debug("Creado producto: {}", producto.getNombre());
+		logger.info("Creado producto: {}", producto.getNombre());
 
 		return "perfil";
 	}

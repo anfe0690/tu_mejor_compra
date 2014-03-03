@@ -18,7 +18,6 @@ public class WebContainerListener implements ServletContextListener {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	// TODO 03: Habiliar el uso de logs de niveles inferiores a INFO
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		logger.info("contextInitialized");

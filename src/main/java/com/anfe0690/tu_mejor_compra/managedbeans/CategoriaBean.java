@@ -29,16 +29,16 @@ public class CategoriaBean {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public void buscar() {
-		logger.debug("buscar {}", valor);
+		logger.debug("buscar categoria {}", valor);
 		List<Resultado> res = new ArrayList<>();
 
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = '" + valor + "'", Producto.class);
@@ -62,7 +62,6 @@ public class CategoriaBean {
 	}
 
 	public void setValor(String valor) {
-		logger.debug("setValor {}", valor);
 		this.valor = valor;
 	}
 

@@ -46,7 +46,7 @@ public class MostrarProductoBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String productoId = pm.get("pid");
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
@@ -55,7 +55,7 @@ public class MostrarProductoBean implements Serializable {
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public Usuario getUsuarioVendedor() {
@@ -82,7 +82,7 @@ public class MostrarProductoBean implements Serializable {
 		compra.setProducto(producto);
 		compra.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeCompras.guardarCompra(compra);
-		logger.debug("compra : {}", compra);
+		logger.debug("Creada compra : {}", compra);
 		usuarioComprador.getCompras().add(compra);
 		manejadorDeUsuarios.mergeUsuario(usuarioComprador);
 		// Venta
@@ -91,11 +91,11 @@ public class MostrarProductoBean implements Serializable {
 		venta.setProducto(producto);
 		venta.setEstado(Estado.ESPERANDO_PAGO);
 		manejadorDeVentas.guardarVenta(venta);
-		logger.debug("venta: {}", venta);
+		logger.debug("Creada venta: {}", venta);
 		usuarioVendedor.getVentas().add(venta);
 		manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
 
-		logger.debug("Usuario {} compro {}", usuarioComprador.getNombre(), producto.getNombre());
+		logger.info("El usuario {} compro {}", usuarioComprador.getNombre(), producto.getNombre());
 		return "perfil";
 	}
 }

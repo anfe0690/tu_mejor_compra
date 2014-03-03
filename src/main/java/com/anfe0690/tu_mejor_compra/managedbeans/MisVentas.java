@@ -44,7 +44,7 @@ public class MisVentas implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 
         filas.clear();
         for (Venta venta : sc.getUsuario().getVentas()) {
@@ -60,12 +60,10 @@ public class MisVentas implements Serializable {
 
     @PreDestroy
     public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
     }
 
     public String actualizar() {
-		logger.debug("actualizar");
-
         for (Venta venta : sc.getUsuario().getVentas()) {
             Usuario usuarioComprador = mu.buscarUsuarioPorNombre(venta.getComprador());
 
@@ -74,20 +72,17 @@ public class MisVentas implements Serializable {
             for (Fila fila : filas) {
                 if (producto.getNombre().equals(fila.getNombreProducto())) {
                     if (!venta.getEstado().toString().equals(fila.getEstado())) {
-						logger.debug(fila.toString());
-
                         venta.setEstado(Estado.EN_ENVIO);
                         manejadorDeVentas.mergeVenta(venta);
-						logger.debug("venta = {}", venta);
+						logger.debug("Cambio de estado a EN_ENVIO  de la venta = {}", venta);
 
                         for (Compra compra : usuarioComprador.getCompras()) {
                             if (compra.getProducto().getId() == venta.getProducto().getId()) {
                                 compra.setEstado(Estado.EN_ENVIO);
                                 manejadorDeCompras.mergeCompra(compra);
-								logger.debug("compra = {}", compra);
+								logger.debug("Cambio de estado a EN_ENVIO  de la compra = {}", compra);
                             }
                         }
-
                         mu.mergeUsuario(usuarioComprador);
                         mu.mergeUsuario(sc.getUsuario());
                     }
@@ -104,6 +99,7 @@ public class MisVentas implements Serializable {
             fila.setEstado(venta.getEstado().toString());
             filas.add(fila);
         }
+		logger.info("actualizada MisVentas");
         return "";
     }
 

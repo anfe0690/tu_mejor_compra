@@ -57,7 +57,7 @@ public class MisProductos implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 		for (Producto producto : sesionController.getUsuario().getProductos()) {
 			selProductos.add(new SelProducto(producto));
 		}
@@ -65,7 +65,7 @@ public class MisProductos implements Serializable {
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public List<SelProducto> getSelProductos() {

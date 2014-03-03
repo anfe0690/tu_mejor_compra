@@ -35,12 +35,12 @@ public class BuscarBean implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
 	}
 
 	public List<Resultado> getResultados() {
@@ -56,7 +56,6 @@ public class BuscarBean implements Serializable {
 	}
 
 	public void setValor(String valor) {
-		logger.debug("setValor()");
 		this.valor = valor;
 	}
 

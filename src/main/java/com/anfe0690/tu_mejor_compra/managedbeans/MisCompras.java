@@ -44,7 +44,7 @@ public class MisCompras implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
 
         for (Compra compra : sc.getUsuario().getCompras()) {
             Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
@@ -59,12 +59,11 @@ public class MisCompras implements Serializable {
 
     @PreDestroy
     public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
     }
 
     public String actualizar() {
         Usuario usuarioComprador = sc.getUsuario();
-		logger.debug("actualizar");
         for (Compra compra : usuarioComprador.getCompras()) {
             Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
             Producto producto = compra.getProducto();
@@ -72,17 +71,16 @@ public class MisCompras implements Serializable {
             for (Fila fila : filas) {
                 if (producto.getNombre().equals(fila.getNombreProducto())) {
                     if (!compra.getEstado().toString().equals(fila.getEstado())) {
-						logger.debug(fila.toString());
 
                         compra.setEstado(Estado.TERMINADO);
                         manejadorDeCompras.mergeCompra(compra);
-						logger.debug("compra = {}", compra);
+						logger.debug("Cambio de estado a TERMINADO de la compra = {}", compra);
  
                         for (Venta venta : usuarioVendedor.getVentas()) {
                             if (compra.getProducto().getId() == venta.getProducto().getId()) {
                                 venta.setEstado(Estado.TERMINADO);
                                 manejadorDeVentas.mergeVenta(venta);
-								logger.debug("venta = {}", venta);
+								logger.debug("Cambio de estado a TERMINADO de la venta = {}", venta);
                             }
                         }
 
@@ -95,7 +93,6 @@ public class MisCompras implements Serializable {
         sc.getUsuario().setCompras(mu.buscarUsuarioPorNombre(sc.getUsuario().getNombre()).getCompras());
         filas.clear();
         for (Compra compra : sc.getUsuario().getCompras()) {
-            Usuario usuarioVendedor = mu.buscarUsuarioPorNombre(compra.getVendedor());
             Producto producto = compra.getProducto();
             Fila fila = new Fila();
             fila.setDireccionImagen("/imgs/" + producto.getDireccionImagen());
@@ -103,6 +100,7 @@ public class MisCompras implements Serializable {
             fila.setEstado(compra.getEstado().toString());
             filas.add(fila);
         }
+		logger.info("actualizada MisCompras");
         return "";
     }
 

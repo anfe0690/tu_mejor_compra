@@ -26,12 +26,12 @@ public class ManejadorDeVentas implements Serializable{
 
     @PostConstruct
     public void postConstruct() {
-		logger.debug("postConstruct");
+		logger.trace("postConstruct");
     }
 
     @PreDestroy
     public void preDestroy() {
-		logger.debug("preDestroy");
+		logger.trace("preDestroy");
     }
 
     public void guardarVenta(Venta venta) {
