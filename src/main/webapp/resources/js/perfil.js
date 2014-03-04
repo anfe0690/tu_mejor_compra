@@ -1,5 +1,7 @@
 
 window.onload = function() {
+	
+	doLayout();
 
 	// Eliminar productos
 	var button_eliminar = document.getElementById("section_mis_productos_form:boton_eliminar");
@@ -10,7 +12,7 @@ window.onload = function() {
 			e.preventDefault();
 		}
 	};
-	//TODO 01: Aun cuando hay 0 productos se cuenta 1 producto, el cual no existe
+	//TODO 100: Aun cuando hay 0 productos se cuenta 1 producto, el cual no existe
 	var numFilas = document.getElementById("section_mis_productos_form:datatable1").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	var sels = new Array();

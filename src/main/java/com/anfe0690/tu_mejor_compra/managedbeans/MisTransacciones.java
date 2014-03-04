@@ -15,7 +15,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO 02: Buscar alternativa a cargar los beans en los constructores, evaluar si se cambia a ViewScoped
+// TODO 101: Buscar alternativa a cargar los beans en los constructores, evaluar si se cambia a ViewScoped
 
 @Named
 @RequestScoped
