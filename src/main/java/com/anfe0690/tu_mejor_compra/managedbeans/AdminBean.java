@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,9 +70,8 @@ public class AdminBean implements Serializable {
 		logger.info("Inicia limpieza de base de datos...");
 		logger.debug("Eliminadas {} entidades del tipo Transaccion", manejadorDeTransacciones.removerTodasLasTransacciones());
 		logger.debug("Eliminadas {} entidades del tipo Usuario", manejadorDeUsuarios.removerTodosLosUsuarios());
-
 		for (Producto p : manejadorDeProductos.obtenerTodosLosProductos()) {
-			File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + p.getDireccionImagen());
+			File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + p.getDireccionImagen());
 			try {
 				Files.deleteIfExists(f.toPath());
 				logger.debug("Eliminada la imagen \"{}\"", f);
@@ -104,6 +104,9 @@ public class AdminBean implements Serializable {
 		// Crear transacciones
 		crearTransacciones(usuarioAndres, usuarioCarlos, usuarioFernando, productosAndres, productosCarlos, productosFernando);
 
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+		session.invalidate();
 		logger.info("La base de datos fue restaurada.");
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -136,6 +139,9 @@ public class AdminBean implements Serializable {
 		usuarioAndres.setProductos(new HashSet<>(productosAndres));
 		for (Producto producto : usuarioAndres.getProductos()) {
 			crearImagen(producto);
+		}
+		for (Producto pg : productosAndres) {
+			manejadorDeProductos.persistProducto(pg);
 		}
 		manejadorDeUsuarios.guardarUsuario(usuarioAndres);
 		return usuarioAndres;
@@ -173,6 +179,9 @@ public class AdminBean implements Serializable {
 		for (Producto producto : usuarioCarlos.getProductos()) {
 			crearImagen(producto);
 		}
+		for (Producto pg : productosCarlos) {
+			manejadorDeProductos.persistProducto(pg);
+		}
 		manejadorDeUsuarios.guardarUsuario(usuarioCarlos);
 		return usuarioCarlos;
 	}
@@ -206,12 +215,15 @@ public class AdminBean implements Serializable {
 		for (Producto producto : usuarioFernando.getProductos()) {
 			crearImagen(producto);
 		}
+		for (Producto pg : productosFernando) {
+			manejadorDeProductos.persistProducto(pg);
+		}
 		manejadorDeUsuarios.guardarUsuario(usuarioFernando);
 		return usuarioFernando;
 	}
 
-	private void crearTransacciones(Usuario usuarioAndres,Usuario usuarioCarlos,Usuario usuarioFernando, List<Producto> productosAndres,
-			List<Producto> productosCarlos, List<Producto> productosFernando){
+	private void crearTransacciones(Usuario usuarioAndres, Usuario usuarioCarlos, Usuario usuarioFernando, List<Producto> productosAndres,
+			List<Producto> productosCarlos, List<Producto> productosFernando) {
 		List<Transaccion> transacciones = new ArrayList<>();
 		// 1
 		Transaccion t = new Transaccion();
@@ -241,23 +253,37 @@ public class AdminBean implements Serializable {
 		t.setUsuarioVendedor(usuarioAndres);
 		t.setUsuarioComprador(usuarioFernando);
 		transacciones.add(t);
-		
-		for(Transaccion tra:transacciones){
+
+		for (Transaccion tra : transacciones) {
 			manejadorDeTransacciones.guardarTransaccion(tra);
 		}
 	}
-	
+
 	private void crearImagen(Producto producto) {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String dirOrigenBase = null;
 		try {
-			dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
+			switch (System.getProperty(WebContainerListener.K_SERVIDOR)) {
+				case WebContainerListener.V_SERVIDOR_WILDFLY: {
+					dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
+					break;
+				}
+				case WebContainerListener.V_SERVIDOR_GLASSFISH: {
+					dirOrigenBase = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + "/resources/images/restaurar/";
+					break;
+				}
+				default: {
+					logger.error("Valor de propiedad {} no valido: \"{}\"",
+							WebContainerListener.K_SERVIDOR, System.getProperty(WebContainerListener.K_SERVIDOR));
+					break;
+				}
+			}
 		} catch (MalformedURLException e) {
 			logger.error(null, e);
 		}
-		String dirDestinoBase = System.getProperty(WebContainerListener.DIR_DATOS);
+		String dirDestinoBase = System.getProperty(WebContainerListener.K_DIR_DATOS);
 		File fileImagenOrigen = new File(dirOrigenBase + producto.getDireccionImagen());
-		File fileImagenDestino=  new File(dirDestinoBase + producto.getDireccionImagen());
+		File fileImagenDestino = new File(dirDestinoBase + producto.getDireccionImagen());
 		logger.debug("fileImagenOrigen = {}", fileImagenOrigen);
 		logger.debug("fileImagenDestino = {}", fileImagenDestino);
 		if (!fileImagenDestino.exists()) {

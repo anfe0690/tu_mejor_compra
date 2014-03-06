@@ -1,41 +1,57 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.managedbeans.datos.SelProducto;
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.WebContainerListener;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Transaccion;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
+import com.anfe0690.tu_mejor_compra.managedbeans.datos.SelProducto;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO 096: Evaluar el uso de objetos que tras obtenerse tal vez ya no existan
 @Named
-@ViewScoped
-public class MisProductos implements Serializable {
+@RequestScoped
+public class MisProductos {
 
+	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(MisProductos.class);
-	private static final long serialVersionUID = 1L;
 	@Inject
-	private SesionBean sesionController;
-	private final List<SelProducto> selProductos = new ArrayList<>();
+	private SesionBean sesionBean;
+	private List<SelProducto> selProductos;
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
 	@EJB
 	private ManejadorDeProductos manejadorDeProductos;
+	@EJB
+	private ManejadorDeTransacciones manejadorDeTransacciones;
 
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("postConstruct");
-		for (Producto producto : sesionController.getUsuario().getProductos()) {
+		selProductos = new ArrayList<>();
+		logger.debug("Productos del usuario en sesion");
+		for (Producto producto : sesionBean.getUsuario().getProductos()) {
 			selProductos.add(new SelProducto(producto));
+			logger.debug("{}", producto);
 		}
 	}
 
@@ -48,66 +64,51 @@ public class MisProductos implements Serializable {
 		return selProductos;
 	}
 
-//	public void eliminarProductos() {
-//		Usuario usuarioVendedor = sesionController.getUsuario();
-//		Iterator<SelProducto> it = selProductos.iterator();
-//		while (it.hasNext()) {
-//			SelProducto sp = it.next();
-//			if (sp.isSeleccionado()) {
-//				Producto producto = sp.getProducto();
-//				// Remover ventas relacionadas
-//				Iterator<Venta> ventasIt = usuarioVendedor.getVentas().iterator();
-//				while (ventasIt.hasNext()) {
-//					Venta venta = ventasIt.next();
-//					if (venta.getProducto().equals(producto)) {
-//						Usuario usuarioComprador = manejadorDeUsuarios.buscarUsuarioPorNombre(venta.getComprador());
-//						Iterator<Compra> comprasIt = usuarioComprador.getCompras().iterator();
-//						// Remover compras relacionadas
-//						while (comprasIt.hasNext()) {
-//							Compra compra = comprasIt.next();
-//							if (compra.getVendedor().equals(usuarioVendedor.getNombre())
-//									&& compra.getProducto().getId() == venta.getProducto().getId()) {
-//								// Remover de la colleccion la compra
-//								comprasIt.remove();
-//								manejadorDeUsuarios.mergeUsuario(usuarioComprador);
-//								manejadorDeCompras.removeCompra(compra);
-//								logger.debug("Eliminada compra: {}", compra);
-//							}
-//						}
-//						// Remover de la colleccion la venta
-////						Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-////								"Ventas: " + Arrays.toString(usuarioVendedor.getVentas().toArray()));
-//						ventasIt.remove();
-//						manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
-//						manejadorDeVentas.removeVenta(venta);
-//						logger.debug("Eliminada venta: {}", venta);
-//					}
-//				}
-//				
-//				usuarioVendedor.setVentas(manejadorDeUsuarios.buscarUsuarioPorNombre(usuarioVendedor.getNombre()).getVentas());
-////				manejadorDeUsuarios.refreshUsuario(usuarioVendedor);
-//				// Remover de selProductos
-//				it.remove();
-//				// Remover de la colleccion el producto
-//				boolean res = usuarioVendedor.getProductos().remove(producto);
-////				Logger.getLogger(MisProductos.class.getName()).log(Level.INFO,
-////						"Ventas: " + Arrays.toString(usuarioVendedor.getVentas().toArray()));
-//				manejadorDeUsuarios.mergeUsuario(usuarioVendedor);
-//				manejadorDeProductos.removerProducto(producto);
-//				
-//				File f =
-//						new File(System.getProperty(WebContainerListener.DIR_DATOS) + producto.getDireccionImagen());
-//				try {
-//					Files.deleteIfExists(f.toPath());
-//				} catch (Exception ex) {
-//					FacesContext fc = FacesContext.getCurrentInstance();
-//					fc.addMessage(null, new FacesMessage(ex.toString()));
-//					logger.error(null, ex);
-//				}
-//			}
-//		}
-//		// Actualizar ventas en pagina
-//		misVentas.postConstruct();
-//	}
+	// TODO 095: Problema al ejecutar el metodo eliminarProductos() con Wildfly (Hibernate)
+	public void eliminarProductos() {
+		Usuario usuario = sesionBean.getUsuario();
+		Iterator<SelProducto> it = selProductos.iterator();
+		while (it.hasNext()) {
+			SelProducto sp = it.next();
+			if (sp.isSeleccionado()) {
+				Producto producto = sp.getProducto();
+				// Remover transacciones relacionadas
+				List<Transaccion> ts = manejadorDeTransacciones.obtenerTransaccionesRelacionadasConProducto(producto);
+				for (Transaccion t : ts) {
+					manejadorDeTransacciones.removerTransaccion(t);
+					logger.info("Removida transaccion: {}", t);
+				}
+				// Remover de selProductos
+				it.remove();
+				// Remover del usuario
+				Iterator<Producto> itp = usuario.getProductos().iterator();
+				while (itp.hasNext()) {
+					Producto p = itp.next();
+					if (p.getId() == producto.getId()) {
+						itp.remove();
+						logger.debug("Removido producto del usuario: {}", p);
+					}
+				}
+				logger.debug("Comprobar eliminacion de colleccion");
+				for (Producto p : usuario.getProductos()) {
+					logger.debug("{}", p);
+				}
+				manejadorDeUsuarios.mergeUsuario(usuario);
+				manejadorDeProductos.removerProducto(producto);
+				logger.info("Removido producto: {}", producto);
+
+				File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + producto.getDireccionImagen());
+				try {
+					if (Files.deleteIfExists(f.toPath())) {
+						logger.info("Removida imagen: {}", f);
+					}
+				} catch (IOException ex) {
+					FacesContext fc = FacesContext.getCurrentInstance();
+					fc.addMessage(null, new FacesMessage(ex.toString()));
+					logger.error(null, ex);
+				}
+			}
+		}
+	}
 
 }

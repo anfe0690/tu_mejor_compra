@@ -36,7 +36,8 @@ public class CategoriaBean {
 	public void preDestroy() {
 		logger.trace("preDestroy");
 	}
-
+	
+	// TODO 102: Hay problemas con los parametros GET en Glassfish
 	public void buscar() {
 		logger.debug("buscar categoria {}", valor);
 		List<Resultado> res = new ArrayList<>();

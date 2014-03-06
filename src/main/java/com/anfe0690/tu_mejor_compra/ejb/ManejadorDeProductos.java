@@ -29,6 +29,10 @@ public class ManejadorDeProductos {
 		logger.trace("preDestroy");
     }
 
+	public void persistProducto(Producto p){
+		em.persist(p);
+	}
+	
     public Producto obtenerProductoPorId(long id){
         return em.find(Producto.class, id);
     }

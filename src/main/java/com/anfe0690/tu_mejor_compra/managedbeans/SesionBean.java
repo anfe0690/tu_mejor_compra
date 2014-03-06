@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
+import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
@@ -36,13 +37,16 @@ public class SesionBean implements Serializable {
 	public void postConstruct() {
 		logger.trace("postConstruct");
 //		campoNombreUsuario = "andres";
-//		campoContrasena ="123";
+//		campoContrasena = "123";
 //		try {
 //			Usuario usuario = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
 //			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
 //				sesionIniciada = true;
 //				this.usuario = usuario;
 //				logger.info("Sesion iniciada: {}", usuario.getNombre());
+//				for (Producto p : usuario.getProductos()) {
+//					logger.debug("{}", p);
+//				}
 //			} else {
 //			}
 //		} catch (Exception e) {

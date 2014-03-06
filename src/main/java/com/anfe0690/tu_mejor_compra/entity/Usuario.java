@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
 	@Column(length = 20)
 	private String numeroCuenta;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Producto> productos;
 
 	public String getNombre() {

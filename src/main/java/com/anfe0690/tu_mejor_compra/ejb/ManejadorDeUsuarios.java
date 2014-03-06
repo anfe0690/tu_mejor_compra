@@ -45,7 +45,6 @@ public class ManejadorDeUsuarios implements Serializable {
 	}
 
 	public void mergeUsuario(Usuario usuario) {
-		entityManager.flush();
 		entityManager.merge(usuario);
 	}
 

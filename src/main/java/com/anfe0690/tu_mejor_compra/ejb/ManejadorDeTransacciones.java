@@ -42,6 +42,10 @@ public class ManejadorDeTransacciones {
 	public void mergeTransaccion(Transaccion t){
 		em.merge(t);
 	}
+
+	public void removerTransaccion(Transaccion t){
+		em.remove(em.find(Transaccion.class, t.getId()));
+	}
 	
 	public int removerTodasLasTransacciones() {
 		Query q = em.createQuery("DELETE FROM Transaccion t");

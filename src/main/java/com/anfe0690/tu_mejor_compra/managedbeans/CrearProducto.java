@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
@@ -38,6 +39,8 @@ public class CrearProducto implements Serializable {
 
 	@EJB
 	private ManejadorDeUsuarios manejadorDeUsuarios;
+	@EJB
+	private ManejadorDeProductos manejadorDeProductos;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -99,7 +102,7 @@ public class CrearProducto implements Serializable {
 		}
 
 		String direccionImagen = sesionController.getUsuario().getNombre() + "/" + fileName;
-		File f = new File(System.getProperty(WebContainerListener.DIR_DATOS) + direccionImagen);
+		File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + direccionImagen);
 		logger.debug("f = {}", f);
 		try {
 			f.createNewFile();
@@ -123,6 +126,7 @@ public class CrearProducto implements Serializable {
 		producto.setFechaDeCreacion(new Date());
 		producto.setCategoria(Categoria.valueOf(categoria));
 
+		manejadorDeProductos.persistProducto(producto);
 		usuario.getProductos().add(producto);
 		manejadorDeUsuarios.mergeUsuario(usuario);
 		usuario.setProductos(manejadorDeUsuarios.buscarUsuarioPorNombre(usuario.getNombre()).getProductos());
