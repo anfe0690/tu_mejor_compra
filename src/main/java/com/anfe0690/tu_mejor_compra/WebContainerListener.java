@@ -7,7 +7,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-// TODO 103: Terminar de configurar el logger de Glassfish
 @WebListener
 public class WebContainerListener implements ServletContextListener {
 

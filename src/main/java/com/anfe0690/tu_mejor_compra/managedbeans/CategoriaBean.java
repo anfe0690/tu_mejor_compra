@@ -37,12 +37,12 @@ public class CategoriaBean {
 		logger.trace("preDestroy");
 	}
 	
-	// TODO 102: Hay problemas con los parametros GET en Glassfish
 	public void buscar() {
 		logger.debug("buscar categoria {}", valor);
 		List<Resultado> res = new ArrayList<>();
 
-		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = '" + valor + "'", Producto.class);
+		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria", Producto.class)
+				.setParameter("categoria", Categoria.valueOf(valor));
 		List<Producto> pros = qps.getResultList();
 		for (Producto p : pros) {
 			TypedQuery<Usuario> qu = em.createQuery("SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :pid", Usuario.class)
