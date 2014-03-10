@@ -64,7 +64,6 @@ public class MisProductos {
 		return selProductos;
 	}
 
-	// TODO 095: Problema al ejecutar el metodo eliminarProductos() con Wildfly (Hibernate)
 	public void eliminarProductos() {
 		Usuario usuario = sesionBean.getUsuario();
 		Iterator<SelProducto> it = selProductos.iterator();
@@ -81,26 +80,15 @@ public class MisProductos {
 				// Remover de selProductos
 				it.remove();
 				// Remover del usuario
-				Iterator<Producto> itp = usuario.getProductos().iterator();
-				while (itp.hasNext()) {
-					Producto p = itp.next();
-					if (p.getId() == producto.getId()) {
-						itp.remove();
-						logger.debug("Removido producto del usuario: {}", p);
-					}
-				}
-				logger.debug("Comprobar eliminacion de colleccion");
-				for (Producto p : usuario.getProductos()) {
-					logger.debug("{}", p);
-				}
-				manejadorDeUsuarios.mergeUsuario(usuario);
+				manejadorDeUsuarios.removerProductoDeUsuario(usuario, producto);
+				// Remover producto
 				manejadorDeProductos.removerProducto(producto);
 				logger.info("Removido producto: {}", producto);
 
 				File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + producto.getDireccionImagen());
 				try {
 					if (Files.deleteIfExists(f.toPath())) {
-						logger.info("Removida imagen: {}", f);
+						logger.info("Removida la imagen: {}", f);
 					}
 				} catch (IOException ex) {
 					FacesContext fc = FacesContext.getCurrentInstance();

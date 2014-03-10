@@ -59,7 +59,7 @@ public class AdminBean implements Serializable {
 	}
 
 	public String identificarse() {
-		if (password.equalsIgnoreCase("asd123")) {
+		if (password.equalsIgnoreCase("adminadmin")) {
 			identificado = true;
 			logger.info("Identificado como Administrador");
 		}

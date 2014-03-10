@@ -3,6 +3,7 @@ package com.anfe0690.tu_mejor_compra.entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Cacheable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,25 +20,16 @@ public class Usuario implements Serializable {
 
 	// Campos generales
 	@Id
-	@Column(length = 20)
 	private String nombre;
-	@Column(length = 10)
 	private String contrasena;
-	@Column(length = 30)
 	private String nombreContacto;
-	@Column(length = 30)
 	private String correo;
-	@Column(length = 30)
 	private String telefonos;
 	// Campos de comprador
-	@Column(length = 20)
 	private String ciudad;
-	@Column(length = 30)
 	private String direccion;
 	// Campos de vendedor;
-	@Column(length = 20)
 	private String banco;
-	@Column(length = 20)
 	private String numeroCuenta;
 
 	@OneToMany(fetch = FetchType.EAGER)

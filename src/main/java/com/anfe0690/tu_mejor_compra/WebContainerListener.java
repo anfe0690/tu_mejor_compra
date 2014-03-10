@@ -28,7 +28,7 @@ public class WebContainerListener implements ServletContextListener {
 			System.setProperty(K_DIR_DATOS, "C:\\Users\\Andres\\Downloads\\test\\TuMejorCompra\\img\\");
 		}
 
-		System.setProperty(K_SERVIDOR, V_SERVIDOR_GLASSFISH);
+		System.setProperty(K_SERVIDOR, V_SERVIDOR_WILDFLY);
 		logger.info("{} = {}", K_SERVIDOR, System.getProperty(K_SERVIDOR));
 
 	}

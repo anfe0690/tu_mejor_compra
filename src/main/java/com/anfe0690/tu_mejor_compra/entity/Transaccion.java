@@ -1,6 +1,7 @@
 package com.anfe0690.tu_mejor_compra.entity;
 
 import java.io.Serializable;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

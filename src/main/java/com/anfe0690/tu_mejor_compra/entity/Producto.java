@@ -2,6 +2,7 @@ package com.anfe0690.tu_mejor_compra.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Cacheable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
