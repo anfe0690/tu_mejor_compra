@@ -29,7 +29,7 @@
 				<c:otherwise>
 					<h:outputLabel id="label_usuario" value="#{sesionBean.usuario.nombre}" />
 					<c:if test="#{view.viewId != '/perfil.xhtml'}">
-						<h:commandLink value="Perfil" action="perfil" style="margin: 0px 20px 0px 0px;" />
+						<h:link outcome="perfil.xhtml" value="perfil" style="margin: 0px 20px 0px 0px;"/>
 					</c:if>
 					<h:commandButton value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}" />
 				</c:otherwise>

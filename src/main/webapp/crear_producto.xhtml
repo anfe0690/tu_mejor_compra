@@ -11,6 +11,7 @@
 		<h:outputScript library="js" name="crear_producto.js"/>
 	</ui:define>
 	<ui:define name="content">
+		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 		<section id="crear_producto">
 			<h1>Crear Producto</h1>
 			<h:form id="form_crear_producto" enctype="multipart/form-data">

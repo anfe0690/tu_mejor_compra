@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -58,6 +60,7 @@ public class SesionBean implements Serializable {
 		logger.trace("preDestroy");
 	}
 
+	// TODO 098: Agregar mensajes de error a las paginas
 	// Acciones
 	public String iniciarSesion() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -83,6 +86,15 @@ public class SesionBean implements Serializable {
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
 		return "index.xhtml?faces-redirect=true";
+	}
+
+	public void redireccionarSinSesion(ComponentSystemEvent e) throws AbortProcessingException {
+		logger.debug("redireccionarSinSesion - sesionIniciada: {}", sesionIniciada);
+		if (!sesionIniciada) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			String outcome = "index.xhtml?faces-redirect=true";
+			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+		}
 	}
 
 	// Getters and Setters

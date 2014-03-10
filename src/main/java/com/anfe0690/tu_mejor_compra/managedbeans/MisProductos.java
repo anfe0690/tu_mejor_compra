@@ -27,7 +27,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO 096: Evaluar el uso de objetos que tras obtenerse tal vez ya no existan
+// TODO 102: Evaluar el uso de objetos que tras obtenerse tal vez ya no existan
 @Named
 @RequestScoped
 public class MisProductos {
@@ -48,10 +48,8 @@ public class MisProductos {
 	public void postConstruct() {
 		logger.trace("postConstruct");
 		selProductos = new ArrayList<>();
-		logger.debug("Productos del usuario en sesion");
 		for (Producto producto : sesionBean.getUsuario().getProductos()) {
 			selProductos.add(new SelProducto(producto));
-			logger.debug("{}", producto);
 		}
 	}
 
