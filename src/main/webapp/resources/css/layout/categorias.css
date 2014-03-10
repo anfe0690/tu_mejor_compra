@@ -12,7 +12,13 @@
 	margin-bottom: 0px;
 }
 
-.categorias a{
+.categorias_link-habilitado{
+	margin-left: 10px;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.categorias_link-deshabilitado{
 	margin-left: 10px;
 	display: block;
 	margin-bottom: 10px;

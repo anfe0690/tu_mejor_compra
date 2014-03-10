@@ -57,6 +57,10 @@ public class CategoriaBean {
 		return Categoria.valueOf(valor).getValorEstetico();
 	}
 	
+	public Categoria[] getCategorias(){
+		return Categoria.values();
+	}
+	
 	// Getters and Setters
 	public String getValor() {
 		return valor;
