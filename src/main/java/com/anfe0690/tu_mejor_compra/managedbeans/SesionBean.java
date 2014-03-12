@@ -60,7 +60,7 @@ public class SesionBean implements Serializable {
 		logger.trace("preDestroy");
 	}
 
-	// TODO 098: Agregar mensajes de error a las paginas
+	// TODO 101: Agregar mensajes de error a las paginas
 	// Acciones
 	public String iniciarSesion() {
 		FacesContext fc = FacesContext.getCurrentInstance();

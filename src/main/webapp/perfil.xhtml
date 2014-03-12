@@ -3,7 +3,8 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="title">Perfil</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="perfil.css"/>
@@ -13,7 +14,7 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
-        <section  id="section_perfil" class="tema">
+        <section  id="section_perfil" class="tema b-perfil">
 			<h1>Perfil</h1>
 			<div>
 				<h2>Campos generales</h2>
@@ -34,13 +35,13 @@
 			</div>
 		</section>
 
-		<section id="section_mis_productos" class="tema">
+		<section id="section_mis_productos" class="tema b-mis-productos">
 			<h1>Mis productos</h1>
-			<h:form id="section_mis_productos_form">
-				<h:commandButton value="Crear" action="crear_producto"/>
-				<h:commandButton value="Eliminar" actionListener="#{misProductos.eliminarProductos()}" id="boton_eliminar"/>
+			<h:form id="form-mis-productos">
+				<h:button value="Crear" outcome="crear_producto.xhtml"/>
+				<h:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{misProductos.eliminarProductos()}" p:disabled="disabled"/>
 				<br/>
-				<h:dataTable id="datatable1" value="#{misProductos.selProductos}" var="selproducto" headerClass="perfil_tabla_titulo">
+				<h:dataTable id="datatable-mis-productos" value="#{misProductos.selProductos}" var="selproducto" headerClass="tabla-titulo">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Seleccion" />
@@ -69,12 +70,12 @@
 			</h:form>
 		</section>
 
-		<section id="section_compras" class="tema">
+		<section id="section_compras" class="tema b-mis-compras">
 			<h1>Mis compras</h1>
 			<h:form id="form_compras">
 				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarCompras()}"/>
 				<br/>
-				<h:dataTable id="datatable_compras" value="#{misTransacciones.misCompras}" var="filaTransaccion" headerClass="perfil_tabla_titulo">
+				<h:dataTable id="datatable_compras" value="#{misTransacciones.misCompras}" var="filaTransaccion" headerClass="tabla-titulo">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Imagen" />
@@ -107,12 +108,12 @@
 			</h:form>
 		</section>
 
-		<section id="section_ventas" class="tema">
+		<section id="section_ventas" class="tema b-mis-ventas">
 			<h1>Mis ventas</h1>
 			<h:form id="form_ventas">
 				<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarVentas()}"/>
 				<br/>
-				<h:dataTable id="datatable_ventas" value="#{misTransacciones.misVentas}" var="filaTransaccion" headerClass="perfil_tabla_titulo">
+				<h:dataTable id="datatable_ventas" value="#{misTransacciones.misVentas}" var="filaTransaccion" headerClass="tabla-titulo">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Imagen" />

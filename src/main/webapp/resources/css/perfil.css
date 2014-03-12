@@ -1,33 +1,24 @@
 
-/* GENERAL */
-.perfil_tabla_titulo{
-	font-weight: bold;
-}
-
-.perfil_tabla_contenido{
-	
-}
-
 /* PERFIL */
-#section_perfil{
+.b-perfil{
 	height: 210px;
 	text-align: center;
 	background-color: #E7F5FE;
 	margin-bottom: 10px;
 }
 
-#section_perfil h1{
+.b-perfil h1{
 	font-size: 18px;
 	text-align: center;
 	padding: 10px 0px;
 	margin: 0px;
 }
 
-#section_perfil input{
+.b-perfil input{
     margin-bottom: 10px;
 }
 
-#section_perfil div:nth-of-type(1){
+.b-perfil div:nth-of-type(1){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -35,7 +26,7 @@
 	text-align: left;
 }
 
-#section_perfil div:nth-of-type(2){
+.b-perfil div:nth-of-type(2){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -43,7 +34,7 @@
 	text-align: left;
 }
 
-#section_perfil div:nth-of-type(3){
+.b-perfil div:nth-of-type(3){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -51,32 +42,32 @@
 	text-align: left;
 }
 
-#section_perfil h2{
+.b-perfil h2{
 	font-size: 16px;
 	margin: 0px;
 }
 
-#section_perfil p{
+.b-perfil p{
 	font-size: 14px;
 	margin: 0px;
 }
 
 /* TABLAS GENERAL */
-#section_mis_productos, #section_compras, #section_ventas{
+.b-mis-productos, .b-mis-compras, .b-mis-ventas{
 	height: 320px;
 	background-color: #E7F5FE;
 	text-align: center;
 	margin-bottom: 10px;
 }
 
-#section_mis_productos h1, #section_compras h1, #section_ventas h1{
+.b-mis-productos h1, .b-mis-compras h1, .b-mis-ventas h1{
 	font-size: 18px;
 	text-align: center;
 	padding: 10px 0px;
 	margin: 0px;
 }
 
-#section_mis_productos table, #section_compras table, #section_ventas table{
+.b-mis-productos table, .b-mis-compras table, .b-mis-ventas table{
 	display: inline-block;
 	margin: 20px 0px 0px 0px;
 	background-color: white;
@@ -84,43 +75,47 @@
 	overflow: scroll;
 }
 
-#section_mis_productos th, #section_mis_productos td, #section_compras th, #section_compras td, #section_ventas th, #section_ventas td{
+.b-mis-productos th, .b-mis-productos td, .b-mis-compras th, .b-mis-compras td, .b-mis-ventas th, .b-mis-ventas td{
 	border: 1px solid black;
 	padding: 5px;
 	vertical-align: middle;
 }
 
-#section_mis_productos th, #section_compras th, #section_ventas th{
+.b-mis-productos th, .b-mis-compras th, .b-mis-ventas th{
 	text-align: center;
 }
 
-#section_mis_productos td:nth-of-type(3), #section_compras td:nth-of-type(2), #section_ventas td:nth-of-type(2){
+.b-mis-productos .tabla-titulo, .b-mis-compras .tabla-titulo, .b-mis-ventas .tabla-titulo{
+	font-weight: bold;
+}
+
+.b-mis-productos td:nth-of-type(3), .b-mis-compras td:nth-of-type(2), .b-mis-ventas td:nth-of-type(2){
 	width: 450px;
 }
 
-#section_compras td:nth-of-type(3), #section_ventas td:nth-of-type(3){
+.b-mis-compras td:nth-of-type(3), .b-mis-ventas td:nth-of-type(3){
 	width: 150px;
 	text-align: center;
 }
 
 /* PRODUCTOS */
-#section_mis_productos{
+.b-mis-productos{
 }
 
-#section_mis_productos td:nth-of-type(1){
+.b-mis-productos td:nth-of-type(1){
 	text-align: center;
 }
 
-#section_mis_productos td:nth-of-type(4){
+.b-mis-productos td:nth-of-type(4){
 	width: 80px;
 	text-align: right;
 }
 
 /* COMPRAS */
-#section_compras{
+.b-mis-compras{
 }
 
 /* VENTAS */
-#section_ventas{
+.b-mis-ventas{
 	margin-bottom: 0px;
 }

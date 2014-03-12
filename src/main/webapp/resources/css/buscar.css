@@ -1,37 +1,43 @@
-#buscar{
+.buscar{
 	height: 600px;
 	overflow: scroll;
 }
 
-#buscar h1{
+.buscar h1{
 	text-align: center;
 	font-size: 18px;
 	padding: 10px 0px;
 	margin-bottom: 0px;
 }
 
-#buscar #resultado{
+.buscar .resultado{
 	height: 150px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #808080;
 }
 
-#resultado img{
+.buscar .resultado img{
 	margin-left: 20px;
 	margin-right: 20px;
 	display: block;
 	float: left;
 }
 
-.nombreResultado{
+.buscar .resultado .nombreResultado{
 	font-size: 16px;
 	vertical-align: top;
 	display: block;
 }
 
-.precioResultado{
+.buscar .resultado .precioResultado{
 	font-size: 16px;
 	color: red;
 	font-weight: bold;
+}
+
+.buscar .resultado .texto-derecha{
+	display: inline-block;
+	width: 80px;
+	text-align: right;
 }

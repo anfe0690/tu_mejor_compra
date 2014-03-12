@@ -1,46 +1,37 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 25/12/2013, 01:08:10 PM
-    Author     : Andres
-*/
 
-#producto h1{
+.b-producto h1{
 	text-align: center;
 	margin: 0px;
 	padding: 10px 0px;
 	font-size: 18px
 }
 
-#producto img{
+.b-producto img{
 	margin-left: 20px;
 	display: inline-block;
 	margin-bottom: 20px;
 }
 
-#producto>div{
+.b-producto .contenedor-datos{
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 10px;
 	width: 490px;
 }
 
-#producto #nombre_producto{
+.b-producto .nombre_producto{
 	font-size: 16px;
 	font-weight: bold;
 	display: block;
 }
 
-#producto #tag_precio_producto{
+.b-producto .etiqueta-precio-producto{
 	font-size: 16px;
 	font-weight: bold;
 	color: red;
 }
 
-#producto #precio_producto{
+.b-producto .precio_producto{
 	font-size: 16px;
 	font-weight: bold;
 	color: red;
@@ -49,12 +40,12 @@ and open the template in the editor.
 	text-align: right;
 }
 
-#producto #boton_comprar{
+.b-producto .boton_comprar{
 	display: block;
 	margin-top: 20px;
 }
 
-#producto #adv_iniciar_sesion{
+.b-producto .adv_iniciar_sesion{
 	font-size: 16px;
 	font-weight: bold;
 	color: red;

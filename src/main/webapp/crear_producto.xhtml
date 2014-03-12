@@ -2,7 +2,8 @@
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="title">Crear producto</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="crear_producto.css"/>
@@ -12,26 +13,24 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
-		<section id="crear_producto">
+		<section class="b-crear_producto">
 			<h1>Crear Producto</h1>
-			<h:form id="form_crear_producto" enctype="multipart/form-data">
+			<h:form id="form_crear_producto" enctype="multipart/form-data" >
 				<div>
-					<div>
+					<div class="control-imagen">
 						<h:graphicImage id="imagen" library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
-						<h:inputFile id="file" value="#{crearProducto.file}" />
+						<h:inputFile id="file" value="#{crearProducto.file}" p:required="required" p:accept="image/*"/>
 					</div>
-					<div>
-						<h:message for="nombre_producto" styleClass="error_message" showSummary="true" showDetail="false"/>
-						<p>Nombre de producto</p>
-						<h:inputText id="nombre_producto" value="#{crearProducto.nombre}" required="true" requiredMessage="Campo obligatorio"/>
+					<div class="control-datos">
+						<p class="etiqueta-nombre-producto">Nombre de producto</p>
+						<h:inputText styleClass="nombre-producto" value="#{crearProducto.nombre}" p:required="required"/>
 						<br/>
-						<h:message for="precio_producto" styleClass="error_message" showSummary="true" showDetail="false" style="display: block;"/>
-						<p>Precio</p>
-						<h:inputText id="precio_producto" value="#{crearProducto.precio}" required="true" requiredMessage="Campo obligatorio"/>
-						<p>pesos</p>
+						<p class="etiqueta-precio-producto">Precio</p>
+						<h:inputText styleClass="precio-producto" value="#{crearProducto.precio}" p:required="required"/>
+						<p class="pesos">pesos</p>
 						<br/>
 						<br/>
-						<span style="font-size: 16px; margin-right: 10px;">Categoria</span>
+						<span class="etiqueta-categoria">Categoria</span>
 						<h:selectOneMenu value="#{crearProducto.categoria}">
 							<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
 							<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
@@ -39,7 +38,7 @@
 						</h:selectOneMenu>
 					</div>
 				</div>
-				<h:commandButton id="crear" value="Crear" action="#{crearProducto.crearProducto()}"/>
+				<h:commandButton styleClass="boton-submit" value="Crear" action="#{crearProducto.crearProducto()}"/>
 			</h:form>
 		</section>
 	</ui:define>

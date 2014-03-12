@@ -1,18 +1,18 @@
 
-.header{
+.b-header{
 	background-color: #E7F5FE;
 	height: 60px;
 	margin-bottom: 10px;
 }
 
-.header_form{
+.b-header .form{
 	display: inline;
 }
 
-.header_form-input{
-	
+.b-header .form .boton-submit{
+	margin: 0px 10px 0px 20px;
 }
 
-.header_form-submit {
-	margin: 0px 10px 0px 20px;
+.b-header .form .campo-busqueda{
+	
 }

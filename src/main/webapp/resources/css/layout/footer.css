@@ -1,15 +1,11 @@
-/* 
-    Created on : 11/12/2013, 11:55:13 AM
-    Author     : Andres
-*/
 
-#footer{
+.b-footer{
 	background-color: #E7F5FE;
 	height: 60px;
 	padding-top: 10px;
 }
 
-#footer p{
+.b-footer p{
 	text-align: center;
 	margin: 0px;
 }

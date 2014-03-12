@@ -1,31 +1,37 @@
-#sesion{
+.b-sesion{
 	height: 60px;
 	margin-bottom: 10px;
 	background-color: #E7F5FE;
 	text-align: right;
 }
 
-#sesion #restaurar{
-    display: inline-block;
-}
-
-#sesion_form{
-	display: inline-block;
-}
-
-#sesion button{
+.b-sesion .boton-contrasenas{
 	margin-right: 30px;
 }
 
-#sesion label{
+.b-sesion .form{
+	display: inline-block;
+}
+
+.b-sesion .form .etiqueta{
 	line-height: 60px;
 	margin: 0px 10px 0px 0px;
 }
 
-#sesion input{
+.b-sesion .form .campo{
 	margin: 0px 20px 0px 0px;
 }
 
-#sesion_form\:label_usuario{
+.b-sesion .form .nombre-usuario{
+	line-height: 60px;
 	font-weight: bold;
+	margin-right: 20px;
+}
+
+.b-sesion .form .link-perfil{
+	margin-right: 20px;
+}
+
+.b-sesion .form .boton-submit{
+	margin: 0px 20px 0px 0px;
 }

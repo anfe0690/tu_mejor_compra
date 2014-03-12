@@ -4,17 +4,17 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<aside class="grid_6 tema categorias" >
+	<aside class="grid_6 tema b-categorias" >
 		<h1>Categorias</h1>
 		<f:metadata>
 			<f:viewParam name="c" value="#{categoriaBean.valor}"/>
 		</f:metadata>
 		<ui:repeat value="#{categoriaBean.categorias}" var="categoria">
 			<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" includeViewParams="true" rendered="#{param['c'] != categoria}"
-					styleClass="categorias_link-habilitado">
+					styleClass="link-habilitado">
 				<f:param name="c" value="#{categoria}"/>
 			</h:link>
-			<h:outputText value="#{categoria.valorEstetico}" rendered="#{param['c'] == categoria}" styleClass="categorias_link-deshabilitado"/>
+			<h:outputText value="#{categoria.valorEstetico}" rendered="#{param['c'] == categoria}" styleClass="link-desabilitado"/>
 		</ui:repeat>
 	</aside>
 

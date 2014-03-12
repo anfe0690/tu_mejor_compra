@@ -17,15 +17,15 @@
 			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
 		</f:metadata>
 		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
-		<section id="buscar">
+		<section class="buscar">
 			<h1>Buscar</h1>
 			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
-				<div id="resultado">
+				<div class="resultado">
 					<h:graphicImage value="/imgs/#{resultado.producto.direccionImagen}" width="150" height="150"/>
 					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
 					<div>
 						<span class="precioResultado">Precio:</span>
-						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado" style="display: inline-block; width: 80px; text-align: right;"/>
+						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado texto-derecha"/>
 					</div>
 				</div>
 			</ui:repeat>

@@ -12,11 +12,11 @@
     box-shadow: 1px 1px 2px;
 }
 
-#cnt{
+.contenedor-contenido{
 	margin-bottom: 10px;
 }
 
-#contenido{
+.contenido{
 	background-color: white;
 	margin: 0px;
 }

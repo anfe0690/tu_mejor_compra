@@ -1,39 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-	<div id="sesion" class="grid_24 tema">
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<div class="grid_24 tema b-sesion">
 
 		<c:if test="#{!sesionBean.sesionIniciada}">
-			<button id="contrasenas">Contraseñas</button>
+			<button id="contrasenas" class="boton-contrasenas">Contraseñas</button>
 		</c:if>
-		<h:form id="sesion_form">
+		<h:form styleClass="form">
 			<c:choose>
-
 				<c:when test="#{!sesionBean.sesionIniciada}">
-					<h:message for="input_sesion" styleClass="error_message" showSummary="true" showDetail="false" />
-					<h:inputHidden id="input_sesion" value="vacio" />
-					<h:outputLabel value="Usuario" />
-					<h:message for="input_usuario" styleClass="error_message" showSummary="true" showDetail="false" />
-					<h:inputText id="input_usuario" value="#{sesionBean.campoNombreUsuario}" required="true"
-								 requiredMessage="*Campo obligatorio" />
+					
+					<span class="etiqueta">Usuario</span>
+					<h:inputText styleClass="campo" value="#{sesionBean.campoNombreUsuario}" p:required="required"/>
+					<span class="etiqueta">Contraseña</span>
+					<h:inputSecret styleClass="campo" value="#{sesionBean.campoContrasena}" p:required="required" />
 
-					<h:outputLabel value="Contraseña" />
-					<h:message for="input_contrasena" styleClass="error_message" showSummary="true" showDetail="false" />
-					<h:inputSecret id="input_contrasena" value="#{sesionBean.campoContrasena}" required="true"
-								   requiredMessage="*Campo obligatorio" />
-
-					<h:commandButton id="boton_iniciar_sesion" value="Iniciar sesion" action="#{sesionBean.iniciarSesion()}" />
+					<h:commandButton styleClass="boton-submit" value="Iniciar sesion" action="#{sesionBean.iniciarSesion()}" />
 				</c:when>
 
 				<c:otherwise>
-					<h:outputLabel id="label_usuario" value="#{sesionBean.usuario.nombre}" />
+					<h:outputText styleClass="nombre-usuario" value="#{sesionBean.usuario.nombre}"/>
 					<c:if test="#{view.viewId != '/perfil.xhtml'}">
-						<h:link outcome="perfil.xhtml" value="perfil" style="margin: 0px 20px 0px 0px;"/>
+						<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
 					</c:if>
-					<h:commandButton value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}" />
+					<h:commandButton styleClass="boton-submit" value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}" />
 				</c:otherwise>
-
 			</c:choose>
 		</h:form>
 	</div>

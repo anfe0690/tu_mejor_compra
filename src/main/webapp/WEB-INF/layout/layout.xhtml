@@ -8,7 +8,7 @@
 	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<h:head>
-		<title><ui:insert name="title">Default title</ui:insert></title>
+		<title><ui:insert name="title">Tu mejor compra</ui:insert></title>
 		<!-- CSS 960.gs -->
 		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/text.css"/>
@@ -33,16 +33,16 @@
 		<div class="container_24">
 			<ui:include src="sesion.xhtml"/>
 			<ui:include src="header.xhtml"/>
-			<div id="cnt" class="grid_24" >
+			<div class="grid_24 contenedor-contenido" >
 				<c:choose>
 					<c:when test="#{ (view.viewId != '/perfil.xhtml') and (view.viewId != '/crear_producto.xhtml') and (view.viewId != '/producto.xhtml')}">
 						<ui:include src="categorias.xhtml"/>
-						<div id="contenido" class="grid_18">
+						<div class="grid_18 contenido">
 							<ui:insert name="content"/>
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div id="contenido" class="grid_24">
+						<div class="grid_24 contenido">
 							<ui:insert name="content"/>
 						</div>
 					</c:otherwise>

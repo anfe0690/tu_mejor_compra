@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+// TODO 098: Agregar relacion bidireccional con el usuario dueño
 @Entity
 public class Producto implements Serializable {
 

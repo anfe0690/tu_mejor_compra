@@ -27,7 +27,6 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO 102: Evaluar el uso de objetos que tras obtenerse tal vez ya no existan
 @Named
 @RequestScoped
 public class MisProductos {
