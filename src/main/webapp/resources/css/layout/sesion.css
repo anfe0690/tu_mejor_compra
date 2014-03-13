@@ -13,6 +13,10 @@
 	display: inline-block;
 }
 
+.b-sesion .sesion-error{
+	margin-right: 10px;
+}
+
 .b-sesion .form .etiqueta{
 	line-height: 60px;
 	margin: 0px 10px 0px 0px;

@@ -10,6 +10,8 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -60,22 +62,29 @@ public class SesionBean implements Serializable {
 		logger.trace("preDestroy");
 	}
 
-	// TODO 101: Agregar mensajes de error a las paginas
+	public void validarUsuarioContrasena(ComponentSystemEvent e) {
+		UIComponent form = e.getComponent();
+		UIInput inputUsuario = (UIInput) form.findComponent("nombre-usuario");
+		UIInput inputContraseña = (UIInput) form.findComponent("contrasena-usuario");
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
+		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
+			logger.debug("Usuario y contraseña correctos");
+		} else {
+			logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
+			fc.addMessage(form.getClientId(), new FacesMessage("Usuario y/o contraseña icorrectos"));
+			fc.renderResponse();
+		}
+	}
+
 	// Acciones
 	public String iniciarSesion() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		try {
-			Usuario usuario = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
-			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
-				sesionIniciada = true;
-				this.usuario = usuario;
-				logger.info("Sesion iniciada: {}", usuario.getNombre());
-			} else {
-				fc.addMessage("sesion_form:input_sesion", new FacesMessage("Usuario y/o contraseña incorrectos"));
-			}
-		} catch (Exception e) {
-			fc.addMessage("sesion_form:input_sesion", new FacesMessage(e.toString()));
-		}
+		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
+		sesionIniciada = true;
+		this.usuario = u;
+		logger.info("Sesion iniciada: {}", u.getNombre());
 		return fc.getViewRoot().getViewId().substring(1) + "?faces-redirect=true&amp;includeViewParams=true";
 	}
 

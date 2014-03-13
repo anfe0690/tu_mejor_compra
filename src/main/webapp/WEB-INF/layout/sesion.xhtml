@@ -9,16 +9,19 @@
 		<c:if test="#{!sesionBean.sesionIniciada}">
 			<button id="contrasenas" class="boton-contrasenas">Contraseñas</button>
 		</c:if>
-		<h:form styleClass="form">
+		
+		<!-- TODO 101: Agregar validacion basica a todos los formularios -->
+		<h:message for="form-sesion" styleClass="mensaje-error sesion-error" showSummary="true" showDetail="false"/>
+		<h:form styleClass="form" id="form-sesion" >
 			<c:choose>
 				<c:when test="#{!sesionBean.sesionIniciada}">
-					
+					<f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
 					<span class="etiqueta">Usuario</span>
-					<h:inputText styleClass="campo" value="#{sesionBean.campoNombreUsuario}" p:required="required"/>
+					<h:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}" p:required="required"/>
 					<span class="etiqueta">Contraseña</span>
-					<h:inputSecret styleClass="campo" value="#{sesionBean.campoContrasena}" p:required="required" />
+					<h:inputSecret styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}" p:required="required"/>
 
-					<h:commandButton styleClass="boton-submit" value="Iniciar sesion" action="#{sesionBean.iniciarSesion()}" />
+					<h:commandButton styleClass="boton-submit" value="Iniciar sesion"  action="#{sesionBean.iniciarSesion()}" />
 				</c:when>
 
 				<c:otherwise>
