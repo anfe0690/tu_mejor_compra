@@ -73,7 +73,7 @@ public class SesionBean implements Serializable {
 			logger.debug("Usuario y contraseña correctos");
 		} else {
 			logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
-			fc.addMessage(form.getClientId(), new FacesMessage("Usuario y/o contraseña icorrectos"));
+			fc.addMessage(form.getClientId(), new FacesMessage("Usuario y/o contraseña incorrectos"));
 			fc.renderResponse();
 		}
 	}
