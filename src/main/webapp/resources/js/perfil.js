@@ -1,6 +1,6 @@
 
 window.onload = function() {
-	
+
 	doLayout();
 
 	// Eliminar productos
@@ -11,20 +11,21 @@ window.onload = function() {
 			e.preventDefault();
 		}
 	};
-	
-	//TODO 100: Aun cuando hay 0 productos se cuenta 1 producto, el cual no existe
+
 	// Habilitar o desabilitar el boton de eliminar productos
 	var numFilas = document.getElementById("form-mis-productos:datatable-mis-productos").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	var sels = new Array();
 	for (i = 0; i < numFilas; i++) {
 		sels[i] = document.getElementById("form-mis-productos:datatable-mis-productos:" + i + ":seleccion");
-		sels[i].onclick = function() {
-			if (verificarSiAlgunInputSeleccionado()) {
-				button_eliminar.removeAttribute("disabled");
-			} else {
-				button_eliminar.setAttribute("disabled", "disabled");
-			}
-		};
+		if (sels[i] !== null) {
+			sels[i].onclick = function() {
+				if (verificarSiAlgunInputSeleccionado()) {
+					button_eliminar.removeAttribute("disabled");
+				} else {
+					button_eliminar.setAttribute("disabled", "disabled");
+				}
+			};
+		}
 	}
 
 	function verificarSiAlgunInputSeleccionado() {
