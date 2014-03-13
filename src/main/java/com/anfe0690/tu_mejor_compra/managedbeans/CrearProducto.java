@@ -12,15 +12,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import javax.servlet.http.Part;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,36 +62,44 @@ public class CrearProducto implements Serializable {
 		logger.trace("preDestroy");
 	}
 
-	public Part getFile() {
-		return file;
+	public void validarImagenProducto(FacesContext context, UIComponent toValidate, Object value) {
+		Part f = (Part) value;
+		// Comprobar tamaño de la imagen
+		if (f.getSize() > 200000) {
+			logger.warn("Tamaño de archivo de imagen > 200000 bytes, encontrado: {} bytes", f.getSize());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context),
+					new FacesMessage("El tamaño de la imagen no puede ser superior a 200000 bytes, se encontro: " + f.getSize() + " bytes"));
+			fc.renderResponse();
+		}
 	}
 
-	public void setFile(Part file) {
-		this.file = file;
+	public void validarNombreProducto(FacesContext context, UIComponent toValidate, Object value) {
+		// Comprobar que sea unico el nombre del producto
+		if (manejadorDeProductos.existeProductoConNombre(value.toString())) {
+			logger.warn("Ya existe un producto con el nombre \"{}\"", value);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Ya existe un producto con el nombre \"" + value + "\""));
+			fc.renderResponse();
+		}
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(String precio) {
-		this.precio = precio;
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void validarPrecioProducto(FacesContext context, UIComponent toValidate, Object value) {
+		// Comprobar que sea un numero
+		DecimalFormat df = new DecimalFormat();
+		df.setMinimumFractionDigits(2);
+		DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+		dfs.setGroupingSeparator('.');
+		dfs.setDecimalSeparator(',');
+		df.setDecimalFormatSymbols(dfs);
+		try {
+			df.parse(value.toString());
+		} catch (ParseException ex) {
+			logger.warn("El texto digitado \"{}\" no es un numero valido", value);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context), new FacesMessage("El texto digitado \"" + value + "\" no es un numero valido"));
+			fc.renderResponse();
+		}
 	}
 
 	public String crearProducto() {
@@ -133,6 +151,40 @@ public class CrearProducto implements Serializable {
 
 		logger.info("Creado producto: {}", producto.getNombre());
 
-		return "perfil";
+		return "perfil?faces-redirect=true";
 	}
+
+	// Getters and Setters
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 }

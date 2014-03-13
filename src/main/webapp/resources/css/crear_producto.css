@@ -10,21 +10,36 @@
 	font-size: 18px
 }
 
+.b-crear_producto .crear-producto-error{
+	display: block;
+}
+
 .b-crear_producto .control-imagen{
 	display: inline-block;
 	margin-right: 20px;
-	text-align: left;
+	text-align: center;
+	width: 450px;
 }
 
-.b-crear_producto .control-imagen img{
+.b-crear_producto .control-imagen .marco-imagen{
 	margin-bottom: 10px;
 	display: block;
+	width: 400px;
+	height: 400px;
+	line-height: 400px;
+}
+
+.b-crear_producto .control-imagen .imagen{
+	max-width: 400px;
+	max-height: 400px;
+	border: 1px solid black;
 }
 
 .b-crear_producto .control-datos{
 	display: inline-block;
 	vertical-align: top;
 	text-align: left;
+	width: 450px;
 }
 
 .b-crear_producto .control-datos .etiqueta-nombre-producto{
@@ -33,7 +48,7 @@
 }
 
 .b-crear_producto .control-datos .nombre-producto{
-	width: 450px;
+	width: 400px;
 	margin-bottom: 20px;
 }
 
@@ -41,7 +56,6 @@
 	font-size: 16px;
 	margin-bottom: 0px;
 	margin-right: 10px;
-	display: inline-block;
 }
 
 .b-crear_producto .control-datos .precio-producto{

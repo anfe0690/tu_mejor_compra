@@ -18,15 +18,25 @@
 			<h:form id="form_crear_producto" enctype="multipart/form-data" >
 				<div>
 					<div class="control-imagen">
-						<h:graphicImage id="imagen" library="images" name="seleccionar-imagen.jpg" width="400" height="400"/>
-						<h:inputFile id="file" value="#{crearProducto.file}" p:required="required" p:accept="image/*"/>
+						<!-- TODO 095: Mantener relacion de aspecto en todas las imagenes -->
+						<div class="marco-imagen">
+							<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
+						</div>
+						<!-- TODO 096: Crear automaticamente el nombre del archivo de imagen para evitar conflictos con otros -->
+						<h:message for="file" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
+						<h:inputFile id="file" value="#{crearProducto.file}" p:required="required" p:accept="image/*"
+									 validator="#{crearProducto.validarImagenProducto}"/>
 					</div>
 					<div class="control-datos">
 						<p class="etiqueta-nombre-producto">Nombre de producto</p>
-						<h:inputText styleClass="nombre-producto" value="#{crearProducto.nombre}" p:required="required"/>
+						<h:message for="nombre-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
+						<h:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProducto.nombre}" p:required="required"
+									 validator="#{crearProducto.validarNombreProducto}" />
 						<br/>
 						<p class="etiqueta-precio-producto">Precio</p>
-						<h:inputText styleClass="precio-producto" value="#{crearProducto.precio}" p:required="required"/>
+						<h:message for="precio-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
+						<h:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProducto.precio}"  p:required="required"
+									 validator="#{crearProducto.validarPrecioProducto}" />
 						<p class="pesos">pesos</p>
 						<br/>
 						<br/>

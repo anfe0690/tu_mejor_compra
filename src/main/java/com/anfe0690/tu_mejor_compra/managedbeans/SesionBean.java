@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO 097: Proteger contra el SQL Injection
 @Named
 @SessionScoped
 public class SesionBean implements Serializable {
@@ -43,17 +44,17 @@ public class SesionBean implements Serializable {
 //		campoNombreUsuario = "andres";
 //		campoContrasena = "123";
 //		try {
-//			Usuario usuario = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
-//			if (usuario != null && usuario.getContrasena().equals(campoContrasena)) {
+//			Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
+//			if (u != null && u.getContrasena().equals(campoContrasena)) {
 //				sesionIniciada = true;
-//				this.usuario = usuario;
-//				logger.info("Sesion iniciada: {}", usuario.getNombre());
-//				for (Producto p : usuario.getProductos()) {
+//				this.usuario = u;
+//				logger.info("Sesion iniciada: {}", u.getNombre());
+//				for (Producto p : u.getProductos()) {
 //					logger.debug("{}", p);
 //				}
 //			} else {
 //			}
-//		} catch (Exception e) {
+//		} catch (IllegalArgumentException e) {
 //		}
 	}
 
@@ -68,6 +69,8 @@ public class SesionBean implements Serializable {
 		UIInput inputContraseña = (UIInput) form.findComponent("contrasena-usuario");
 
 		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		// Validar existencia de usuario y contraseña
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
 		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
 			logger.debug("Usuario y contraseña correctos");
@@ -98,8 +101,8 @@ public class SesionBean implements Serializable {
 	}
 
 	public void redireccionarSinSesion(ComponentSystemEvent e) throws AbortProcessingException {
-		logger.debug("redireccionarSinSesion - sesionIniciada: {}", sesionIniciada);
 		if (!sesionIniciada) {
+			logger.debug("redireccionarSinSesion - sesionIniciada: {}", sesionIniciada);
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			String outcome = "index.xhtml?faces-redirect=true";
 			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);

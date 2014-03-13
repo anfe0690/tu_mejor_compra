@@ -7,6 +7,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,41 +17,51 @@ import org.slf4j.LoggerFactory;
 public class ManejadorDeProductos {
 
 	private static final Logger logger = LoggerFactory.getLogger(ManejadorDeProductos.class);
-    @PersistenceContext(name = "tuMejorCompra")
-    private EntityManager em;
+	@PersistenceContext(name = "tuMejorCompra")
+	private EntityManager em;
 
-    @PostConstruct
-    public void postConstruct() {
+	@PostConstruct
+	public void postConstruct() {
 		logger.trace("postConstruct");
-    }
+	}
 
-    @PreDestroy
-    public void preDestroy() {
+	@PreDestroy
+	public void preDestroy() {
 		logger.trace("preDestroy");
-    }
+	}
 
-	public void persistProducto(Producto p){
+	public void persistProducto(Producto p) {
 		em.persist(p);
 	}
-	
-    public Producto obtenerProductoPorId(long id){
-        return em.find(Producto.class, id);
-    }
-    
-	public List<Producto> obtenerTodosLosProductos(){
+
+	public Producto obtenerProductoPorId(long id) {
+		return em.find(Producto.class, id);
+	}
+
+	public boolean existeProductoConNombre(String nombreProducto) throws NoResultException {
+		try {
+			em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombreProducto",
+					Producto.class).setParameter("nombreProducto", nombreProducto).getSingleResult();
+			return true;
+		} catch (NoResultException e) {
+			return false;
+		}
+	}
+
+	public List<Producto> obtenerTodosLosProductos() {
 		return em.createQuery("SELECT p FROM Producto p", Producto.class).getResultList();
 	}
-	
-    public void removerProducto(Producto producto){
-        em.remove(em.find(Producto.class, producto.getId()));
-    }
-    
-	public int removerTodosLosProductos(){
+
+	public void removerProducto(Producto producto) {
+		em.remove(em.find(Producto.class, producto.getId()));
+	}
+
+	public int removerTodosLosProductos() {
 		return em.createQuery("DELETE FROM Producto p").executeUpdate();
 	}
-	
-    public void mergeProducto(Producto producto){
-        em.merge(producto);
-    }
+
+	public void mergeProducto(Producto producto) {
+		em.merge(producto);
+	}
 
 }
