@@ -2,9 +2,6 @@ package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
-import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import com.anfe0690.tu_mejor_compra.managedbeans.datos.Resultado;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -25,7 +22,7 @@ public class CategoriaBean {
 	private EntityManager em;
 	// 
 	private String valor;
-	private List<Resultado> resultados;
+	private List<Producto> resultados;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -39,17 +36,10 @@ public class CategoriaBean {
 	
 	public void buscar() {
 		logger.debug("buscar categoria {}", valor);
-		List<Resultado> res = new ArrayList<>();
 
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria", Producto.class)
 				.setParameter("categoria", Categoria.valueOf(valor));
-		List<Producto> pros = qps.getResultList();
-		for (Producto p : pros) {
-			TypedQuery<Usuario> qu = em.createQuery("SELECT u FROM Usuario u JOIN u.productos p WHERE p.id = :pid", Usuario.class)
-					.setParameter("pid", p.getId());
-			Usuario u = qu.getSingleResult();
-			res.add(new Resultado(u, p));
-		}
+		List<Producto> res = qps.getResultList();
 		resultados = res;
 	}
 
@@ -70,12 +60,8 @@ public class CategoriaBean {
 		this.valor = valor;
 	}
 
-	public List<Resultado> getResultados() {
+	public List<Producto> getResultados() {
 		return resultados;
-	}
-
-	public void setResultados(List<Resultado> resultados) {
-		this.resultados = resultados;
 	}
 
 }

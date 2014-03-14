@@ -22,7 +22,7 @@
 		<section class="buscar">
 			<h1 class="tema" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
 			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
-				<andres:respro producto="#{resultado.producto}"/>
+				<andres:respro producto="#{resultado}"/>
 			</ui:repeat>
 		</section>
 	</ui:define>

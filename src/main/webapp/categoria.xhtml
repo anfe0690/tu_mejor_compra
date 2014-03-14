@@ -22,7 +22,7 @@
 		<section class="categoria">
 			<h1 class="tema titulo"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
 			<ui:repeat value="#{categoriaBean.resultados}" var="resultado">
-				<andres:respro producto="#{resultado.producto}"/>
+				<andres:respro producto="#{resultado}"/>
 			</ui:repeat>
 		</section>
 	</ui:define>
