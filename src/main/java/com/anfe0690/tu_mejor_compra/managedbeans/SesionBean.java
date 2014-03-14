@@ -69,8 +69,24 @@ public class SesionBean implements Serializable {
 		UIInput inputContraseña = (UIInput) form.findComponent("contrasena-usuario");
 
 		FacesContext fc = FacesContext.getCurrentInstance();
+		// Comprobar si el nombre de usuario esta vacio
+		if(inputUsuario.getLocalValue() == null || inputUsuario.getLocalValue().toString().trim().isEmpty()){
+			logger.warn("Nombre de usuario vacio!");
+			fc.addMessage(form.getClientId(), new FacesMessage("Nombre de usuario vacio!"));
+			fc.renderResponse();
+			return;
+		}
 		
-		// Validar existencia de usuario y contraseña
+		// Comprobar si la contraseña esta vacia
+		if(inputContraseña.getLocalValue() == null || inputContraseña.getLocalValue().toString().trim().isEmpty()){
+			logger.warn("Contraseña vacia!");
+			fc.addMessage(form.getClientId(), new FacesMessage("Contraseña vacia!"));
+			fc.renderResponse();
+			return;
+		}
+		
+		
+		// Comprobar la relacion de usuario y contraseña
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
 		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
 			logger.debug("Usuario y contraseña correctos");

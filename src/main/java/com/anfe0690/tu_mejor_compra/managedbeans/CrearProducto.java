@@ -63,7 +63,32 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarImagenProducto(FacesContext context, UIComponent toValidate, Object value) {
+
+		// Comprobar que se haya seleccionado un archivo
+		if (value == null) {
+			logger.warn("Se debe seleccionar un archivo!");
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context),
+					new FacesMessage("Se debe seleccionar un archivo!"));
+			fc.renderResponse();
+			return;
+		}
+
 		Part f = (Part) value;
+
+		// Comprobar que sea una imagen de tipo jpg/jpeg, png o gif.
+		if (!f.getContentType().equalsIgnoreCase("image/jpeg")
+				&& !f.getContentType().equalsIgnoreCase("image/png")
+				&& !f.getContentType().equalsIgnoreCase("image/gif")) {
+			logger.warn("El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif: seleccionado \"{}\".",
+					f.getContentType());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context),
+					new FacesMessage("El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif."));
+			fc.renderResponse();
+			return;
+		}
+
 		// Comprobar tamaño de la imagen
 		if (f.getSize() > 200000) {
 			logger.warn("Tamaño de archivo de imagen > 200000 bytes, encontrado: {} bytes", f.getSize());
@@ -75,6 +100,15 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarNombreProducto(FacesContext context, UIComponent toValidate, Object value) {
+		// Comprobar si el nombre del producto esta vacio
+		if(value == null || value.toString().trim().isEmpty()){
+			logger.warn("Nombre del producto vacio!");
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Nombre del producto vacio!"));
+			fc.renderResponse();
+			return;
+		}
+		
 		// Comprobar que sea unico el nombre del producto
 		if (manejadorDeProductos.existeProductoConNombre(value.toString())) {
 			logger.warn("Ya existe un producto con el nombre \"{}\"", value);
@@ -85,6 +119,15 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarPrecioProducto(FacesContext context, UIComponent toValidate, Object value) {
+		// Comprobar si el precio esta vacio
+		if(value == null || value.toString().trim().isEmpty()){
+			logger.warn("Precio del producto vacio!");
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Precio del producto vacio!"));
+			fc.renderResponse();
+			return;
+		}
+		
 		// Comprobar que sea un numero
 		DecimalFormat df = new DecimalFormat();
 		df.setMinimumFractionDigits(2);
