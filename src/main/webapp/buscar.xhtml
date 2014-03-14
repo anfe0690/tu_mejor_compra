@@ -4,7 +4,8 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<ui:define name="title">Buscar</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="buscar.css"/>
@@ -17,17 +18,11 @@
 			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
 		</f:metadata>
 		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
+		<!-- TODO 093: Agregar navegacion para resultados de busqueda -->
 		<section class="buscar">
-			<h1>Buscar</h1>
+			<h1 class="tema" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
 			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
-				<div class="resultado">
-					<h:graphicImage value="/imgs/#{resultado.producto.direccionImagen}" width="150" height="150"/>
-					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
-					<div>
-						<span class="precioResultado">Precio:</span>
-						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado texto-derecha"/>
-					</div>
-				</div>
+				<andres:respro producto="#{resultado.producto}"/>
 			</ui:repeat>
 		</section>
 	</ui:define>

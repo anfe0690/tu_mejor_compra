@@ -1,44 +1,13 @@
 
 .categoria{
-	height: 600px;
-	overflow: scroll;
+/*	height: 600px;
+	overflow: scroll;*/
+	/*margin-bottom: 10px;*/
 }
 
-.categoria h1{
+.categoria .titulo{
 	text-align: center;
 	font-size: 18px;
 	padding: 10px 0px;
-	margin-bottom: 0px;
-}
-
-.categoria .resultado{
-	height: 150px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #808080;
-}
-
-.categoria .resultado img{
-	margin-left: 20px;
-	margin-right: 20px;
-	display: block;
-	float: left;
-}
-
-.categoria .resultado .nombreResultado{
-	font-size: 16px;
-	vertical-align: top;
-	display: block;
-}
-
-.categoria .resultado .precioResultado{
-	font-size: 16px;
-	color: red;
-	font-weight: bold;
-}
-
-.categoria .resultado .texto-derecha{
-	display: inline-block;
-	width: 80px;
-	text-align: right;
+	margin-bottom: 10px;
 }

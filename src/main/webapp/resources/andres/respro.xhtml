@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<composite:interface>
+		<composite:attribute name="producto" required="true" type="com.anfe0690.tu_mejor_compra.entity.Producto"/>
+	</composite:interface>
+	<composite:implementation>
+		<h:outputStylesheet library="css/andres" name="respro.css" />
+		<div class="tema b-respro">
+			<div class="marco-imagen">
+				<h:graphicImage styleClass="imagen" value="/imgs/#{cc.attrs.producto.direccionImagen}"/>
+			</div>
+			<div class="contenedor-datos">
+				<h:link outcome="producto.xhtml" value="#{cc.attrs.producto.nombre}" includeViewParams="true" styleClass="nombreResultado">
+					<f:param name="pid" value="#{cc.attrs.producto.id}"/>
+				</h:link>
+				<div>
+					<span class="precioResultado">Precio:</span>
+					<h:outputText value="#{cc.attrs.producto.precio}" styleClass="precioResultado salto"/>
+				</div>
+			</div>
+		</div>
+	</composite:implementation>
+</html>

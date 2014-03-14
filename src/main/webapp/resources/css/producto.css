@@ -1,7 +1,10 @@
 
+.b-producto{
+	margin-bottom: 10px;
+}
+
 .b-producto h1{
 	text-align: center;
-	margin: 0px;
 	padding: 10px 0px;
 	font-size: 18px
 }

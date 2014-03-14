@@ -1,0 +1,52 @@
+
+.b-respro{
+	/*height: 150px;*/
+/*	padding-top: 10px;
+	padding-bottom: 10px;*/
+	/*border: 1px solid #808080;*/
+	margin-bottom: 10px;
+}
+
+.b-respro .marco-imagen{
+	margin-left: 20px;
+	margin-right: 20px;
+	/*margin-top: 20px;*/
+	/*margin-bottom: 20px;*/
+	/*display: block;*/
+	/*float: left;*/
+	width: 152px;
+	height: 190px;
+	line-height: 190px;
+	display: inline-block;
+}
+
+.b-respro .imagen{
+	max-width: 150px;
+	max-height: 150px;
+	border: 1px solid black;
+}
+
+.b-respro .contenedor-datos{
+	display: inline-block;
+	width: 500px;
+	/*height: 150px;*/
+	vertical-align: middle;
+}
+
+.b-respro .nombreResultado{
+	font-size: 16px;
+	vertical-align: top;
+	display: block;
+}
+
+.b-respro .precioResultado{
+	font-size: 16px;
+	color: red;
+	font-weight: bold;
+}
+
+.b-respro .precioResultado.salto{
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+}

@@ -2,7 +2,8 @@
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<ui:define name="title">Tu mejor compra</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="index.css"/>
@@ -14,18 +15,10 @@
 		<!-- TODO 100: Hacer "Trim" antes de enviar todos los formularios -->
 		<!-- TODO 094: Asegurar validacion del lado del servidor, antes de la validacion del lado del cliente -->
 		<section class="b-index" >
-			<h1>Productos recientes</h1>
+			<h1 class="tema titulo">Productos recientes</h1>
 			<ui:repeat value="#{indexBean.productosRecientes}" var="productoReciente" >
-				<div class="producto_reciente">
-					<h:graphicImage value="/imgs/#{productoReciente.producto.direccionImagen}" width="150" height="150"/>
-					<h:link outcome="producto.xhtml" value="#{productoReciente.producto.nombre}" includeViewParams="true" styleClass="nombreResultado">
-						<f:param name="pid" value="#{productoReciente.producto.id}"/>
-					</h:link>
-					<div>
-						<span class="precioResultado">Precio:</span>
-						<h:outputText value="#{productoReciente.producto.precio}" styleClass="precioResultado salto"/>
-					</div>
-				</div>
+				<!-- TODO 103: Reemplazar resultados en todas las paginas por composite components -->
+				<andres:respro producto="#{productoReciente.producto}"/>
 			</ui:repeat>
 		</section>
 	</ui:define>

@@ -4,7 +4,8 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:f="http://xmlns.jcp.org/jsf/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<f:metadata>
 		<f:viewParam name="c" value="#{categoriaBean.valor}"/>
 	</f:metadata>
@@ -17,17 +18,11 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{categoriaBean.buscar()}"/>
-		<section class="tema categoria">
-			<h1><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
+		<!-- TODO 092: Agregar navegacion para los elementos de una categoria -->
+		<section class="categoria">
+			<h1 class="tema titulo"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
 			<ui:repeat value="#{categoriaBean.resultados}" var="resultado">
-				<div class="resultado">
-					<h:graphicImage value="/imgs/#{resultado.producto.direccionImagen}" width="150" height="150"/>
-					<h:link outcome="producto.xhtml?pid=#{resultado.producto.id}" value="#{resultado.producto.nombre}" styleClass="nombreResultado"/>
-					<div>
-						<span class="precioResultado">Precio:</span>
-						<h:outputText value="#{resultado.producto.precio}" styleClass="precioResultado texto-derecha"/>
-					</div>
-				</div>
+				<andres:respro producto="#{resultado.producto}"/>
 			</ui:repeat>
 		</section>
 	</ui:define>

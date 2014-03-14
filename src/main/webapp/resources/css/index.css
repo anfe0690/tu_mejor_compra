@@ -1,43 +1,11 @@
 
 .b-index{
-	height: 600px;
+	/*height: 600px;*/
 }
 
-.b-index h1{
+.b-index .titulo{
 	text-align: center;
 	font-size: 18px;
 	padding: 10px 0px;
-	margin-bottom: 0px;
-}
-
-.b-index .producto_reciente{
-	height: 150px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #808080;
-}
-
-.b-index img{
-	margin-left: 20px;
-	margin-right: 20px;
-	display: block;
-	float: left;
-}
-
-.b-index .nombreResultado{
-	font-size: 16px;
-	vertical-align: top;
-	display: block;
-}
-
-.b-index .precioResultado{
-	font-size: 16px;
-	color: red;
-	font-weight: bold;
-}
-
-.b-index .precioResultado.salto{
-	display: inline-block;
-	width: 80px;
-	text-align: right;
+	margin-bottom: 10px;
 }
