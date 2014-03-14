@@ -1,24 +1,23 @@
 
-/* PERFIL */
-.b-perfil{
+/* DATOS DEL PERFIL */
+.b-datos-perfil{
 	height: 210px;
 	text-align: center;
-	/*background-color: #E7F5FE;*/
 	margin-bottom: 10px;
 }
 
-.b-perfil h1{
+.b-datos-perfil h1{
 	font-size: 18px;
 	text-align: center;
 	padding: 10px 0px;
 	margin: 0px;
 }
 
-.b-perfil input{
+.b-datos-perfil input{
     margin-bottom: 10px;
 }
 
-.b-perfil div:nth-of-type(1){
+.b-datos-perfil div:nth-of-type(1){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -26,7 +25,7 @@
 	text-align: left;
 }
 
-.b-perfil div:nth-of-type(2){
+.b-datos-perfil div:nth-of-type(2){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -34,7 +33,7 @@
 	text-align: left;
 }
 
-.b-perfil div:nth-of-type(3){
+.b-datos-perfil div:nth-of-type(3){
 	display: inline-block;
 	vertical-align: top;
 	height: 120px;
@@ -42,20 +41,18 @@
 	text-align: left;
 }
 
-.b-perfil h2{
+.b-datos-perfil h2{
 	font-size: 16px;
 	margin: 0px;
 }
 
-.b-perfil p{
+.b-datos-perfil p{
 	font-size: 14px;
 	margin: 0px;
 }
 
 /* TABLAS GENERAL */
 .b-mis-productos, .b-mis-compras, .b-mis-ventas{
-	height: 320px;
-	/*background-color: #E7F5FE;*/
 	text-align: center;
 	margin-bottom: 10px;
 }
@@ -67,55 +64,54 @@
 	margin: 0px;
 }
 
-.b-mis-productos table, .b-mis-compras table, .b-mis-ventas table{
+.b-perfil .tabla{
 	display: inline-block;
-	margin: 20px 0px 0px 0px;
+	margin: 20px 0px;
 	background-color: white;
-	height: 200px;
+	height: 220px;
 	overflow: scroll;
+	border: 1px solid lightgray;
 }
 
-.b-mis-productos th, .b-mis-productos td, .b-mis-compras th, .b-mis-compras td, .b-mis-ventas th, .b-mis-ventas td{
+.b-perfil .tabla-header{
+	font-weight: bold;
+	border: 1px solid black;
+	vertical-align: middle;
+	text-align: center;
+	padding: 5px;
+}
+
+.b-perfil .contenedor-centro{
+	text-align: center;
 	border: 1px solid black;
 	padding: 5px;
 	vertical-align: middle;
 }
 
-.b-mis-productos th, .b-mis-compras th, .b-mis-ventas th{
+.b-perfil .contenedor-imagen{
+	height: 60px;
+	padding: 0px;
 	text-align: center;
+	border: 1px solid black;
+	vertical-align: middle;
 }
 
-.b-mis-productos .tabla-titulo, .b-mis-compras .tabla-titulo, .b-mis-ventas .tabla-titulo{
-	font-weight: bold;
+.b-perfil .imagen{
+	max-width: 60px;
+	max-height: 60px;
 }
 
-.b-mis-productos td:nth-of-type(3), .b-mis-compras td:nth-of-type(2), .b-mis-ventas td:nth-of-type(2){
+.b-perfil .contenedor-nombre{
+	text-align: left;
+	border: 1px solid black;
+	padding: 5px;
+	vertical-align: middle;
 	width: 450px;
 }
 
-.b-mis-compras td:nth-of-type(3), .b-mis-ventas td:nth-of-type(3){
-	width: 150px;
-	text-align: center;
-}
-
-/* PRODUCTOS */
-.b-mis-productos{
-}
-
-.b-mis-productos td:nth-of-type(1){
-	text-align: center;
-}
-
-.b-mis-productos td:nth-of-type(4){
-	width: 80px;
+.b-perfil .contenedor-derecha{
 	text-align: right;
-}
-
-/* COMPRAS */
-.b-mis-compras{
-}
-
-/* VENTAS */
-.b-mis-ventas{
-	margin-bottom: 10px;
+	border: 1px solid black;
+	padding: 5px;
+	vertical-align: middle;
 }

@@ -17,7 +17,6 @@
 		<section class="b-index" >
 			<h1 class="tema titulo">Productos recientes</h1>
 			<ui:repeat value="#{indexBean.productosRecientes}" var="productoReciente" >
-				<!-- TODO 103: Reemplazar resultados en todas las paginas por composite components -->
 				<andres:respro producto="#{productoReciente.producto}"/>
 			</ui:repeat>
 		</section>

@@ -19,14 +19,16 @@
 	display: inline-block;
 	margin-right: 20px;
 	text-align: center;
-	width: 450px;
+	width: 402px;
 }
 
 .b-crear_producto .control-imagen .marco-imagen{
 	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
-	width: 400px;
-	height: 400px;
+	width: 402px;
+	height: 402px;
 	line-height: 400px;
 }
 
@@ -49,7 +51,7 @@
 }
 
 .b-crear_producto .control-datos .nombre-producto{
-	width: 400px;
+	width: calc(100% - 4px);
 	margin-bottom: 20px;
 }
 

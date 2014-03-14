@@ -17,11 +17,14 @@
 		</f:metadata>
 		<section class="tema b-producto">
 			<h1>Producto</h1>
-			<h:graphicImage value="/imgs/#{mostrarProductoBean.producto.direccionImagen}" width="400" height="400"/>
+			<div class="marco-imagen">
+				<h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
+			</div>
 			<div class="contenedor-datos">
 				<h:outputText styleClass="nombre_producto" value="#{mostrarProductoBean.producto.nombre}"/>
 				<span class="etiqueta-precio-producto">Precio:</span>
 				<h:outputText styleClass="precio_producto" value="#{mostrarProductoBean.producto.precio}"/>
+				<span class="etiqueta-precio-producto">pesos.</span>
 				<c:choose >
 					<c:when test="#{sesionBean.sesionIniciada}">
 						<h:form id="form_cv">
