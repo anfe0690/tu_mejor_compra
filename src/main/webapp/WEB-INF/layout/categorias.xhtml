@@ -6,15 +6,13 @@
 
 	<aside class="grid_6 tema b-categorias" >
 		<h1>Categorias</h1>
-		<f:metadata>
-			<f:viewParam name="c" value="#{categoriaBean.valor}"/>
-		</f:metadata>
 		<ui:repeat value="#{categoriaBean.categorias}" var="categoria">
-			<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" includeViewParams="true" rendered="#{param['c'] != categoria}"
+			<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" includeViewParams="true"
+					rendered="#{categoriaBean.valor != categoria}"
 					styleClass="link-habilitado">
 				<f:param name="c" value="#{categoria}"/>
 			</h:link>
-			<h:outputText value="#{categoria.valorEstetico}" rendered="#{param['c'] == categoria}" styleClass="link-desabilitado"/>
+			<h:outputText value="#{categoria.valorEstetico}" rendered="#{categoriaBean.valor == categoria}" styleClass="link-desabilitado"/>
 		</ui:repeat>
 	</aside>
 

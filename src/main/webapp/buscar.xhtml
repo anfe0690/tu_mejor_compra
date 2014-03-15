@@ -6,6 +6,11 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
+		</f:metadata>
+	</ui:define>
 	<ui:define name="title">Buscar</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="buscar.css"/>
@@ -14,9 +19,6 @@
 		<h:outputScript library="js" name="buscar.js"/>
 	</ui:define>
 	<ui:define name="content">
-		<f:metadata>
-			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
-		</f:metadata>
 		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
 		<!-- TODO 093: Agregar navegacion para resultados de busqueda -->
 		<section class="buscar">

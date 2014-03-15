@@ -8,11 +8,13 @@
 		<h:link outcome="index.xhtml" title="Inicio">
 			<h:graphicImage name="logo.png" library="images" width="310" height="60" />
 		</h:link>
-		
-		<form action="buscar.xhtml" method="GET" class="form">
-			<input type="submit" value="Buscar" class="boton-submit"/>
-			<input type="text" name="valor" value="#{param['valor']}" size="80" required="required" class="campo-busqueda"/>
-		</form>
+
+		<h:form styleClass="form">
+			<h:commandButton styleClass="boton-submit" value="Buscar" action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
+				<f:param name="valor" value="#{buscarBean.valor}"/>
+			</h:commandButton>
+			<h:inputText styleClass="campo-busqueda" value="#{buscarBean.valor}"/>
+		</h:form>
 
 	</header>
 

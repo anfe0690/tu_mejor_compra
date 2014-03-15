@@ -4,6 +4,11 @@
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
+		</f:metadata>
+	</ui:define>
 	<ui:define name="title">Producto</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="producto.css"/>
@@ -12,9 +17,8 @@
 		<h:outputScript library="js" name="producto.js"/>
 	</ui:define>
 	<ui:define name="content">
-		<f:metadata>
-			<f:viewParam name="pid"/>
-		</f:metadata>
+		<f:event type="preRenderView" listener="#{mostrarProductoBean.leerProducto()}"/>
+		<!-- TODO 100: Redireccionar cuando se provean valores invalidos -->
 		<section class="tema b-producto">
 			<h1>Producto</h1>
 			<div class="marco-imagen">

@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class MostrarProductoBean implements Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(MostrarProductoBean.class);
@@ -35,14 +36,12 @@ public class MostrarProductoBean implements Serializable {
 	private SesionBean sc;
 	private Usuario usuarioVendedor;
 	private Producto producto;
+	//
+	private String productoId;
 
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("postConstruct");
-		Map<String, String> pm = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String productoId = pm.get("pid");
-		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
-		usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
 	}
 
 	@PreDestroy
@@ -50,20 +49,9 @@ public class MostrarProductoBean implements Serializable {
 		logger.trace("preDestroy");
 	}
 
-	public Usuario getUsuarioVendedor() {
-		return usuarioVendedor;
-	}
-
-	public void setUsuarioVendedor(Usuario usuarioVendedor) {
-		this.usuarioVendedor = usuarioVendedor;
-	}
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void leerProducto() {
+		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
+		usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
 	}
 
 	public String comprar() {
@@ -77,4 +65,22 @@ public class MostrarProductoBean implements Serializable {
 		logger.info("El usuario {} compro \"{}\", con la transaccion {}", usuarioComprador.getNombre(), producto.getNombre(), t);
 		return "perfil";
 	}
+
+	// Getters and setters
+	public String getProductoId() {
+		return productoId;
+	}
+
+	public void setProductoId(String productoId) {
+		this.productoId = productoId;
+	}
+
+	public Usuario getUsuarioVendedor() {
+		return usuarioVendedor;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
 }
