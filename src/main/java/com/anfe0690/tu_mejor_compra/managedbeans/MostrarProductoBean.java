@@ -51,7 +51,15 @@ public class MostrarProductoBean implements Serializable {
 
 	public void leerProducto() {
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
-		usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
+		if (producto != null) {
+			usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
+		} else {
+			// Redireccionar si la id es invalida
+			logger.warn("Id \"{}\" invalida de producto, se redirecciona a index.xhtml", productoId);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			String outcome = "index.xhtml?faces-redirect=true";
+			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+		}
 	}
 
 	public String comprar() {

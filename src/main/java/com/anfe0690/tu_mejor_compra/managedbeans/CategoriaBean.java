@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,24 +34,33 @@ public class CategoriaBean {
 	public void preDestroy() {
 		logger.trace("preDestroy");
 	}
-	
+
 	public void buscar() {
 		logger.debug("buscar categoria {}", valor);
-
+		try {
+			Categoria.valueOf(valor);
+		} catch (IllegalArgumentException e) {
+			// Redireccionar si la categoria es ivalida
+			logger.warn("La categoria \"{}\" es invalida, se redirecciona a index.xhtml", valor);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			String outcome = "index.xhtml?faces-redirect=true";
+			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+			return;
+		}
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria", Producto.class)
 				.setParameter("categoria", Categoria.valueOf(valor));
 		List<Producto> res = qps.getResultList();
 		resultados = res;
 	}
 
-	public String getCategoriaEstetica(){
+	public String getCategoriaEstetica() {
 		return Categoria.valueOf(valor).getValorEstetico();
 	}
-	
-	public Categoria[] getCategorias(){
+
+	public Categoria[] getCategorias() {
 		return Categoria.values();
 	}
-	
+
 	// Getters and Setters
 	public String getValor() {
 		return valor;

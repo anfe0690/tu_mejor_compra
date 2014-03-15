@@ -118,7 +118,7 @@ public class SesionBean implements Serializable {
 
 	public void redireccionarSinSesion(ComponentSystemEvent e) throws AbortProcessingException {
 		if (!sesionIniciada) {
-			logger.debug("redireccionarSinSesion - sesionIniciada: {}", sesionIniciada);
+			logger.warn("Intento de ingresar a la pagina perfil.xhtml sin haber iniciado sesion, se redirecciona a index.xhtml");
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			String outcome = "index.xhtml?faces-redirect=true";
 			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
