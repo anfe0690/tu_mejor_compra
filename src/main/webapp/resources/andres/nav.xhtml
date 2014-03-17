@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<composite:interface>
+		<composite:attribute name="outcome" required="true" type="java.lang.String"/>
+		<composite:attribute name="pagina" required="true" type="java.lang.Integer"/>
+		<composite:attribute name="numpaginas" required="true" type="java.lang.Integer"/>
+		<composite:attribute name="nombrevarpagina" required="true" type="java.lang.String"/>
+	</composite:interface>
+	<composite:implementation>
+		<h:outputStylesheet library="css/andres" name="nav.css" />
+		<div class="tema b-navegacion">
+			<h:link styleClass="link-navegacion" value="Anterior" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() > 1}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
+			</h:link>
+
+			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() > 2}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 2}"/>
+			</h:link>				
+			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() > 1}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
+			</h:link>
+			<h:outputText styleClass="link-navegacion link-actual" value="#{cc.attrs.pagina.intValue()}"/>
+			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
+			</h:link>
+			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() lt (cc.attrs.numpaginas.intValue() - 1)}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 2}"/>
+			</h:link>
+
+			<h:link styleClass="link-navegacion" value="Siguiente" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+					rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
+				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
+			</h:link>
+		</div>
+	</composite:implementation>
+</html>

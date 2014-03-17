@@ -3,7 +3,13 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
 				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="pag" value="#{indexBean.pagina}"/>
+		</f:metadata>
+	</ui:define>
 	<ui:define name="title">Tu mejor compra</ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="index.css"/>
@@ -12,11 +18,14 @@
 		<h:outputScript library="js" name="index.js"/>
 	</ui:define>
 	<ui:define name="content">
+		<f:event type="preRenderView" listener="#{indexBean.buscarProductosRecientes}"/>
 		<section class="b-index" >
 			<h1 class="tema titulo">Productos recientes</h1>
-			<ui:repeat value="#{indexBean.productosRecientes}" var="productoReciente" >
-				<andres:respro producto="#{productoReciente}"/>
-			</ui:repeat>
+
+			<!-- Lista de productos -->
+			<andres:respro productos="#{indexBean.productosRecientes}" />
+			<andres:nav outcome="index.xhtml" pagina="#{indexBean.pagina}" numpaginas="#{indexBean.numeroPaginas}" nombrevarpagina="pag"/>
+
 		</section>
 	</ui:define>
 </ui:composition>

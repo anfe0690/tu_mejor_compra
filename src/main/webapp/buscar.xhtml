@@ -8,7 +8,9 @@
 				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewParam name="valor" value="#{headerBean.valor}"/>
 			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
+			<f:viewParam name="pagb" value="#{buscarBean.pagina}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">Buscar</ui:define>
@@ -20,12 +22,11 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
-		<!-- TODO 093: Agregar navegacion para resultados de busqueda -->
 		<section class="buscar">
 			<h1 class="tema" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
-			<ui:repeat value="#{buscarBean.resultados}" var="resultado" >
-				<andres:respro producto="#{resultado}"/>
-			</ui:repeat>
+			<andres:respro productos="#{buscarBean.resultados}"/>
+			<andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.pagina}" numpaginas="#{buscarBean.numeroPaginas}"
+						nombrevarpagina="pagb"/>
 		</section>
 	</ui:define>
 </ui:composition>

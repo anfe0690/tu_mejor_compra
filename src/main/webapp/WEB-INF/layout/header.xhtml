@@ -12,9 +12,9 @@
 
 		<h:form styleClass="form">
 			<h:commandButton styleClass="boton-submit" value="Buscar" action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
-				<f:param name="valor" value="#{buscarBean.valor}"/>
+				<f:param name="valor" value="#{headerBean.valor}"/>
 			</h:commandButton>
-			<h:inputText styleClass="campo-busqueda" value="#{buscarBean.valor}" p:required="required"/>
+			<h:inputText styleClass="campo-busqueda" value="#{headerBean.valor}" p:required="required"/>
 		</h:form>
 
 	</header>

@@ -8,24 +8,22 @@
 				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewParam name="c" value="#{listaCategoriasBean.valor}"/>
 			<f:viewParam name="c" value="#{categoriaBean.valor}"/>
+			<f:viewParam name="pagc" value="#{categoriaBean.pagina}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></ui:define>
 	<ui:define name="css">
 		<h:outputStylesheet library="css" name="categoria.css"/>
 	</ui:define>
-	<ui:define name="js">
-		<!--<h:outputScript library="js" name=".js"/>-->
-	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{categoriaBean.buscar()}"/>
-		<!-- TODO 092: Agregar navegacion para los elementos de una categoria -->
 		<section class="categoria">
 			<h1 class="tema titulo"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
-			<ui:repeat value="#{categoriaBean.resultados}" var="resultado">
-				<andres:respro producto="#{resultado}"/>
-			</ui:repeat>
+			<andres:respro productos="#{categoriaBean.resultados}"/>
+			<andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.pagina}" numpaginas="#{categoriaBean.numeroPaginas}"
+						nombrevarpagina="pagc"/>
 		</section>
 	</ui:define>
 </ui:composition>
