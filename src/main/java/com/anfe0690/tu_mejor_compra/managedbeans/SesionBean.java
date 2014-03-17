@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO 097: Proteger contra el SQL Injection
 @Named
 @SessionScoped
 public class SesionBean implements Serializable {

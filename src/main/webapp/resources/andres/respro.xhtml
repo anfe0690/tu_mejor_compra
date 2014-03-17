@@ -14,7 +14,8 @@
 				<h:graphicImage styleClass="imagen" value="/imgs/#{cc.attrs.producto.direccionImagen}"/>
 			</div>
 			<div class="contenedor-datos">
-				<h:link outcome="producto.xhtml" value="#{cc.attrs.producto.nombre}" includeViewParams="true" styleClass="nombre-producto">
+				<h:link outcome="producto.xhtml" includeViewParams="true" styleClass="nombre-producto">
+					<h:outputText value="#{cc.attrs.producto.nombre}"/>
 					<f:param name="pid" value="#{cc.attrs.producto.id}"/>
 				</h:link>
 				<div>

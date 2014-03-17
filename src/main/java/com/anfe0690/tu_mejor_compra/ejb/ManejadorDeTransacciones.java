@@ -39,33 +39,28 @@ public class ManejadorDeTransacciones {
 		em.persist(t);
 	}
 
-	public void mergeTransaccion(Transaccion t){
+	public void mergeTransaccion(Transaccion t) {
 		em.merge(t);
 	}
 
-	public void removerTransaccion(Transaccion t){
+	public void removerTransaccion(Transaccion t) {
 		em.remove(em.find(Transaccion.class, t.getId()));
 	}
-	
+
 	public int removerTodasLasTransacciones() {
 		Query q = em.createQuery("DELETE FROM Transaccion t");
 		return q.executeUpdate();
 	}
 
 	public List<Transaccion> obtenerTransaccionesTipoCompraDeUsuario(Usuario usuario) {
-		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioComprador.nombre = '"
-				+ usuario.getNombre() + "'", Transaccion.class);
+		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioComprador.nombre = :nombreUsuario",
+				Transaccion.class).setParameter("nombreUsuario", usuario.getNombre());
 		return q.getResultList();
 	}
-	
+
 	public List<Transaccion> obtenerTransaccionesTipoVentaDeUsuario(Usuario usuario) {
-		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioVendedor.nombre = '" + usuario.getNombre() + "'", Transaccion.class);
-		return q.getResultList();
-	}
-	
-	public List<Transaccion> obtenerTransaccionesRelacionadasConUsuario(Usuario usuario) {
-		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioVendedor.nombre = '" + usuario.getNombre()
-				+ "' OR t.usuarioComprador.nombre = '" + usuario.getNombre() + "'", Transaccion.class);
+		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioVendedor.nombre = :nombreUsuario",
+				Transaccion.class).setParameter("nombreUsuario", usuario.getNombre());
 		return q.getResultList();
 	}
 

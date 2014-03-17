@@ -45,7 +45,8 @@ public class BuscarBean implements Serializable {
 
 	public void buscar() {
 		logger.debug("buscar {}", valor);
-		TypedQuery<Producto> tq = em.createQuery("SELECT p FROM Producto p WHERE p.nombre LIKE '%" + valor + "%'", Producto.class);
+		TypedQuery<Producto> tq = em.createQuery("SELECT p FROM Producto p WHERE p.nombre LIKE :valor",
+				Producto.class).setParameter("valor", "%" + valor + "%");
 		List<Producto> res = tq.getResultList();
 		resultados = res;
 	}
