@@ -52,8 +52,9 @@ public class CategoriaBean implements Serializable {
 			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
 			return;
 		}
-		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria", Producto.class)
-				.setParameter("categoria", Categoria.valueOf(valor));
+		TypedQuery<Producto> qps =
+				em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria ORDER BY p.fechaDeCreacion DESC, p.id DESC",
+				Producto.class).setParameter("categoria", Categoria.valueOf(valor));
 		resultados = navegacion.calcular(qps);
 	}
 
