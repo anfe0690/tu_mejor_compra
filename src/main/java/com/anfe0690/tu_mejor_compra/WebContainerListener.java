@@ -1,5 +1,8 @@
 package com.anfe0690.tu_mejor_compra;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

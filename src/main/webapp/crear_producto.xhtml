@@ -21,7 +21,6 @@
 						<div class="marco-imagen">
 							<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
 						</div>
-						<!-- TODO 096: Crear automaticamente el nombre del archivo de imagen para evitar conflictos con otros -->
 						<h:message for="file" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
 						<h:inputFile id="file" value="#{crearProducto.file}" p:required="required" p:accept="image/*"
 									 validator="#{crearProducto.validarImagenProducto}"/>

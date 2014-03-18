@@ -12,13 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -30,7 +27,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.NoResultException;
 import javax.servlet.http.Part;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,14 +97,14 @@ public class CrearProducto implements Serializable {
 
 	public void validarNombreProducto(FacesContext context, UIComponent toValidate, Object value) {
 		// Comprobar si el nombre del producto esta vacio
-		if(value == null || value.toString().trim().isEmpty()){
+		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Nombre del producto vacio!");
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Nombre del producto vacio!"));
 			fc.renderResponse();
 			return;
 		}
-		
+
 		// Comprobar que sea unico el nombre del producto
 		if (manejadorDeProductos.existeProductoConNombre(value.toString())) {
 			logger.warn("Ya existe un producto con el nombre \"{}\"", value);
@@ -120,14 +116,14 @@ public class CrearProducto implements Serializable {
 
 	public void validarPrecioProducto(FacesContext context, UIComponent toValidate, Object value) {
 		// Comprobar si el precio esta vacio
-		if(value == null || value.toString().trim().isEmpty()){
+		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Precio del producto vacio!");
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Precio del producto vacio!"));
 			fc.renderResponse();
 			return;
 		}
-		
+
 		// Comprobar que sea un numero
 		DecimalFormat df = new DecimalFormat();
 		df.setMinimumFractionDigits(2);
@@ -155,18 +151,20 @@ public class CrearProducto implements Serializable {
 		String fileName = m.group(1);
 
 		Usuario usuario = sesionController.getUsuario();
-		for (Producto producto : usuario.getProductos()) {
-			if (producto.getNombre().equalsIgnoreCase(nombre)) {
-				logger.warn("Intento de agregar un producto con valores ya encontrados en la base de datos: \"{}\"", nombre);
-				return "perfil";
-			}
-		}
 
-		String direccionImagen = sesionController.getUsuario().getNombre() + "/" + fileName;
-		File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + direccionImagen);
+		File f;
+		try {
+			f = File.createTempFile("img", fileName.substring(fileName.lastIndexOf(".")),
+					new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + usuario.getNombre() + "/"));
+		} catch (IOException ex) {
+			logger.error(null, ex);
+			return null;
+		}
+		
+		String direccionImagen = sesionController.getUsuario().getNombre() + "/" + f.getName();
+		
 		logger.debug("f = {}", f);
 		try {
-			f.createNewFile();
 			OutputStream os = new FileOutputStream(f);
 			InputStream is = file.getInputStream();
 			byte[] buf = new byte[1024];
