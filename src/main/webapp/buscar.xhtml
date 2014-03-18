@@ -10,7 +10,7 @@
 		<f:metadata>
 			<f:viewParam name="valor" value="#{headerBean.valor}"/>
 			<f:viewParam name="valor" value="#{buscarBean.valor}"/>
-			<f:viewParam name="pagb" value="#{buscarBean.pagina}"/>
+			<f:viewParam name="pagb" value="#{buscarBean.navegacion.pagina}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">Buscar</ui:define>
@@ -25,7 +25,7 @@
 		<section class="buscar">
 			<h1 class="tema" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
 			<andres:respro productos="#{buscarBean.resultados}"/>
-			<andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.pagina}" numpaginas="#{buscarBean.numeroPaginas}"
+			<andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}" numpaginas="#{buscarBean.navegacion.numeroPaginas}"
 						nombrevarpagina="pagb"/>
 		</section>
 	</ui:define>

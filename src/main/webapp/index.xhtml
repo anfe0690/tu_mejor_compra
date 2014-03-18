@@ -7,7 +7,7 @@
 				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="pag" value="#{indexBean.pagina}"/>
+			<f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">Tu mejor compra</ui:define>
@@ -21,11 +21,9 @@
 		<f:event type="preRenderView" listener="#{indexBean.buscarProductosRecientes}"/>
 		<section class="b-index" >
 			<h1 class="tema titulo">Productos recientes</h1>
-
-			<!-- Lista de productos -->
 			<andres:respro productos="#{indexBean.productosRecientes}" />
-			<andres:nav outcome="index.xhtml" pagina="#{indexBean.pagina}" numpaginas="#{indexBean.numeroPaginas}" nombrevarpagina="pag"/>
-
+			<andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}" numpaginas="#{indexBean.navegacion.numeroPaginas}"
+						nombrevarpagina="pag"/>
 		</section>
 	</ui:define>
 </ui:composition>

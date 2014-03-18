@@ -2,11 +2,11 @@ package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.managedbeans.datos.Navegacion;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -25,13 +25,10 @@ public class CategoriaBean implements Serializable {
 	//
 	@PersistenceContext
 	private EntityManager em;
-	//
-	private static final int PRODUCTOS_POR_PAGINA = 3;
 	// 
 	private String valor;
 	private List<Producto> resultados;
-	private int numeroPaginas;
-	private int pagina = 1;
+	private final Navegacion navegacion = new Navegacion();
 
 	@PostConstruct
 	public void postConstruct() {
@@ -57,23 +54,7 @@ public class CategoriaBean implements Serializable {
 		}
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p WHERE p.categoria = :categoria", Producto.class)
 				.setParameter("categoria", Categoria.valueOf(valor));
-		int numeroProductos = qps.getResultList().size();
-		numeroPaginas = (numeroProductos / PRODUCTOS_POR_PAGINA) + ((numeroProductos % PRODUCTOS_POR_PAGINA > 0) ? 1 : 0);
-		if (pagina < 1 || pagina > numeroPaginas) {
-			logger.warn("Numero de pagina invalido: \"{}\"", pagina);
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			String outcome = "index.xhtml?faces-redirect=true";
-			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
-			return;
-		}
-		qps.setFirstResult((pagina - 1) * PRODUCTOS_POR_PAGINA);
-		qps.setMaxResults(PRODUCTOS_POR_PAGINA);
-
-		try {
-			resultados = qps.getResultList();
-		} catch (Exception ex) {
-			logger.error(null, ex);
-		}
+		resultados = navegacion.calcular(qps);
 	}
 
 	public String getCategoriaEstetica() {
@@ -93,16 +74,8 @@ public class CategoriaBean implements Serializable {
 		return resultados;
 	}
 
-	public int getNumeroPaginas() {
-		return numeroPaginas;
-	}
-
-	public int getPagina() {
-		return pagina;
-	}
-
-	public void setPagina(int pagina) {
-		this.pagina = pagina;
+	public Navegacion getNavegacion() {
+		return navegacion;
 	}
 
 }
