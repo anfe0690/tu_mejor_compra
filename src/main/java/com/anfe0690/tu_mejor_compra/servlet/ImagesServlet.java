@@ -15,11 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/imgs/*")
+@WebServlet(urlPatterns = "/imgs/*", asyncSupported = true)
 public class ImagesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-//	private final int BUFFER_LENGTH = 4096;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,23 +30,4 @@ public class ImagesServlet extends HttpServlet {
         Files.copy(file.toPath(), response.getOutputStream());
     }
 
-//	@Override
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String archivo = request.getParameter("a");
-//		File file = new File(System.getProperty(WebContainerListener.DIR_DATOS) + archivo);
-//		InputStream input = new FileInputStream(file);
-//		response.setContentLength((int) file.length());
-//		response.setContentType(new MimetypesFileTypeMap().getContentType(file));
-//		OutputStream output = response.getOutputStream();
-//		byte[] bytes = new byte[BUFFER_LENGTH];
-//		int read = 0;
-//		while ((read = input.read(bytes, 0, BUFFER_LENGTH)) != -1) {
-//			output.write(bytes, 0, read);
-//			output.flush();
-//		}
-//		input.close();
-//		output.close();
-//	}
-	
-	
 }

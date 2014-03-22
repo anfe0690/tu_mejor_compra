@@ -1,17 +1,45 @@
-
 .b-header{
-	height: 60px;
 	margin-bottom: 10px;
 }
 
-.b-header .form{
+.b-header .altura{
+	height: 35px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.b-header .contenedor-imagen{
+	/*height: 60px;*/
+	text-align: center;
+}
+
+.b-header .imagen{
+	/*	max-width: 310px;
+		max-height: 60px;*/
+	/*	max-height: 60px;
+		width: auto;*/
 	display: inline;
+	max-height: 35px;
 }
 
-.b-header .form .boton-submit{
-	margin: 0px 10px 0px 20px;
+.b-header .form{
+	/*	height: 60px;
+		padding-top: 15px;*/
 }
 
-.b-header .form .campo-busqueda{
-	width: 500px;
+.b-header .contenedor-boton-submit{
+	float: left;
+}
+
+.b-header .boton-submit{
+	height: 100%;
+}
+
+.b-header .contenedor-campo-busqueda{
+	margin-left: 70px;
+}
+
+.b-header .campo-busqueda{
+	height: 100%;
+	width: 100%;
 }

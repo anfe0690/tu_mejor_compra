@@ -17,22 +17,24 @@
 		<div class="b-perfil">
 			<section  id="section_perfil" class="tema b-datos-perfil">
 				<h1>Datos del perfil</h1>
-				<div>
-					<h2>Campos generales</h2>
-					<p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
-					<p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
-					<p>Correo: <h:outputText value="#{sesionBean.usuario.correo}" /></p>
-					<p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" /></p>
-				</div>
-				<div>
-					<h2>Campos de comprador</h2>
-					<p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
-					<p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
-				</div>
-				<div>
-					<h2>Campos de vendedor</h2>
-					<p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
-					<p>Numero de cuenta: <h:outputText value="#{sesionBean.usuario.numeroCuenta}"/></p>
+				<div class="row">
+					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+						<h2>Campos generales</h2>
+						<p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
+						<p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
+						<p>Correo: <h:outputText value="#{sesionBean.usuario.correo}" /></p>
+						<p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" /></p>
+					</div>
+					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+						<h2>Campos de comprador</h2>
+						<p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
+						<p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
+					</div>
+					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+						<h2>Campos de vendedor</h2>
+						<p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
+						<p>Numero de cuenta: <h:outputText value="#{sesionBean.usuario.numeroCuenta}"/></p>
+					</div>
 				</div>
 			</section>
 
@@ -40,37 +42,40 @@
 				<h1>Mis productos</h1>
 				<h:form id="form-mis-productos">
 					<h:button value="Crear" outcome="crear_producto.xhtml"/>
-					<h:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{misProductos.eliminarProductos()}" p:disabled="disabled"/>
+					<h:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{misProductos.eliminarProductos()}"
+									 p:disabled="disabled"/>
 					<br/>
-					<h:dataTable id="datatable-mis-productos" value="#{misProductos.selProductos}" var="selproducto"
-								 styleClass="tabla"
-								 headerClass="tabla-header"
-								 columnClasses="contenedor-centro, contenedor-imagen, contenedor-nombre, contenedor-derecha" >
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Seleccion" />
-							</f:facet>
-							<h:selectBooleanCheckbox id="seleccion" value="#{selproducto.seleccionado}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Imagen" />
-							</f:facet>
-							<h:graphicImage styleClass="imagen" value="/imgs/#{selproducto.producto.direccionImagen}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
-							<h:outputText value="#{selproducto.producto.nombre}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Precio" />
-							</f:facet>
-							<h:outputText value="#{selproducto.producto.precio}"/>
-						</h:column>
-					</h:dataTable>
+					<div class="cont-tabla">
+						<h:dataTable id="datatable-mis-productos" value="#{misProductos.selProductos}" var="selproducto"
+									 styleClass="tabla"
+									 headerClass="tabla-header"
+									 columnClasses="contenedor-centro, contenedor-imagen, contenedor-nombre, contenedor-derecha" >
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Seleccion" />
+								</f:facet>
+								<h:selectBooleanCheckbox id="seleccion" value="#{selproducto.seleccionado}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Imagen" />
+								</f:facet>
+								<h:graphicImage styleClass="imagen" value="/imgs/#{selproducto.producto.direccionImagen}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Nombre" />
+								</f:facet>
+								<h:outputText value="#{selproducto.producto.nombre}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Precio" />
+								</f:facet>
+								<h:outputText value="#{selproducto.producto.precio}"/>
+							</h:column>
+						</h:dataTable>
+					</div>
 				</h:form>
 			</section>
 
@@ -79,39 +84,41 @@
 				<h:form id="form_compras">
 					<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarCompras()}"/>
 					<br/>
-					<h:dataTable id="datatable_compras" value="#{misTransacciones.misCompras}" var="filaTransaccion"
-								 styleClass="tabla"
-								 headerClass="tabla-header"
-								 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Imagen" />
-							</f:facet>
-							<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
-							<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Vendedor" />
-							</f:facet>
-							<h:outputText value="#{filaTransaccion.transaccion.usuarioVendedor.nombre}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Estado" />
-							</f:facet>
-							<h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'EN_ENVIO'}" value="#{filaTransaccion.nuevoEstado}" >
-								<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
-								<f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
-							</h:selectOneMenu>
-							<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'EN_ENVIO'}" value="#{filaTransaccion.transaccion.estado}" /> 
-						</h:column>
-					</h:dataTable>
+					<div class="cont-tabla">
+						<h:dataTable id="datatable_compras" value="#{misTransacciones.misCompras}" var="filaTransaccion"
+									 styleClass="tabla"
+									 headerClass="tabla-header"
+									 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Imagen" />
+								</f:facet>
+								<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Nombre" />
+								</f:facet>
+								<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Vendedor" />
+								</f:facet>
+								<h:outputText value="#{filaTransaccion.transaccion.usuarioVendedor.nombre}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Estado" />
+								</f:facet>
+								<h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'EN_ENVIO'}" value="#{filaTransaccion.nuevoEstado}" >
+									<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+									<f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
+								</h:selectOneMenu>
+								<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'EN_ENVIO'}" value="#{filaTransaccion.transaccion.estado}" /> 
+							</h:column>
+						</h:dataTable>
+					</div>
 				</h:form>
 			</section>
 
@@ -120,39 +127,41 @@
 				<h:form id="form_ventas">
 					<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarVentas()}"/>
 					<br/>
-					<h:dataTable id="datatable_ventas" value="#{misTransacciones.misVentas}" var="filaTransaccion"
-								 styleClass="tabla"
-								 headerClass="tabla-header"
-								 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Imagen" />
-							</f:facet>
-							<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
-							<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Comprador" />
-							</f:facet>
-							<h:outputText value="#{filaTransaccion.transaccion.usuarioComprador.nombre}"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Estado" />
-							</f:facet>
-							<h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'ESPERANDO_PAGO'}" value="#{filaTransaccion.nuevoEstado}">
-								<f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
-								<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
-							</h:selectOneMenu>
-							<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}" value="#{filaTransaccion.transaccion.estado}"/>
-						</h:column>
-					</h:dataTable>
+					<div class="cont-tabla">
+						<h:dataTable id="datatable_ventas" value="#{misTransacciones.misVentas}" var="filaTransaccion"
+									 styleClass="tabla"
+									 headerClass="tabla-header"
+									 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Imagen" />
+								</f:facet>
+								<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Nombre" />
+								</f:facet>
+								<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Comprador" />
+								</f:facet>
+								<h:outputText value="#{filaTransaccion.transaccion.usuarioComprador.nombre}"/>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Estado" />
+								</f:facet>
+								<h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'ESPERANDO_PAGO'}" value="#{filaTransaccion.nuevoEstado}">
+									<f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
+									<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+								</h:selectOneMenu>
+								<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}" value="#{filaTransaccion.transaccion.estado}"/>
+							</h:column>
+						</h:dataTable>
+					</div>
 				</h:form>
 			</section>
 		</div>

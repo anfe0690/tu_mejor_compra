@@ -16,29 +16,34 @@
 		<section class="tema b-crear_producto">
 			<h1>Crear Producto</h1>
 			<h:form id="form_crear_producto" enctype="multipart/form-data" >
-				<div>
-					<div class="control-imagen">
-						<div class="marco-imagen">
-							<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
-						</div>
+				<div class="row">
+					<div class="col-md-6 control-imagen">
+						<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
+						<br/>
 						<h:message for="file" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<h:inputFile id="file" value="#{crearProducto.file}" p:required="required" p:accept="image/*"
-									 validator="#{crearProducto.validarImagenProducto}"/>
+						<div style="width: 100%; text-align: center;">
+							<h:inputFile styleClass="selector-imagen" id="file" value="#{crearProducto.file}"
+										 p:required="required"
+										 p:accept="image/*"
+										 validator="#{crearProducto.validarImagenProducto}"/>
+						</div>
 					</div>
-					<div class="control-datos">
+					<div class="col-md-6 control-datos">
 						<p class="etiqueta-nombre-producto">Nombre de producto</p>
 						<h:message for="nombre-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<h:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProducto.nombre}" p:required="required"
+						<h:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProducto.nombre}"
+									 p:required="required"
+									 p:placeholder="Nombre de producto"
 									 validator="#{crearProducto.validarNombreProducto}" />
 						<br/>
-						<p class="etiqueta-precio-producto">Precio</p>
+						<p class="etiqueta-precio-producto">Precio (Pesos)</p>
 						<h:message for="precio-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<h:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProducto.precio}" p:required="required"
+						<h:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProducto.precio}"
+									 p:required="required"
+									 p:placeholder="Precio de producto"
 									 validator="#{crearProducto.validarPrecioProducto}" />
-						<p class="pesos">pesos</p>
 						<br/>
-						<br/>
-						<span class="etiqueta-categoria">Categoria</span>
+						<p class="etiqueta-categoria">Categoria</p>
 						<h:selectOneMenu value="#{crearProducto.categoria}">
 							<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
 							<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>

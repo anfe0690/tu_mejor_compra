@@ -4,7 +4,7 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<aside class="grid_6 tema b-categorias" >
+	<aside class="tema b-categorias" >
 		<h1>Categorias</h1>
 		<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
 			<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"

@@ -1,11 +1,14 @@
 
 .b-index{
+/*	padding-left: 15px;
+	padding-right: 15px;*/
 }
 
 .b-index .titulo{
 	text-align: center;
 	font-size: 18px;
 	padding: 10px 0px;
+	margin-top: 0px;
 	margin-bottom: 10px;
 }
 

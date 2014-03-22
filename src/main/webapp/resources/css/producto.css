@@ -2,6 +2,7 @@
 .b-producto{
 	margin-bottom: 10px;
 	text-align: center;
+	padding: 15px;
 }
 
 .b-producto h1{
@@ -12,24 +13,28 @@
 }
 
 .b-producto .marco-imagen{
-	margin-bottom: 20px;
-	display: inline-block;
-	width: 402px;
-	height: 402px;
-	line-height: 400px;
+	/*	margin-bottom: 20px;
+		display: inline-block;
+		width: 402px;
+		height: 402px;
+		line-height: 400px;*/
+	margin-bottom: 10px;
 }
 
 .b-producto .imagen{
 	max-width: 400px;
 	max-height: 400px;
+	width: 100%;
+	height: 100%;
 	border: 1px solid black;
 }
 
 .b-producto .contenedor-datos{
-	display: inline-block;
-	vertical-align: middle;
-	margin-left: 10px;
-	width: 490px;
+	/*	display: inline-block;
+		vertical-align: middle;
+		margin-left: 10px;
+		width: 490px;
+		text-align: left;*/
 	text-align: left;
 }
 
@@ -51,9 +56,9 @@
 	font-weight: bold;
 	color: red;
 	margin-right: 5px;
-/*	width: 80px;
-	display: inline-block;
-	text-align: right;*/
+	/*	width: 80px;
+		display: inline-block;
+		text-align: right;*/
 }
 
 .b-producto .boton_comprar{

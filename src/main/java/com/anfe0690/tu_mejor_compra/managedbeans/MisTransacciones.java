@@ -56,7 +56,7 @@ public class MisTransacciones {
 		logger.trace("preDestroy");
 	}
 
-	public void actualizarCompras() {
+	public String actualizarCompras() {
 		for (FilaTransaccion ft : misCompras) {
 			if (!ft.getNuevoEstado().equals(ft.getTransaccion().getEstado())) {
 				ft.getTransaccion().setEstado(Estado.TERMINADO);
@@ -64,10 +64,10 @@ public class MisTransacciones {
 				logger.info("Actualizada transaccion {}", ft.getTransaccion());
 			}
 		}
-		logger.info("Actualizadas transacciones tipo compra");
+		return "perfil.xhtml?faces-redirect=true";
 	}
 
-	public void actualizarVentas() {
+	public String actualizarVentas() {
 		for (FilaTransaccion ft : misVentas) {
 			if (!ft.getNuevoEstado().equals(ft.getTransaccion().getEstado())) {
 				ft.getTransaccion().setEstado(Estado.EN_ENVIO);
@@ -75,7 +75,7 @@ public class MisTransacciones {
 				logger.info("Actualizada transaccion {}", ft.getTransaccion());
 			}
 		}
-		logger.info("Actualizadas transacciones tipo venta");
+		return "perfil.xhtml?faces-redirect=true";
 	}
 
 	// Getters Setters

@@ -1,15 +1,14 @@
 
 .b-respro{
 	margin-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .b-respro .marco-imagen{
-	margin-left: 20px;
-	margin-right: 20px;
-	width: 152px;
-	height: 190px;
-	line-height: 190px;
-	display: inline-block;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .b-respro .imagen{
@@ -19,9 +18,8 @@
 }
 
 .b-respro .contenedor-datos{
-	display: inline-block;
-	width: 500px;
-	vertical-align: middle;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .b-respro .nombre-producto{

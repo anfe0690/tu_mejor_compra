@@ -5,17 +5,26 @@
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
-	<header class="grid_24 tema b-header">
-		<h:link outcome="index.xhtml" title="Inicio">
-			<h:graphicImage name="logo.png" library="images" width="310" height="60" />
-		</h:link>
+	<header class="row tema b-header">
 
-		<h:form styleClass="form">
-			<h:commandButton styleClass="boton-submit" value="Buscar" action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
-				<f:param name="valor" value="#{headerBean.valor}"/>
-			</h:commandButton>
-			<h:inputText styleClass="campo-busqueda" value="#{headerBean.valor}" p:required="required"/>
-		</h:form>
+		<div class="col-sm-5 col-md-4 contenedor-imagen">
+			<h:link style="text-align: center;" outcome="index.xhtml" title="Inicio">
+				<h:graphicImage styleClass="imagen" name="logo.png" library="images"/>
+			</h:link>
+		</div>
+
+		<div class="col-sm-7 col-md-8">
+			<h:form styleClass="form">
+				<div class="contenedor-boton-submit altura ">
+					<h:commandButton styleClass="boton-submit" value="Buscar" action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
+						<f:param name="valor" value="#{headerBean.valor}"/>
+					</h:commandButton>
+				</div>
+				<div class="contenedor-campo-busqueda altura">
+					<h:inputText styleClass="campo-busqueda" value="#{headerBean.valor}" p:required="required" p:placeholder="Buscar"/>
+				</div>
+			</h:form>
+		</div>
 
 	</header>
 

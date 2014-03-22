@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class MostrarProductoBean implements Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(MostrarProductoBean.class);
@@ -53,6 +53,14 @@ public class MostrarProductoBean implements Serializable {
 		producto = manejadorDeProductos.obtenerProductoPorId(Long.parseLong(productoId));
 		if (producto != null) {
 			usuarioVendedor = manejadorDeUsuarios.getUsuarioPadreDeProducto(Long.parseLong(productoId));
+			if (usuarioVendedor == null) {
+				// Redireccionar si no encontro el usuario
+				logger.warn("No se encontro el Usuario dueño del producto \"{}\", se redirecciona a index.xhtml", producto);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				String outcome = "index.xhtml?faces-redirect=true";
+				facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+				return;
+			}
 		} else {
 			// Redireccionar si la id es invalida
 			logger.warn("Id \"{}\" invalida de producto, se redirecciona a index.xhtml", productoId);
@@ -71,7 +79,7 @@ public class MostrarProductoBean implements Serializable {
 		t.setUsuarioComprador(usuarioComprador);
 		manejadorDeTransacciones.guardarTransaccion(t);
 		logger.info("El usuario {} compro \"{}\", con la transaccion {}", usuarioComprador.getNombre(), producto.getNombre(), t);
-		return "perfil";
+		return "perfil.xhtml?faces-redirect=true";
 	}
 
 	// Getters and setters

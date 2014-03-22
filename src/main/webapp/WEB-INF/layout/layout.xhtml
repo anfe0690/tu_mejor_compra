@@ -6,15 +6,28 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
 	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core">
-	
+
 	<ui:insert name="metadata"/>
 
 	<h:head>
+		<!-- TODO 100: Reemplazar el uso del grid css 960 por bootstrap -->
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title><ui:insert name="title">Tu mejor compra</ui:insert></title>
-		<!-- CSS 960.gs -->
-		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/reset.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/text.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/960.gs/960_24_col.css"/>
+		
+		<h:outputStylesheet library="css/normalize" name="normalize.css"/>
+
+		<!-- Bootstrap -->
+		<h:outputStylesheet library="css/bootstrap" name="bootstrap.min.css"/>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
 		<!-- CSS Layout -->
 		<link rel="stylesheet" type="text/css" href="resources/css/layout/layout.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/layout/sesion.css"/>
@@ -32,25 +45,35 @@
 		<ui:debug hotkey="x"/>
 		<f:view beforePhase="#{phaseLogBean.beforePhase}"/>
 		<f:view afterPhase="#{phaseLogBean.afterPhase}"/>
-		<div class="container_24">
+		<div class="container">
 			<ui:include src="sesion.xhtml"/>
 			<ui:include src="header.xhtml"/>
-			<div class="grid_24 contenedor-contenido" >
-				<c:choose>
-					<c:when test="#{ (view.viewId != '/perfil.xhtml') and (view.viewId != '/crear_producto.xhtml') and (view.viewId != '/producto.xhtml')}">
-						<ui:include src="categorias.xhtml"/>
-						<div class="grid_18 contenido">
+			<c:choose>
+				<c:when test="#{ (view.viewId != '/perfil.xhtml')
+								 and (view.viewId != '/crear_producto.xhtml')
+								 and (view.viewId != '/producto.xhtml')}">
+					<div class="row">
+						<div class="col-md-4">
+							<ui:include src="categorias.xhtml"/>
+						</div>
+						<div class="col-md-8 contenido" >
 							<ui:insert name="content"/>
 						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="grid_24 contenido">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="row">
+						<div class="col-xs-12 contenido">
 							<ui:insert name="content"/>
 						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<ui:include src="footer.xhtml"/>
 		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<h:outputScript library="js/bootstrap" name="bootstrap.min.js"/>
 	</h:body>
 </html>

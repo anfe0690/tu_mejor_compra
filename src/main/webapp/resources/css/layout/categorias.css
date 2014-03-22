@@ -1,15 +1,16 @@
 
 .b-categorias{
-	/*background-color: #E7F5FE;*/
 	margin-left: 0px;
-	margin-right: 10px;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 .b-categorias h1{
 	text-align: center;
 	font-size: 18px;
-	padding: 10px 0px;
-	margin-bottom: 0px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	/*padding: 10px 0px;*/
 }
 
 .b-categorias .link-habilitado{
@@ -22,4 +23,5 @@
 	margin-left: 10px;
 	display: block;
 	margin-bottom: 10px;
+	font-weight: bold;
 }
