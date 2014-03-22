@@ -14,8 +14,10 @@
 			<div class="b-respro">
 				<div class="row">
 					<div class="col-sm-5 col-md-4 col-lg-3 marco-imagen">
-						<!-- TODO 100: Agregar link en imagen -->
-						<h:graphicImage styleClass="imagen" value="/imgs/#{producto.direccionImagen}"/>
+						<h:link outcome="producto.xhtml" includeViewParams="true">
+							<h:graphicImage styleClass="imagen" value="/imgs/#{producto.direccionImagen}"/>
+							<f:param name="pid" value="#{producto.id}"/>
+						</h:link>
 					</div>
 					<div class="col-sm-7 col-md-8 col-lg 9 contenedor-datos">
 						<h:link outcome="producto.xhtml" includeViewParams="true" styleClass="nombre-producto">
