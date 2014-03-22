@@ -19,8 +19,8 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{indexBean.buscarProductosRecientes}"/>
-		<section class="b-index" >
-			<h1 class="tema titulo">Productos recientes</h1>
+		<section class="col-sm-8 col-md-8 tema b-index" >
+			<h1 class="titulo">Productos recientes</h1>
 			<andres:respro productos="#{indexBean.productosRecientes}" />
 			<andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}" numpaginas="#{indexBean.navegacion.numeroPaginas}"
 						nombrevarpagina="pag"/>

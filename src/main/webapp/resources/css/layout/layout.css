@@ -1,8 +1,4 @@
 
-.container_24{
-	/*background-color: white;*/
-}
-
 .mensaje-error{
 	color: red;
 	font-weight: bold;
@@ -10,7 +6,6 @@
 
 .tema{
     box-shadow: 1px 1px 2px;
-	/*background-color: #E7F5FE;*/
 	background-color: white;
 }
 

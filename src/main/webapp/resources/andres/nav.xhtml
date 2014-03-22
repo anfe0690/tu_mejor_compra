@@ -12,7 +12,7 @@
 	</composite:interface>
 	<composite:implementation>
 		<h:outputStylesheet library="css/andres" name="nav.css" />
-		<div class="tema b-navegacion">
+		<div class="b-navegacion">
 			<h:link styleClass="link-navegacion" value="Anterior" outcome="#{cc.attrs.outcome}" includeViewParams="true"
 					rendered="#{cc.attrs.pagina.intValue() > 1}">
 				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>

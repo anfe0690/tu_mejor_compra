@@ -1,4 +1,10 @@
 
+.b-perfil{
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-bottom: -10px;
+}
+
 /* DATOS DEL PERFIL */
 .b-datos-perfil{
 	/*	height: 210px;

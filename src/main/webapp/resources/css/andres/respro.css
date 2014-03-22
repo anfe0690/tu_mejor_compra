@@ -3,6 +3,7 @@
 	margin-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
+	border: 1px solid black;
 }
 
 .b-respro .marco-imagen{
@@ -14,7 +15,7 @@
 .b-respro .imagen{
 	max-width: 150px;
 	max-height: 150px;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 }
 
 .b-respro .contenedor-datos{

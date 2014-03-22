@@ -19,8 +19,8 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{categoriaBean.buscar()}"/>
-		<section class="categoria">
-			<h1 class="tema titulo"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
+		<section class="col-sm-8 col-md-8 tema categoria">
+			<h1 class="titulo"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
 			<andres:respro productos="#{categoriaBean.resultados}"/>
 			<andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.navegacion.pagina}"
 						numpaginas="#{categoriaBean.navegacion.numeroPaginas}"

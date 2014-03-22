@@ -4,15 +4,17 @@
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<aside class="tema b-categorias" >
-		<h1>Categorias</h1>
-		<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
-			<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
-					styleClass="link-habilitado">
-				<f:param name="c" value="#{categoria}"/>
-			</h:link>
-			<h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}" styleClass="link-desabilitado"/>
-		</ui:repeat>
+	<aside class="col-sm-4 col-md-4" >
+		<div class="tema b-categorias">
+			<h1>Categorias</h1>
+			<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
+				<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
+						styleClass="link-habilitado">
+					<f:param name="c" value="#{categoria}"/>
+				</h:link>
+				<h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}" styleClass="link-desabilitado"/>
+			</ui:repeat>
+		</div>
 	</aside>
 
 </ui:composition>
