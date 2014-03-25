@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -47,7 +48,9 @@ public class MisProductos {
 	public void postConstruct() {
 		logger.trace("postConstruct");
 		selProductos = new ArrayList<>();
-		for (Producto producto : sesionBean.getUsuario().getProductos()) {
+		List<Producto> lps = sesionBean.getUsuario().getProductosOrdenados();
+		Collections.reverse(lps);
+		for (Producto producto : lps) {
 			selProductos.add(new SelProducto(producto));
 		}
 	}

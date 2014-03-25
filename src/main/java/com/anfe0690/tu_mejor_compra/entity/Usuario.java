@@ -1,21 +1,26 @@
 package com.anfe0690.tu_mejor_compra.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Cacheable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.PostLoad;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 public class Usuario implements Serializable {
 
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(Usuario.class);
 	private static final long serialVersionUID = 1L;
 
 	// Campos generales
@@ -120,4 +125,23 @@ public class Usuario implements Serializable {
 		return "Usuario{" + "nombre=" + nombre + ", contrasena=" + contrasena + ", nombreContacto=" + nombreContacto + '}';
 	}
 
+	public List<Producto> getProductosOrdenados() {
+		List<Producto> list = new ArrayList<>(productos);
+		Collections.sort(list, new Comparator<Producto>() {
+
+			@Override
+			public int compare(Producto o1, Producto o2) {
+				int r = o1.getFechaDeCreacion().compareTo(o2.getFechaDeCreacion());
+				if (r == 0) {
+					if (o1.getId() <= o2.getId()) {
+						r = -1;
+					} else {
+						r = 1;
+					}
+				}
+				return r;
+			}
+		});
+		return list;
+	}
 }

@@ -5,6 +5,10 @@ import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -48,9 +52,6 @@ public class SesionBean implements Serializable {
 //				sesionIniciada = true;
 //				this.usuario = u;
 //				logger.info("Sesion iniciada: {}", u.getNombre());
-//				for (Producto p : u.getProductos()) {
-//					logger.debug("{}", p);
-//				}
 //			} else {
 //			}
 //		} catch (IllegalArgumentException e) {
