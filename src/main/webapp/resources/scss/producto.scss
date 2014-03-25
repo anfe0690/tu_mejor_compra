@@ -1,0 +1,59 @@
+@import "_global.scss";
+
+.b-producto{
+	margin-left: -15px;
+	margin-right: -15px;
+	text-align: center;
+	padding: 15px;
+
+	.marco-imagen{
+		margin-bottom: 10px;
+	}
+
+	.imagen{
+		max-width: 400px;
+		max-height: 400px;
+		width: 100%;
+		height: 100%;
+		border: 1px solid black;
+	}
+
+	.contenedor-datos{
+		text-align: left;
+	}
+
+	.nombre_producto{
+		font-size: 16px;
+		font-weight: bold;
+		display: block;
+	}
+
+	.etiqueta-precio-producto{
+		font-size: 16px;
+		font-weight: bold;
+		color: red;
+		margin-right: 10px;
+	}
+
+	.precio_producto{
+		font-size: 16px;
+		font-weight: bold;
+		color: red;
+		margin-right: 5px;
+	}
+	
+	.cont-boton{
+		margin-top: 20px;
+	}
+
+	.boton_comprar{
+		height: 100%;
+	}
+
+	.adv_iniciar_sesion{
+		font-size: 16px;
+		font-weight: bold;
+		color: red;
+		margin-top: 20px;
+	}
+}

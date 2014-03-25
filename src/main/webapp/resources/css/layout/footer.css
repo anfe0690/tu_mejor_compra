@@ -1,12 +1,10 @@
+.b-footer {
+  /*background-color: #E7F5FE;*/
+  /*height: 60px;*/
+  padding: 10px;
+  margin-top: 10px; }
+  .b-footer .b-footer p {
+    text-align: justify;
+    margin: 0px; }
 
-.b-footer{
-	/*background-color: #E7F5FE;*/
-	/*height: 60px;*/
-	padding: 10px;
-	margin-top: 10px;
-}
-
-.b-footer p{
-	text-align: justify;
-	margin: 0px;
-}
+/*# sourceMappingURL=footer.css.map */

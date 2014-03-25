@@ -23,7 +23,7 @@
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{buscarBean.buscar()}"/>
 		<section class="col-sm-8 col-md-8 tema buscar">
-			<h1 class="" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
+			<h1 class="titulo-bloque" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
 			<andres:respro productos="#{buscarBean.resultados}"/>
 			<andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}" numpaginas="#{buscarBean.navegacion.numeroPaginas}"
 						nombrevarpagina="pagb"/>

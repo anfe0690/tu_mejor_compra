@@ -6,7 +6,7 @@
 
 	<aside class="col-sm-4 col-md-4" >
 		<div class="tema b-categorias">
-			<h1>Categorias</h1>
+			<h1 class="titulo-bloque">Categorias</h1>
 			<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
 				<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
 						styleClass="link-habilitado">

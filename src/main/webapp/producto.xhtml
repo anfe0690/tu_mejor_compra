@@ -19,7 +19,7 @@
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{mostrarProductoBean.leerProducto()}"/>
 		<section class="tema b-producto">
-			<h1>Producto</h1>
+			<h1 class="titulo-bloque">Producto</h1>
 			<div class="row">
 				<div class="col-md-6 marco-imagen">
 					<h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
@@ -32,7 +32,10 @@
 					<c:choose >
 						<c:when test="#{sesionBean.sesionIniciada}">
 							<h:form id="form_cv">
-								<h:commandButton styleClass="boton_comprar" id="boton_comprar" value="Comprar" action="#{mostrarProductoBean.comprar()}"/>
+								<div class="altura-linea cont-boton">
+									<h:commandButton styleClass="boton_comprar" id="boton_comprar" value="Comprar"
+													 action="#{mostrarProductoBean.comprar()}"/>
+								</div>
 								<h:inputHidden id="v_nombre_contacto" value="#{mostrarProductoBean.usuarioVendedor.nombreContacto}"/>
 								<h:inputHidden id="v_correo" value="#{mostrarProductoBean.usuarioVendedor.correo}"/>
 								<h:inputHidden id="v_telefonos" value="#{mostrarProductoBean.usuarioVendedor.telefonos}"/>

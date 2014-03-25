@@ -14,14 +14,14 @@
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 		<section class="tema b-crear_producto">
-			<h1>Crear Producto</h1>
+			<h1 class="titulo-bloque">Crear Producto</h1>
 			<h:form id="form_crear_producto" enctype="multipart/form-data" >
 				<div class="row">
 					<div class="col-md-6 control-imagen">
 						<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
 						<br/>
 						<h:message for="file" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<div style="width: 100%; text-align: center;">
+						<div class="altura-linea cont-selector-imagen">
 							<h:inputFile styleClass="selector-imagen" id="file" value="#{crearProducto.file}"
 										 p:required="required"
 										 p:accept="image/*"
@@ -29,29 +29,35 @@
 						</div>
 					</div>
 					<div class="col-md-6 control-datos">
-						<p class="etiqueta-nombre-producto">Nombre de producto</p>
+						<p class="etiqueta-campo">Nombre de producto</p>
 						<h:message for="nombre-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<h:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProducto.nombre}"
-									 p:required="required"
-									 p:placeholder="Nombre de producto"
-									 validator="#{crearProducto.validarNombreProducto}" />
-						<br/>
-						<p class="etiqueta-precio-producto">Precio (Pesos)</p>
+						<div class="altura-linea espacio-campo">
+							<h:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProducto.nombre}"
+										 p:required="required"
+										 p:placeholder="Nombre de producto"
+										 validator="#{crearProducto.validarNombreProducto}" />
+						</div>
+						<p class="etiqueta-campo">Precio (Pesos)</p>
 						<h:message for="precio-producto" styleClass="mensaje-error crear-producto-error" showSummary="true" showDetail="false"/>
-						<h:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProducto.precio}"
-									 p:required="required"
-									 p:placeholder="Precio de producto"
-									 validator="#{crearProducto.validarPrecioProducto}" />
-						<br/>
-						<p class="etiqueta-categoria">Categoria</p>
-						<h:selectOneMenu value="#{crearProducto.categoria}">
-							<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
-							<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
-							<f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
-						</h:selectOneMenu>
+						<div class="altura-linea espacio-campo">
+							<h:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProducto.precio}"
+										 p:required="required"
+										 p:placeholder="Precio de producto"
+										 validator="#{crearProducto.validarPrecioProducto}" />
+						</div>
+						<p class="etiqueta-campo">Categoria</p>
+						<div class="altura-linea">
+							<h:selectOneMenu styleClass="categoria" value="#{crearProducto.categoria}">
+								<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
+								<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
+								<f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
+							</h:selectOneMenu>
+						</div>
 					</div>
 				</div>
-				<h:commandButton styleClass="boton-submit" value="Crear" action="#{crearProducto.crearProducto()}"/>
+				<div class="altura-linea">
+					<h:commandButton styleClass="boton-submit" value="Crear" action="#{crearProducto.crearProducto()}"/>
+				</div>
 			</h:form>
 		</section>
 	</ui:define>

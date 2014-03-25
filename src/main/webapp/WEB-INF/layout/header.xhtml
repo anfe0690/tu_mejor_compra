@@ -15,12 +15,12 @@
 
 		<div class="col-sm-7 col-md-8">
 			<h:form styleClass="form">
-				<div class="contenedor-boton-submit altura ">
+				<div class="contenedor-boton-submit altura-linea ">
 					<h:commandButton styleClass="boton-submit" value="Buscar" action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
 						<f:param name="valor" value="#{headerBean.valor}"/>
 					</h:commandButton>
 				</div>
-				<div class="contenedor-campo-busqueda altura">
+				<div class="contenedor-campo-busqueda altura-linea">
 					<h:inputText styleClass="campo-busqueda" value="#{headerBean.valor}" p:required="required" p:placeholder="Buscar"/>
 				</div>
 			</h:form>

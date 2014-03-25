@@ -15,22 +15,22 @@
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 		<div class="b-perfil">
-			<section  id="section_perfil" class="tema b-datos-perfil">
-				<h1>Datos del perfil</h1>
+			<section  id="section_perfil" class="tema seccion b-datos-perfil">
+				<h1 class="titulo-bloque">Datos del perfil</h1>
 				<div class="row">
-					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+					<div class="col-sm-4 espacio">
 						<h2>Campos generales</h2>
 						<p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
 						<p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
 						<p>Correo: <h:outputText value="#{sesionBean.usuario.correo}" /></p>
 						<p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" /></p>
 					</div>
-					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+					<div class="col-sm-4 espacio">
 						<h2>Campos de comprador</h2>
 						<p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
 						<p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
 					</div>
-					<div class="col-sm-4 alinear-centro grupo-datos-perfil">
+					<div class="col-sm-4 ">
 						<h2>Campos de vendedor</h2>
 						<p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
 						<p>Numero de cuenta: <h:outputText value="#{sesionBean.usuario.numeroCuenta}"/></p>
@@ -38,13 +38,14 @@
 				</div>
 			</section>
 
-			<section id="section_mis_productos" class="tema b-mis-productos">
-				<h1>Mis productos</h1>
+			<section class="tema seccion" id="section_mis_productos" >
+				<h1 class="titulo-bloque">Mis productos</h1>
 				<h:form id="form-mis-productos">
-					<h:button value="Crear" outcome="crear_producto.xhtml"/>
-					<h:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{misProductos.eliminarProductos()}"
-									 p:disabled="disabled"/>
-					<br/>
+					<div class="altura-linea">
+						<h:button value="Crear" outcome="crear_producto.xhtml"/>
+						<h:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{misProductos.eliminarProductos()}"
+										 p:disabled="disabled"/>
+					</div>
 					<div class="cont-tabla">
 						<h:dataTable id="datatable-mis-productos" value="#{misProductos.selProductos}" var="selproducto"
 									 styleClass="tabla"
@@ -79,11 +80,12 @@
 				</h:form>
 			</section>
 
-			<section id="section_compras" class="tema b-mis-compras">
-				<h1>Mis compras</h1>
+			<section class="tema seccion" id="section_compras" >
+				<h1 class="titulo-bloque">Mis compras</h1>
 				<h:form id="form_compras">
-					<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarCompras()}"/>
-					<br/>
+					<div class="altura-linea">
+						<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarCompras()}"/>
+					</div>
 					<div class="cont-tabla">
 						<h:dataTable id="datatable_compras" value="#{misTransacciones.misCompras}" var="filaTransaccion"
 									 styleClass="tabla"
@@ -122,11 +124,12 @@
 				</h:form>
 			</section>
 
-			<section id="section_ventas" class="tema b-mis-ventas">
-				<h1>Mis ventas</h1>
+			<section class="tema seccion" id="section_ventas" >
+				<h1 class="titulo-bloque">Mis ventas</h1>
 				<h:form id="form_ventas">
-					<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarVentas()}"/>
-					<br/>
+					<div class="altura-linea">
+						<h:commandButton id="btn_actualizar" value="Actualizar" action="#{misTransacciones.actualizarVentas()}"/>
+					</div>
 					<div class="cont-tabla">
 						<h:dataTable id="datatable_ventas" value="#{misTransacciones.misVentas}" var="filaTransaccion"
 									 styleClass="tabla"

@@ -7,7 +7,7 @@
 	<div class="row tema b-sesion">
 
 		<h:panelGroup layout="block"
-					  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura"
+					  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea"
 					  rendered="#{!sesionBean.sesionIniciada}">
 			<button id="contrasenas" class="boton-contrasenas">Contraseñas</button>
 		</h:panelGroup>
@@ -18,7 +18,7 @@
 					<c:choose>
 						<c:when test="#{!sesionBean.sesionIniciada}">
 							<f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
-							<h:panelGroup layout="block" rendered="#{not empty facesContext.getMessageList('form-sesion')}">
+							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
 								<div class="col-lg-4 alinear-centro">
 									<h:message for="form-sesion" styleClass="mensaje-error sesion-error" showSummary="true" showDetail="false"/>
 								</div>
@@ -29,33 +29,33 @@
 							</h:panelGroup>
 
 							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura">
+								<div class="cont-etiqueta altura-linea">
 									<label class="etiqueta" for="form-sesion:nombre-usuario">Usuario</label>
 								</div>
-								<div class="altura" style="margin-left: 70px;">
+								<div class="altura-linea" style="margin-left: 70px;">
 									<h:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
 												 p:required="required"
 												 p:placeholder="Usuario"/>
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura">
+								<div class="cont-etiqueta altura-linea">
 									<label class="etiqueta" for="form-sesion:contrasena-usuario">Contraseña</label>
 								</div>
-								<div class="altura" style="margin-left: 90px;">
+								<div class="altura-linea" style="margin-left: 90px;">
 									<h:inputSecret styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}"
 												   p:required="required"
 												   p:placeholder="Contraseña"/>
 								</div>
 							</div>
 
-							<div class="col-sm-12 col-md-2 altura">
+							<div class="col-sm-12 col-md-2 altura-linea">
 								<h:commandButton styleClass="boton-submit" value="Iniciar sesion"  action="#{sesionBean.iniciarSesion()}" />
 							</div>
 						</c:when>
 
 						<c:otherwise>
-							<div class="col-xs-12 altura alinear-derecha">
+							<div class="col-xs-12 altura-linea alinear-derecha">
 								<h:outputText styleClass="nombre-usuario" value="#{sesionBean.usuario.nombre}"/>
 								<c:if test="#{view.viewId != '/perfil.xhtml'}">
 									<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>

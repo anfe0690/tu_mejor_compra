@@ -1,142 +1,51 @@
-
-.b-perfil{
-	margin-left: -15px;
-	margin-right: -15px;
-	margin-bottom: -10px;
-}
-
-/* DATOS DEL PERFIL */
-.b-datos-perfil{
-	/*	height: 210px;
-		text-align: center;
-		*/
-	padding-left: 15px;
-	padding-right: 15px;
-	margin-bottom: 10px;
-}
-
-.b-datos-perfil h1{
-	font-size: 18px;
-	text-align: center;
-	padding: 10px 0px;
-	margin: 0px;
-}
-
-.b-datos-perfil input{
+.b-perfil {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: -10px; }
+  .b-perfil .seccion {
+    text-align: center;
     margin-bottom: 10px;
-}
+    padding: 15px; }
+  .b-perfil .b-datos-perfil .espacio {
+    margin-bottom: 10px; }
+  .b-perfil .b-datos-perfil h2 {
+    margin: 0px 0px 10px 0px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center; }
+  .b-perfil .b-datos-perfil p {
+    font-size: 14px;
+    margin: 0px; }
+  .b-perfil .cont-tabla {
+    overflow: scroll;
+    border: 1px solid lightgray;
+    height: 230px;
+    margin-top: 15px; }
+  .b-perfil .tabla {
+    width: 100%; }
+    .b-perfil .tabla .celda, .b-perfil .tabla .tabla-header, .b-perfil .tabla .contenedor-centro, .b-perfil .tabla .contenedor-imagen, .b-perfil .tabla .contenedor-nombre, .b-perfil .tabla .contenedor-derecha {
+      border: 1px solid black; }
+    .b-perfil .tabla .tabla-header {
+      font-weight: bold;
+      padding: 5px;
+      text-align: center; }
+    .b-perfil .tabla .contenedor-centro {
+      padding: 5px;
+      text-align: center; }
+    .b-perfil .tabla .contenedor-imagen {
+      height: 60px;
+      padding: 0px;
+      text-align: center; }
+      .b-perfil .tabla .contenedor-imagen .imagen {
+        max-width: 60px;
+        max-height: 60px; }
+    .b-perfil .tabla .contenedor-nombre {
+      padding: 5px;
+      text-align: left; }
+    .b-perfil .tabla .contenedor-derecha {
+      padding: 5px;
+      text-align: right; }
 
-.b-datos-perfil .alinear-centro{
-	text-align: center;
-}
-
-.b-datos-perfil .grupo-datos-perfil{
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
-.b-datos-perfil div:nth-of-type(1){
-	/*	display: inline-block;
-		vertical-align: top;
-		height: 120px;
-		margin: 0px 50px;
-		text-align: left;*/
-}
-
-.b-datos-perfil div:nth-of-type(2){
-	/*	display: inline-block;
-		vertical-align: top;
-		height: 120px;
-		margin: 0px 50px;
-		text-align: left;*/
-}
-
-.b-datos-perfil div:nth-of-type(3){
-	/*	display: inline-block;
-		vertical-align: top;
-		height: 120px;
-		margin: 0px 50px;
-		text-align: left;*/
-}
-
-.b-datos-perfil h2{
-	font-size: 16px;
-	margin: 0px;
-}
-
-.b-datos-perfil p{
-	font-size: 14px;
-	margin: 0px;
-}
-
-/* TABLAS GENERAL */
-.b-mis-productos, .b-mis-compras, .b-mis-ventas{
-	text-align: center;
-	margin-bottom: 10px;
-	padding: 15px;
-}
-
-.b-mis-productos h1, .b-mis-compras h1, .b-mis-ventas h1{
-	font-size: 18px;
-	text-align: center;
-	padding: 10px 0px;
-	margin: 0px;
-}
-
-.b-perfil input[type="submit"]:disabled{
-	color: graytext;
-}
-
-.b-perfil .cont-tabla{
-	overflow: scroll;
-	border: 1px solid lightgray;
-	height: 230px;
-	margin-top: 15px;
-}
-
-.b-perfil .tabla{
-	width: 100%;
-}
-
-.b-perfil .tabla-header{
-	font-weight: bold;
-	border: 1px solid black;
-	vertical-align: middle;
-	text-align: center;
-	padding: 5px;
-}
-
-.b-perfil .contenedor-centro{
-	text-align: center;
-	border: 1px solid black;
-	padding: 5px;
-	vertical-align: middle;
-}
-
-.b-perfil .contenedor-imagen{
-	height: 60px;
-	padding: 0px;
-	text-align: center;
-	border: 1px solid black;
-	vertical-align: middle;
-}
-
-.b-perfil .imagen{
-	max-width: 60px;
-	max-height: 60px;
-}
-
-.b-perfil .contenedor-nombre{
-	text-align: left;
-	border: 1px solid black;
-	padding: 5px;
-	vertical-align: middle;
-	width: 450px;
-}
-
-.b-perfil .contenedor-derecha{
-	text-align: right;
-	border: 1px solid black;
-	padding: 5px;
-	vertical-align: middle;
-}
+/*# sourceMappingURL=perfil.css.map */

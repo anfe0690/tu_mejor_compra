@@ -1,14 +1,28 @@
+.mensaje-error {
+  color: red;
+  font-weight: bold; }
 
-.mensaje-error{
-	color: red;
-	font-weight: bold;
-}
+.tema {
+  box-shadow: 1px 1px 2px;
+  background-color: white; }
 
-.tema{
-    box-shadow: 1px 1px 2px;
-	background-color: white;
-}
+body {
+  background-image: url("../../images/white-box-texture.jpg"); }
 
-body{
-	background-image: url("../../images/white-box-texture.jpg");
-}
+.altura-linea {
+  height: 35px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
+.titulo-bloque {
+  margin: 0px 0px 10px 0px;
+  height: 35px;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 35px;
+  text-align: center; }
+
+input[type="submit"]:disabled {
+  color: graytext; }
+
+/*# sourceMappingURL=layout.css.map */

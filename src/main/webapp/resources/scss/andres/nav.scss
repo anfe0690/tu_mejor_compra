@@ -1,0 +1,14 @@
+@import "../_global.scss";
+
+.b-navegacion{
+	text-align: center;
+	padding: 10px;
+
+	.link-navegacion{
+		margin: 20px 10px;
+	}
+
+	.link-actual{
+		font-weight: bold;
+	}
+}

@@ -1,76 +1,40 @@
+.b-producto {
+  margin-left: -15px;
+  margin-right: -15px;
+  text-align: center;
+  padding: 15px; }
+  .b-producto .marco-imagen {
+    margin-bottom: 10px; }
+  .b-producto .imagen {
+    max-width: 400px;
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black; }
+  .b-producto .contenedor-datos {
+    text-align: left; }
+  .b-producto .nombre_producto {
+    font-size: 16px;
+    font-weight: bold;
+    display: block; }
+  .b-producto .etiqueta-precio-producto {
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+    margin-right: 10px; }
+  .b-producto .precio_producto {
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+    margin-right: 5px; }
+  .b-producto .cont-boton {
+    margin-top: 20px; }
+  .b-producto .boton_comprar {
+    height: 100%; }
+  .b-producto .adv_iniciar_sesion {
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+    margin-top: 20px; }
 
-.b-producto{
-	margin-left: -15px;
-	margin-right: -15px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	padding: 15px;
-}
-
-.b-producto h1{
-	text-align: center;
-	padding: 10px 0px;
-	font-size: 18px;
-	margin: 0px;
-}
-
-.b-producto .marco-imagen{
-	/*	margin-bottom: 20px;
-		display: inline-block;
-		width: 402px;
-		height: 402px;
-		line-height: 400px;*/
-	margin-bottom: 10px;
-}
-
-.b-producto .imagen{
-	max-width: 400px;
-	max-height: 400px;
-	width: 100%;
-	height: 100%;
-	border: 1px solid black;
-}
-
-.b-producto .contenedor-datos{
-	/*	display: inline-block;
-		vertical-align: middle;
-		margin-left: 10px;
-		width: 490px;
-		text-align: left;*/
-	text-align: left;
-}
-
-.b-producto .nombre_producto{
-	font-size: 16px;
-	font-weight: bold;
-	display: block;
-}
-
-.b-producto .etiqueta-precio-producto{
-	font-size: 16px;
-	font-weight: bold;
-	color: red;
-	margin-right: 10px;
-}
-
-.b-producto .precio_producto{
-	font-size: 16px;
-	font-weight: bold;
-	color: red;
-	margin-right: 5px;
-	/*	width: 80px;
-		display: inline-block;
-		text-align: right;*/
-}
-
-.b-producto .boton_comprar{
-	display: block;
-	margin-top: 20px;
-}
-
-.b-producto .adv_iniciar_sesion{
-	font-size: 16px;
-	font-weight: bold;
-	color: red;
-	margin-top: 20px;
-}
+/*# sourceMappingURL=producto.css.map */

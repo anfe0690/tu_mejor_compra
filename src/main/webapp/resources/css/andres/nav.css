@@ -1,13 +1,9 @@
+.b-navegacion {
+  text-align: center;
+  padding: 10px; }
+  .b-navegacion .link-navegacion {
+    margin: 20px 10px; }
+  .b-navegacion .link-actual {
+    font-weight: bold; }
 
-.b-navegacion{
-	text-align: center;
-	padding: 10px;
-}
-
-.b-navegacion .link-navegacion{
-	margin: 20px 10px;
-}
-
-.b-navegacion .link-actual{
-	font-weight: bold;
-}
+/*# sourceMappingURL=nav.css.map */
