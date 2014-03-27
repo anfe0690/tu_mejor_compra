@@ -1,5 +1,5 @@
 
-window.addEventListener("load", function() {
+$(document).ready(function() {
 	
 	var inputFile = document.getElementById("form_crear_producto:file");
 	inputFile.addEventListener("change", function (){

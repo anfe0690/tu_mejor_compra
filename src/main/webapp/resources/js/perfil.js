@@ -1,5 +1,5 @@
 
-window.addEventListener("load", function() {
+$(document).ready(function() {
 
 	// Eliminar productos
 	var button_eliminar = document.getElementById("form-mis-productos:boton_eliminar");
