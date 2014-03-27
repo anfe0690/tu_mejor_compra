@@ -1,7 +1,5 @@
 
-window.onload = function() {
-	
-	doLayout();
+window.addEventListener("load", function() {
 	
 	if (document.getElementById("form_cv:v_nombre_contacto") !== null) {
 		var v_nombreContacto = document.getElementById("form_cv:v_nombre_contacto").value;
@@ -33,4 +31,4 @@ window.onload = function() {
 		}
 	}
 
-};
+});

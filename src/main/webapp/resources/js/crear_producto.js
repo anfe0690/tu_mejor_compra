@@ -1,7 +1,5 @@
 
-window.onload = function() {
-	
-	doLayout();
+window.addEventListener("load", function() {
 	
 	var inputFile = document.getElementById("form_crear_producto:file");
 	inputFile.addEventListener("change", function (){
@@ -19,5 +17,5 @@ window.onload = function() {
 		}
 	});
 	
-};
+});
 

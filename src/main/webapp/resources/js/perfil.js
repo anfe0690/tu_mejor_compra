@@ -1,7 +1,5 @@
 
-window.onload = function() {
-
-	doLayout();
+window.addEventListener("load", function() {
 
 	// Eliminar productos
 	var button_eliminar = document.getElementById("form-mis-productos:boton_eliminar");
@@ -37,7 +35,7 @@ window.onload = function() {
 		return false;
 	}
 
-};
+});
 
 
 

@@ -1,5 +1,5 @@
 
-function doLayout() {
+window.addEventListener("load", function() {
 
 	var btnContrasenas = document.getElementById("contrasenas");
 	if (btnContrasenas !== null) {
@@ -10,9 +10,5 @@ function doLayout() {
 					+ "fernando = '789'\n");
 		};
 	}
-}
-;
 
-window.onload = function() {
-	doLayout();
-};
+});
