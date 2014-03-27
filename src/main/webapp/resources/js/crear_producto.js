@@ -4,7 +4,7 @@ window.onload = function() {
 	doLayout();
 	
 	var inputFile = document.getElementById("form_crear_producto:file");
-	inputFile.onchange = function (){
+	inputFile.addEventListener("change", function (){
 		if(this.files && this.files[0]){
 			var reader = new FileReader();
 			
@@ -13,8 +13,11 @@ window.onload = function() {
 			};
 			
 			reader.readAsDataURL(this.files[0]);
+		}else{
+			document.getElementById("form_crear_producto:imagen").setAttribute("src",
+			"/javax.faces.resource/sel-imagen.png.xhtml?ln=images");
 		}
-	};
+	});
 	
 };
 

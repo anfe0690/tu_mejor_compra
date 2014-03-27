@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -59,6 +60,7 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarImagenProducto(FacesContext context, UIComponent toValidate, Object value) {
+		logger.trace("validarImagenProducto()");
 
 		// Comprobar que se haya seleccionado un archivo
 		if (value == null) {
@@ -96,6 +98,7 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarNombreProducto(FacesContext context, UIComponent toValidate, Object value) {
+		logger.trace("validarNombreProducto()");
 		// Comprobar si el nombre del producto esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Nombre del producto vacio!");
@@ -115,6 +118,7 @@ public class CrearProducto implements Serializable {
 	}
 
 	public void validarPrecioProducto(FacesContext context, UIComponent toValidate, Object value) {
+		logger.trace("validarPrecioProducto()");
 		// Comprobar si el precio esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Precio del producto vacio!");
@@ -141,7 +145,8 @@ public class CrearProducto implements Serializable {
 		}
 	}
 
-	public String crearProducto() {
+	public void crearProducto() {
+		logger.trace("crearProducto()");
 		nombre = nombre.trim();
 		precio = precio.trim();
 		// form-data; name="form_crear_producto:file"; filename="Crysis.jpg"
@@ -158,11 +163,11 @@ public class CrearProducto implements Serializable {
 					new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + usuario.getNombre() + "/"));
 		} catch (IOException ex) {
 			logger.error(null, ex);
-			return null;
+			return;
 		}
-		
+
 		String direccionImagen = sesionController.getUsuario().getNombre() + "/" + f.getName();
-		
+
 		logger.debug("f = {}", f);
 		try {
 			OutputStream os = new FileOutputStream(f);
@@ -176,7 +181,7 @@ public class CrearProducto implements Serializable {
 			is.close();
 		} catch (IOException ex) {
 			logger.error(null, ex);
-			return null;
+			return;
 		}
 		Producto producto = new Producto();
 		producto.setDireccionImagen(direccionImagen);
@@ -192,7 +197,12 @@ public class CrearProducto implements Serializable {
 
 		logger.info("Creado producto: {}", producto.getNombre());
 
-		return "perfil?faces-redirect=true";
+//		return "perfil.xhtml?faces-redirect=true";
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil.xhtml");
+		} catch (IOException ex) {
+			logger.error(null, ex);
+		}
 	}
 
 	// Getters and Setters
