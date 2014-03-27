@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.PreRenderViewEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -38,8 +39,8 @@ public class IndexBean implements Serializable {
 		logger.trace("preDestroy");
 	}
 
-	public void buscarProductosRecientes(ComponentSystemEvent e) {
-		logger.trace("buscarProductosRecientes");
+	public void buscarProductosRecientes() {
+		logger.trace("buscarProductosRecientes()");
 		TypedQuery<Producto> qps = em.createQuery("SELECT p FROM Producto p ORDER BY p.fechaDeCreacion DESC, p.id DESC", Producto.class);
 		productosRecientes = navegacion.calcular(qps);
 	}

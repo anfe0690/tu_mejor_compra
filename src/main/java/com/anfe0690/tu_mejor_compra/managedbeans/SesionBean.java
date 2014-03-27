@@ -18,7 +18,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -64,6 +66,7 @@ public class SesionBean implements Serializable {
 	}
 
 	public void validarUsuarioContrasena(ComponentSystemEvent e) {
+		logger.trace("validarUsuarioContrasena()");
 		UIComponent form = e.getComponent();
 		UIInput inputUsuario = (UIInput) form.findComponent("nombre-usuario");
 		UIInput inputContraseña = (UIInput) form.findComponent("contrasena-usuario");
@@ -88,7 +91,6 @@ public class SesionBean implements Serializable {
 		// Comprobar la relacion de usuario y contraseña
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
 		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
-			logger.debug("Usuario y contraseña correctos");
 		} else {
 			logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
 			fc.addMessage(form.getClientId(), new FacesMessage("Usuario y/o contraseña incorrectos"));
@@ -98,6 +100,7 @@ public class SesionBean implements Serializable {
 
 	// Acciones
 	public String iniciarSesion() {
+		logger.trace("iniciarSesion()");
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
 		sesionIniciada = true;

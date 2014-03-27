@@ -6,21 +6,23 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 	<div class="row tema b-sesion">
 
-		<h:panelGroup layout="block"
-					  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea"
-					  rendered="#{!sesionBean.sesionIniciada}">
-			<button id="contrasenas" class="boton-contrasenas">Contraseñas</button>
-		</h:panelGroup>
-
 		<div class="col-xs-12">
 			<h:form id="form-sesion" >
 				<div class="row">
 					<c:choose>
+						<!-- Iniciar sesion -->
 						<c:when test="#{!sesionBean.sesionIniciada}">
 							<f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+
+							<h:panelGroup layout="block"
+										  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea">
+								<button type="button" id="contrasenas" class="boton-contrasenas">Contraseñas</button>
+							</h:panelGroup>
 							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
 								<div class="col-lg-4 alinear-centro">
-									<h:message for="form-sesion" styleClass="mensaje-error sesion-error" showSummary="true" showDetail="false"/>
+									<h:message id="msg-form-sesion" for="form-sesion" styleClass="mensaje-error sesion-error"
+											   showSummary="true"
+											   showDetail="false"/>
 								</div>
 								<div class="col-md-2 visible-md"/>
 							</h:panelGroup>
@@ -50,17 +52,18 @@
 							</div>
 
 							<div class="col-sm-12 col-md-2 altura-linea">
-								<h:commandButton styleClass="boton-submit" value="Iniciar sesion"  action="#{sesionBean.iniciarSesion()}" />
+								<h:commandButton styleClass="boton-submit" value="Iniciar sesion" action="#{sesionBean.iniciarSesion()}"/>
 							</div>
 						</c:when>
 
+						<!-- Cerrar sesion -->
 						<c:otherwise>
 							<div class="col-xs-12 altura-linea alinear-derecha">
 								<h:outputText styleClass="nombre-usuario" value="#{sesionBean.usuario.nombre}"/>
 								<c:if test="#{view.viewId != '/perfil.xhtml'}">
 									<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
 								</c:if>
-								<h:commandButton style="height: 100%;" value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}" />
+								<h:commandButton style="height: 100%;" value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}"/>
 							</div>
 						</c:otherwise>
 					</c:choose>

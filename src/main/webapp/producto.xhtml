@@ -7,6 +7,7 @@
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
+			<f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">Producto</ui:define>
@@ -17,7 +18,6 @@
 		<h:outputScript library="js" name="producto.js"/>
 	</ui:define>
 	<ui:define name="content">
-		<f:event type="preRenderView" listener="#{mostrarProductoBean.leerProducto()}"/>
 		<section class="tema b-producto">
 			<h1 class="titulo-bloque">Producto</h1>
 			<div class="row">

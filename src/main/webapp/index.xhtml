@@ -8,6 +8,7 @@
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
+			<f:viewAction action="#{indexBean.buscarProductosRecientes}"/>
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">Tu mejor compra</ui:define>
@@ -18,7 +19,6 @@
 		<h:outputScript library="js" name="index.js"/>
 	</ui:define>
 	<ui:define name="content">
-		<f:event type="preRenderView" listener="#{indexBean.buscarProductosRecientes}"/>
 		<section class="col-sm-8 col-md-8 tema b-index" >
 			<h1 class="titulo-bloque">Productos recientes</h1>
 			<andres:respro productos="#{indexBean.productosRecientes}" />
