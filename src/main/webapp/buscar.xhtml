@@ -16,11 +16,13 @@
 	</ui:define>
 	<ui:define name="title">Buscar</ui:define>
 	<ui:define name="css">
-		<h:outputStylesheet library="css" name="buscar.css"/>
+		<link href="#{request.contextPath}/resources/css/buscar.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
 	</ui:define>
 	<ui:define name="js"/>
 	<ui:define name="content">
-		<section class="col-sm-8 col-md-8 tema buscar">
+		<section class="col-xs-12 col-sm-8 col-md-8 tema buscar">
 			<h1 class="titulo-bloque" >Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
 			<andres:respro productos="#{buscarBean.resultados}"/>
 			<andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}" numpaginas="#{buscarBean.navegacion.numeroPaginas}"

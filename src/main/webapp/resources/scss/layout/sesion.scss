@@ -1,6 +1,7 @@
 
 .b-sesion{
 	margin-bottom: 10px;
+	font-size: 12px;
 
 	.alinear-izquierda{
 		/*text-align: left;*/
@@ -24,7 +25,12 @@
 	}
 
 	.sesion-error{
-		/*line-height: 30px;*/
+		line-height: 25px;
+	}
+
+	#form-sesion\:msg-form-sesion{
+		width: 100%;
+		margin: 0px;
 	}
 
 	.cont-etiqueta{

@@ -1,11 +1,11 @@
 .b-crear_producto {
   text-align: center;
-  /*margin-bottom: 10px;*/
-  padding: 15px;
-  margin-left: -15px;
-  margin-right: -15px; }
+  padding: 15px; }
   .b-crear_producto .crear-producto-error {
     display: block; }
+  .b-crear_producto .ui-message {
+    width: 100%;
+    margin: 0px; }
   .b-crear_producto .control-imagen {
     margin-bottom: 20px; }
     .b-crear_producto .control-imagen .imagen {

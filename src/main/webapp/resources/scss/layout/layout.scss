@@ -10,7 +10,7 @@
 }
 
 body{
-	background-image: url("../../images/white-box-texture.jpg");
+	background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
 }
 
 .altura-linea{
@@ -27,6 +27,10 @@ body{
 	text-align: center;
 }
 
-input[type="submit"]:disabled{
-	color: graytext;
+#javax_faces_developmentstage_messages{
+	margin: 0px;
+}
+
+.ui-widget{
+	font-size: 12px;
 }

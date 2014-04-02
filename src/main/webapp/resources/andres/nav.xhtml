@@ -11,35 +11,37 @@
 		<composite:attribute name="nombrevarpagina" required="true" type="java.lang.String"/>
 	</composite:interface>
 	<composite:implementation>
-		<h:outputStylesheet library="css/andres" name="nav.css" />
-		<div class="b-navegacion">
-			<h:link styleClass="link-navegacion" value="Anterior" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() > 1}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
-			</h:link>
+		<!--<h:outputStylesheet library="css/andres" name="nav.css" />-->
+		<div class="row">
+			<div class="col-xs-12 b-navegacion">
+				<h:link styleClass="link-navegacion" value="Anterior" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() > 1}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
+				</h:link>
 
-			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() > 2}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 2}"/>
-			</h:link>				
-			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() > 1}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
-			</h:link>
-			<h:outputText styleClass="link-navegacion link-actual" value="#{cc.attrs.pagina.intValue()}"/>
-			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
-			</h:link>
-			<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() lt (cc.attrs.numpaginas.intValue() - 1)}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 2}"/>
-			</h:link>
+				<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() > 2}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 2}"/>
+				</h:link>				
+				<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() - 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() > 1}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() - 1}"/>
+				</h:link>
+				<h:outputText styleClass="link-navegacion link-actual" value="#{cc.attrs.pagina.intValue()}"/>
+				<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 1}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
+				</h:link>
+				<h:link styleClass="link-navegacion" value="#{cc.attrs.pagina.intValue() + 2}" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() lt (cc.attrs.numpaginas.intValue() - 1)}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 2}"/>
+				</h:link>
 
-			<h:link styleClass="link-navegacion" value="Siguiente" outcome="#{cc.attrs.outcome}" includeViewParams="true"
-					rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
-				<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
-			</h:link>
+				<h:link styleClass="link-navegacion" value="Siguiente" outcome="#{cc.attrs.outcome}" includeViewParams="true"
+						rendered="#{cc.attrs.pagina.intValue() lt cc.attrs.numpaginas.intValue()}">
+					<f:param name="#{cc.attrs.nombrevarpagina}" value="#{cc.attrs.pagina.intValue() + 1}"/>
+				</h:link>
+			</div>
 		</div>
 	</composite:implementation>
 </html>

@@ -2,8 +2,9 @@ package com.anfe0690.tu_mejor_compra.managedbeans.datos;
 
 import com.anfe0690.tu_mejor_compra.entity.Estado;
 import com.anfe0690.tu_mejor_compra.entity.Transaccion;
+import java.io.Serializable;
 
-public class FilaTransaccion {
+public class FilaTransaccion implements Serializable{
 
 	private Transaccion transaccion;
 	private Estado nuevoEstado;

@@ -51,6 +51,12 @@ public class AdminBean implements Serializable {
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("postConstruct");
+//		limpiarRestaurarBaseDeDatos();
+//		try {
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil.xhtml");
+//		} catch (IOException ex) {
+//			logger.error(null, ex);
+//		}
 	}
 
 	@PreDestroy

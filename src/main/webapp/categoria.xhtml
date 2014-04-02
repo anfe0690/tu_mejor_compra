@@ -16,10 +16,12 @@
 	</ui:define>
 	<ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></ui:define>
 	<ui:define name="css">
-		<h:outputStylesheet library="css" name="categoria.css"/>
+		<link href="#{request.contextPath}/resources/css/categoria.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
 	</ui:define>
 	<ui:define name="content">
-		<section class="col-sm-8 col-md-8 tema categoria">
+		<section class="col-xs-12 col-sm-8 col-md-8 tema categoria">
 			<h1 class="titulo-bloque"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
 			<andres:respro productos="#{categoriaBean.resultados}"/>
 			<andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.navegacion.pagina}"

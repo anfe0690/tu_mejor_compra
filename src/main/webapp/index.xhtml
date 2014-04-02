@@ -13,11 +13,13 @@
 	</ui:define>
 	<ui:define name="title">Tu mejor compra</ui:define>
 	<ui:define name="css">
-		<h:outputStylesheet library="css" name="index.css"/>
+		<link href="#{request.contextPath}/resources/css/index.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
 	</ui:define>
 	<ui:define name="js"/>
 	<ui:define name="content">
-		<section class="col-sm-8 col-md-8 tema b-index" >
+		<section class="col-xs-12 col-sm-8 col-md-8 tema b-index" >
 			<h1 class="titulo-bloque">Productos recientes</h1>
 			<andres:respro productos="#{indexBean.productosRecientes}" />
 			<andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}" numpaginas="#{indexBean.navegacion.numeroPaginas}"

@@ -10,31 +10,36 @@
 	<ui:insert name="metadata"/>
 
 	<h:head>
-		<meta charset="utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title><ui:insert name="title">Tu mejor compra</ui:insert></title>
+		<f:facet name="first">
+			<meta charset="utf-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<!-- Bootstrap -->
+			<link href="#{request.contextPath}/resources/css/bootstrap/bootstrap.css" rel="stylesheet"/>
+			<link href="#{request.contextPath}/resources/css/bootstrap/bootstrap-theme.css" rel="stylesheet"/>
+			<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+			<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+			<!--[if lt IE 9]>
+			  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+		</f:facet>
+		<!-- Tema de PrimeFaces -->
+		<f:facet name="middle">
+			<title><ui:insert name="title">Tu mejor compra</ui:insert></title>
+		</f:facet>
+		<!-- primefaces.css, jquery y primefaces.js -->
 
-		<!-- Bootstrap -->
-		<h:outputStylesheet library="css/bootstrap" name="bootstrap.css"/>
-
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-		<!-- CSS Layout -->
-		<link rel="stylesheet" type="text/css" href="resources/css/layout/layout.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/layout/sesion.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/layout/header.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/layout/categorias.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/layout/footer.css"/>
-		<!-- CSS especifico de la pagina -->
+		<!-- CSS -->
+		<link href="#{request.contextPath}/resources/css/layout/layout.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/layout/sesion.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/layout/header.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/layout/categorias.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/layout/footer.css" rel="stylesheet"/>
 		<ui:insert name="css"/>
+
 		<!-- JQuery -->
-		<h:outputScript library="js/jquery" name="jquery-2.1.0.js"/>
+		<!--<h:outputScript library="js/jquery" name="jquery-2.1.0.js"/>-->
 		<!-- Javascript layout -->
 		<h:outputScript library="js" name="layout.js"/>
 		<!-- JavaScript especifico de la pagina -->
@@ -66,9 +71,5 @@
 			</c:choose>
 			<ui:include src="footer.xhtml"/>
 		</div>
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<h:outputScript library="js/bootstrap" name="bootstrap.min.js"/>
 	</h:body>
 </html>

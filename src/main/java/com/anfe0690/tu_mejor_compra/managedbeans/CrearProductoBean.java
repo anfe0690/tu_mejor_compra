@@ -16,7 +16,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -24,8 +23,8 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,9 +34,9 @@ import org.slf4j.LoggerFactory;
 
 @Named
 @ViewScoped
-public class CrearProducto implements Serializable {
+public class CrearProductoBean implements Serializable {
 
-	private static final Logger logger = LoggerFactory.getLogger(CrearProducto.class);
+	private static final Logger logger = LoggerFactory.getLogger(CrearProductoBean.class);
 	@Inject
 	private SesionBean sesionController;
 	private Part file;
@@ -66,10 +65,10 @@ public class CrearProducto implements Serializable {
 		// Comprobar que se haya seleccionado un archivo
 		if (value == null) {
 			logger.warn("Se debe seleccionar un archivo!");
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context),
-					new FacesMessage("Se debe seleccionar un archivo!"));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context),
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se debe seleccionar un archivo!", null));
+//			context.renderResponse();
 			return;
 		}
 
@@ -81,20 +80,22 @@ public class CrearProducto implements Serializable {
 				&& !f.getContentType().equalsIgnoreCase("image/gif")) {
 			logger.warn("El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif: seleccionado \"{}\".",
 					f.getContentType());
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context),
-					new FacesMessage("El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif."));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context),
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif.", null));
+//			context.renderResponse();
 			return;
 		}
 
 		// Comprobar tamaño de la imagen
 		if (f.getSize() > 200000) {
 			logger.warn("Tamaño de archivo de imagen > 200000 bytes, encontrado: {} bytes", f.getSize());
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context),
-					new FacesMessage("El tamaño de la imagen no puede ser superior a 200000 bytes, se encontro: " + f.getSize() + " bytes"));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context),
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"El tamaño de la imagen no puede ser superior a 200000 bytes, se encontro: " + f.getSize() + " bytes", null));
+//			context.renderResponse();
 		}
 	}
 
@@ -103,18 +104,19 @@ public class CrearProducto implements Serializable {
 		// Comprobar si el nombre del producto esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Nombre del producto vacio!");
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Nombre del producto vacio!"));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre del producto vacio!", null));
+//			context.renderResponse();
 			return;
 		}
 
 		// Comprobar que sea unico el nombre del producto
 		if (manejadorDeProductos.existeProductoConNombre(value.toString())) {
 			logger.warn("Ya existe un producto con el nombre \"{}\"", value);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Ya existe un producto con el nombre \"" + value + "\""));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Ya existe un producto con el nombre \"" + value + "\"", null));
+//			context.renderResponse();
 		}
 	}
 
@@ -123,9 +125,9 @@ public class CrearProducto implements Serializable {
 		// Comprobar si el precio esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Precio del producto vacio!");
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context), new FacesMessage("Precio del producto vacio!"));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Precio del producto vacio!", null));
+//			context.renderResponse();
 			return;
 		}
 
@@ -140,13 +142,14 @@ public class CrearProducto implements Serializable {
 			df.parse(value.toString());
 		} catch (ParseException ex) {
 			logger.warn("El texto digitado \"{}\" no es un numero valido", value);
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(toValidate.getClientId(context), new FacesMessage("El texto digitado \"" + value + "\" no es un numero valido"));
-			fc.renderResponse();
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"El texto digitado \"" + value + "\" no es un numero valido", null));
+//			context.renderResponse();
 		}
 	}
 
-	public void crearProducto() {
+	public String crearProducto() {
 		logger.trace("crearProducto()");
 		nombre = nombre.trim();
 		precio = precio.trim();
@@ -164,7 +167,7 @@ public class CrearProducto implements Serializable {
 					new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + usuario.getNombre() + "/"));
 		} catch (IOException ex) {
 			logger.error(null, ex);
-			return;
+			return "index.xhtml?faces-redirect=true";
 		}
 
 		String direccionImagen = sesionController.getUsuario().getNombre() + "/" + f.getName();
@@ -182,7 +185,7 @@ public class CrearProducto implements Serializable {
 			is.close();
 		} catch (IOException ex) {
 			logger.error(null, ex);
-			return;
+			return "index.xhtml?faces-redirect=true";
 		}
 		Producto producto = new Producto();
 		producto.setDireccionImagen(direccionImagen);
@@ -198,12 +201,12 @@ public class CrearProducto implements Serializable {
 
 		logger.info("Creado producto: {}", producto.getNombre());
 
-//		return "perfil.xhtml?faces-redirect=true";
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil.xhtml");
-		} catch (IOException ex) {
-			logger.error(null, ex);
-		}
+//		try {
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil.xhtml");
+//		} catch (IOException ex) {
+//			logger.error(null, ex);
+//		}
+		return "perfil.xhtml?faces-redirect=true";
 	}
 
 	// Getters and Setters

@@ -3,10 +3,11 @@
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<div class="row tema b-sesion">
+				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:p="http://primefaces.org/ui">
+	<div class="row">
 
-		<div class="col-xs-12">
+		<div class="col-xs-12 tema b-sesion">
 			<h:form id="form-sesion" >
 				<div class="row">
 					<c:choose>
@@ -16,13 +17,11 @@
 
 							<h:panelGroup layout="block"
 										  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea">
-								<button type="button" id="contrasenas" class="boton-contrasenas">Contraseñas</button>
+								<p:button styleClass="boton-contrasenas" id="contrasenas" value="Contraseñas"/>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
-								<div class="col-lg-4 alinear-centro">
-									<h:message id="msg-form-sesion" for="form-sesion" styleClass="mensaje-error sesion-error"
-											   showSummary="true"
-											   showDetail="false"/>
+								<div class="col-md-12 col-lg-4 alinear-centro altura-linea">
+									<p:message id="msg-form-sesion" for="form-sesion" />
 								</div>
 								<div class="col-md-2 visible-md"/>
 							</h:panelGroup>
@@ -35,9 +34,9 @@
 									<label class="etiqueta" for="form-sesion:nombre-usuario">Usuario</label>
 								</div>
 								<div class="altura-linea" style="margin-left: 70px;">
-									<h:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
-												 p:required="required"
-												 p:placeholder="Usuario"/>
+									<p:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
+												 pt:required="required"
+												 pt:placeholder="Usuario"/>
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-4 col-lg-3">
@@ -45,14 +44,15 @@
 									<label class="etiqueta" for="form-sesion:contrasena-usuario">Contraseña</label>
 								</div>
 								<div class="altura-linea" style="margin-left: 90px;">
-									<h:inputSecret styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}"
-												   p:required="required"
-												   p:placeholder="Contraseña"/>
+									<p:password styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}"
+												pt:required="required"
+												pt:placeholder="Contraseña"/>
 								</div>
 							</div>
 
 							<div class="col-sm-12 col-md-2 altura-linea">
-								<h:commandButton styleClass="boton-submit" value="Iniciar sesion" action="#{sesionBean.iniciarSesion()}"/>
+								<p:commandButton styleClass="boton-submit" value="Iniciar sesion" ajax="false"
+												 action="#{sesionBean.iniciarSesion()}"/>
 							</div>
 						</c:when>
 
@@ -63,7 +63,8 @@
 								<c:if test="#{view.viewId != '/perfil.xhtml'}">
 									<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
 								</c:if>
-								<h:commandButton style="height: 100%;" value="Cerrar sesion" action="#{sesionBean.cerrarSesion()}"/>
+								<p:commandButton value="Cerrar sesion" ajax="false"
+												 action="#{sesionBean.cerrarSesion()}"/>
 							</div>
 						</c:otherwise>
 					</c:choose>

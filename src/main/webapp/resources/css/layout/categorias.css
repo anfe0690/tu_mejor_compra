@@ -5,9 +5,7 @@
   margin-bottom: 10px; }
   @media (min-width: 768px) {
     .b-categorias {
-      margin-right: 0px;
-      padding: 10px;
-      margin-bottom: 10px; } }
+      margin-right: 0px; } }
   .b-categorias .link-habilitado {
     margin-left: 10px;
     display: block;

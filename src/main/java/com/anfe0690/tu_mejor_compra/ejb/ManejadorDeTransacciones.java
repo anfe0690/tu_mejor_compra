@@ -3,6 +3,7 @@ package com.anfe0690.tu_mejor_compra.ejb;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Transaccion;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 @Stateless
 @LocalBean
-public class ManejadorDeTransacciones {
+public class ManejadorDeTransacciones implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	// Logger
@@ -52,6 +53,10 @@ public class ManejadorDeTransacciones {
 		return q.executeUpdate();
 	}
 
+	public Transaccion obtenerTransaccionPorId(int id){
+		return em.find(Transaccion.class, id);
+	}
+	
 	public List<Transaccion> obtenerTransaccionesTipoCompraDeUsuario(Usuario usuario) {
 		TypedQuery<Transaccion> q = em.createQuery("SELECT t FROM Transaccion t WHERE t.usuarioComprador.nombre = :nombreUsuario",
 				Transaccion.class).setParameter("nombreUsuario", usuario.getNombre());

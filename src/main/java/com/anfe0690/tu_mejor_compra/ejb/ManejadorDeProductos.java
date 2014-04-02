@@ -1,6 +1,8 @@
 package com.anfe0690.tu_mejor_compra.ejb;
 
 import com.anfe0690.tu_mejor_compra.entity.Producto;
+import com.anfe0690.tu_mejor_compra.entity.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 @Stateless
 @LocalBean
-public class ManejadorDeProductos {
+public class ManejadorDeProductos implements Serializable{
 
 	private static final Logger logger = LoggerFactory.getLogger(ManejadorDeProductos.class);
 	@PersistenceContext(name = "tuMejorCompra")

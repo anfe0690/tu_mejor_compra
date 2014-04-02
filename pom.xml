@@ -47,6 +47,12 @@
 			<version>1.7.6</version>
 		</dependency>-->
 		
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>4.0</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>

@@ -9,23 +9,25 @@
 		<composite:attribute name="productos" required="true" type="java.util.List"/>
 	</composite:interface>
 	<composite:implementation>
-		<h:outputStylesheet library="css/andres" name="respro.css" />
+		<!--<h:outputStylesheet library="css/andres" name="respro.css" />-->
 		<ui:repeat value="#{cc.attrs.productos}" var="producto">
-			<div class="b-respro">
-				<div class="row">
-					<div class="col-sm-5 col-md-4 col-lg-3 marco-imagen">
-						<h:link outcome="producto.xhtml" includeViewParams="true">
-							<h:graphicImage styleClass="imagen" value="/imgs/#{producto.direccionImagen}"/>
-							<f:param name="pid" value="#{producto.id}"/>
-						</h:link>
-					</div>
-					<div class="col-sm-7 col-md-8 col-lg 9 contenedor-datos">
-						<h:link outcome="producto.xhtml" includeViewParams="true" styleClass="nombre-producto">
-							<h:outputText value="#{producto.nombre}"/>
-							<f:param name="pid" value="#{producto.id}"/>
-						</h:link>
-						<div>
-							<span class="precio-producto">Precio: <h:outputText value="#{producto.precio}"/> pesos.</span>
+			<div class="row" style="margin: 0px;">
+				<div class="col-xs-12 b-respro">
+					<div class="row">
+						<div class="col-sm-5 col-md-4 col-lg-3 marco-imagen">
+							<h:link outcome="producto.xhtml" includeViewParams="true">
+								<h:graphicImage styleClass="imagen" value="/imgs/#{producto.direccionImagen}"/>
+								<f:param name="pid" value="#{producto.id}"/>
+							</h:link>
+						</div>
+						<div class="col-sm-7 col-md-8 col-lg 9 contenedor-datos">
+							<h:link outcome="producto.xhtml" includeViewParams="true" styleClass="nombre-producto">
+								<h:outputText value="#{producto.nombre}"/>
+								<f:param name="pid" value="#{producto.id}"/>
+							</h:link>
+							<div>
+								<span class="precio-producto">Precio: <h:outputText value="#{producto.precio}"/> pesos.</span>
+							</div>
 						</div>
 					</div>
 				</div>

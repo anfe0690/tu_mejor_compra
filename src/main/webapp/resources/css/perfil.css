@@ -46,5 +46,7 @@
     .b-perfil .tabla .contenedor-derecha {
       padding: 5px;
       text-align: right; }
+  .b-perfil button {
+    height: 100%; }
 
 /*# sourceMappingURL=perfil.css.map */

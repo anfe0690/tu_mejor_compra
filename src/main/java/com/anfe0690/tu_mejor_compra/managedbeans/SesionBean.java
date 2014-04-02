@@ -22,6 +22,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import javax.print.attribute.standard.Severity;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +76,7 @@ public class SesionBean implements Serializable {
 		// Comprobar si el nombre de usuario esta vacio
 		if (inputUsuario.getLocalValue() == null || inputUsuario.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Nombre de usuario vacio!");
-			fc.addMessage(form.getClientId(), new FacesMessage("Nombre de usuario vacio!"));
+			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!", null));
 			fc.renderResponse();
 			return;
 		}
@@ -83,7 +84,7 @@ public class SesionBean implements Serializable {
 		// Comprobar si la contraseña esta vacia
 		if (inputContraseña.getLocalValue() == null || inputContraseña.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Contraseña vacia!");
-			fc.addMessage(form.getClientId(), new FacesMessage("Contraseña vacia!"));
+			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!", null));
 			fc.renderResponse();
 			return;
 		}
@@ -93,7 +94,7 @@ public class SesionBean implements Serializable {
 		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
 		} else {
 			logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
-			fc.addMessage(form.getClientId(), new FacesMessage("Usuario y/o contraseña incorrectos"));
+			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos", null));
 			fc.renderResponse();
 		}
 	}

@@ -1,5 +1,6 @@
 .b-sesion {
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  font-size: 12px; }
   .b-sesion .alinear-izquierda {
     /*text-align: left;*/ }
   .b-sesion .alinear-derecha {
@@ -11,7 +12,10 @@
     height: 100%;
     /*margin-bottom: 15px;*/ }
   .b-sesion .sesion-error {
-    /*line-height: 30px;*/ }
+    line-height: 25px; }
+  .b-sesion #form-sesion\:msg-form-sesion {
+    width: 100%;
+    margin: 0px; }
   .b-sesion .cont-etiqueta {
     float: left;
     /*width: 90px;*/
