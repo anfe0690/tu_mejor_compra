@@ -22,7 +22,9 @@
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-md-6 control-imagen">
-								<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
+								<div class="contenedor-imagen">
+									<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
+								</div>
 								<br/>
 								<p:message id="error-archivo" for="file" 
 										   showSummary="true"
@@ -54,8 +56,8 @@
 									</p:inputText>
 								</div>
 								<p class="etiqueta-campo">Precio (Pesos) <h:graphicImage id="loading-precio-gif"
-																							 library="images" name="ajax-loading.gif"
-																							 width="25" height="25" style="display: none;"/></p>
+																						 library="images" name="ajax-loading.gif"
+																						 width="25" height="25" style="display: none;"/></p>
 								<p:message id="error-precio" for="precio-producto" 
 										   showSummary="true" showDetail="false"/>
 								<div class="altura-linea espacio-campo">
