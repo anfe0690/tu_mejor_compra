@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -61,6 +62,12 @@ public class CrearProductoBean implements Serializable {
 
 	public void validarImagenProducto(FacesContext context, UIComponent toValidate, Object value) {
 		logger.trace("validarImagenProducto()");
+		
+//		try {
+//			Thread.sleep(2000L);
+//		} catch (InterruptedException ex) {
+//			logger.error(null, ex);
+//		}
 
 		// Comprobar que se haya seleccionado un archivo
 		if (value == null) {
@@ -101,6 +108,13 @@ public class CrearProductoBean implements Serializable {
 
 	public void validarNombreProducto(FacesContext context, UIComponent toValidate, Object value) {
 		logger.trace("validarNombreProducto()");
+		
+//		try {
+//			Thread.sleep(2000L);
+//		} catch (InterruptedException ex) {
+//			logger.error(null, ex);
+//		}
+		
 		// Comprobar si el nombre del producto esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Nombre del producto vacio!");
@@ -122,6 +136,13 @@ public class CrearProductoBean implements Serializable {
 
 	public void validarPrecioProducto(FacesContext context, UIComponent toValidate, Object value) {
 		logger.trace("validarPrecioProducto()");
+		
+//		try {
+//			Thread.sleep(2000L);
+//		} catch (InterruptedException ex) {
+//			logger.error(null, ex);
+//		}
+		
 		// Comprobar si el precio esta vacio
 		if (value == null || value.toString().trim().isEmpty()) {
 			logger.warn("Precio del producto vacio!");

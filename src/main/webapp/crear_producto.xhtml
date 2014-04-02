@@ -24,7 +24,6 @@
 							<div class="col-md-6 control-imagen">
 								<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
 								<br/>
-								<!--styleClass="mensaje-error crear-producto-error"-->
 								<p:message id="error-archivo" for="file" 
 										   showSummary="true"
 										   showDetail="false"/>
@@ -34,13 +33,16 @@
 												 pt:required="required"
 												 pt:accept="image/*"
 												 validator="#{crearProductoBean.validarImagenProducto}">
-										<f:ajax event="change" render="error-archivo"/>
+										<f:ajax event="change" render="error-archivo" onevent="miAjaxEvent" />
 									</h:inputFile>
+									<h:graphicImage id="loading-file-gif" library="images" name="ajax-loading.gif" width="25" height="25"
+													style="display: none;"/>
 								</div>
 							</div>
 							<div class="col-md-6 control-datos">
-								<p class="etiqueta-campo">Nombre de producto</p>
-								<!--styleClass="mensaje-error crear-producto-error"-->
+								<p class="etiqueta-campo">Nombre de producto <h:graphicImage id="loading-nombre-gif"
+																							 library="images" name="ajax-loading.gif"
+																							 width="25" height="25" style="display: none;"/></p>
 								<p:message id="error-nombre" for="nombre-producto" 
 										   showSummary="true" showDetail="false"/>
 								<div class="altura-linea espacio-campo">
@@ -48,11 +50,12 @@
 												 pt:required="required"
 												 pt:placeholder="Nombre de producto"
 												 validator="#{crearProductoBean.validarNombreProducto}">
-										<f:ajax render="error-nombre" />
+										<f:ajax render="error-nombre" onevent="miAjaxEvent" />
 									</p:inputText>
 								</div>
-								<p class="etiqueta-campo">Precio (Pesos)</p>
-								<!--styleClass="mensaje-error crear-producto-error"-->
+								<p class="etiqueta-campo">Precio (Pesos) <h:graphicImage id="loading-precio-gif"
+																							 library="images" name="ajax-loading.gif"
+																							 width="25" height="25" style="display: none;"/></p>
 								<p:message id="error-precio" for="precio-producto" 
 										   showSummary="true" showDetail="false"/>
 								<div class="altura-linea espacio-campo">
@@ -60,7 +63,7 @@
 												 pt:required="required"
 												 pt:placeholder="Precio de producto"
 												 validator="#{crearProductoBean.validarPrecioProducto}">
-										<f:ajax render="error-precio" />
+										<f:ajax render="error-precio" onevent="miAjaxEvent" />
 									</p:inputText>
 								</div>
 								<p class="etiqueta-campo">Categoria</p>
@@ -77,8 +80,10 @@
 					<div class="col-xs-12 altura-linea">
 						<h:commandButton styleClass="boton-submit" id="boton-crear-producto" value="Crear"
 										 action="#{crearProductoBean.crearProducto()}" >
-							<f:ajax execute="@form" render="error-archivo error-nombre error-precio" />
+							<f:ajax execute="@form" render="error-archivo error-nombre error-precio" onevent="miAjaxEvent" />
 						</h:commandButton>
+						<h:graphicImage id="loading-submit-gif" library="images" name="ajax-loading.gif" width="25" height="25"
+										style="display: none; margin-left: 10px;"/>
 					</div>
 				</div>
 			</h:form>

@@ -26,7 +26,9 @@
     text-align: left;
     margin-bottom: 10px; }
     .b-crear_producto .control-datos .etiqueta-campo {
-      margin: 0px; }
+      margin: 0px;
+      line-height: 25px;
+      height: 25px; }
     .b-crear_producto .control-datos .espacio-campo {
       margin-bottom: 10px; }
     .b-crear_producto .control-datos .nombre-producto {
