@@ -14,7 +14,6 @@
 	</ui:define>
 	<ui:define name="content">
 		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
-		<!-- TODO 099: Agregar estilo de error a los campos que presenten errores -->
 		<section class="row">
 			<h:form class="col-xs-12 tema b-crear_producto" id="form_crear_producto" enctype="multipart/form-data" >
 				<div class="row">
@@ -22,9 +21,7 @@
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-md-6 control-imagen">
-								<div class="contenedor-imagen">
-									<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
-								</div>
+								<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
 								<br/>
 								<p:message id="error-archivo" for="file" 
 										   showSummary="true"
@@ -35,7 +32,7 @@
 												 pt:required="required"
 												 pt:accept="image/*"
 												 validator="#{crearProductoBean.validarImagenProducto}">
-										<f:ajax event="change" render="error-archivo" onevent="miAjaxEvent" />
+										<f:ajax event="change" render="error-archivo :footer" onevent="miAjaxEvent" />
 									</h:inputFile>
 									<h:graphicImage id="loading-file-gif" library="images" name="ajax-loading.gif" width="25" height="25"
 													style="display: none;"/>
@@ -52,7 +49,7 @@
 												 pt:required="required"
 												 pt:placeholder="Nombre de producto"
 												 validator="#{crearProductoBean.validarNombreProducto}">
-										<f:ajax render="error-nombre" onevent="miAjaxEvent" />
+										<f:ajax render="error-nombre nombre-producto :footer" onevent="miAjaxEvent" />
 									</p:inputText>
 								</div>
 								<p class="etiqueta-campo">Precio (Pesos) <h:graphicImage id="loading-precio-gif"
@@ -65,7 +62,7 @@
 												 pt:required="required"
 												 pt:placeholder="Precio de producto"
 												 validator="#{crearProductoBean.validarPrecioProducto}">
-										<f:ajax render="error-precio" onevent="miAjaxEvent" />
+										<f:ajax render="error-precio precio-producto :footer" onevent="miAjaxEvent" />
 									</p:inputText>
 								</div>
 								<p class="etiqueta-campo">Categoria</p>
@@ -82,7 +79,8 @@
 					<div class="col-xs-12 altura-linea">
 						<h:commandButton styleClass="boton-submit" id="boton-crear-producto" value="Crear"
 										 action="#{crearProductoBean.crearProducto()}" >
-							<f:ajax execute="@form" render="error-archivo error-nombre error-precio" onevent="miAjaxEvent" />
+							<f:ajax execute="@form" render="error-archivo error-nombre nombre-producto error-precio precio-producto :footer"
+									onevent="miAjaxEvent" />
 						</h:commandButton>
 						<h:graphicImage id="loading-submit-gif" library="images" name="ajax-loading.gif" width="25" height="25"
 										style="display: none; margin-left: 10px;"/>

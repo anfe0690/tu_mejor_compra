@@ -20,8 +20,8 @@ $(document).ready(function() {
 });
 
 function miAjaxEvent(event) {
-	console.log("event.source.id = " + event.source.id);
-	console.log("event.status = " + event.status);
+//	console.log("event.source.id = " + event.source.id);
+//	console.log("event.status = " + event.status);
 
 	if (event.source.id === "form_crear_producto:file") {
 		if (event.status === "begin") {
