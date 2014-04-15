@@ -17,7 +17,7 @@
 
 							<h:panelGroup layout="block"
 										  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea">
-								<!-- TODO 099: Mostrar contraseñas en un dialogo de Primefaces -->
+								<!-- TODO MEJORA: Mostrar contraseñas en un dialogo de Primefaces -->
 								<p:button styleClass="boton-contrasenas" id="contrasenas" value="Contraseñas"/>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
@@ -35,7 +35,6 @@
 									<label class="etiqueta" for="form-sesion:nombre-usuario">Usuario</label>
 								</div>
 								<div class="altura-linea" style="margin-left: 70px;">
-									<!-- TODO 100: Agregar cambio de color en error -->
 									<p:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
 												 pt:required="required"
 												 pt:placeholder="Usuario"/>

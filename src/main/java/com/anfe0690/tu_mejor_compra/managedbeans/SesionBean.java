@@ -72,30 +72,30 @@ public class SesionBean implements Serializable {
 		UIInput inputUsuario = (UIInput) form.findComponent("nombre-usuario");
 		UIInput inputContraseña = (UIInput) form.findComponent("contrasena-usuario");
 
-		FacesContext fc = FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();
 		// Comprobar si el nombre de usuario esta vacio
 		if (inputUsuario.getLocalValue() == null || inputUsuario.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Nombre de usuario vacio!");
-			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!", null));
-			fc.renderResponse();
+            inputUsuario.setValid(false);
+			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!", null));
 			return;
 		}
 
 		// Comprobar si la contraseña esta vacia
 		if (inputContraseña.getLocalValue() == null || inputContraseña.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Contraseña vacia!");
-			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!", null));
-			fc.renderResponse();
+            inputContraseña.setValid(false);
+			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!", null));
 			return;
 		}
 
 		// Comprobar la relacion de usuario y contraseña
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
-		if (u != null && u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
-		} else {
-			logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
-			fc.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos", null));
-			fc.renderResponse();
+		if (u == null || !u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
+            logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
+            inputUsuario.setValid(false);
+            inputContraseña.setValid(false);
+            context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos", null));
 		}
 	}
 
