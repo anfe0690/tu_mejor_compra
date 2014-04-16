@@ -1,14 +1,10 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -18,14 +14,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
-import javax.print.attribute.standard.Severity;
 import javax.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -112,10 +105,12 @@ public class SesionBean implements Serializable {
 
 	public String cerrarSesion() throws IOException {
 		sesionIniciada = false;
+        String nombre = usuario.getNombre();
 		this.usuario = null;
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
+        logger.info("Sesion cerrada: {}", nombre);
 		return "index.xhtml?faces-redirect=true";
 	}
 
