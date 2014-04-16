@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AACA,aAAa;EACZ,WAAW,EAAE,KAAK;EAClB,YAAY,EAAE,KAAK;EACnB,OAAO,EAAE,IAAI;EACb,aAAa,EAAE,IAAI;EAEnB,yBAAyB;IAN1B,aAAa;MAOX,YAAY,EAAE,GAAG;EAGlB,8BAAgB;IACf,WAAW,EAAE,IAAI;IACjB,OAAO,EAAE,KAAK;IACd,aAAa,EAAE,IAAI;EAGpB,gCAAkB;IACjB,WAAW,EAAE,IAAI;IACjB,OAAO,EAAE,KAAK;IACd,aAAa,EAAE,IAAI;IACnB,WAAW,EAAE,IAAI",
-"sources": ["../../scss/layout/categorias.scss"],
-"names": [],
-"file": "categorias.css"
-}

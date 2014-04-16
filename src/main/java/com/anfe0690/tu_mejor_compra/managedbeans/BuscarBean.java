@@ -2,8 +2,8 @@ package com.anfe0690.tu_mejor_compra.managedbeans;
 
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.managedbeans.datos.Navegacion;
-import java.io.Serializable;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,9 +12,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -43,7 +42,7 @@ public class BuscarBean implements Serializable {
 	}
 
 	public void buscar() {
-		logger.debug("buscar {}", valor);
+		logger.info("Buscar \"{}\"", valor);
 		TypedQuery<Producto> tq = em.createQuery("SELECT p FROM Producto p WHERE p.nombre LIKE :valor ORDER BY p.fechaDeCreacion DESC, p.id DESC",
 				Producto.class).setParameter("valor", "%" + valor + "%");
 		resultados = navegacion.calcular(tq);

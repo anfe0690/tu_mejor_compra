@@ -1,20 +1,19 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.managedbeans.datos.Navegacion;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
-import java.io.Serializable;
-import java.util.List;
+import com.anfe0690.tu_mejor_compra.managedbeans.datos.Navegacion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.PreRenderViewEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped

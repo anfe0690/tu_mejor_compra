@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAEA,UAAU;EAET,OAAO,EAAE,IAAI",
-"sources": ["../scss/categoria.scss"],
-"names": [],
-"file": "categoria.css"
-}
