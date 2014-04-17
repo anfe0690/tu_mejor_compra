@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Bootstrap -->
+    <link href="#{request.contextPath}/resources/css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title>Mi Chat</title>
+
+    <!-- CSS -->
+    <link href="#{request.contextPath}/resources/css/michat.css" rel="stylesheet"/>
+
+    <!-- JQuery -->
+    <h:outputScript library="js" name="jquery/jquery-2.1.0-min.js"/>
+    <!-- JavaScript especifico de la pagina -->
+    <h:outputScript library="js" name="michat.js"/>
+</h:head>
+<h:body>
+    <ui:debug hotkey="x"/>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 cont-form cont-titulo" style="margin-bottom: 10px;">
+                <h1>Michat: Chat con Websockets y JSON.</h1>
+            </div>
+
+            <div class="col-xs-12 cont-form" style="margin-bottom: 10px;">
+                <form class="row form-nombre" id="form-nombre" action="">
+                    <input type="hidden" id="host" value="#{miChatBean.host}"/>
+                    <input type="hidden" id="puerto-websockets" value="#{miChatBean.puertoWebsockets}"/>
+
+                    <!-- Agregado con Javascript en error -->
+                    <!-- <div class="col-xs-12 col-sm-12 altura-linea error-nombre" id="error-nombre">¡Se debe escribir un nombre!</div> -->
+                    <div class="col-xs-12 col-sm-10 altura-linea">
+                        <label class="etiqueta-nombre" for="nombre">Nombre</label>
+
+                        <div style="margin-left: 70px;">
+                            <input type="text" name="nombre" class="nombre" id="nombre"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 altura-linea">
+                        <button class="boton-unirse" id="boton-unirse">Unirse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 cont-form">
+                <form class="row form-mensaje" id="form-mensaje" action="">
+                    <div class="col-xs-12 col-sm-4 col-sm-push-8" style="padding-top: 5px; padding-bottom: 5px;">
+                        <label class="etiqueta-lista-usuarios" for="lista-usuarios">Lista de usuarios</label>
+                        <ol class="lista-usuarios" id="lista-usuarios"/>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-sm-pull-4" style="padding-top: 5px; padding-bottom: 5px;">
+                        <label class="etiqueta-chat" for="chat">Chat</label>
+                        <textarea class="chat" id="chat" cols="" rows="" readonly="readonly"/>
+                    </div>
+
+                    <!-- Agregado con Javascript en error -->
+                    <!-- <div class="col-xs-12 col-sm-12 altura-linea error-mensaje" id="error-mensaje">¡Se debe escribir un mensaje!</div> -->
+                    <div class="col-xs-12 col-sm-10" id="contenedor-mensaje"
+                         style="padding-top: 5px; padding-bottom: 5px;">
+                        <label class="etiqueta-mensaje" for="mensaje">Mensaje</label>
+
+                        <div style="margin-left: 70px;">
+                            <input type="text" name="mensaje" class="mensaje" id="mensaje" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2" style="padding-top: 5px; padding-bottom: 5px;">
+                        <button class="submit" id="boton-mensaje" disabled="disabled">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+</html>

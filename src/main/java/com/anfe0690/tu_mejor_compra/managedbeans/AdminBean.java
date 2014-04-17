@@ -4,19 +4,10 @@ import com.anfe0690.tu_mejor_compra.WebContainerListener;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
-import com.anfe0690.tu_mejor_compra.entity.Categoria;
-import com.anfe0690.tu_mejor_compra.entity.Estado;
-import com.anfe0690.tu_mejor_compra.entity.Producto;
-import com.anfe0690.tu_mejor_compra.entity.Transaccion;
-import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import com.anfe0690.tu_mejor_compra.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -26,8 +17,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -270,7 +267,8 @@ public class AdminBean implements Serializable {
 		String dirOrigenBase = null;
 		try {
 			switch (System.getProperty(WebContainerListener.K_SERVIDOR)) {
-				case WebContainerListener.V_SERVIDOR_WILDFLY: {
+                case WebContainerListener.V_SERVIDOR_WILDFLY_LOCAL:
+                case WebContainerListener.V_SERVIDOR_WILDFLY_REMOTO: {
 					dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
 					break;
 				}
