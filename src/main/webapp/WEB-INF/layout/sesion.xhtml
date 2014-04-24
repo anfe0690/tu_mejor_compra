@@ -1,76 +1,52 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-				xmlns:p="http://primefaces.org/ui">
-	<div class="row">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-		<div class="col-xs-12 tema b-sesion">
-			<h:form id="form-sesion" >
-				<div class="row">
-					<c:choose>
-						<!-- Iniciar sesion -->
-						<c:when test="#{!sesionBean.sesionIniciada}">
-							<f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+    <p:dialog header="Contraseñas" widgetVar="dialogoContrasenas">
+        <div>andres = 123</div>
+        <div>carlos = 456</div>
+        <div>fernando = 789</div>
+    </p:dialog>
 
-							<h:panelGroup layout="block"
-										  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea">
-								<!-- TODO MEJORA: Mostrar contraseñas en un dialogo de Primefaces -->
-								<p:button styleClass="boton-contrasenas" id="contrasenas" value="Contraseñas"/>
-							</h:panelGroup>
-							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
-								<div class="col-md-12 col-lg-4 alinear-centro altura-linea">
-									<p:message id="msg-form-sesion" for="form-sesion" />
-								</div>
-								<div class="col-md-2 visible-md"/>
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="col-md-2 col-lg-4 visible-md visible-lg"
-										  rendered="#{empty facesContext.getMessageList('form-sesion')}">
-							</h:panelGroup>
+    <p:panel styleClass="ui-widget-header pagina-seccion b-sesion">
+        <h:form id="form-sesion">
 
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura-linea">
-									<label class="etiqueta" for="form-sesion:nombre-usuario">Usuario</label>
-								</div>
-								<div class="altura-linea" style="margin-left: 70px;">
-									<p:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
-												 pt:required="required"
-												 pt:placeholder="Usuario"/>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura-linea">
-									<label class="etiqueta" for="form-sesion:contrasena-usuario">Contraseña</label>
-								</div>
-								<div class="altura-linea" style="margin-left: 90px;">
-									<p:password styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}"
-												pt:required="required"
-												pt:placeholder="Contraseña"/>
-								</div>
-							</div>
+            <c:choose>
+                <c:when test="#{!sesionBean.sesionIniciada}">
+                    <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
 
-							<div class="col-sm-12 col-md-2 altura-linea">
-								<p:commandButton styleClass="boton-submit" value="Iniciar sesion" ajax="false"
-												 action="#{sesionBean.iniciarSesion()}"/>
-							</div>
-						</c:when>
+                    <p:commandButton value="Contraseñas" icon="ui-icon-key" onclick="PF('dialogoContrasenas').show();"
+                                     type="button"
+                                     style="float: left;"/>
 
-						<!-- Cerrar sesion -->
-						<c:otherwise>
-							<div class="col-xs-12 altura-linea alinear-derecha">
-								<h:outputText styleClass="nombre-usuario" value="#{sesionBean.usuario.nombre}"/>
-								<c:if test="#{view.viewId != '/perfil.xhtml'}">
-									<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
-								</c:if>
-								<p:commandButton value="Cerrar sesion" ajax="false"
-												 action="#{sesionBean.cerrarSesion()}"/>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</h:form>
-		</div>
-	</div>
+                    <p:message id="msg-form-sesion" for="form-sesion"/>
+
+                    <h:outputLabel for="nombre-usuario" value="Nombre"/>
+                    <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}" required="true"/>
+                    <p:watermark value="Nombre" for="nombre-usuario"/>
+
+                    <h:outputLabel for="contrasena-usuario" value="Contraseña"/>
+                    <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}" required="true"/>
+                    <p:watermark value="Contraseña" for="contrasena-usuario"/>
+
+                    <p:commandButton value="Iniciar sesion" icon="ui-icon-person" ajax="false"
+                                     action="#{sesionBean.iniciarSesion()}"/>
+                </c:when>
+
+                <c:otherwise>
+                    <h:outputText styleClass="usuario-nombre" value="#{sesionBean.usuario.nombre}"/>
+                    <c:if test="#{view.viewId != '/perfil.xhtml'}">
+                        <p:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
+                    </c:if>
+                    <p:commandButton value="Cerrar sesion" icon="ui-icon-person" ajax="false"
+                                     action="#{sesionBean.cerrarSesion()}"/>
+                </c:otherwise>
+            </c:choose>
+
+        </h:form>
+    </p:panel>
+
 </ui:composition>

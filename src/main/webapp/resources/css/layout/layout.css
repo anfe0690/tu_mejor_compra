@@ -1,3 +1,15 @@
+body {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images); }
+
+.pagina-seccion {
+  margin-bottom: 10px; }
+
+.pagina-seccion.ultimo {
+  margin-bottom: 0px; }
+
 .mensaje-error {
   color: red;
   font-weight: bold; }
@@ -5,9 +17,6 @@
 .tema {
   box-shadow: 1px 1px 2px;
   background-color: white; }
-
-body {
-  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images); }
 
 .altura-linea {
   height: 35px;
