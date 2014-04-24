@@ -1,6 +1,6 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ContextListener;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
@@ -74,7 +74,7 @@ public class AdminBean implements Serializable {
 		logger.debug("Eliminadas {} entidades del tipo Transaccion", manejadorDeTransacciones.removerTodasLasTransacciones());
 		logger.debug("Eliminadas {} entidades del tipo Usuario", manejadorDeUsuarios.removerTodosLosUsuarios());
 		for (Producto p : manejadorDeProductos.obtenerTodosLosProductos()) {
-			File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + p.getDireccionImagen());
+			File f = new File(System.getProperty(ContextListener.K_DIR_DATOS) + p.getDireccionImagen());
 			try {
 				Files.deleteIfExists(f.toPath());
 				logger.debug("Eliminada la imagen \"{}\"", f);
@@ -266,26 +266,26 @@ public class AdminBean implements Serializable {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String dirOrigenBase = null;
 		try {
-			switch (System.getProperty(WebContainerListener.K_SERVIDOR)) {
-                case WebContainerListener.V_SERVIDOR_WILDFLY_LOCAL:
-                case WebContainerListener.V_SERVIDOR_WILDFLY_REMOTO: {
+			switch (System.getProperty(ContextListener.K_SERVIDOR)) {
+                case ContextListener.V_SERVIDOR_WILDFLY_LOCAL:
+                case ContextListener.V_SERVIDOR_WILDFLY_REMOTO: {
 					dirOrigenBase = ec.getResource("/resources/images/restaurar/").getPath();
 					break;
 				}
-				case WebContainerListener.V_SERVIDOR_GLASSFISH: {
+				case ContextListener.V_SERVIDOR_GLASSFISH: {
 					dirOrigenBase = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + "/resources/images/restaurar/";
 					break;
 				}
 				default: {
 					logger.error("Valor de propiedad {} no valido: \"{}\"",
-							WebContainerListener.K_SERVIDOR, System.getProperty(WebContainerListener.K_SERVIDOR));
+							ContextListener.K_SERVIDOR, System.getProperty(ContextListener.K_SERVIDOR));
 					break;
 				}
 			}
 		} catch (MalformedURLException e) {
 			logger.error(null, e);
 		}
-		String dirDestinoBase = System.getProperty(WebContainerListener.K_DIR_DATOS);
+		String dirDestinoBase = System.getProperty(ContextListener.K_DIR_DATOS);
 		File fileImagenOrigen = new File(dirOrigenBase + producto.getDireccionImagen());
 		File fileImagenDestino = new File(dirDestinoBase + producto.getDireccionImagen());
 		logger.debug("fileImagenOrigen = {}", fileImagenOrigen);

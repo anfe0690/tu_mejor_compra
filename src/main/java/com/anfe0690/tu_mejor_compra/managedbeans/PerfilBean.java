@@ -1,6 +1,6 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ContextListener;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
@@ -111,7 +111,7 @@ public class PerfilBean implements Serializable {
 				// Remover de selProductos
 				it.remove();
 
-				File f = new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + producto.getDireccionImagen());
+				File f = new File(System.getProperty(ContextListener.K_DIR_DATOS) + producto.getDireccionImagen());
 				try {
 					if (Files.deleteIfExists(f.toPath())) {
 						logger.info("Removida la imagen: {}", f);
