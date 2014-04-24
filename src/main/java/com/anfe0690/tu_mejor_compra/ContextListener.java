@@ -8,9 +8,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class WebContainerListener implements ServletContextListener {
+public class ContextListener implements ServletContextListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(WebContainerListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(ContextListener.class);
 
 	// Keys
 	public static final String K_DIR_DATOS = "K_DIR_DATOS";
