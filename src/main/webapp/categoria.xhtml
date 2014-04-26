@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewParam name="c" value="#{listaCategoriasBean.valor}"/>
-			<f:viewParam name="c" value="#{categoriaBean.valor}"/>
-			<f:viewParam name="pagc" value="#{categoriaBean.navegacion.pagina}"/>
-			<f:viewAction action="#{categoriaBean.buscar()}"/>
-		</f:metadata>
-	</ui:define>
-	<ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></ui:define>
-	<ui:define name="css">
-		<link href="#{request.contextPath}/resources/css/categoria.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
-	</ui:define>
-	<ui:define name="content">
-		<section class="col-xs-12 col-sm-8 col-md-8 tema categoria">
-			<h1 class="titulo-bloque"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /></h1>
-			<andres:respro productos="#{categoriaBean.resultados}"/>
-			<andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.navegacion.pagina}"
-						numpaginas="#{categoriaBean.navegacion.numeroPaginas}"
-						nombrevarpagina="pagc"/>
-		</section>
-	</ui:define>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="c" value="#{listaCategoriasBean.valor}"/>
+            <f:viewParam name="c" value="#{categoriaBean.valor}"/>
+            <f:viewParam name="pagc" value="#{categoriaBean.navegacion.pagina}"/>
+            <f:viewAction action="#{categoriaBean.buscar()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}"/></ui:define>
+    <ui:define name="css">
+        <link href="#{request.contextPath}/resources/css/categoria.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
+    </ui:define>
+    <ui:define name="content">
+        <p:panel styleClass="categoria">
+            <h1><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}"/></h1>
+            <andres:respro productos="#{categoriaBean.resultados}"/>
+            <andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.navegacion.pagina}"
+                        numpaginas="#{categoriaBean.navegacion.numeroPaginas}"
+                        nombrevarpagina="pagc"/>
+        </p:panel>
+    </ui:define>
 </ui:composition>

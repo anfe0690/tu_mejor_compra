@@ -1,8 +1,5 @@
 .b-sesion {
   text-align: right; }
-  .b-sesion .ui-message {
-    display: inline-block;
-    margin-right: 20px; }
   .b-sesion label {
     margin-right: 10px; }
   .b-sesion .ui-inputfield {

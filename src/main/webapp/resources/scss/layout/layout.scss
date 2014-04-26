@@ -6,6 +6,10 @@ body{
   background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
 }
 
+.ui-widget{
+  font-size: 12px;
+}
+
 .pagina-seccion{
   margin-bottom: 10px;
 }
@@ -14,7 +18,25 @@ body{
   margin-bottom: 0px;
 }
 
-.mensaje-error{
+h1{
+  font-size: 20px;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+/*.b-contenido{
+  .b-categorias > .ui-widget-header{
+    font-size: 16px;
+  }
+
+  .b-index > .ui-widget-header{
+    font-size: 16px;
+  }
+
+}*/
+
+/*.mensaje-error{
 	color: red;
 	font-weight: bold;
 }
@@ -40,8 +62,4 @@ body{
 
 #javax_faces_developmentstage_messages{
 	margin: 0px;
-}
-
-.ui-widget{
-	font-size: 12px;
-}
+}*/

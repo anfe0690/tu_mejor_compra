@@ -1,6 +1,7 @@
 .b-navegacion {
   text-align: center;
-  padding: 10px; }
+  margin-top: 20px;
+  margin-bottom: 10px; }
   .b-navegacion .link-navegacion {
     margin: 20px 10px; }
   .b-navegacion .link-actual {

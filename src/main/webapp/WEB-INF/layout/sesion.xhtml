@@ -11,6 +11,8 @@
         <div>fernando = 789</div>
     </p:dialog>
 
+    <p:growl id="growl" sticky="true" />
+
     <p:panel styleClass="ui-widget-header pagina-seccion b-sesion">
         <h:form id="form-sesion">
 
@@ -22,14 +24,12 @@
                                      type="button"
                                      style="float: left;"/>
 
-                    <p:message id="msg-form-sesion" for="form-sesion"/>
-
                     <h:outputLabel for="nombre-usuario" value="Nombre"/>
-                    <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}" required="true"/>
+                    <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"/>
                     <p:watermark value="Nombre" for="nombre-usuario"/>
 
                     <h:outputLabel for="contrasena-usuario" value="Contraseña"/>
-                    <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}" required="true"/>
+                    <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}"/>
                     <p:watermark value="Contraseña" for="contrasena-usuario"/>
 
                     <p:commandButton value="Iniciar sesion" icon="ui-icon-person" ajax="false"

@@ -1,13 +1,14 @@
 
-.b-navegacion{
-	text-align: center;
-	padding: 10px;
+.b-navegacion {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
 
-	.link-navegacion{
-		margin: 20px 10px;
-	}
+  .link-navegacion {
+    margin: 20px 10px;
+  }
 
-	.link-actual{
-		font-weight: bold;
-	}
+  .link-actual {
+    font-weight: bold;
+  }
 }

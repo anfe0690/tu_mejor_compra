@@ -1,20 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
 
-	<aside class="col-xs-12 col-sm-4 col-md-4" >
-		<div class="tema b-categorias">
-			<h1 class="titulo-bloque">Categorias</h1>
-			<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
-				<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
-						styleClass="link-habilitado">
-					<f:param name="c" value="#{categoria}"/>
-				</h:link>
-				<h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}" styleClass="link-desabilitado"/>
-			</ui:repeat>
-		</div>
-	</aside>
+    <p:panel styleClass="b-categorias">
+        <h1>Categorias</h1>
+        <ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
+            <h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
+                    styleClass="link link-habilitado">
+                <f:param name="c" value="#{categoria}"/>
+            </h:link>
+            <h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}"
+                          styleClass="link link-desabilitado"/>
+        </ui:repeat>
+    </p:panel>
+
+    <!--<aside class="col-xs-12 col-sm-4 col-md-4" >
+        <div class="tema b-categorias">
+            <h1 class="titulo-bloque">Categorias</h1>
+            <ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
+                <h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
+                        styleClass="link-habilitado">
+                    <f:param name="c" value="#{categoria}"/>
+                </h:link>
+                <h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}" styleClass="link-desabilitado"/>
+            </ui:repeat>
+        </div>
+    </aside>-->
 
 </ui:composition>
