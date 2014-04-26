@@ -11,7 +11,7 @@
         <div>fernando = 789</div>
     </p:dialog>
 
-    <p:growl id="growl" sticky="true" />
+    <p:growl id="growl" sticky="true"/>
 
     <p:panel styleClass="ui-widget-header pagina-seccion b-sesion">
         <h:form id="form-sesion">
@@ -19,10 +19,6 @@
             <c:choose>
                 <c:when test="#{!sesionBean.sesionIniciada}">
                     <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
-
-                    <p:commandButton value="Contraseñas" icon="ui-icon-key" onclick="PF('dialogoContrasenas').show();"
-                                     type="button"
-                                     style="float: left;"/>
 
                     <h:outputLabel for="nombre-usuario" value="Nombre"/>
                     <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"/>
@@ -32,8 +28,15 @@
                     <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}"/>
                     <p:watermark value="Contraseña" for="contrasena-usuario"/>
 
-                    <p:commandButton value="Iniciar sesion" icon="ui-icon-person" ajax="false"
-                                     action="#{sesionBean.iniciarSesion()}"/>
+
+                    <p:splitButton value="Iniciar sesion" icon="ui-icon-person" ajax="false" action="#{sesionBean.iniciarSesion()}">
+                        <p:menuitem>
+                            <p:commandButton value="Contraseñas" icon="ui-icon-key" onclick="PF('dialogoContrasenas').show();"
+                                     type="button"
+                                     style="width: 100%; border-style: none"/>
+                        </p:menuitem>
+                    </p:splitButton>
+
                 </c:when>
 
                 <c:otherwise>
