@@ -12,7 +12,28 @@
         <div>fernando = 789</div>
     </p:dialog>
 
-    <p:growl id="growl" sticky="true"/>
+    <p:dialog header="Iniciar sesion" widgetVar="dialogoIniciarSesion" styleClass="dialogo-sesion"
+              visible="#{not empty facesContext.getMessageList('form-sesion')}">
+        <h:form id="form-sesion">
+            <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+            <p:message for="form-sesion"/>
+
+            <p:panelGrid columns="2" styleClass="dialogo-sesion-grid" style="margin-top: 5px">
+                <p:outputLabel for="nombre-usuario" value="Nombre"/>
+                <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"/>
+
+                <p:outputLabel for="contrasena-usuario" value="Contraseña"/>
+                <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}"/>
+            </p:panelGrid>
+
+            <p:watermark value="Nombre" for="nombre-usuario"/>
+            <p:watermark value="Contraseña" for="contrasena-usuario"/>
+
+            <p:commandButton value="Iniciar sesion" icon="ui-icon-person" ajax="false" action="#{sesionBean.iniciarSesion()}"
+                             style="margin-right: 10px"/>
+            <p:commandButton value="Contraseñas" icon="ui-icon-key" onclick="PF('dialogoContrasenas').show();" type="button"/>
+        </h:form>
+    </p:dialog>
 
     <p:panel styleClass="ui-widget-header pagina-seccion b-header">
 
@@ -26,7 +47,8 @@
 
             <div style="display: table-cell; vertical-align: middle">
                 <h:form>
-                    <p:inputText id="campo-busqueda" value="#{headerBean.valor}" pt:required="required" style="margin-right: 10px"/>
+                    <p:inputText id="campo-busqueda" value="#{headerBean.valor}" pt:required="required"
+                                 style="margin-right: 10px; width: 200px"/>
                     <p:watermark value="Buscar producto" for="campo-busqueda"/>
                     <p:commandButton value="Buscar" ajax="false" icon="ui-icon-search"
                                      action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
@@ -36,7 +58,26 @@
             </div>
 
             <div style="display: table-cell; vertical-align: middle; text-align: right;">
-                <h:form id="form-sesion" styleClass="form-sesion" style="display: inline-block">
+
+                <h:form>
+                    <c:choose>
+                        <c:when test="#{!sesionBean.sesionIniciada}">
+                            <p:commandButton value="Iniciar sesion" icon="ui-icon-person" onclick="PF('dialogoIniciarSesion').show();"
+                                             type="button"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputText styleClass="usuario-nombre" value="#{sesionBean.usuario.nombre}"/>
+                            <c:if test="#{facesContext.viewRoot.viewId != '/perfil.xhtml'}">
+                                <p:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
+                            </c:if>
+                            <p:commandButton value="Cerrar sesion" icon="ui-icon-person" ajax="false"
+                                             action="#{sesionBean.cerrarSesion()}"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </h:form>
+
+                <!--<h:form id="form-sesion" styleClass="form-sesion" style="display: inline-block">
 
                     <c:choose>
                         <c:when test="#{!sesionBean.sesionIniciada}">
@@ -70,7 +111,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                </h:form>
+                </h:form>-->
             </div>
         </div>
 

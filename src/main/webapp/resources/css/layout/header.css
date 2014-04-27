@@ -1,8 +1,19 @@
-.b-header label {
-  margin-right: 10px; }
-.b-header .form-sesion .ui-inputfield {
-  margin-right: 20px; }
-.b-header .usuario-nombre {
-  margin-right: 10px; }
-.b-header .link-perfil {
-  margin-right: 10px; }
+.dialogo-sesion .dialogo-sesion-grid {
+  margin-bottom: 10px; }
+  .dialogo-sesion .dialogo-sesion-grid tr {
+    border: none; }
+  .dialogo-sesion .dialogo-sesion-grid td {
+    border: none; }
+
+.b-header {
+  /*.form-sesion {
+    .ui-inputfield {
+      margin-right: 20px;
+    }
+  }*/ }
+  .b-header label {
+    margin-right: 10px; }
+  .b-header .usuario-nombre {
+    margin-right: 10px; }
+  .b-header .link-perfil {
+    margin-right: 10px; }

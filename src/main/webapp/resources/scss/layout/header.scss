@@ -1,14 +1,31 @@
+
+.dialogo-sesion{
+
+  .dialogo-sesion-grid{
+    margin-bottom: 10px;
+
+    tr{
+      border: none;
+    }
+
+    td{
+      border: none;
+    }
+  }
+
+}
+
 .b-header {
 
   label {
     margin-right: 10px;
   }
 
-  .form-sesion {
+  /*.form-sesion {
     .ui-inputfield {
       margin-right: 20px;
     }
-  }
+  }*/
 
   .usuario-nombre {
     margin-right: 10px;
