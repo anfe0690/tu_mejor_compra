@@ -12,7 +12,7 @@
         <div>fernando = 789</div>
     </p:dialog>
 
-    <p:dialog header="Iniciar sesion" widgetVar="dialogoIniciarSesion" styleClass="dialogo-sesion"
+    <p:dialog header="Iniciar sesion" widgetVar="dialogoIniciarSesion" styleClass="dialogo-sesion" modal="true"
               visible="#{not empty facesContext.getMessageList('form-sesion')}">
         <h:form id="form-sesion">
             <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
