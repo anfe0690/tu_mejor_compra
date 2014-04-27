@@ -1,64 +1,79 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-    <f:facet name="header">
-        <div class="contenedor-imagen">
-            <h:link outcome="index.xhtml" title="Inicio">
-                <h:graphicImage styleClass="imagen" name="logo.png" library="images"/>
-            </h:link>
-        </div>
+    <p:dialog header="Contraseñas" widgetVar="dialogoContrasenas">
+        <div>andres = 123</div>
+        <div>carlos = 456</div>
+        <div>fernando = 789</div>
+    </p:dialog>
 
-        <h:form>
-            <p:commandButton id="dynaButton" value="Categorias" type="button" icon="ui-icon-triangle-1-s" iconPos="right"/>
-            <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
-                <p:menuitem value="Telefonos" url="categoria.xhtml?c=TELEFONOS_INTELIGENTES"/>
-                <p:menuitem value="Consolas" url="categoria.xhtml?c=CONSOLAS_VIDEO_JUEGOS" />
-                <p:menuitem value="Tabletas" url="categoria.xhtml?c=TABLETAS"/>
-            </p:menu>
+    <p:growl id="growl" sticky="true"/>
 
-            <p:commandButton styleClass="boton-submit" value="Buscar"
-                             action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true"
-                             ajax="false">
-                <f:param name="valor" value="#{headerBean.valor}"/>
-            </p:commandButton>
-            <p:inputText id="campo-busqueda" styleClass="campo-busqueda" value="#{headerBean.valor}"
-                         pt:required="required"/>
-            <p:watermark value="Buscar" for="campo-busqueda"/>
+    <p:panel styleClass="ui-widget-header pagina-seccion b-header">
 
-        </h:form>
-    </f:facet>
+        <div style="display: table; width: 100%">
 
+            <div style="display: table-cell; vertical-align: middle; width: 210px">
+                <h:link outcome="index.xhtml" title="Inicio">
+                    <h:graphicImage name="logo.png" library="images" style="height: 40px;"/>
+                </h:link>
+            </div>
 
-    <!--<header class="row">
-        <div class="col-xs-12 tema b-header">
-            <div class="row">
-                <div class="col-sm-5 col-md-4 contenedor-imagen">
-                    <h:link style="text-align: center;" outcome="index.xhtml" title="Inicio">
-                        <h:graphicImage styleClass="imagen" name="logo.png" library="images"/>
-                    </h:link>
-                </div>
+            <div style="display: table-cell; vertical-align: middle">
+                <h:form>
+                    <p:inputText id="campo-busqueda" value="#{headerBean.valor}" pt:required="required" style="margin-right: 10px"/>
+                    <p:watermark value="Buscar producto" for="campo-busqueda"/>
+                    <p:commandButton value="Buscar" ajax="false" icon="ui-icon-search"
+                                     action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
+                        <f:param name="valor" value="#{headerBean.valor}"/>
+                    </p:commandButton>
+                </h:form>
+            </div>
 
-                <div class="col-sm-7 col-md-8">
-                    <h:form styleClass="form">
-                        <div class="contenedor-boton-submit altura-linea ">
-                            <p:commandButton styleClass="boton-submit" value="Buscar"
-                                             action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true"
-                                             ajax="false">
-                                <f:param name="valor" value="#{headerBean.valor}"/>
-                            </p:commandButton>
-                        </div>
-                        <div class="contenedor-campo-busqueda altura-linea">
-                            <p:inputText styleClass="campo-busqueda" value="#{headerBean.valor}" pt:required="required" pt:placeholder="Buscar"/>
-                        </div>
-                    </h:form>
-                </div>
+            <div style="display: table-cell; vertical-align: middle; text-align: right;">
+                <h:form id="form-sesion" styleClass="form-sesion" style="display: inline-block">
+
+                    <c:choose>
+                        <c:when test="#{!sesionBean.sesionIniciada}">
+                            <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+
+                            <h:outputLabel for="nombre-usuario" value="Nombre"/>
+                            <p:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"/>
+                            <p:watermark value="Nombre" for="nombre-usuario"/>
+
+                            <h:outputLabel for="contrasena-usuario" value="Contraseña"/>
+                            <p:password id="contrasena-usuario" value="#{sesionBean.campoContrasena}"/>
+                            <p:watermark value="Contraseña" for="contrasena-usuario"/>
+
+                            <p:splitButton value="Iniciar sesion" icon="ui-icon-person" ajax="false" action="#{sesionBean.iniciarSesion()}">
+                                <p:menuitem>
+                                    <p:commandButton value="Contraseñas" icon="ui-icon-key" onclick="PF('dialogoContrasenas').show();"
+                                                     type="button"
+                                                     style="width: 100%; border-style: none"/>
+                                </p:menuitem>
+                            </p:splitButton>
+
+                        </c:when>
+
+                        <c:otherwise>
+                            <h:outputText styleClass="usuario-nombre" value="#{sesionBean.usuario.nombre}"/>
+                            <c:if test="#{view.viewId != '/perfil.xhtml'}">
+                                <p:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
+                            </c:if>
+                            <p:commandButton value="Cerrar sesion" icon="ui-icon-person" ajax="false"
+                                             action="#{sesionBean.cerrarSesion()}"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </h:form>
             </div>
         </div>
-    </header>-->
+
+    </p:panel>
 
 </ui:composition>

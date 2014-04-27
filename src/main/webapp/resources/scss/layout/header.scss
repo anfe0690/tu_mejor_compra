@@ -1,67 +1,21 @@
-.ui-widget.b-contenido {
+.b-header {
 
-  & > .ui-widget-header {
-    padding: 0px;
-
-    & > .ui-panel-title {
-      display: block;
-      margin: 0px;
-    }
-  }
-
-  .contenedor-imagen {
-    height: 37px;
-    float: left;
-  }
-
-  .imagen {
-    max-height: 37px;
-  }
-
-  form {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-  }
-
-  .boton-submit {
-    margin-left: 20px;
+  label {
     margin-right: 10px;
   }
 
-  .campo-busqueda {
-//    width: 880px;
+  .form-sesion {
+    .ui-inputfield {
+      margin-right: 20px;
+    }
+  }
+
+  .usuario-nombre {
+    margin-right: 10px;
+  }
+
+  .link-perfil {
+    margin-right: 10px;
   }
 
 }
-
-/*.b-header{
-	margin-bottom: 10px;
-
-	.contenedor-imagen{
-		text-align: center;
-	}
-
-	.imagen{
-		display: inline;
-		max-height: 35px;
-	}
-
-	.contenedor-boton-submit{
-		float: left;
-	}
-
-	.boton-submit{
-		height: 100%;
-	}
-
-	.contenedor-campo-busqueda{
-		margin-left: 75px;
-	}
-
-	.campo-busqueda{
-		height: 100%;
-		width: 100%;
-	}
-
-}*/
-

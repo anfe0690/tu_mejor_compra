@@ -1,47 +1,8 @@
-.ui-widget.b-contenido > .ui-widget-header {
-  padding: 0px; }
-  .ui-widget.b-contenido > .ui-widget-header > .ui-panel-title {
-    display: block;
-    margin: 0px; }
-.ui-widget.b-contenido .contenedor-imagen {
-  height: 37px;
-  float: left; }
-.ui-widget.b-contenido .imagen {
-  max-height: 37px; }
-.ui-widget.b-contenido form {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em; }
-.ui-widget.b-contenido .boton-submit {
-  margin-left: 20px;
+.b-header label {
   margin-right: 10px; }
-
-/*.b-header{
-	margin-bottom: 10px;
-
-	.contenedor-imagen{
-		text-align: center;
-	}
-
-	.imagen{
-		display: inline;
-		max-height: 35px;
-	}
-
-	.contenedor-boton-submit{
-		float: left;
-	}
-
-	.boton-submit{
-		height: 100%;
-	}
-
-	.contenedor-campo-busqueda{
-		margin-left: 75px;
-	}
-
-	.campo-busqueda{
-		height: 100%;
-		width: 100%;
-	}
-
-}*/
+.b-header .form-sesion .ui-inputfield {
+  margin-right: 20px; }
+.b-header .usuario-nombre {
+  margin-right: 10px; }
+.b-header .link-perfil {
+  margin-right: 10px; }
