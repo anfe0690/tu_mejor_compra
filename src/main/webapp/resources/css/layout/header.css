@@ -5,15 +5,22 @@
   .dialogo-sesion .dialogo-sesion-grid td {
     border: none; }
 
-.b-header {
-  /*.form-sesion {
-    .ui-inputfield {
-      margin-right: 20px;
-    }
-  }*/ }
-  .b-header label {
-    margin-right: 10px; }
-  .b-header .usuario-nombre {
-    margin-right: 10px; }
-  .b-header .link-perfil {
-    margin-right: 10px; }
+.b-header .nombre-pagina {
+  text-decoration: none;
+  color: black;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 18px; }
+  .b-header .nombre-pagina:link {
+    text-decoration: none; }
+  .b-header .nombre-pagina:visited {
+    text-decoration: none; }
+  .b-header .nombre-pagina:hover {
+    text-decoration: underline; }
+  .b-header .nombre-pagina:active {
+    text-decoration: underline; }
+.b-header label {
+  margin-right: 10px; }
+.b-header .usuario-nombre {
+  margin-right: 10px; }
+.b-header .link-perfil {
+  margin-right: 10px; }

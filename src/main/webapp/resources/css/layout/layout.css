@@ -2,7 +2,8 @@ body {
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images); }
+  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
+  font-size: 12px; }
 
 .ui-widget {
   font-size: 12px; }
@@ -18,41 +19,3 @@ h1 {
   text-align: center;
   margin-top: 0px;
   margin-bottom: 10px; }
-
-/*.b-contenido{
-  .b-categorias > .ui-widget-header{
-    font-size: 16px;
-  }
-
-  .b-index > .ui-widget-header{
-    font-size: 16px;
-  }
-
-}*/
-/*.mensaje-error{
-	color: red;
-	font-weight: bold;
-}
-
-.tema{
-    box-shadow: 1px 1px 2px;
-	background-color: white;
-}
-
-.altura-linea{
-	height: 35px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-
-.titulo-bloque{
-	margin: 0px 0px 10px 0px;
-	font-size: 25px;
-	font-weight: bold;
-	line-height: 35px;
-	text-align: center;
-}
-
-#javax_faces_developmentstage_messages{
-	margin: 0px;
-}*/

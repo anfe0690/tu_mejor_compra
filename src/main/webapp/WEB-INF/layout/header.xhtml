@@ -37,15 +37,13 @@
 
     <p:panel styleClass="ui-widget-header pagina-seccion b-header">
 
-        <div style="display: table; width: 100%">
+        <div style="display: table; width: 100%; table-layout: fixed">
 
-            <div style="display: table-cell; vertical-align: middle; width: 210px">
-                <h:link outcome="index.xhtml" title="Inicio">
-                    <h:graphicImage name="logo.png" library="images" style="height: 40px;"/>
-                </h:link>
+            <div style="display: table-cell; vertical-align: middle; width: 2%">
+                <h:link outcome="index.xhtml" title="Inicio" value="Tumejorcompra.com" styleClass="nombre-pagina"/>
             </div>
 
-            <div style="display: table-cell; vertical-align: middle">
+            <div style="display: table-cell; vertical-align: middle; width: 2%; text-align: center">
                 <h:form>
                     <p:inputText id="campo-busqueda" value="#{headerBean.valor}" pt:required="required"
                                  style="margin-right: 10px; width: 200px"/>
@@ -57,7 +55,7 @@
                 </h:form>
             </div>
 
-            <div style="display: table-cell; vertical-align: middle; text-align: right;">
+            <div style="display: table-cell; vertical-align: middle; width: 2%; text-align: right;">
 
                 <h:form>
                     <c:choose>

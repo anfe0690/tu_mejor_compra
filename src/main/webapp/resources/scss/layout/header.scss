@@ -1,14 +1,14 @@
 
-.dialogo-sesion{
+.dialogo-sesion {
 
-  .dialogo-sesion-grid{
+  .dialogo-sesion-grid {
     margin-bottom: 10px;
 
-    tr{
+    tr {
       border: none;
     }
 
-    td{
+    td {
       border: none;
     }
   }
@@ -17,15 +17,30 @@
 
 .b-header {
 
+  .nombre-pagina {
+    text-decoration: none;
+    color: black;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 18px;
+
+    &:link {
+      text-decoration: none;
+    }
+    &:visited {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+    &:active {
+      text-decoration: underline;
+    }
+
+  }
+
   label {
     margin-right: 10px;
   }
-
-  /*.form-sesion {
-    .ui-inputfield {
-      margin-right: 20px;
-    }
-  }*/
 
   .usuario-nombre {
     margin-right: 10px;
