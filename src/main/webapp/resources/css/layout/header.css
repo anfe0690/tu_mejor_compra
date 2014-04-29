@@ -18,6 +18,8 @@
     text-decoration: underline; }
   .b-header .nombre-pagina:active {
     text-decoration: underline; }
+.b-header .ui-autocomplete-input {
+  width: 200px; }
 .b-header label {
   margin-right: 10px; }
 .b-header .usuario-nombre {
