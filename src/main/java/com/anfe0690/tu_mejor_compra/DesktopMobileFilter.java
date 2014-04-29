@@ -35,7 +35,8 @@ public class DesktopMobileFilter implements Filter {
                 UAgentInfo uai = new UAgentInfo(userAgent, accept);
 
                 if (uai.isMobileDevice()) {
-                    logger.info("Mobile device");
+                    String queryString = ((req.getQueryString() != null) ? ("?" + req.getQueryString()) : "");
+                    logger.info("Mobile device - {}" , req.getRequestURI() + queryString);
 //                    logger.debug("contextPath=\"{}\"", req.getContextPath());
 //                    logger.debug("requestURI=\"{}\"", req.getRequestURI());
 
@@ -53,7 +54,7 @@ public class DesktopMobileFilter implements Filter {
                         logger.info("Redireccion a version Mobile...");
                         HttpServletResponse res = (HttpServletResponse) response;
 
-                        String redireccion = req.getContextPath() + "/m/" + path.subpath(0, path.getNameCount());
+                        String redireccion = req.getContextPath() + "/m/" + path.subpath(0, path.getNameCount()) + queryString;
 //                        logger.debug("redireccion=\"{}\"", redireccion);
                         res.sendRedirect(redireccion);
                     } else {
@@ -61,7 +62,8 @@ public class DesktopMobileFilter implements Filter {
                     }
                     return;
                 } else {
-                    logger.info("Desktop device");
+                    String queryString = ((req.getQueryString() != null) ? ("?" + req.getQueryString()) : "");
+                    logger.info("Desktop device - {}", req.getRequestURI() + queryString);
 //                    logger.debug("contextPath=\"{}\"", req.getContextPath());
 //                    logger.debug("requestURI=\"{}\"", req.getRequestURI());
 
@@ -79,7 +81,7 @@ public class DesktopMobileFilter implements Filter {
                         logger.info("Redireccion a version Desktop...");
                         HttpServletResponse res = (HttpServletResponse) response;
 
-                        String redireccion = req.getContextPath() + "/" + path.subpath(1, path.getNameCount());
+                        String redireccion = req.getContextPath() + "/" + path.subpath(1, path.getNameCount()) + queryString;
 //                        logger.debug("redireccion=\"{}\"", redireccion);
                         res.sendRedirect(redireccion);
                     } else {
