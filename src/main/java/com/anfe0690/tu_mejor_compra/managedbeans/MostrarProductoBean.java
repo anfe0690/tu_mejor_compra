@@ -1,25 +1,23 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeTransacciones;
+import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.entity.Estado;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Transaccion;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import java.io.Serializable;
-import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
 
 @Named
 @ViewScoped
@@ -71,7 +69,7 @@ public class MostrarProductoBean implements Serializable {
 	}
 
 	public String comprar() {
-		Usuario usuarioComprador = sc.getUsuario();
+        Usuario usuarioComprador = sc.getUsuario();
 		Transaccion t = new Transaccion();
 		t.setProducto(producto);
 		t.setEstado(Estado.ESPERANDO_PAGO);

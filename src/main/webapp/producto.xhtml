@@ -1,61 +1,80 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:p="http://primefaces.org/ui">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
-			<f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
-		</f:metadata>
-	</ui:define>
-	<ui:define name="title">Producto</ui:define>
-	<ui:define name="css">
-		<h:outputStylesheet library="css" name="producto.css"/>
-	</ui:define>
-	<ui:define name="js">
-		<h:outputScript library="js" name="producto.js"/>
-	</ui:define>
-	<ui:define name="content">
-		<section class="row">
-			<div class="col-xs-12 tema b-producto">
-				<h1 class="titulo-bloque">Producto</h1>
-				<div class="row">
-					<div class="col-md-6 marco-imagen">
-						<h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
-					</div>
-					<div class="col-md-6 contenedor-datos">
-						<h:outputText styleClass="nombre_producto" value="#{mostrarProductoBean.producto.nombre}"/>
-						<span class="etiqueta-precio-producto">Precio:</span>
-						<h:outputText styleClass="precio_producto" value="#{mostrarProductoBean.producto.precio}"/>
-						<span class="etiqueta-precio-producto">pesos.</span>
-						<c:choose >
-							<c:when test="#{sesionBean.sesionIniciada}">
-								<h:form id="form_cv">
-									<div class="altura-linea cont-boton">
-										<p:commandButton styleClass="boton_comprar" id="boton_comprar" value="Comprar" ajax="false"
-														 action="#{mostrarProductoBean.comprar()}"/>
-									</div>
-									<h:inputHidden id="v_nombre_contacto" value="#{mostrarProductoBean.usuarioVendedor.nombreContacto}"/>
-									<h:inputHidden id="v_correo" value="#{mostrarProductoBean.usuarioVendedor.correo}"/>
-									<h:inputHidden id="v_telefonos" value="#{mostrarProductoBean.usuarioVendedor.telefonos}"/>
-									<h:inputHidden id="v_banco" value="#{mostrarProductoBean.usuarioVendedor.banco}"/>
-									<h:inputHidden id="v_numero_cuenta" value="#{mostrarProductoBean.usuarioVendedor.numeroCuenta}"/>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
+            <f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title">Producto</ui:define>
+    <ui:define name="css">
+        <h:outputStylesheet library="css" name="producto.css"/>
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript library="js" name="producto.js"/>
+    </ui:define>
+    <ui:define name="content">
 
-									<h:inputHidden id="c_nombre_contacto" value="#{sesionBean.usuario.nombreContacto}"/>
-									<h:inputHidden id="c_correo" value="#{sesionBean.usuario.correo}"/>
-									<h:inputHidden id="c_telefonos" value="#{sesionBean.usuario.telefonos}"/>
-								</h:form>
-							</c:when>
-							<c:otherwise>
-								<p class="adv_iniciar_sesion">Para poder comprar es necesario iniciar sesion!</p>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-			</div>
-		</section>
-	</ui:define>
+        <p:panel styleClass="b-producto">
+
+            <h1 style="margin-bottom: 20px">Producto</h1>
+
+            <div style="display: table; width: 100%">
+
+                <div class="marco-imagen">
+                    <h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
+                </div>
+
+                <div class="contenedor-datos">
+                    <h2><h:outputText value="#{mostrarProductoBean.producto.nombre}"/></h2>
+
+                    <p style="color: red; font-size: 16px">Precio: <h:outputText value="#{mostrarProductoBean.producto.precio}"/> pesos.</p>
+                    <c:choose>
+                        <c:when test="#{sesionBean.sesionIniciada}">
+                            <h:form>
+                                <p>
+                                    <p:commandButton value="Comprar" type="button" onclick="PF('cd').show()"/>
+                                </p>
+                                <p:confirmDialog header="Confirmacion para comprar" severity="info" widgetVar="cd">
+                                    <f:facet name="message">
+                                        <div>Los siguientes datos del vendedor seran enviados al correo del comprador:</div>
+                                        <div>Contacto - <h:outputText value="#{mostrarProductoBean.usuarioVendedor.nombreContacto}"/></div>
+                                        <div>Correo - <h:outputText value="#{mostrarProductoBean.usuarioVendedor.correo}"/></div>
+                                        <div>Telefonos - <h:outputText value="#{mostrarProductoBean.usuarioVendedor.telefonos}"/></div>
+                                        <div>Banco - <h:outputText value="#{mostrarProductoBean.usuarioVendedor.banco}"/></div>
+                                        <div>Numero cuenta - <h:outputText value="#{mostrarProductoBean.usuarioVendedor.numeroCuenta}"/>
+                                        </div>
+                                        <br/>
+
+                                        <div>Como tambien los siguientes datos del comprador al vendedor:</div>
+                                        <div>Contacto - <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></div>
+                                        <div>Correo - <h:outputText value="#{sesionBean.usuario.correo}"/></div>
+                                        <div>Telefonos - <h:outputText value="#{sesionBean.usuario.telefonos}"/></div>
+                                        <br/>
+
+                                        <div>Nota: Los anteriores datos son de ejemplo.</div>
+                                        <br/>
+
+                                        <div>¿Estas seguro que deseas comprar el producto?</div>
+                                    </f:facet>
+                                    <p:commandButton value="Si" action="#{mostrarProductoBean.comprar()}" oncomplete="PF('cd').hide()"/>
+                                    <p:commandButton value="No" onclick="PF('cd').hide();" type="button"/>
+                                </p:confirmDialog>
+                            </h:form>
+                        </c:when>
+
+                        <c:otherwise>
+                            <p style="color: red; font-size: 16px">Para poder comprar es necesario iniciar sesion!</p>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+            </div>
+        </p:panel>
+    </ui:define>
 </ui:composition>
