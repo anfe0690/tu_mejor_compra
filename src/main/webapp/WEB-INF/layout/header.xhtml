@@ -45,11 +45,11 @@
             <div style="display: table-cell; vertical-align: middle; width: 2%; text-align: center">
                 <h:form id="form-buscar">
                     <p:autoComplete id="campo-busqueda" value="#{headerBean.valor}" completeMethod="#{headerBean.completar}"
-                                    emptyMessage="Sin sugerencias." style="margin-right: 10px;"/>
+                                    style="margin-right: 10px;"/>
                     <p:watermark value="Buscar producto" for="campo-busqueda"/>
                     <p:tooltip id="toolTipFocus" for="campo-busqueda"
                                value="Para ver sugerencias, escribe 1 sola vocal por ejemplo." />
-                    <p:commandButton value="Buscar" ajax="false" icon="ui-icon-search"
+                    <p:commandButton id="boton-submit" value="Buscar" ajax="false" icon="ui-icon-search"
                                      action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
                         <f:param name="valor" value="#{headerBean.valor}"/>
                     </p:commandButton>

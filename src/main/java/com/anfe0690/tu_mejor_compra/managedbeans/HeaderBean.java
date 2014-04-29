@@ -36,7 +36,7 @@ public class HeaderBean {
         logger.trace("completar \"{}\"", s);
         List<String> rs = new ArrayList<>();
         for(String smu:palabrasMasUsadas){
-            if(smu.contains(s)){
+            if(smu.toLowerCase().contains(s.toLowerCase())){
                 rs.add(smu);
             }
         }
