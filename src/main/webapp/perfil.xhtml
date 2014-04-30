@@ -1,195 +1,159 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-				xmlns:p="http://primefaces.org/ui">
-	<ui:define name="title">Perfil</ui:define>
-	<ui:define name="css">
-		<h:outputStylesheet library="css" name="perfil.css"/>
-	</ui:define>
-	<ui:define name="js">
-		<h:outputScript library="js" name="perfil.js"/>
-	</ui:define>
-	<ui:define name="content">
-		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
-		<div class="row b-perfil">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">Perfil</ui:define>
+    <ui:define name="css">
+        <h:outputStylesheet library="css" name="perfil.css"/>
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript library="js" name="perfil.js"/>
+    </ui:define>
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 
-			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
-			<p:dialog modal="true" widgetVar="statusDialog" header="Procesando..." draggable="false" closable="false">
-				<p:graphicImage library="images" name="ajax-loading-bar.gif" />
-			</p:dialog>
+        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+        <p:dialog modal="true" widgetVar="statusDialog" header="Procesando..." draggable="false" closable="false">
+            <p:graphicImage library="images" name="ajax-loading-bar.gif"/>
+        </p:dialog>
+        <p:confirmDialog global="true">
+            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+        </p:confirmDialog>
 
-			<section  id="section_perfil" class="col-xs-12 tema seccion b-datos-perfil">
-				<h1 class="titulo-bloque">Datos del perfil</h1>
-				<div class="row">
-					<div class="col-sm-4 espacio">
-						<h2>Campos generales</h2>
-						<p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
-						<p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
-						<p>Correo: <h:outputText value="#{sesionBean.usuario.correo}" /></p>
-						<p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" /></p>
-					</div>
-					<div class="col-sm-4 espacio">
-						<h2>Campos de comprador</h2>
-						<p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
-						<p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
-					</div>
-					<div class="col-sm-4 ">
-						<h2>Campos de vendedor</h2>
-						<p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
-						<p>Numero de cuenta: <h:outputText value="#{sesionBean.usuario.numeroCuenta}"/></p>
-					</div>
-				</div>
-			</section>
+        <p:panel style="margin-bottom: 10px;">
+            <h1>Datos personales</h1>
 
-			<section class="col-xs-12 tema seccion" id="section_mis_productos" >
-				<h1 class="titulo-bloque">Mis productos</h1>
-				<h:form id="form-mis-productos">
-					<div class="altura-linea">
-						<p:button value="Crear" outcome="crear_producto.xhtml"/>
-						<p:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{perfilBean.eliminarProductos()}"
-										 disabled="#{perfilBean.deshabilitadoBotonEliminarProductos()}"
-										 process="@this" update="@form :form_ventas:datatable_ventas">
-							<p:confirm header="Confirmacion" message="¿Esta seguro que desea eliminar el/los producto(s)?" icon="ui-icon-alert"/>
-						</p:commandButton>
-						<p:confirmDialog global="true">  
-							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
-						</p:confirmDialog>
-					</div>
-					<div class="cont-tabla">
-						<h:dataTable id="datatable-mis-productos" value="#{perfilBean.selProductos}" var="selproducto"
-									 styleClass="tabla"
-									 headerClass="tabla-header"
-									 columnClasses="contenedor-centro, contenedor-imagen, contenedor-nombre, contenedor-derecha" >
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Seleccion" />
-								</f:facet>
-								<p:selectBooleanCheckbox value="#{selproducto.seleccionado}">
-									<p:ajax update="@form:boton_eliminar" global="false" />
-								</p:selectBooleanCheckbox>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Imagen" />
-								</f:facet>
-								<h:graphicImage styleClass="imagen" value="/imgs/#{selproducto.producto.direccionImagen}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Nombre" />
-								</f:facet>
-								<h:outputText value="#{selproducto.producto.nombre}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Precio" />
-								</f:facet>
-								<h:outputText value="#{selproducto.producto.precio}"/>
-							</h:column>
-						</h:dataTable>
-					</div>
-				</h:form>
-			</section>
+            <!-- TODO MEJORA: Agregar la posibilidad de editar los campos con inplace input -->
+            <div style="display: table; width: 100%; table-layout: fixed">
 
-			<section class="col-xs-12 tema seccion" id="section_ventas" >
-				<h1 class="titulo-bloque">Mis ventas</h1>
-				<h:form id="form_ventas">
-					<div class="altura-linea">
-						<p:commandButton id="btn_actualizar" value="Actualizar" actionListener="#{perfilBean.actualizarVentas()}"
-										 process="@form" update="datatable_ventas" />
-					</div>
-					<div class="cont-tabla">
-						<h:dataTable id="datatable_ventas" value="#{perfilBean.misVentas}" var="filaTransaccion"
-									 styleClass="tabla"
-									 headerClass="tabla-header"
-									 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Imagen" />
-								</f:facet>
-								<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Nombre" />
-								</f:facet>
-								<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Comprador" />
-								</f:facet>
-								<h:outputText value="#{filaTransaccion.transaccion.usuarioComprador.nombre}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Estado" />
-								</f:facet>
-								<h:selectOneMenu style="text-align: left;" rendered="#{filaTransaccion.transaccion.estado == 'ESPERANDO_PAGO'}"
-												 value="#{filaTransaccion.nuevoEstado}">
-									<f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
-									<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
-								</h:selectOneMenu>
-								<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}"
-											  value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
-							</h:column>
-						</h:dataTable>
-					</div>
-				</h:form>
-			</section>
+                <div style="display: table-cell; width: 2%; padding-right: 1em;">
+                    <p:panel header="Campos generales" style="height: 160px">
+                        <p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
+                        <p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
+                        <p>Correo: <h:outputText value="#{sesionBean.usuario.correo}"/></p>
+                        <p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}"/></p>
+                    </p:panel>
+                </div>
 
-			<section class="col-xs-12 tema seccion" style="margin: 0px;" id="section_compras" >
-				<h1 class="titulo-bloque">Mis compras</h1>
-				<h:form id="form_compras">
-					<div class="altura-linea">
-						<p:commandButton id="btn_actualizar" value="Actualizar" actionListener="#{perfilBean.actualizarCompras()}"
-										 process="@form" update="datatable_compras" />
-					</div>
-					<div class="cont-tabla">
-						<h:dataTable id="datatable_compras" value="#{perfilBean.misCompras}" var="filaTransaccion"
-									 styleClass="tabla"
-									 headerClass="tabla-header"
-									 columnClasses="contenedor-imagen, contenedor-nombre, contenedor-centro, contenedor-centro">
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Imagen" />
-								</f:facet>
-								<h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Nombre" />
-								</f:facet>
-								<h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Vendedor" />
-								</f:facet>
-								<h:outputText value="#{filaTransaccion.transaccion.usuarioVendedor.nombre}"/>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Estado" />
-								</f:facet>
-								<h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'EN_ENVIO'}"
-												 value="#{filaTransaccion.nuevoEstado}" >
-									<f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
-									<f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
-								</h:selectOneMenu>
-								<h:outputText rendered="#{filaTransaccion.transaccion.estado != 'EN_ENVIO'}"
-											  value="#{filaTransaccion.transaccion.estado.valorEstetico}" /> 
-							</h:column>
-						</h:dataTable>
-					</div>
-				</h:form>
-			</section>
+                <div style="display: table-cell; width: 2%; padding-right: 1em;">
+                    <p:panel header="Campos como comprador" style="height: 160px">
+                        <p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
+                        <p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
+                    </p:panel>
+                </div>
 
-		</div>
-	</ui:define>
+                <div style="display: table-cell; width: 2%;">
+                    <p:panel header="Campos como vendedor" style="height: 160px">
+                        <p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
+                    </p:panel>
+                </div>
+
+            </div>
+        </p:panel>
+
+        <p:panel style="margin-bottom: 10px;">
+            <h1>Mis productos</h1>
+            <h:form id="form-mis-productos">
+                <p style="text-align: center">
+                    <p:button value="Crear" outcome="crear_producto.xhtml" icon="ui-icon-plus"/>
+                    <p:commandButton id="boton_eliminar" value="Eliminar" actionListener="#{perfilBean.eliminarProductos()}"
+                                     disabled="#{perfilBean.deshabilitadoBotonEliminarProductos()}"
+                                     process="@this" update="@form :form_ventas:datatable_ventas" icon="ui-icon-minus">
+                        <p:confirm header="Confirmacion" message="¿Esta seguro que desea eliminar el/los producto(s) seleccionado(s)?"
+                                   icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </p>
+
+                <!-- TODO MEJORA: Mejorar manejo de tablas con la funcionalidad especifica de Primefaces -->
+                <!-- TODO MEJORA: Agregar columna con la Id de cada transaccion -->
+                <p:dataTable id="datatable-mis-productos" value="#{perfilBean.selProductos}" var="selproducto" rowStyleClass="fila-datos"
+                             scrollable="true" scrollHeight="252" emptyMessage="Sin productos." >
+                    <p:column headerText="Seleccion" styleClass="ancho-celda-a centrado">
+                        <p:selectBooleanCheckbox value="#{selproducto.seleccionado}">
+                            <p:ajax update="@form:boton_eliminar" global="false"/>
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+                    <p:column headerText="Imagen" styleClass="ancho-celda-a centrado">
+                        <h:graphicImage styleClass="imagen" value="/imgs/#{selproducto.producto.direccionImagen}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{selproducto.producto.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Precio" styleClass="ancho-celda-b derecha">
+                        <h:outputText value="#{selproducto.producto.precio}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+
+        <p:panel style="margin-bottom: 10px;">
+            <h1>Mis ventas</h1>
+            <h:form id="form_ventas">
+                <p style="text-align: center">
+                    <p:commandButton id="btn-actualizar-ventas" value="Actualizar" actionListener="#{perfilBean.actualizarVentas()}"
+                                     process="@form" update="datatable_ventas" icon="ui-icon-refresh"/>
+                </p>
+
+                <p:dataTable id="datatable_ventas" value="#{perfilBean.misVentas}" var="filaTransaccion" rowStyleClass="fila-datos"
+                             scrollable="true" scrollHeight="252" emptyMessage="Sin ventas.">
+                    <p:column headerText="Imagen" styleClass="ancho-celda-a centrado">
+                        <h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Comprador" styleClass="ancho-celda-a centrado">
+                        <h:outputText value="#{filaTransaccion.transaccion.usuarioComprador.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Estado" styleClass="ancho-celda-c centrado">
+                        <p:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'ESPERANDO_PAGO'}"
+                                         value="#{filaTransaccion.nuevoEstado}">
+                            <f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
+                            <f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+                        </p:selectOneMenu>
+                        <h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}"
+                                      value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+
+        <p:panel>
+            <h1 class="titulo-bloque">Mis compras</h1>
+            <h:form id="form_compras">
+                <p style="text-align: center">
+                    <p:commandButton id="btn-atualizar-ventas" value="Actualizar" actionListener="#{perfilBean.actualizarCompras()}"
+                                     process="@form" update="datatable_compras" icon="ui-icon-refresh"/>
+                </p>
+
+                <p:dataTable id="datatable_compras" value="#{perfilBean.misCompras}" var="filaTransaccion" rowStyleClass="fila-datos"
+                             scrollable="true" scrollHeight="252" emptyMessage="Sin compras.">
+                    <p:column headerText="Imagen" styleClass="ancho-celda-a centrado">
+                        <h:graphicImage styleClass="imagen" value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{filaTransaccion.transaccion.producto.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Vendedor" styleClass="ancho-celda-a centrado">
+                        <h:outputText value="#{filaTransaccion.transaccion.usuarioVendedor.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Estado" styleClass="ancho-celda-c centrado">
+                        <p:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'EN_ENVIO'}"
+                                         value="#{filaTransaccion.nuevoEstado}">
+                            <f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+                            <f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
+                        </p:selectOneMenu>
+                        <h:outputText rendered="#{filaTransaccion.transaccion.estado != 'EN_ENVIO'}"
+                                      value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+
+    </ui:define>
 </ui:composition>
