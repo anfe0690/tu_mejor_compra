@@ -1,40 +1,87 @@
-.b-crear_producto {
-  text-align: center;
-  padding: 15px; }
-  .b-crear_producto .crear-producto-error {
-    display: block; }
-  .b-crear_producto .ui-message {
-    width: 100%;
-    margin: 0px; }
-  .b-crear_producto .control-imagen {
-    margin-bottom: 20px; }
-    .b-crear_producto .control-imagen .imagen {
-      width: 100%;
-      max-width: 400px;
-      max-height: 400px;
-      border: 1px solid black;
-      margin-bottom: 10px; }
-    .b-crear_producto .control-imagen .cont-selector-imagen {
-      width: 100%;
-      text-align: center; }
-    .b-crear_producto .control-imagen .selector-imagen {
-      max-width: 100%;
-      display: inline-block;
-      height: 100%; }
-  .b-crear_producto .control-datos {
-    text-align: left;
-    margin-bottom: 10px; }
-    .b-crear_producto .control-datos .etiqueta-campo {
-      margin: 0px;
-      line-height: 25px;
-      height: 25px; }
-    .b-crear_producto .control-datos .espacio-campo {
-      margin-bottom: 10px; }
-    .b-crear_producto .control-datos .nombre-producto {
-      width: 100%; }
-    .b-crear_producto .control-datos .precio-producto {
-      width: 100%; }
-    .b-crear_producto .control-datos .categoria {
-      height: 100%; }
-  .b-crear_producto .boton-submit {
-    height: 100%; }
+.b-crear-producto .cont-imagen {
+  height: 402px;
+  line-height: 400px;
+  margin-bottom: 10px;
+  border: 1px dashed #000000;
+  text-align: center; }
+.b-crear-producto .imagen {
+  max-width: 400px;
+  max-height: 400px;
+  vertical-align: middle; }
+.b-crear-producto .etiqueta {
+  height: 25px;
+  line-height: 25px; }
+.b-crear-producto .ui-message-error {
+  margin: 0px 0px 10px 0px; }
+
+/*
+.b-crear_producto{
+	text-align: center;
+	padding: 15px;
+
+	.crear-producto-error{
+		display: block;
+	}
+	
+	.ui-message{
+		width: 100%;
+		margin: 0px;
+	}
+
+	.control-imagen{
+		margin-bottom: 20px;
+		
+		.imagen{
+			width: 100%;
+			max-width: 400px;
+			max-height: 400px;
+			border: 1px solid black;
+			margin-bottom: 10px;
+		}
+		
+		.cont-selector-imagen{
+			width: 100%;
+			text-align: center;
+		}
+
+		.selector-imagen{
+			max-width: 100%;
+			display: inline-block;
+			height: 100%;
+		}
+		
+	}
+
+	.control-datos{
+		text-align: left;
+		margin-bottom: 10px;
+
+		.etiqueta-campo{
+			margin: 0px;
+			line-height: 25px;
+			height: 25px;
+		}
+
+		.espacio-campo{
+			margin-bottom: 10px;
+		}
+
+		.nombre-producto{
+			width: 100%;
+		}
+
+		.precio-producto{
+			width: 100%;
+		}
+
+		.categoria{
+			height: 100%;
+		}
+	}
+
+	.boton-submit{
+		height: 100%;
+	}
+
+}
+*/

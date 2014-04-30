@@ -1,3 +1,31 @@
+.b-crear-producto {
+
+  .cont-imagen {
+    height: 402px;
+    line-height: 400px;
+    margin-bottom: 10px;
+    border: 1px dashed #000000;
+    text-align: center;
+  }
+
+  .imagen {
+    max-width: 400px;
+    max-height: 400px;
+    vertical-align: middle;
+  }
+
+  .etiqueta {
+    height: 25px;
+    line-height: 25px;
+  }
+
+  .ui-message-error {
+    margin: 0px 0px 10px 0px;
+  }
+
+}
+
+/*
 .b-crear_producto{
 	text-align: center;
 	padding: 15px;
@@ -67,3 +95,4 @@
 	}
 
 }
+*/
