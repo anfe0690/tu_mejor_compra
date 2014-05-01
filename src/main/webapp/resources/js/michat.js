@@ -33,15 +33,16 @@ function conectarWebSocket(event) {
             nombreInput.prop("disabled", true);
             $("#boton-unirse").prop("disabled", true);
 
-            $("#mensaje").prop("disabled", false);
-            $("#mensaje").focus();
+            var mensaje = $("#mensaje");
+            mensaje.prop("disabled", false);
+            mensaje.focus();
             $("#boton-mensaje").prop("disabled", false);
 
         };
     } else {
         if ($("#error-nombre").length === 0) {
-            $("<div class=\"col-xs-12 col-sm-12 altura-linea error-nombre\" id=\"error-nombre\">¡Se debe escribir un nombre!</div>")
-                .insertAfter("#puerto-websockets");
+            $("<div class='error' id='error-nombre' style='margin-bottom: 10px;'>¡Se debe escribir un nombre!</div>")
+                .insertBefore("#div-nombre");
         }
         nombreInput.val("");
         nombreInput.focus();
@@ -87,8 +88,8 @@ function sendMessage(event) {
     }
     else {
         if ($("#error-mensaje").length === 0) {
-            $("<div class=\"col-xs-12 col-sm-12 altura-linea error-mensaje\" id=\"error-mensaje\">¡Se debe escribir un mensaje!</div>")
-                .insertBefore("#contenedor-mensaje");
+            $("<div class='error' id='error-mensaje' style='margin-bottom: 10px;'>¡Se debe escribir un mensaje!</div>")
+                .insertBefore("#label-boton-mensaje");
         }
         inputMensaje.val("");
         inputMensaje.focus();

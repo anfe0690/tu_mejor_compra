@@ -1,113 +1,63 @@
 
-button{
-  &:disabled{
-    color: gray;
+button:disabled{
+  color: gray;
+}
+
+.nombre-pagina {
+  text-decoration: none;
+  color: black;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 18px;
+
+  &:link {
+    text-decoration: none;
   }
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    text-decoration: underline;
+  }
+
 }
 
-body{
-  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
+.error{
+  font-weight: bold;
+  color: red;
+  text-align: center;
 }
 
-.altura-linea{
-  height: 35px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.cont-form{
-  box-shadow: 1px 1px 2px;
+.cont-lista-usuarios{
+  display: block;
+  width: 100%;
+  height: 150px;
   background-color: white;
-}
-
-.cont-titulo{
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  h1{
-    text-align: center;
-    margin: 0px;
-    font-size: 25px;
-  }
-
-}
-
-.form-nombre{
-
-  .error-nombre{
-    font-weight: bold;
-    color: red;
-    text-align: center;
-  }
-
-  .etiqueta-nombre{
-    display: block;
-    float: left;
-  }
-
-  .nombre{
-    display: block;
-    width: 100%;
-  }
-
-  .boton-unirse{
-    display: block;
-    width: 100%;
-  }
-}
-
-.form-mensaje{
-
-  .etiqueta-lista-usuarios{
-    display: block;
-    width: 100%;
-  }
+  border: 1px solid darkgray;
 
   .lista-usuarios{
-    display: block;
-    width: 100%;
-    height: 100px;
-    padding: 5px;
-    margin: 0px;
-    background-color: white;
-    border: 1px solid darkgray;
+    margin: 5px;
+    padding: 0px;
 
     li{
       list-style-type: none;
+      margin: 5px;
     }
 
   }
 
-  .etiqueta-chat{
-    display: block;
-    width: 100%;
-  }
+}
+
+.form-mensaje{
 
   .chat{
     display: block;
     width: 100%;
-    height: 200px;
+    height: 250px;
     resize: none;
-  }
-
-  .error-mensaje{
-    font-weight: bold;
-    color: red;
-    text-align: center;
-  }
-
-  .etiqueta-mensaje{
-    display: block;
-    float: left;
-  }
-
-  .mensaje{
-    display: block;
-    width: 100%;
-  }
-
-  .submit{
-    width: 100%;
+    margin-bottom: 10px;
   }
 
 }
