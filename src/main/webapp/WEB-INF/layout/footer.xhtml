@@ -1,17 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui">
 
-    <h:panelGroup styleClass="row" id="footer" layout="block">
-        <footer class="col-xs-12 tema b-footer">
-            <p style="margin-bottom: 10px;">Aplicacion de compras y ventas de productos en donde se aplican conceptos de Java 7 EE como:
-                Context and dependency injection (CDI), Bean validation, Java persistence API, Enterprise JavaBeans y Java server faces.</p>
-
-            <p>Un ejercicio de Websocket con JSON se encuentra en el siguiente link: <h:link
-                    outcome="michat.xhtml"
-                    value="michat.xhtml"/>. Sugerencias y/o informacion al correo anfe0690 arroba gmail.com.</p>
-
-        </footer>
-    </h:panelGroup>
+    <p:panel styleClass="pagina-seccion ultimo">
+        <p>Aplicacion de compras y ventas de productos en donde se aplican conceptos de Java 7 EE como:
+            Context and dependency injection (CDI, Java persistence API, Enterprise JavaBeans y Java server faces.</p>
+        <p>
+            <span>Un ejercicio de Websocket con JSON se encuentra en el siguiente link:</span>
+            <h:link outcome="michat.xhtml" value="michat.xhtml"/>
+            <span>. Sugerencias y/o informacion al correo anfe0690 arroba gmail.com.</span>
+        </p>
+    </p:panel>
 
 </ui:composition>
