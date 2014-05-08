@@ -68,7 +68,7 @@
 
                         <c:otherwise>
                             <h:outputText styleClass="usuario-nombre" value="#{sesionBean.usuario.nombre}"/>
-                            <c:if test="#{facesContext.viewRoot.viewId != '/perfil.xhtml'}">
+                            <c:if test="#{not facesContext.viewRoot.viewId.endsWith('perfil.xhtml')}">
                                 <p:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
                             </c:if>
                             <p:commandButton value="Cerrar sesion" icon="ui-icon-person" ajax="false"

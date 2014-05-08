@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<f:view renderKitId="PRIMEFACES_MOBILE"/>
+
+<f:metadata>
+    <f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
+    <f:viewAction action="#{indexBean.buscarProductosRecientes}"/>
+</f:metadata>
+
+<h:head>
+    <f:facet name="first">
+        <link href="#{request.contextPath}/resources/css/normalize.css" rel="stylesheet"/>
+    </f:facet>
+    <!-- CSS -->
+    <link href="#{request.contextPath}/resources/css/m/index.css" rel="stylesheet"/>
+    <!-- Javascript -->
+    <h:outputScript library="js" name="jquery/plugins/jquery.dotdotdot.min.js"/>
+    <script>
+        function mostrarClaves() {
+            PF('miGrowl').show([
+                {summary: 'andres = 123', detail: '', severity: 'info'},
+                {summary: 'carlos = 456', detail: '', severity: 'info'},
+                {summary: 'fernado = 789', detail: '', severity: 'info'}
+            ]);
+        }
+
+        $(document).ready(function () {
+            $("title").html("Tu mejor compra");
+//            $("#panel-lateral").panel("open");
+
+            $("#btn-toggle-form-buscar").click(function () {
+                $("#cont-form-buscar").fadeToggle();
+            });
+
+            $(".producto-reciente h2").dotdotdot({ height: 32 });
+        });
+    </script>
+</h:head>
+
+<h:body>
+    <ui:debug hotkey="x"/>
+    <f:view beforePhase="#{phaseLogBean.beforePhase}" afterPhase="#{phaseLogBean.afterPhase}"/>
+    <c:if test="#{sesionBean.sesionIniciada}">
+        <f:event type="preRenderView" listener="#{sesionBean.mostrarBienvenida}"/>
+    </c:if>
+
+    <p:growl id="growl" sticky="true" widgetVar="miGrowl"/>
+
+    <pm:page id="pagina-index" styleClass="pagina-index">
+
+        <div data-role="panel" data-display="overlay" id="panel-lateral" class="panel-lateral">
+            <h:form id="form-sesion" style="margin: -1em;">
+                <c:if test="#{not sesionBean.sesionIniciada}">
+                    <!-- TODO MEJORA: reabrir el panel lateral al presentarse un error de validacion al iniciar sesion -->
+                    <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+                </c:if>
+                <ul data-role="listview">
+
+                    <li data-role="list-divider">
+                        Sesion<h:outputText value=": #{sesionBean.usuario.nombre}" rendered="#{sesionBean.sesionIniciada}"/>
+                    </li>
+                    <c:choose>
+                        <c:when test="#{not sesionBean.sesionIniciada}">
+                            <li>
+                                <h:outputLabel for="nombre-usuario" value="Nombre" styleClass="ui-hidden-accessible"/>
+                                <h:inputText id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}" pt:placeholder="Nombre"
+                                             pt:data-mini="true" pt:data-clear-btn="true"/>
+                            </li>
+                            <li>
+                                <h:outputLabel for="contrasena-usuario" value="Contraseña" styleClass="ui-hidden-accessible"/>
+                                <h:inputSecret id="contrasena-usuario" value="#{sesionBean.campoContrasena}" pt:placeholder="Contraseña"
+                                               pt:data-mini="true"/>
+                            </li>
+                            <li>
+                                <h:commandButton id="btn-mostrar-claves" type="button" value="Contraseñas" pt:data-icon="info"
+                                                 pt:data-mini="true" onclick="mostrarClaves()"/>
+                            </li>
+                            <li>
+                                <h:commandButton id="iniciar-sesion" pt:data-icon="user" value="Iniciar sesion"
+                                                 pt:data-mini="true" action="#{sesionBean.iniciarSesion()}"/>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="#{not facesContext.viewRoot.viewId.endsWith('perfil.xhtml')}">
+                                <li>
+                                    <h:button outcome="perfil.xhtml" value="Perfil" pt:data-mini="true"/>
+                                </li>
+                            </c:if>
+                            <li>
+                                <h:commandButton id="cerrar-sesion" pt:data-icon="user" value="Cerrar sesion"
+                                                 pt:data-mini="true" action="#{sesionBean.cerrarSesion()}"/>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <li data-role="list-divider">Categorias</li>
+                    <li><a href="#">Telefonos inteligentes</a></li>
+                    <li><a href="#">Consolas de video juegos</a></li>
+                    <li><a href="#">Tabletas</a></li>
+
+                </ul>
+            </h:form>
+        </div>
+
+        <pm:header>
+            <a href="#panel-lateral"
+               class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext">Mi panel</a>
+
+            <h1>
+                <a href="index.xhtml" data-role="none">
+                    <h:graphicImage library="images" name="logo-mobile.png"/>
+                </a>
+            </h1>
+
+            <button id="btn-toggle-form-buscar"
+                    class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-search ui-btn-icon-notext">Mi panel
+            </button>
+
+            <div id="cont-form-buscar" style="padding-left: .3125em; padding-right: .3125em; margin-bottom: 5px; display: none;">
+                <form action="index.xhtml" id="form-buscar">
+                    <label for="search-1" class="ui-hidden-accessible">Buscar productos:</label>
+                    <input type="search" name="search-1" id="search-1" placeholder="Buscar productos"/>
+                </form>
+            </div>
+        </pm:header>
+
+        <pm:content>
+            <h1>Productos recientes</h1>
+
+            <ul data-role="listview" data-inset="true">
+                <ui:repeat value="#{indexBean.productosRecientes}" var="producto">
+                    <li class="producto-reciente ui-li-has-thumb">
+                        <h:link outcome="producto.xhtml" includeViewParams="true">
+                            <f:param name="pid" value="#{producto.id}"/>
+
+                            <div class="cont-imagen">
+                                <div><h:graphicImage value="/imgs/#{producto.direccionImagen}"/></div>
+                            </div>
+
+                            <h2>
+                                <div><h:outputText value="#{producto.nombre}"/></div>
+                            </h2>
+                            <p><h:outputText value="#{producto.precio}"/> pesos</p>
+                        </h:link>
+                    </li>
+                </ui:repeat>
+            </ul>
+
+            <!-- TODO MEJORA: Mejorar el control de navegacion entre paginas -->
+            <div style="display: table; width: 100%; table-layout: fixed;" class="navegacion">
+                <div style="display: table-cell;">
+                    <h:link outcome="index.xhtml" includeViewParams="true" value="Anterior"
+                            rendered="#{indexBean.navegacion.pagina.intValue() > 1}"
+                            styleClass="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-mini">
+                        <f:param name="pag" value="#{indexBean.navegacion.pagina.intValue() - 1}"/>
+                    </h:link>
+                </div>
+                <div style="display: table-cell; width: 40px; text-align: center; vertical-align: middle ;font-weight: bold;"><h:outputText
+                        value="#{indexBean.navegacion.pagina.intValue()}"/></div>
+                <div style="display: table-cell;">
+                    <h:link outcome="index.xhtml" includeViewParams="true" value="Siguiente"
+                            rendered="#{indexBean.navegacion.pagina.intValue() lt indexBean.navegacion.numeroPaginas.intValue()}"
+                            styleClass="ui-btn ui-corner-all ui-icon-arrow-r ui-btn-icon-right ui-mini">
+                        <f:param name="pag" value="#{indexBean.navegacion.pagina.intValue() + 1}"/>
+                    </h:link>
+                </div>
+            </div>
+
+        </pm:content>
+
+        <pm:footer title="Desarrolado por Andres"/>
+    </pm:page>
+
+</h:body>
+</html>
