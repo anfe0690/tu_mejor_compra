@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+<ui:insert name="metadata"/>
+
+<f:view renderKitId="PRIMEFACES_MOBILE"/>
+
+<h:head>
+
+    <f:facet name="first">
+        <link href="#{request.contextPath}/resources/css/normalize.css" rel="stylesheet"/>
+    </f:facet>
+
+    <!-- CSS -->
+    <h:outputStylesheet name="css/m/layout/layout.css"/>
+    <h:outputStylesheet name="css/m/layout/header.css"/>
+    <h:outputStylesheet name="css/m/layout/footer.css"/>
+    <ui:insert name="css"/>
+
+    <!-- JavaScript -->
+    <h:outputScript name="js/jquery/plugins/jquery.dotdotdot.min.js"/>
+    <ui:insert name="js"/>
+
+</h:head>
+<h:body>
+    <ui:debug hotkey="x"/>
+    <f:view beforePhase="#{phaseLogBean.beforePhase}" afterPhase="#{phaseLogBean.afterPhase}"/>
+
+    <c:if test="#{sesionBean.sesionIniciada}">
+        <f:event type="preRenderView" listener="#{sesionBean.mostrarBienvenida}"/>
+    </c:if>
+
+    <p:growl id="growl" sticky="true" widgetVar="miGrowl"/>
+
+    <pm:page id="pagina-tmc">
+
+        <ui:include src="header.xhtml"/>
+
+        <ui:insert name="content"/>
+
+        <ui:include src="footer.xhtml"/>
+
+    </pm:page>
+
+</h:body>
+
+</html>

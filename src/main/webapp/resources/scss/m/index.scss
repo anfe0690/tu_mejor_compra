@@ -1,109 +1,51 @@
-h1 {
-  text-align: center;
-  font-size: 1em;
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
+.ui-content.contenido-index {
 
-h2 {
-  font-size: 1em;
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
+  .producto-reciente {
 
-.pagina-index {
-
-  > .panel-lateral{
-
-    .ui-listview{
-
-      > .ui-li-static{
-        padding: 0em .5em;
-      }
-
+    .ui-btn:not(.ui-btn-active) {
+      background-color: #ffffff;
     }
 
-  }
-
-  > .ui-header {
-
-    .ui-btn-icon-notext.ui-corner-all {
-      -webkit-border-radius: .3125em;
-      border-radius: .3125em;
+    h2 {
+      margin-top: 0px;
+      white-space: normal;
+      line-height: 1em;
+      font-size: 0.9em;
     }
 
-    .ui-title {
-      margin: 0px;
-      height: 30px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+    p {
+      margin-bottom: 0px;
     }
 
-    .ui-input-search {
-      margin: 0px;
-    }
+    .cont-imagen {
+      display: table;
+      position: absolute;
+      top: 0px;
+      left: 10px;
+      width: 5em;
+      height: 5em;
+      line-height: 0px;
 
-  }
+      div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
 
-  > .ui-content{
-
-    .producto-reciente{
-
-      .ui-btn:not(.ui-btn-active){
-        background-color: #ffffff;
-      }
-
-      h2{
-        margin-top: 0px;
-        white-space: normal;
-        line-height: 1em;
-//        height: 2em;
-        font-size: 0.9em;
-      }
-
-      p{
-        margin-bottom: 0px;
-      }
-
-      .cont-imagen{
-        display: table;
-        position: absolute;
-        top: 0px;
-        left: 10px;
-        width: 5em;
-        height: 5em;
-        line-height: 0px;
-
-        div{
-          display: table-cell;
-          vertical-align: middle;
-          text-align: center;
-
-          img{
-            max-width: 5em;
-            max-height: 5em;
-          }
-
+        img {
+          max-width: 5em;
+          max-height: 5em;
         }
+
       }
-
-    }
-
-    .navegacion{
-
-      a{
-        margin-top: 0px;
-        margin-bottom: 0px;
-      }
-
     }
 
   }
 
-  > .ui-footer {
+  .navegacion {
 
-    > .ui-title {
-      margin: 0px;
+    a {
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
 
   }

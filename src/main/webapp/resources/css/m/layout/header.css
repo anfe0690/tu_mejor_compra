@@ -1,0 +1,13 @@
+.ui-panel.panel-lateral .ui-listview > .ui-li-static {
+  padding: 0em .5em; }
+
+.ui-header.mi-header .ui-btn-icon-notext.ui-corner-all {
+  -webkit-border-radius: .3125em;
+  border-radius: .3125em; }
+.ui-header.mi-header .ui-title {
+  margin: 0px;
+  height: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+.ui-header.mi-header .ui-input-search {
+  margin: 0px; }
