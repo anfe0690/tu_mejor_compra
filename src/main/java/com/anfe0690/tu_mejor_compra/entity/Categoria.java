@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public enum Categoria implements Serializable {
 
-	TELEFONOS_INTELIGENTES("Telefonos inteligentes"),
 	CONSOLAS_VIDEO_JUEGOS("Consolas de video juegos"),
-	TABLETAS("Tabletas");
+    TABLETAS("Tabletas"),
+    TELEFONOS_INTELIGENTES("Telefonos inteligentes");
 
 	private final String valorEstetico;
 

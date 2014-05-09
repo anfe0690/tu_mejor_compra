@@ -51,10 +51,15 @@
                     </c:otherwise>
                 </c:choose>
 
+                <!-- TODO MEJORA: Agregar feedback de la categoria en la que se encuentra -->
                 <li data-role="list-divider">Categorias</li>
-                <li><a href="#">Telefonos inteligentes</a></li>
-                <li><a href="#">Consolas de video juegos</a></li>
-                <li><a href="#">Tabletas</a></li>
+                <ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
+                    <li>
+                        <h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml">
+                            <f:param name="c" value="#{categoria}"/>
+                        </h:link>
+                    </li>
+                </ui:repeat>
 
             </ul>
         </h:form>

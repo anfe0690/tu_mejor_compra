@@ -6,7 +6,6 @@ $(document).ready(function () {
         $("#cont-form-buscar").fadeToggle();
     });
 
-    $(".producto-reciente h2").dotdotdot({ height: 32 });
 });
 
 function mostrarClaves() {

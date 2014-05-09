@@ -8,22 +8,24 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
-            <f:viewAction action="#{indexBean.buscarProductosRecientes}"/>
+            <f:viewParam name="c" value="#{categoriaBean.valor}"/>
+            <f:viewParam name="pagc" value="#{categoriaBean.navegacion.pagina}"/>
+            <f:viewAction action="#{categoriaBean.buscar()}"/>
         </f:metadata>
     </ui:define>
 
     <ui:define name="css">
-        <h:outputStylesheet name="css/m/index.css"/>
+        <h:outputStylesheet name="css/m/categoria.css"/>
     </ui:define>
 
     <ui:define name="js"/>
 
     <ui:define name="content">
-        <pm:content styleClass="contenido-index">
-            <h1>Productos recientes</h1>
+        <pm:content styleClass="contenido-categoria">
+            <h1>Categoria <h:outputText value="#{categoriaBean.categoriaEstetica}"/></h1>
 
-            <andres:mprolista productos="#{indexBean.productosRecientes}" outcome="index.xhtml" navegacion="#{indexBean.navegacion}" />
+            <andres:mprolista productos="#{categoriaBean.resultados}" outcome="categoria.xhtml" navegacion="#{categoriaBean.navegacion}"/>
+
         </pm:content>
     </ui:define>
 

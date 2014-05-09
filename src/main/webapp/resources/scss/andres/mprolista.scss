@@ -1,0 +1,49 @@
+.ui-li-has-thumb.lista-producto {
+
+  .ui-btn:not(.ui-btn-active) {
+    background-color: #ffffff;
+  }
+
+  h2 {
+    margin-top: 0px;
+    white-space: normal;
+    line-height: 1em;
+    font-size: 0.9em;
+  }
+
+  p {
+    margin-bottom: 0px;
+  }
+
+  .cont-imagen {
+    display: table;
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: 5em;
+    height: 5em;
+    line-height: 0px;
+
+    div {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+
+      img {
+        max-width: 5em;
+        max-height: 5em;
+      }
+
+    }
+  }
+
+}
+
+.navegacion-lista-productos {
+
+  a {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+}
