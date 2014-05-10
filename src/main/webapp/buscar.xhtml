@@ -23,6 +23,7 @@
     <ui:define name="js"/>
     <ui:define name="content">
         <p:panel styleClass="buscar">
+            <!-- TODO BUG: Notificar que no se encontraron resultados despues de redireccionar -->
             <h1>Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h1>
             <andres:respro productos="#{buscarBean.resultados}"/>
             <andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}" numpaginas="#{buscarBean.navegacion.numeroPaginas}"
