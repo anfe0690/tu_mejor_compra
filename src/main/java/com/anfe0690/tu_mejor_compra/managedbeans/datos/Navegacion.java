@@ -16,7 +16,7 @@ public class Navegacion implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Navegacion.class);
     // Constantes
     private static final long serialVersionUID = 1L;
-    private static final int PRODUCTOS_POR_PAGINA = 3;
+    private static final int PRODUCTOS_POR_PAGINA = 9;
     //
     private int numeroPaginas;
     private int pagina = 1;

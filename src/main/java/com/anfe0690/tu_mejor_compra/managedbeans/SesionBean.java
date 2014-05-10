@@ -38,8 +38,6 @@ public class SesionBean implements Serializable {
     // Datos
     private Usuario usuario;
     private boolean sesionIniciada = false;
-    //
-    private boolean mostrarBienvenida = false;
 
     @PostConstruct
     public void postConstruct() {
@@ -99,16 +97,17 @@ public class SesionBean implements Serializable {
     // Acciones
     public String iniciarSesion() {
         logger.trace("iniciarSesion()");
-        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
         sesionIniciada = true;
         this.usuario = u;
         logger.info("Sesion iniciada: {}", u.getNombre());
-        Path path = Paths.get(fc.getViewRoot().getViewId());
+        Path path = Paths.get(facesContext.getViewRoot().getViewId());
         String nombreArchivo = path.getName(path.getNameCount() - 1).toString();
         String direccion = nombreArchivo + "?faces-redirect=true&amp;includeViewParams=true";
 //        logger.debug("Redireccion a {}", path.toString().replace('\\', '/'));
-        mostrarBienvenida = true;
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido " + u.getNombre() + ".", null));
+        facesContext.getExternalContext().getFlash().setKeepMessages(true);
         return direccion;
     }
 
@@ -129,14 +128,6 @@ public class SesionBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "index.xhtml?faces-redirect=true";
             facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
-        }
-    }
-
-    public void mostrarBienvenida(ComponentSystemEvent e) {
-        if (mostrarBienvenida) {
-            FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido " + usuario.getNombre(), null));
-            mostrarBienvenida = false;
         }
     }
 

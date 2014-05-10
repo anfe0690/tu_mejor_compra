@@ -35,10 +35,6 @@
     <ui:debug hotkey="x"/>
     <f:view beforePhase="#{phaseLogBean.beforePhase}" afterPhase="#{phaseLogBean.afterPhase}"/>
 
-    <c:if test="#{sesionBean.sesionIniciada}">
-        <f:event type="preRenderView" listener="#{sesionBean.mostrarBienvenida}"/>
-    </c:if>
-
     <p:growl id="growl" sticky="true" widgetVar="miGrowl"/>
 
     <pm:page id="pagina-tmc">
