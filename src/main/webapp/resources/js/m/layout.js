@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $("title").html("Tu mejor compra");
 //            $("#panel-lateral").panel("open");
 
     $("#btn-toggle-form-buscar").click(function () {
