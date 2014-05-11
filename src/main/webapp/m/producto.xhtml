@@ -1,42 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pm="http://primefaces.org/mobile"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition template="../WEB-INF/layout/m/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-<f:view renderKitId="PRIMEFACES_MOBILE"/>
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
+            <f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
+        </f:metadata>
+    </ui:define>
 
-<h:head>
-    <f:facet name="first">
-        <link href="#{request.contextPath}/resources/css/normalize.css" rel="stylesheet"/>
-    </f:facet>
-    <!-- CSS -->
-    <link href="#{request.contextPath}/resources/css/m/perfil.css" rel="stylesheet"/>
-    <!-- Javascript -->
-</h:head>
+    <ui:define name="css">
+        <h:outputStylesheet name="css/m/producto.css"/>
+    </ui:define>
 
-<h:body>
-    <ui:debug hotkey="x"/>
-    <f:view beforePhase="#{phaseLogBean.beforePhase}"/>
-    <f:view afterPhase="#{phaseLogBean.afterPhase}"/>
+    <ui:define name="js">
+        <h:outputScript name="js/m/producto.js" target="head"/>
+    </ui:define>
 
-    <pm:page>
+    <ui:define name="content">
+        <pm:content styleClass="contenido-producto">
+            <h1><h:outputText value="#{mostrarProductoBean.producto.nombre}"/></h1>
 
-        <pm:header>
-            <h1>Producto</h1>
-        </pm:header>
+            <!-- TODO MEJORA: Crear versiones de imagenes mas pequeñas. -->
+            <div style="text-align: center; margin-bottom: 10px;">
+                <h:graphicImage value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"
+                                style="max-width: 288px; max-height: 288px;"/>
+            </div>
 
-        <pm:content>
-            <div>Hola mundo!</div>
+            <p style="margin-top: 0px; margin-bottom: 10px; font-size: 1em; font-weight: bold; color: red;"
+                    >Precio: <h:outputText value="#{mostrarProductoBean.producto.precio}"/> pesos.</p>
+
+            <c:choose>
+                <c:when test="#{not sesionBean.sesionIniciada}">
+                    <p style="margin-top: 0px; margin-bottom: 10px; font-size: 1em; font-weight: bold; color: red;"
+                            >Para poder comprar se debe iniciar sesion.</p>
+                </c:when>
+                <c:otherwise>
+
+                    <div id="popupDialog" data-role="popup" data-overlay-theme="b" data-dismissible="false" style="max-width:400px;"
+                         class="dlg-confirmar-compra">
+                        <div data-role="header" data-theme="a">
+                            <h1>Confirmacion para comprar</h1>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>¿Estás seguro que deseas comprar el producto?</p>
+                            <p>Este se agregará a las ventas de <h:outputText
+                                    value="#{mostrarProductoBean.usuarioVendedor.nombre}"/> y a las compras de <h:outputText
+                                    value="#{sesionBean.usuario.nombre}"/>. Esto se podrá ver en el perfil de cada uno.</p>
+                            <button id="btn-confirmar-compra-no"
+                                    class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left">No
+                            </button>
+                            <button id="btn-confirmar-compra-si"
+                                    class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left">Si
+                            </button>
+                        </div>
+                    </div>
+
+                    <h:form id="form-comprar">
+                        <h:commandButton id="btn-comprar" value="Comprar" action="#{mostrarProductoBean.comprar}" pt:data-icon="shop"/>
+                    </h:form>
+
+                </c:otherwise>
+            </c:choose>
+
+
         </pm:content>
+    </ui:define>
 
-        <pm:footer title="Desarrolado por Andres"/>
-    </pm:page>
-
-</h:body>
-</html>
+</ui:composition>
