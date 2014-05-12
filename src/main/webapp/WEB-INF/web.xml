@@ -26,6 +26,7 @@
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	
+
+    <!-- TODO MEJORA: Agregar pagina cuando la vista ha expirado -->
 
 </web-app>

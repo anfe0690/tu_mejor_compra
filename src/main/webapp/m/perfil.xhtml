@@ -1,42 +1,118 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pm="http://primefaces.org/mobile"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition template="../WEB-INF/layout/m/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-<f:view renderKitId="PRIMEFACES_MOBILE"/>
+    <ui:define name="metadata"/>
 
-<h:head>
-    <f:facet name="first">
-        <link href="#{request.contextPath}/resources/css/normalize.css" rel="stylesheet"/>
-    </f:facet>
-    <!-- CSS -->
-    <link href="#{request.contextPath}/resources/css/m/perfil.css" rel="stylesheet"/>
-    <!-- Javascript -->
-</h:head>
+    <ui:define name="css">
+        <h:outputStylesheet name="css/m/perfil.css"/>
+    </ui:define>
 
-<h:body>
-    <ui:debug hotkey="x"/>
-    <f:view beforePhase="#{phaseLogBean.beforePhase}"/>
-    <f:view afterPhase="#{phaseLogBean.afterPhase}"/>
+    <ui:define name="js">
+        <h:outputScript name="js/m/perfil.js" target="head"/>
+    </ui:define>
 
-    <pm:page styleClass="pagina">
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 
-        <pm:header>
+        <pm:content styleClass="contenido-perfil">
             <h1>Perfil</h1>
-        </pm:header>
 
-        <pm:content>
-            <div>Hola mundo!</div>
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="datos-personales">
+                <h2>Datos personales</h2>
+
+                <h3>Campos generales</h3>
+                <p>Usuario: <h:outputText value="#{sesionBean.usuario.nombre}"/></p>
+                <p>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}"/></p>
+                <p>Correo: <h:outputText value="#{sesionBean.usuario.correo}"/></p>
+                <p>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}"/></p>
+
+                <h3>Campos como comprador</h3>
+                <p>Ciudad: <h:outputText value="#{sesionBean.usuario.ciudad}"/></p>
+                <p>Direccion: <h:outputText value="#{sesionBean.usuario.direccion}"/></p>
+
+                <h3>Campos como vendedor</h3>
+                <p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
+            </div>
+
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" data-collapsed="false" class="mis-productos">
+                <h2>Mis productos</h2>
+
+                <div id="popupDialog" data-role="popup" data-overlay-theme="b" data-dismissible="false" style="max-width:400px;"
+                     class="dlg-confirmar-eliminar-producto">
+                    <div data-role="header" data-theme="a">
+                        <h1>Eliminar producto(s)</h1>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>¿Estás seguro que deseas eliminar el/los producto(s) seleccionado(s)?</p>
+                        <button id="btn-confirmar-eliminar-producto-no"
+                                class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left">No
+                        </button>
+                        <button id="btn-confirmar-eliminar-producto-si"
+                                class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left">Si
+                        </button>
+                    </div>
+                </div>
+
+                <h:form id="form-mis-productos">
+
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <h:link value="Crear" outcome="crear_producto.xhtml"
+                                    styleClass="ui-btn ui-mini ui-icon-plus ui-btn-icon-left ui-corner-all ui-shadow"/>
+                        </div>
+                        <div class="ui-block-b">
+                            <h:commandButton id="btn-eliminar-producto" value="Eliminar" pt:data-mini="true" pt:data-icon="minus"
+                                             actionListener="#{perfilBean.eliminarProductos()}" onclick="return confirmarEliminar()"
+                                             disabled="#{perfilBean.deshabilitadoBotonEliminarProductos()}">
+                                <f:ajax execute="@this" render="@form" onevent="buttonSubmitAjax" />
+                            </h:commandButton>
+                        </div>
+                    </div>
+
+                    <ui:repeat id="repeat" value="#{perfilBean.selProductos}" var="selproducto">
+                        <div class="producto">
+                            <h:outputLabel for="checkbox-seleccion" value="Seleccionar"/>
+                            <h:selectBooleanCheckbox id="checkbox-seleccion" value="#{selproducto.seleccionado}" pt:data-mini="true">
+                                <f:ajax event="change" execute="@this" render=":pagina-tmc:form-mis-productos:btn-eliminar-producto"
+                                        onevent="checkBoxAjax"/>
+                            </h:selectBooleanCheckbox>
+
+                            <div class="contenido">
+                                <div class="nombre"><h:outputText
+                                        value="#{selproducto.producto.nombre}"/></div>
+                                <div style="display: table; width: 100%; table-layout: fixed;">
+                                    <div style="display: table-cell; width: 80px; vertical-align: middle; text-align: center;">
+                                        <h:graphicImage
+                                                value="/imgs/#{selproducto.producto.direccionImagen}"/>
+                                    </div>
+                                    <div class="precio" style="display: table-cell; vertical-align: middle; padding-left: 10px">
+                                        <h:outputText
+                                                value="#{selproducto.producto.precio}"/> pesos.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </h:form>
+
+            </div>
+
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-productos">
+                <h2>Mis ventas</h2>
+
+            </div>
+
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-productos">
+                <h2>Mis compras</h2>
+
+            </div>
+
         </pm:content>
+    </ui:define>
 
-        <pm:footer title="Desarrolado por Andres"/>
-    </pm:page>
-
-</h:body>
-</html>
+</ui:composition>
