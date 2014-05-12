@@ -20,7 +20,7 @@
         <f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
 
         <pm:content styleClass="contenido-perfil">
-            <h1>Perfil</h1>
+            <h1>Perfil: <h:outputText value="#{sesionBean.usuario.nombre}"/></h1>
 
             <div data-role="collapsible" data-mini="true" data-iconpos="right" class="datos-personales">
                 <h2>Datos personales</h2>
@@ -39,7 +39,7 @@
                 <p>Banco: <h:outputText value="#{sesionBean.usuario.banco}"/></p>
             </div>
 
-            <div data-role="collapsible" data-mini="true" data-iconpos="right" data-collapsed="false" class="mis-productos">
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-productos">
                 <h2>Mis productos</h2>
 
                 <div id="popupDialog" data-role="popup" data-overlay-theme="b" data-dismissible="false" style="max-width:400px;"
@@ -69,7 +69,7 @@
                             <h:commandButton id="btn-eliminar-producto" value="Eliminar" pt:data-mini="true" pt:data-icon="minus"
                                              actionListener="#{perfilBean.eliminarProductos()}" onclick="return confirmarEliminar()"
                                              disabled="#{perfilBean.deshabilitadoBotonEliminarProductos()}">
-                                <f:ajax execute="@this" render="@form" onevent="buttonSubmitAjax" />
+                                <f:ajax execute="@this" render="@form :pagina-tmc:form-mis-ventas" onevent="buttonSubmitAjax" />
                             </h:commandButton>
                         </div>
                     </div>
@@ -102,8 +102,44 @@
 
             </div>
 
-            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-productos">
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" data-collapsed="false" class="mis-ventas">
                 <h2>Mis ventas</h2>
+
+                <h:form id="form-mis-ventas">
+
+                    <h:commandButton id="btn-actualizar-ventas" value="Actualizar" pt:data-mini="true" pt:data-icon="refresh"
+                                     actionListener="#{perfilBean.actualizarVentas()}">
+                        <f:ajax execute="@form" render="@form" onevent="botonActualizarVentasAjax" />
+                    </h:commandButton>
+
+                    <ui:repeat id="repeat" value="#{perfilBean.misVentas}" var="filaTransaccion">
+                        <div class="venta">
+                            <div style="text-align: center;"><h:graphicImage
+                                    value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/></div>
+                            <div>
+                                <span style="font-weight: bold">Nombre: </span>
+                                <h:outputText value="#{filaTransaccion.transaccion.producto.nombre}" />
+                            </div>
+                            <div>
+                                <span style="font-weight: bold">Comprador: </span>
+                                <h:outputText value="#{filaTransaccion.transaccion.usuarioComprador.nombre}"/>
+                            </div>
+
+                            <div>
+                                <span style="font-weight: bold">Estado: </span>
+                                <h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'ESPERANDO_PAGO'}" pt:data-mini="true"
+                                                 value="#{filaTransaccion.nuevoEstado}">
+                                    <f:selectItem itemLabel="Esperando pago" itemValue="ESPERANDO_PAGO"/>
+                                    <f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+                                </h:selectOneMenu>
+                                <h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}"
+                                              value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
+                            </div>
+
+                        </div>
+                    </ui:repeat>
+
+                </h:form>
 
             </div>
 

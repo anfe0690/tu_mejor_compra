@@ -38,27 +38,37 @@ function efectoSeleccionCheckBox() {
 
 function checkBoxAjax(event) {
     /*console.info("event.type = " + event.type);
-    console.info("event.source = " + event.source);
-    console.info("event.status = " + event.status);*/
+     console.info("event.source = " + event.source);
+     console.info("event.status = " + event.status);*/
     if (event.status === "success") {
         $("#pagina-tmc\\:form-mis-productos\\:btn-eliminar-producto").button("refresh");
     }
 }
 
-function buttonSubmitAjax(event){
+function buttonSubmitAjax(event) {
     if (event.status === "success") {
         $("#pagina-tmc\\:form-mis-productos\\:btn-eliminar-producto").button();
         $(".producto").find("input[type='checkbox']").checkboxradio();
         efectoSeleccionCheckBox();
+
+        $("#pagina-tmc\\:form-mis-ventas\\:btn-actualizar-ventas").button();
+        $(".venta").find("select").selectmenu();
     }
 }
 
-function confirmarEliminar(){
-    if( !confirmacionParaEliminar ){
+function confirmarEliminar() {
+    if (!confirmacionParaEliminar) {
         $("#popupDialog").popup("open");
-    }else{
+    } else {
         confirmacionParaEliminar = false;
         return true;
     }
     return false;
+}
+
+function botonActualizarVentasAjax(event) {
+    if (event.status === "success") {
+        $("#pagina-tmc\\:form-mis-ventas\\:btn-actualizar-ventas").button();
+        $(".venta").find("select").selectmenu();
+    }
 }
