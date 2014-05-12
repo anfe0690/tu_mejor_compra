@@ -72,3 +72,10 @@ function botonActualizarVentasAjax(event) {
         $(".venta").find("select").selectmenu();
     }
 }
+
+function botonActualizarComprassAjax(event) {
+    if (event.status === "success") {
+        $("#pagina-tmc\\:form-mis-compras\\:btn-actualizar-compras").button();
+        $(".compra").find("select").selectmenu();
+    }
+}

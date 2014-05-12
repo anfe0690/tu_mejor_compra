@@ -102,7 +102,7 @@
 
             </div>
 
-            <div data-role="collapsible" data-mini="true" data-iconpos="right" data-collapsed="false" class="mis-ventas">
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-ventas">
                 <h2>Mis ventas</h2>
 
                 <h:form id="form-mis-ventas">
@@ -135,7 +135,6 @@
                                 <h:outputText rendered="#{filaTransaccion.transaccion.estado != 'ESPERANDO_PAGO'}"
                                               value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
                             </div>
-
                         </div>
                     </ui:repeat>
 
@@ -143,8 +142,43 @@
 
             </div>
 
-            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-productos">
+            <div data-role="collapsible" data-mini="true" data-iconpos="right" class="mis-compras">
                 <h2>Mis compras</h2>
+
+                <h:form id="form-mis-compras">
+
+                    <h:commandButton id="btn-actualizar-compras" value="Actualizar" pt:data-mini="true" pt:data-icon="refresh"
+                                     actionListener="#{perfilBean.actualizarCompras()}">
+                        <f:ajax execute="@form" render="@form" onevent="botonActualizarComprassAjax" />
+                    </h:commandButton>
+
+                    <ui:repeat id="repeat" value="#{perfilBean.misCompras}" var="filaTransaccion">
+                        <div class="compra">
+                            <div style="text-align: center;"><h:graphicImage
+                                    value="/imgs/#{filaTransaccion.transaccion.producto.direccionImagen}"/></div>
+                            <div>
+                                <span style="font-weight: bold">Nombre: </span>
+                                <h:outputText value="#{filaTransaccion.transaccion.producto.nombre}" />
+                            </div>
+                            <div>
+                                <span style="font-weight: bold">Vendedor: </span>
+                                <h:outputText value="#{filaTransaccion.transaccion.usuarioVendedor.nombre}"/>
+                            </div>
+
+                            <div>
+                                <span style="font-weight: bold">Estado: </span>
+                                <h:selectOneMenu rendered="#{filaTransaccion.transaccion.estado == 'EN_ENVIO'}" pt:data-mini="true"
+                                                 value="#{filaTransaccion.nuevoEstado}">
+                                    <f:selectItem itemLabel="En envio" itemValue="EN_ENVIO"/>
+                                    <f:selectItem itemLabel="Terminado" itemValue="TERMINADO"/>
+                                </h:selectOneMenu>
+                                <h:outputText rendered="#{filaTransaccion.transaccion.estado != 'EN_ENVIO'}"
+                                              value="#{filaTransaccion.transaccion.estado.valorEstetico}"/>
+                            </div>
+                        </div>
+                    </ui:repeat>
+
+                </h:form>
 
             </div>
 

@@ -52,6 +52,24 @@
   .ui-content.contenido-perfil .mis-ventas .venta img {
     max-width: 80px;
     max-height: 80px; }
+.ui-content.contenido-perfil .mis-compras .compra {
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  -moz-border-radius: .3125em;
+  -webkit-border-radius: .3125em;
+  border-radius: .3125em; }
+  .ui-content.contenido-perfil .mis-compras .compra div {
+    margin-top: 5px;
+    margin-bottom: 5px; }
+  .ui-content.contenido-perfil .mis-compras .compra div:first-child {
+    margin-top: 0px; }
+  .ui-content.contenido-perfil .mis-compras .compra div:last-child {
+    margin-bottom: 0px; }
+  .ui-content.contenido-perfil .mis-compras .compra img {
+    max-width: 80px;
+    max-height: 80px; }
 
 .ui-popup.dlg-confirmar-eliminar-producto h1 {
   margin: 0px; }
