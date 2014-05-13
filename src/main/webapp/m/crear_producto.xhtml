@@ -1,11 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-</html>
+<ui:composition template="../WEB-INF/layout/m/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <ui:define name="metadata"/>
+
+    <ui:define name="css">
+        <h:outputStylesheet name="css/m/crear_producto.css"/>
+    </ui:define>
+
+    <ui:define name="js">
+        <h:outputScript name="js/m/crear_producto.js" target="head"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <pm:content styleClass="contenido-crear-producto">
+            <h1>Crear producto</h1>
+
+            <div style="text-align: center;">
+                <h:graphicImage id="imagen" name="images/sel-imagen.png" style="max-width: 286px; max-height: 286px; border: 1px dashed black;" />
+            </div>
+
+            <h:form id="form-crear-producto" enctype="multipart/form-data">
+
+                <h:inputFile id="archivo-imagen" value="#{crearProductoBean.file}" pt:data-mini="true" pt:accept="image/*"
+                             validator="#{crearProductoBean.validarImagenProducto}">
+                    <f:ajax event="change" execute="@this" render=":growl" onevent="formAjax"/>
+                </h:inputFile>
+
+                <div style="margin-top: 20px; margin-bottom: 20px;">
+                    <h:outputLabel for="nombre-producto" value="Nombre de producto"/>
+                    <h:inputText id="nombre-producto" value="#{crearProductoBean.nombre}" pt:placeholder="Nombre de producto" pt:data-mini="true"
+                                 validator="#{crearProductoBean.validarNombreProducto}">
+                        <f:ajax execute="@this" render=":growl" onevent="formAjax"/>
+                    </h:inputText>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h:outputLabel for="precio-producto" value="Precio de producto"/>
+                    <h:inputText id="precio-producto" value="#{crearProductoBean.precio}" pt:placeholder="Precio de producto" pt:data-mini="true"
+                                 validator="#{crearProductoBean.validarPrecioProducto}">
+                        <f:ajax execute="@this" render=":growl" onevent="formAjax"/>
+                    </h:inputText>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h:outputLabel for="categoria-producto" value="Categoria"/>
+                    <h:selectOneMenu id="categoria-producto" value="#{crearProductoBean.categoria}" pt:data-mini="true">
+                        <f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
+                        <f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
+                        <f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <h:commandButton id="boton-crear-producto" value="Crear" action="#{crearProductoBean.crearProducto()}" pt:data-mini="true"
+                        pt:data-icon="plus">
+                    <f:ajax execute="@form" render=":growl" onevent="formAjax"/>
+                </h:commandButton>
+
+            </h:form>
+
+        </pm:content>
+    </ui:define>
+
+</ui:composition>

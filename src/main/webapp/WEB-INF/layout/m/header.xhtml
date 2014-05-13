@@ -41,7 +41,7 @@
                     <c:otherwise>
                         <c:if test="#{not facesContext.viewRoot.viewId.endsWith('perfil.xhtml')}">
                             <li>
-                                <h:button outcome="perfil.xhtml" value="Perfil" pt:data-mini="true"/>
+                                <h:link outcome="perfil.xhtml" value="Perfil" pt:data-mini="true"/>
                             </li>
                         </c:if>
                         <li>
