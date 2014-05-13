@@ -54,6 +54,13 @@ function buttonSubmitAjax(event) {
         $("#pagina-tmc\\:form-mis-ventas\\:btn-actualizar-ventas").button();
         $(".venta").find("select").selectmenu();
     }
+
+    if (event.status === "begin") {
+        $.mobile.loading( "show", { text: "procesando...", textVisible: true } );
+    }
+    if (event.status === "success") {
+        $.mobile.loading( "hide" );
+    }
 }
 
 function confirmarEliminar() {
@@ -71,11 +78,25 @@ function botonActualizarVentasAjax(event) {
         $("#pagina-tmc\\:form-mis-ventas\\:btn-actualizar-ventas").button();
         $(".venta").find("select").selectmenu();
     }
+
+    if (event.status === "begin") {
+        $.mobile.loading( "show", { text: "procesando...", textVisible: true } );
+    }
+    if (event.status === "success") {
+        $.mobile.loading( "hide" );
+    }
 }
 
 function botonActualizarComprassAjax(event) {
     if (event.status === "success") {
         $("#pagina-tmc\\:form-mis-compras\\:btn-actualizar-compras").button();
         $(".compra").find("select").selectmenu();
+    }
+
+    if (event.status === "begin") {
+        $.mobile.loading( "show", { text: "procesando...", textVisible: true } );
+    }
+    if (event.status === "success") {
+        $.mobile.loading( "hide" );
     }
 }
