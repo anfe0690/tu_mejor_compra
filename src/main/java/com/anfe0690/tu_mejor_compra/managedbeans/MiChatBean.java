@@ -1,6 +1,6 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ContextListener;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -10,11 +10,11 @@ import javax.inject.Named;
 public class MiChatBean {
 
 	public String getHost() {
-		return System.getProperty(WebContainerListener.K_HOST);
+		return System.getProperty(ContextListener.K_HOST);
 	}
 
 	public String getPuertoWebsockets() {
-		return System.getProperty(WebContainerListener.K_PUERTO_WEBSOCKETS);
+		return System.getProperty(ContextListener.K_PUERTO_WEBSOCKETS);
 	}
 
 }

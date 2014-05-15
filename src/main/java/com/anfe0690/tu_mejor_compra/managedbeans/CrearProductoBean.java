@@ -1,6 +1,6 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
-import com.anfe0690.tu_mejor_compra.WebContainerListener;
+import com.anfe0690.tu_mejor_compra.ContextListener;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeProductos;
 import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
@@ -16,7 +16,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -185,7 +184,7 @@ public class CrearProductoBean implements Serializable {
 		File f;
 		try {
 			f = File.createTempFile("img", fileName.substring(fileName.lastIndexOf(".")),
-					new File(System.getProperty(WebContainerListener.K_DIR_DATOS) + usuario.getNombre() + "/"));
+					new File(System.getProperty(ContextListener.K_DIR_DATOS) + usuario.getNombre() + "/"));
 		} catch (IOException ex) {
 			logger.error(null, ex);
 			return "index.xhtml?faces-redirect=true";
