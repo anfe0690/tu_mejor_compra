@@ -1,76 +1,119 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-				xmlns:p="http://primefaces.org/ui">
-	<div class="row">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-		<div class="col-xs-12 tema b-sesion">
-			<h:form id="form-sesion" >
-				<div class="row">
-					<c:choose>
-						<!-- Iniciar sesion -->
-						<c:when test="#{!sesionBean.sesionIniciada}">
-							<f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
+    <c:if test="#{not sesionBean.sesionIniciada}">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-							<h:panelGroup layout="block"
-										  styleClass="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 contenedor-boton-contrasenas altura-linea">
-								<!-- TODO MEJORA: Mostrar contraseñas en un dialogo de Primefaces -->
-								<p:button styleClass="boton-contrasenas" id="contrasenas" value="Contraseñas"/>
-							</h:panelGroup>
-							<h:panelGroup rendered="#{not empty facesContext.getMessageList('form-sesion')}">
-								<div class="col-md-12 col-lg-4 alinear-centro altura-linea">
-									<p:message id="msg-form-sesion" for="form-sesion" />
-								</div>
-								<div class="col-md-2 visible-md"/>
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="col-md-2 col-lg-4 visible-md visible-lg"
-										  rendered="#{empty facesContext.getMessageList('form-sesion')}">
-							</h:panelGroup>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
+                        <h4 class="modal-title" id="myModalLabel">Iniciar sesion</h4>
+                    </div>
 
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura-linea">
-									<label class="etiqueta" for="form-sesion:nombre-usuario">Usuario</label>
-								</div>
-								<div class="altura-linea" style="margin-left: 70px;">
-									<p:inputText styleClass="campo" id="nombre-usuario" value="#{sesionBean.campoNombreUsuario}"
-												 pt:required="required"
-												 pt:placeholder="Usuario"/>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="cont-etiqueta altura-linea">
-									<label class="etiqueta" for="form-sesion:contrasena-usuario">Contraseña</label>
-								</div>
-								<div class="altura-linea" style="margin-left: 90px;">
-									<p:password styleClass="campo" id="contrasena-usuario" value="#{sesionBean.campoContrasena}"
-												pt:required="required"
-												pt:placeholder="Contraseña"/>
-								</div>
-							</div>
+                    <div class="modal-body">
+                        <h:form id="form-iniciar-sesion" pt:role="form">
+                            <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
 
-							<div class="col-sm-12 col-md-2 altura-linea">
-								<p:commandButton styleClass="boton-submit" value="Iniciar sesion" ajax="false"
-												 action="#{sesionBean.iniciarSesion()}"/>
-							</div>
-						</c:when>
+                            <div class="form-group #{view.findComponent(':form-iniciar-sesion:nombre-usuario').valid ? '' : 'has-error has-feedback'}">
+                                <h:outputLabel for="nombre-usuario" styleClass="control-label" value="Usuario"/>
+                                <h:inputText id="nombre-usuario" styleClass="form-control" pt:placeholder="Usuario"
+                                             value="#{sesionBean.campoNombreUsuario}"/>
+                                <h:panelGroup layout="span" class="glyphicon glyphicon-remove form-control-feedback"
+                                        rendered="#{not view.findComponent(':form-iniciar-sesion:nombre-usuario').valid}"/>
+                            </div>
 
-						<!-- Cerrar sesion -->
-						<c:otherwise>
-							<div class="col-xs-12 altura-linea alinear-derecha">
-								<h:outputText styleClass="nombre-usuario" value="#{sesionBean.usuario.nombre}"/>
-								<c:if test="#{view.viewId != '/perfil.xhtml'}">
-									<h:link styleClass="link-perfil" outcome="perfil.xhtml" value="perfil"/>
-								</c:if>
-								<p:commandButton value="Cerrar sesion" ajax="false"
-												 action="#{sesionBean.cerrarSesion()}"/>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</h:form>
-		</div>
-	</div>
+                            <div class="form-group #{view.findComponent(':form-iniciar-sesion:contrasena-usuario').valid ? '' : 'has-error has-feedback'}"
+                                 style="margin-bottom: 0px;">
+                                <h:outputLabel for="contrasena-usuario" styleClass="control-label" value="Contraseña"/>
+                                <h:inputSecret id="contrasena-usuario" styleClass="form-control" pt:placeholder="Contraseña"
+                                               value="#{sesionBean.campoContrasena}"/>
+                                <h:panelGroup layout="span" class="glyphicon glyphicon-remove form-control-feedback"
+                                              rendered="#{not view.findComponent(':form-iniciar-sesion:contrasena-usuario').valid}"/>
+                                <p class="help-block">Las posibles combinaciones son: andres = 123, carlos = 456 y fernando = 789.</p>
+                            </div>
+
+                            <h:commandButton id="btn-iniciar-sesion" styleClass="btn btn-default" style="display: none;"
+                                             value="Iniciar sesion"
+                                             action="#{sesionBean.iniciarSesion()}"/>
+                        </h:form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button id="form-iniciar-sesion-submit-helper" type="button" class="btn btn-primary">Iniciar sesion</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+    <nav class="navbar navbar-default b-sesion" role="navigation">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Mostrar/ocultar navegacion</span>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                </button>
+                <h:link outcome="index.xhtml" value="Tu mejor compra" styleClass="navbar-brand"/>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <h:form id="form-buscar" styleClass="navbar-form navbar-left" pt:role="search">
+                    <div class="input-group">
+
+                        <h:inputText id="texto" styleClass="form-control" pt:placeholder="Buscar producto" value="#{headerBean.valor}"/>
+
+                        <span class="input-group-btn">
+                            <button jsf:id="btn-submit" type="submit" class="btn btn-default"
+                                    jsf:action="buscar.xhtml?faces-redirect=true&amp;includeViewParams=true">
+                                <f:param name="valor" value="#{headerBean.valor}"/>
+                                <span class="glyphicon glyphicon-search"/>
+                            </button>
+                        </span>
+
+                    </div>
+                </h:form>
+
+                <div class="nav navbar-nav navbar-right cont-btn-iniciar-sesion" style="text-align: center;">
+                    <c:choose>
+                        <c:when test="#{not sesionBean.sesionIniciada}">
+                            <button class="btn btn-default navbar-btn" style="width: 100%;" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-user"/> Iniciar sesion
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="navbar-text" style="float: none; margin-left: 0px; margin-right: 5px; font-weight: bold;">
+                                <h:outputText value="#{sesionBean.usuario.nombre}"/>
+                            </span>
+                            <c:if test="#{not facesContext.viewRoot.viewId.endsWith('perfil.xhtml')}">
+                                <h:link styleClass="navbar-link" style="margin-right: 5px;" outcome="perfil.xhtml" value="perfil"/>
+                            </c:if>
+                            <h:form id="form-cerrar-sesion">
+                                <button jsf:id="btn-cerrar-sesion" type="submit" class="btn btn-default navbar-btn" style="width: 100%;"
+                                        jsf:action="#{sesionBean.cerrarSesion()}">
+                                    <span class="glyphicon glyphicon-user"/> Cerrar sesion
+                                </button>
+                            </h:form>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+
 </ui:composition>

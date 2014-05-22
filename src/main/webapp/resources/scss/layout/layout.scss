@@ -1,36 +1,36 @@
 
-.mensaje-error{
-	color: red;
-	font-weight: bold;
+.mensaje-error {
+  color: red;
+  font-weight: bold;
 }
 
-.tema{
-    box-shadow: 1px 1px 2px;
-	background-color: white;
+.tema {
+  box-shadow: 1px 1px 2px;
+  background-color: white;
 }
 
-body{
+/*body{
 	background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
+}*/
+
+.altura-linea {
+  height: 35px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.altura-linea{
-	height: 35px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+.titulo-bloque {
+  margin: 0px 0px 10px 0px;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 35px;
+  text-align: center;
 }
 
-.titulo-bloque{
-	margin: 0px 0px 10px 0px;
-	font-size: 25px;
-	font-weight: bold;
-	line-height: 35px;
-	text-align: center;
+#javax_faces_developmentstage_messages {
+  margin: 0px;
 }
 
-#javax_faces_developmentstage_messages{
-	margin: 0px;
-}
-
-.ui-widget{
-	font-size: 12px;
+.ui-widget {
+  font-size: 12px;
 }

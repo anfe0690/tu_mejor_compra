@@ -6,9 +6,9 @@
   box-shadow: 1px 1px 2px;
   background-color: white; }
 
-body {
-  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images); }
-
+/*body{
+	background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images);
+}*/
 .altura-linea {
   height: 35px;
   padding-top: 5px;

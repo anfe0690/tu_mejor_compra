@@ -68,39 +68,40 @@ public class SesionBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		// Comprobar si el nombre de usuario esta vacio
 		if (inputUsuario.getLocalValue() == null || inputUsuario.getLocalValue().toString().trim().isEmpty()) {
-			logger.warn("Nombre de usuario vacio!");
+			logger.warn("Nombre de usuario vacio!.");
             inputUsuario.setValid(false);
-			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!", null));
-			return;
+			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!.", null));
 		}
 
 		// Comprobar si la contraseña esta vacia
 		if (inputContraseña.getLocalValue() == null || inputContraseña.getLocalValue().toString().trim().isEmpty()) {
-			logger.warn("Contraseña vacia!");
+			logger.warn("Contraseña vacia!.");
             inputContraseña.setValid(false);
-			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!", null));
+			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!.", null));
 			return;
 		}
 
 		// Comprobar la relacion de usuario y contraseña
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
 		if (u == null || !u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
-            logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\"", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
+            logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\".", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
             inputUsuario.setValid(false);
             inputContraseña.setValid(false);
-            context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos", null));
+            context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos.", null));
 		}
 	}
 
 	// Acciones
 	public String iniciarSesion() {
 		logger.trace("iniciarSesion()");
-		FacesContext fc = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(campoNombreUsuario);
 		sesionIniciada = true;
 		this.usuario = u;
 		logger.info("Sesion iniciada: {}", u.getNombre());
-		return fc.getViewRoot().getViewId().substring(1) + "?faces-redirect=true&amp;includeViewParams=true";
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido " + u.getNombre() + ".", null));
+        facesContext.getExternalContext().getFlash().setKeepMessages(true);
+		return facesContext.getViewRoot().getViewId().substring(1) + "?faces-redirect=true&amp;includeViewParams=true";
 	}
 
 	public String cerrarSesion() throws IOException {
@@ -111,6 +112,8 @@ public class SesionBean implements Serializable {
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 		session.invalidate();
         logger.info("Sesion cerrada: {}", nombre);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sesion cerrada.", null));
+        context.getExternalContext().getFlash().setKeepMessages(true);
 		return "index.xhtml?faces-redirect=true";
 	}
 
