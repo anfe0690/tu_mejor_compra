@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<composite:interface>
-    <composite:attribute name="outcome" required="true" type="java.lang.String"/>
-    <composite:attribute name="pagina" required="true" type="java.lang.Integer"/>
-    <composite:attribute name="numpaginas" required="true" type="java.lang.Integer"/>
-    <composite:attribute name="nombrevarpagina" required="true" type="java.lang.String"/>
-</composite:interface>
+<cc:interface>
+    <cc:attribute name="productos" required="true" type="java.util.List"/>
+    <cc:attribute name="outcome" required="true" type="java.lang.String"/>
+    <cc:attribute name="pagina" required="true" type="java.lang.Integer"/>
+    <cc:attribute name="numpaginas" required="true" type="java.lang.Integer"/>
+    <cc:attribute name="nombrevarpagina" required="true" type="java.lang.String"/>
+</cc:interface>
 
-<composite:implementation>
+<cc:implementation>
+
+    <div class="row">
+        <ui:repeat value="#{cc.attrs.productos}" var="producto" varStatus="status">
+
+            <div class="col-xs-12 col-sm-6 col-lg-4 b-respro">
+                <div class="thumbnail" style="margin-bottom: 0px;">
+                    <h:link outcome="producto.xhtml" includeViewParams="true">
+                        <h:graphicImage value="/imgs/#{producto.direccionImagen}" style="max-width: 100%; max-height: 150px;"/>
+                        <f:param name="pid" value="#{producto.id}"/>
+                    </h:link>
+
+                    <div class="caption">
+                        <div style="margin-bottom: 0.5em; font-weight: bold;">
+                            <h:outputText value="#{producto.nombre}"/>
+                        </div>
+                        <div style="margin-bottom: 0.5em;">Precio: <h:outputText value="#{producto.precio}"
+                                                                                 style="color: red; font-weight: bold;"/> pesos.
+                        </div>
+                        <div>
+                            <h:link outcome="producto.xhtml" includeViewParams="true" value="Ver" styleClass="btn btn-default btn-block">
+                                <f:param name="pid" value="#{producto.id}"/>
+                            </h:link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h:panelGroup rendered="#{(status.index+1) mod 2 eq 0}" layout="block" styleClass="clearfix visible-sm visible-md"/>
+            <h:panelGroup rendered="#{(status.index+1) mod 3 eq 0}" layout="block" styleClass="clearfix visible-lg"/>
+
+        </ui:repeat>
+    </div>
+
     <div class="b-navegacion">
         <ul class="pagination">
             <li class="#{cc.attrs.pagina.intValue() > 1 ? '':'disabled'}">
@@ -67,6 +103,7 @@
 
         </ul>
     </div>
-</composite:implementation>
+
+</cc:implementation>
 
 </html>

@@ -17,8 +17,7 @@
 	<ui:define name="title">Buscar - Tu mejor compra</ui:define>
 	<ui:define name="css">
 		<link href="#{request.contextPath}/resources/css/buscar.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/lispro.css" rel="stylesheet"/>
 	</ui:define>
 	<ui:define name="js">
         <h:outputScript name="js/buscar.js"/>
@@ -30,9 +29,8 @@
                     <h3 class="panel-title">Buscar "<h:outputText value="#{buscarBean.valor}"/>"</h3>
                 </div>
                 <div class="panel-body">
-                    <andres:respro productos="#{buscarBean.resultados}"/>
-                    <andres:nav outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}" numpaginas="#{buscarBean.navegacion.numeroPaginas}"
-                                nombrevarpagina="pagb"/>
+                    <andres:lispro productos="#{buscarBean.resultados}" outcome="buscar.xhtml" pagina="#{buscarBean.navegacion.pagina}"
+                                   numpaginas="#{buscarBean.navegacion.numeroPaginas}" nombrevarpagina="pagb"/>
                 </div>
             </div>
 		</section>

@@ -16,8 +16,7 @@
 	<ui:define name="title"><h:outputText value="Categoria #{categoriaBean.categoriaEstetica}" /> - Tu mejor compra</ui:define>
 	<ui:define name="css">
 		<link href="#{request.contextPath}/resources/css/categoria.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/lispro.css" rel="stylesheet"/>
 	</ui:define>
 	<ui:define name="content">
 		<section class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 categoria">
@@ -26,10 +25,9 @@
                     <h3 class="panel-title">Categoria <h:outputText value="#{categoriaBean.categoriaEstetica}" /></h3>
                 </div>
                 <div class="panel-body">
-                    <andres:respro productos="#{categoriaBean.resultados}"/>
-                    <andres:nav outcome="categoria.xhtml" pagina="#{categoriaBean.navegacion.pagina}"
-                                numpaginas="#{categoriaBean.navegacion.numeroPaginas}"
-                                nombrevarpagina="pagc"/>
+                    <andres:lispro productos="#{categoriaBean.resultados}" outcome="categoria.xhtml"
+                                   pagina="#{categoriaBean.navegacion.pagina}" numpaginas="#{categoriaBean.navegacion.numeroPaginas}"
+                                   nombrevarpagina="pagc"/>
                 </div>
             </div>
 		</section>

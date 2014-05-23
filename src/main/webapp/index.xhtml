@@ -13,8 +13,7 @@
     <ui:define name="title">Inicio - Tu mejor compra</ui:define>
     <ui:define name="css">
         <link href="#{request.contextPath}/resources/css/index.css" rel="stylesheet"/>
-        <link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
-        <link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/lispro.css" rel="stylesheet"/>
     </ui:define>
     <ui:define name="js"/>
     <ui:define name="content">
@@ -24,10 +23,8 @@
                     <h3 class="panel-title">Productos recientes</h3>
                 </div>
                 <div class="panel-body">
-                    <andres:respro productos="#{indexBean.productosRecientes}"/>
-                    <andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}"
-                                numpaginas="#{indexBean.navegacion.numeroPaginas}"
-                                nombrevarpagina="pag"/>
+                    <andres:lispro productos="#{indexBean.productosRecientes}" outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}"
+                                   nombrevarpagina="pag"  numpaginas="#{indexBean.navegacion.numeroPaginas}"/>
                 </div>
             </div>
         </section>
