@@ -9,6 +9,7 @@
                 <h3 class="panel-title">Categorias</h3>
             </div>
             <div class="list-group">
+                <!-- TODO MEJORA: Agregar Badges a la lista de categorias -->
                 <ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
                     <h:link outcome="categoria.xhtml" value="#{categoria.valorEstetico}"
                             styleClass="list-group-item #{ listaCategoriasBean.valor != categoria ? '':'active' }">
