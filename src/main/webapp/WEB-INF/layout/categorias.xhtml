@@ -1,20 +1,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-	<aside class="col-xs-12 col-sm-4 col-md-4" >
-		<div class="tema b-categorias">
-			<h1 class="titulo-bloque">Categorias</h1>
-			<ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
-				<h:link value="#{categoria.valorEstetico}" outcome="categoria.xhtml" rendered="#{listaCategoriasBean.valor != categoria}"
-						styleClass="link-habilitado">
-					<f:param name="c" value="#{categoria}"/>
-				</h:link>
-				<h:outputText value="#{categoria.valorEstetico}" rendered="#{listaCategoriasBean.valor == categoria}" styleClass="link-desabilitado"/>
-			</ui:repeat>
-		</div>
+	<aside class="col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9" >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Categorias</h3>
+            </div>
+            <div class="list-group">
+                <ui:repeat value="#{listaCategoriasBean.categorias}" var="categoria">
+                    <h:link outcome="categoria.xhtml" value="#{categoria.valorEstetico}"
+                            styleClass="list-group-item #{ listaCategoriasBean.valor != categoria ? '':'active' }">
+                        <f:param name="c" value="#{categoria}"/>
+                    </h:link>
+                </ui:repeat>
+            </div>
+        </div>
 	</aside>
 
 </ui:composition>

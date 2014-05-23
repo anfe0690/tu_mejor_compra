@@ -43,9 +43,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-
                 <h:messages style="display: none;" />
-
                 <c:forEach items="#{facesContext.messageList}" var="mensaje">
                     <c:choose>
 
@@ -72,8 +70,12 @@
 
                     </c:choose>
                 </c:forEach>
-
             </div>
+        </div>
+
+        <div class="row">
+            <ui:insert name="content"/>
+            <ui:include src="categorias.xhtml"/>
         </div>
 
         <!--

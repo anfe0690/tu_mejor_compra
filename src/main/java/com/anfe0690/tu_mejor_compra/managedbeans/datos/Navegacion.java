@@ -1,12 +1,13 @@
 package com.anfe0690.tu_mejor_compra.managedbeans.datos;
 
 import com.anfe0690.tu_mejor_compra.entity.Producto;
-import java.io.Serializable;
-import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.context.FacesContext;
+import javax.persistence.TypedQuery;
+import java.io.Serializable;
+import java.util.List;
 
 public class Navegacion implements Serializable {
 
@@ -14,7 +15,7 @@ public class Navegacion implements Serializable {
 	private static final Logger logger = LoggerFactory.getLogger(Navegacion.class);
 	// Constantes
 	private static final long serialVersionUID = 1L;
-	private static final int PRODUCTOS_POR_PAGINA = 3;
+	private static final int PRODUCTOS_POR_PAGINA = 6;
 	//
 	private int numeroPaginas;
 	private int pagina = 1;

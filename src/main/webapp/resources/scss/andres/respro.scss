@@ -1,38 +1,5 @@
 .b-respro{
-	margin-bottom: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
-	border: 1px solid black;
-	
-	.marco-imagen{
-		text-align: center;
-		margin-top: 15px;
-		margin-bottom: 15px;
-
-		.imagen{
-			max-width: 150px;
-			max-height: 150px;
-			/*border: 1px solid black;*/
-		}
-		
-	}
-
-	.contenedor-datos{
-		margin-top: 15px;
-		margin-bottom: 15px;
-
-		.nombre-producto{
-			font-size: 16px;
-			vertical-align: top;
-			display: block;
-		}
-
-		.precio-producto{
-			font-size: 16px;
-			color: red;
-			font-weight: bold;
-		}
-		
-	}
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 
 }

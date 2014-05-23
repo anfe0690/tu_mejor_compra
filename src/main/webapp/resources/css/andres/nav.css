@@ -1,7 +1,4 @@
 .b-navegacion {
-  text-align: center;
-  padding: 10px; }
-  .b-navegacion .link-navegacion {
-    margin: 20px 10px; }
-  .b-navegacion .link-actual {
-    font-weight: bold; }
+  text-align: center; }
+  .b-navegacion .pagination {
+    margin-bottom: 0px; }

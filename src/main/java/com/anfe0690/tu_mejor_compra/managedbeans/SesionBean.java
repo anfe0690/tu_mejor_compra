@@ -81,14 +81,16 @@ public class SesionBean implements Serializable {
 			return;
 		}
 
-		// Comprobar la relacion de usuario y contraseña
-		Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
-		if (u == null || !u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
-            logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\".", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
-            inputUsuario.setValid(false);
-            inputContraseña.setValid(false);
-            context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos.", null));
-		}
+        if (inputUsuario.getLocalValue() != null && !inputUsuario.getLocalValue().toString().trim().isEmpty()) {
+            // Comprobar la relacion de usuario y contraseña
+            Usuario u = manejadorDeUsuarios.buscarUsuarioPorNombre(inputUsuario.getLocalValue().toString());
+            if (u == null || !u.getContrasena().equals(inputContraseña.getLocalValue().toString())) {
+                logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\".", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
+                inputUsuario.setValid(false);
+                inputContraseña.setValid(false);
+                context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos.", null));
+            }
+        }
 	}
 
 	// Acciones

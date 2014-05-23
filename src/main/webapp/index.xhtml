@@ -1,29 +1,35 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
-			<f:viewAction action="#{indexBean.buscarProductosRecientes}"/>
-		</f:metadata>
-	</ui:define>
-	<ui:define name="title">Inicio - Tu mejor compra</ui:define>
-	<ui:define name="css">
-		<link href="#{request.contextPath}/resources/css/index.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
-		<link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
-	</ui:define>
-	<ui:define name="js"/>
-	<ui:define name="content">
-		<section class="col-xs-12 col-sm-8 col-md-8 tema b-index" >
-			<h1 class="titulo-bloque">Productos recientes</h1>
-			<andres:respro productos="#{indexBean.productosRecientes}" />
-			<andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}" numpaginas="#{indexBean.navegacion.numeroPaginas}"
-						nombrevarpagina="pag"/>
-		</section>
-	</ui:define>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:andres="http://xmlns.jcp.org/jsf/composite/andres">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="pag" value="#{indexBean.navegacion.pagina}"/>
+            <f:viewAction action="#{indexBean.buscarProductosRecientes}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title">Inicio - Tu mejor compra</ui:define>
+    <ui:define name="css">
+        <link href="#{request.contextPath}/resources/css/index.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/respro.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/andres/nav.css" rel="stylesheet"/>
+    </ui:define>
+    <ui:define name="js"/>
+    <ui:define name="content">
+        <section class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 b-index">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Productos recientes</h3>
+                </div>
+                <div class="panel-body">
+                    <andres:respro productos="#{indexBean.productosRecientes}"/>
+                    <andres:nav outcome="index.xhtml" pagina="#{indexBean.navegacion.pagina}"
+                                numpaginas="#{indexBean.navegacion.numeroPaginas}"
+                                nombrevarpagina="pag"/>
+                </div>
+            </div>
+        </section>
+    </ui:define>
 </ui:composition>

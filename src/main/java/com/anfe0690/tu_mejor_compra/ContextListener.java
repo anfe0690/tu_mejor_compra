@@ -45,6 +45,10 @@ public class ContextListener implements ServletContextListener {
                 System.setProperty(K_PUERTO_WEBSOCKETS, "8000");
                 break;
             }
+            case V_SERVIDOR_GLASSFISH:{
+                logger.warn("Control de Websockets para Glassfish no implementado!.");
+                break;
+            }
             default: {
                 logger.error("Servidor desconocido! \"{}\"", System.getProperty(K_SERVIDOR));
             }
