@@ -1,14 +1,15 @@
+.comprar-dialogo .valor {
+  font-weight: bold; }
+
 .b-producto {
-  text-align: center;
-  padding: 15px; }
+  text-align: center; }
   .b-producto .marco-imagen {
     margin-bottom: 10px; }
   .b-producto .imagen {
     max-width: 400px;
     max-height: 400px;
     width: 100%;
-    height: 100%;
-    border: 1px solid black; }
+    height: 100%; }
   .b-producto .contenedor-datos {
     text-align: left; }
   .b-producto .nombre_producto {
@@ -33,4 +34,5 @@
     font-size: 16px;
     font-weight: bold;
     color: red;
-    margin-top: 20px; }
+    margin-top: 10px;
+    margin-bottom: 0px; }

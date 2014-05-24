@@ -1,61 +1,92 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-				xmlns:p="http://primefaces.org/ui">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
-			<f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
-		</f:metadata>
-	</ui:define>
-	<ui:define name="title">Producto</ui:define>
-	<ui:define name="css">
-		<h:outputStylesheet library="css" name="producto.css"/>
-	</ui:define>
-	<ui:define name="js">
-		<h:outputScript library="js" name="producto.js"/>
-	</ui:define>
-	<ui:define name="content">
-		<section class="row">
-			<div class="col-xs-12 tema b-producto">
-				<h1 class="titulo-bloque">Producto</h1>
-				<div class="row">
-					<div class="col-md-6 marco-imagen">
-						<h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
-					</div>
-					<div class="col-md-6 contenedor-datos">
-						<h:outputText styleClass="nombre_producto" value="#{mostrarProductoBean.producto.nombre}"/>
-						<span class="etiqueta-precio-producto">Precio:</span>
-						<h:outputText styleClass="precio_producto" value="#{mostrarProductoBean.producto.precio}"/>
-						<span class="etiqueta-precio-producto">pesos.</span>
-						<c:choose >
-							<c:when test="#{sesionBean.sesionIniciada}">
-								<h:form id="form_cv">
-									<div class="altura-linea cont-boton">
-										<p:commandButton styleClass="boton_comprar" id="boton_comprar" value="Comprar" ajax="false"
-														 action="#{mostrarProductoBean.comprar()}"/>
-									</div>
-									<h:inputHidden id="v_nombre_contacto" value="#{mostrarProductoBean.usuarioVendedor.nombreContacto}"/>
-									<h:inputHidden id="v_correo" value="#{mostrarProductoBean.usuarioVendedor.correo}"/>
-									<h:inputHidden id="v_telefonos" value="#{mostrarProductoBean.usuarioVendedor.telefonos}"/>
-									<h:inputHidden id="v_banco" value="#{mostrarProductoBean.usuarioVendedor.banco}"/>
-									<h:inputHidden id="v_numero_cuenta" value="#{mostrarProductoBean.usuarioVendedor.numeroCuenta}"/>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="pid" value="#{mostrarProductoBean.productoId}"/>
+            <f:viewAction action="#{mostrarProductoBean.leerProducto()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title">Producto</ui:define>
+    <ui:define name="css">
+        <link href="#{request.contextPath}/resources/css/producto.css" rel="stylesheet"/>
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript name="js/producto.js"/>
+    </ui:define>
+    <ui:define name="content">
+        <section class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
 
-									<h:inputHidden id="c_nombre_contacto" value="#{sesionBean.usuario.nombreContacto}"/>
-									<h:inputHidden id="c_correo" value="#{sesionBean.usuario.correo}"/>
-									<h:inputHidden id="c_telefonos" value="#{sesionBean.usuario.telefonos}"/>
-								</h:form>
-							</c:when>
-							<c:otherwise>
-								<p class="adv_iniciar_sesion">Para poder comprar es necesario iniciar sesion!</p>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-			</div>
-		</section>
-	</ui:define>
+            <!-- Modal -->
+            <div id="comprar-dialog" class="modal fade comprar-dialogo" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Comprar producto</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-bottom: 10px;">Los siguientes datos del vendedor serán enviados al correo del comprador:</div>
+                            <div>Contacto: <h:outputText value="#{mostrarProductoBean.usuarioVendedor.nombreContacto}" styleClass="valor"/></div>
+                            <div>Correo: <h:outputText value="#{mostrarProductoBean.usuarioVendedor.correo}" styleClass="valor"/></div>
+                            <div>Telefonos: <h:outputText value="#{mostrarProductoBean.usuarioVendedor.telefonos}" styleClass="valor"/></div>
+                            <div>Numero de cuenta: <h:outputText value="#{mostrarProductoBean.usuarioVendedor.numeroCuenta}"
+                                                                 styleClass="valor"/></div>
+
+                            <div style="margin: 10px 0px;">Como tambien los siguientes datos del comprador al vendedor:</div>
+                            <div>Contacto: <h:outputText value="#{sesionBean.usuario.nombreContacto}" styleClass="valor"/></div>
+                            <div>Correo: <h:outputText value="#{sesionBean.usuario.correo}" styleClass="valor"/></div>
+                            <div>Telefonos: <h:outputText value="#{sesionBean.usuario.telefonos}" styleClass="valor"/></div>
+
+                            <div style="margin: 10px 0px;">La compra y venta aparecerá en el perfil del comprador y vendedor respectivamente.</div>
+
+                            <div style="font-weight: bold; color: red;">Nota: Estos datos son de ejemplo, ninguno de estos valores es real.</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-ok"/> OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Producto</h3>
+                </div>
+                <div class="panel-body b-producto">
+                    <div class="row">
+                        <div class="col-md-6 marco-imagen">
+                            <h:graphicImage styleClass="imagen" value="/imgs/#{mostrarProductoBean.producto.direccionImagen}"/>
+                        </div>
+                        <div class="col-md-6 contenedor-datos">
+                            <h:outputText styleClass="nombre_producto" value="#{mostrarProductoBean.producto.nombre}"/>
+                            <span class="etiqueta-precio-producto">Precio:</span>
+                            <h:outputText styleClass="precio_producto" value="#{mostrarProductoBean.producto.precio}"/>
+                            <span class="etiqueta-precio-producto">pesos.</span>
+                            <c:choose>
+                                <c:when test="#{sesionBean.sesionIniciada}">
+                                    <h:form id="form_cv" style="margin-top: 10px;">
+                                        <button jsf:id="boton_comprar" type="submit" jsf:action="#{mostrarProductoBean.comprar()}"
+                                                class="btn btn-default">
+                                            <span class="glyphicon glyphicon-shopping-cart"/> Comprar
+                                        </button>
+                                    </h:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="adv_iniciar_sesion">Para poder comprar es necesario iniciar sesion!</p>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </ui:define>
 </ui:composition>
