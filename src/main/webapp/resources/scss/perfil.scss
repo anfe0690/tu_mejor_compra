@@ -1,90 +1,46 @@
-.b-perfil{
-	margin-left: -15px;
-	margin-right: -15px;
-	margin-bottom: -10px;
+.b-perfil {
 
-	.seccion{
-		text-align: center;
-		margin-bottom: 10px;
-		padding: 15px;
-	}
+  .b-datos-perfil {
 
-	.b-datos-perfil{
+    h4{
+      font-weight: bold;
+    }
 
-		.espacio{
-			margin-bottom: 10px;
-		}
+    .panel.panel-default.ultimo{
+      margin-bottom: 0px;
+    }
 
-		h2{
-			margin: 0px 0px 10px 0px;
-			font-size: 20px;
-			font-weight: bold;
-			line-height: 30px;
-			text-align: center;
-		}
+  }
 
-		p{
-			font-size: 14px;
-			margin: 0px;
-		}
+  #form-mis-productos{
+    tbody{
+      tr{
+        cursor: pointer;
+      }
+    }
+  }
 
-	}
+  .table-responsive{
+    margin-bottom: 0px;
+  }
 
-	.cont-tabla{
-		overflow: scroll;
-		border: 1px solid lightgray;
-		height: 230px;
-		margin-top: 15px;
-	}
+  .table{
 
-	.tabla{
-		width: 100%;
+    td{
+      vertical-align: middle;
+    }
 
-		.celda{
-			border: 1px solid black;
-		}
+    .alinear-centro{
+      text-align: center;
+    }
 
-		.tabla-header{
-			@extend .celda;
-			font-weight: bold;
-			padding: 5px;
-			text-align: center;
-		}
+    .alinear-izquierda{
+      text-align: left;
+    }
 
-		.contenedor-centro{
-			@extend .celda;
-			padding: 5px;
-			text-align: center;
-		}
-
-		.contenedor-imagen{
-			@extend .celda;
-			height: 60px;
-			padding: 0px;
-			text-align: center;
-
-			.imagen{
-				max-width: 60px;
-				max-height: 60px;
-			}
-		}
-
-		.contenedor-nombre{
-			@extend .celda;
-			padding: 5px;
-			text-align: left;
-		}
-
-		.contenedor-derecha{
-			@extend .celda;
-			padding: 5px;
-			text-align: right;
-		}
-
-	}
-
-	button{
-		height: 100%;
-	}
+    .alinear-derecha{
+      text-align: right;
+    }
+  }
 
 }

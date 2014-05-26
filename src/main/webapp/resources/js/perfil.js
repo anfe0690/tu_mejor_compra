@@ -1,43 +1,99 @@
+var confirmacionParaEliminar = false;
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-	// Eliminar productos
-//	var button_eliminar = $("#form-mis-productos\\:boton_eliminar")[0];
-//	button_eliminar.addEventListener("click", function(e) {
-//		var r = confirm("¿Esta seguro de que desea eliminar el/los producto(s) seleccionado(s)?");
-//		if (!r) {
-//			e.preventDefault();
-//		}
-//	});
-
-	// Habilitar o desabilitar el boton de eliminar productos
-//	var numFilas = document.getElementById("form-mis-productos:datatable-mis-productos").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-//	var sels = new Array();
-//	for (i = 0; i < numFilas; i++) {
-//		sels[i] = document.getElementById("form-mis-productos:datatable-mis-productos:" + i + ":seleccion");
-//		if (sels[i] !== null) {
-//			sels[i].onclick = function() {
-//				if (verificarSiAlgunInputSeleccionado()) {
-//					button_eliminar.setAttribute("class", button_eliminar.getAttribute("class").replace(" ui-state-disabled", ""));
-//					button_eliminar.removeAttribute("disabled");
-//				} else {
-//					button_eliminar.setAttribute("class", button_eliminar.getAttribute("class") + " ui-state-disabled");
-//					button_eliminar.setAttribute("disabled", "disabled");
-//				}
-//			};
-//		}
-//	}
-
-//	function verificarSiAlgunInputSeleccionado() {
-//		for (i = 0; i < sels.length; i++) {
-//			if (sels[i].checked) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+    // Seccion mis productos
+    $('#btn-confirmacion-eliminar-producto').click(function () {
+        confirmacionParaEliminar = true;
+        $('#form-mis-productos\\:boton_eliminar').trigger('click');
+    });
+    inicializarTablaMisProductos();
 
 });
 
+function confirmarEliminarProducto() {
+    if (!confirmacionParaEliminar) {
+        $('#dialogo-eliminar-producto-confirmacion').modal('show');
+    } else {
+        confirmacionParaEliminar = false;
+        return true;
+    }
+    return false;
+}
 
+function inicializarTablaMisProductos() {
+    var filaTabla = $('#form-mis-productos').find('.table').find('tbody').find('tr');
+    var dispararClick = true;
 
+    filaTabla.click(function () {
+        if (dispararClick) {
+            $(this).find('input[type="checkbox"]').trigger('click');
+        } else {
+            dispararClick = true;
+        }
+    });
+
+    filaTabla.find('input[type="checkbox"]').click(function () {
+        dispararClick = false;
+        $(this).parents('tr').toggleClass('info');
+    });
+
+    filaTabla.find('input[type="checkbox"]').each(function () {
+        if ($(this).prop('checked')) {
+            $(this).parents('tr').addClass('info');
+        } else {
+            $(this).parents('tr').removeClass('info');
+        }
+    });
+}
+
+function misProductosBotonEliminarAjaxEvent(event) {
+    /*console.info('event.type = ' + event.type);
+     console.info('event.status = ' + event.status);
+     console.info('event.source = ' + event.source);*/
+
+    if (event.status === 'begin') {
+        $('#form-mis-productos\\:ajax-gif').show();
+        $('#dialogo-ajax-procesando').modal('show')
+    } else if (event.status === 'success') {
+        inicializarTablaMisProductos();
+        $('#form-mis-productos\\:ajax-gif').hide();
+        $('#dialogo-ajax-procesando').modal('hide')
+    }
+}
+
+function misProductosSelectAjaxEvent(event) {
+    /*console.info('event.type = ' + event.type);
+     console.info('event.status = ' + event.status);
+     console.info('event.source = ' + event.source);*/
+
+    if (event.status === 'begin') {
+        $('#form-mis-productos\\:ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form-mis-productos\\:ajax-gif').hide();
+    }
+}
+
+function misVentasAjaxEvent(event) {
+    /*console.info('event.type = ' + event.type);
+     console.info('event.status = ' + event.status);
+     console.info('event.source = ' + event.source);*/
+
+    if (event.status === 'begin') {
+        $('#form_ventas\\:actualizar-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form_ventas\\:actualizar-ajax-gif').hide();
+    }
+}
+
+function misComprasAjaxEvent(event) {
+    /*console.info('event.type = ' + event.type);
+     console.info('event.status = ' + event.status);
+     console.info('event.source = ' + event.source);*/
+
+    if (event.status === 'begin') {
+        $('#form_compras\\:actualizar-compras-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form_compras\\:actualizar-compras-ajax-gif').hide();
+    }
+}

@@ -10,14 +10,9 @@ import com.anfe0690.tu_mejor_compra.entity.Transaccion;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
 import com.anfe0690.tu_mejor_compra.managedbeans.datos.FilaTransaccion;
 import com.anfe0690.tu_mejor_compra.managedbeans.datos.SelProducto;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -26,8 +21,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -83,7 +84,7 @@ public class PerfilBean implements Serializable {
 	}
 
 	public void eliminarProductos() {
-		Usuario usuario = sesionBean.getUsuario();
+        Usuario usuario = sesionBean.getUsuario();
 		Iterator<SelProducto> it = selProductos.iterator();
 		while (it.hasNext()) {
 			SelProducto sp = it.next();
@@ -183,7 +184,7 @@ public class PerfilBean implements Serializable {
 	}
 
 	public boolean deshabilitadoBotonEliminarProductos() {
-		for (SelProducto sp : selProductos) {
+        for (SelProducto sp : selProductos) {
 			if (sp.isSeleccionado()) {
 				return false;
 			}
