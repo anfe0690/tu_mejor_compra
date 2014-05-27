@@ -1,44 +1,4 @@
-button:disabled {
-  color: gray; }
-
-body {
-  background-image: url(/javax.faces.resource/white-box-texture.jpg.xhtml?ln=images); }
-
-.altura-linea {
-  height: 35px;
-  padding-top: 5px;
-  padding-bottom: 5px; }
-
-.cont-form {
-  box-shadow: 1px 1px 2px;
-  background-color: white; }
-
-.cont-titulo {
-  padding-top: 5px;
-  padding-bottom: 5px; }
-  .cont-titulo h1 {
-    text-align: center;
-    margin: 0px;
-    font-size: 25px; }
-
-.form-nombre .error-nombre {
-  font-weight: bold;
-  color: red;
-  text-align: center; }
-.form-nombre .etiqueta-nombre {
-  display: block;
-  float: left; }
-.form-nombre .nombre {
-  display: block;
-  width: 100%; }
-.form-nombre .boton-unirse {
-  display: block;
-  width: 100%; }
-
-.form-mensaje .etiqueta-lista-usuarios {
-  display: block;
-  width: 100%; }
-.form-mensaje .lista-usuarios {
+.lista-usuarios {
   display: block;
   width: 100%;
   height: 100px;
@@ -46,25 +6,12 @@ body {
   margin: 0px;
   background-color: white;
   border: 1px solid darkgray; }
-  .form-mensaje .lista-usuarios li {
+  .lista-usuarios li {
     list-style-type: none; }
-.form-mensaje .etiqueta-chat {
-  display: block;
-  width: 100%; }
-.form-mensaje .chat {
+
+.chat {
   display: block;
   width: 100%;
   height: 200px;
-  resize: none; }
-.form-mensaje .error-mensaje {
-  font-weight: bold;
-  color: red;
-  text-align: center; }
-.form-mensaje .etiqueta-mensaje {
-  display: block;
-  float: left; }
-.form-mensaje .mensaje {
-  display: block;
-  width: 100%; }
-.form-mensaje .submit {
-  width: 100%; }
+  resize: none;
+  margin-bottom: 10px; }

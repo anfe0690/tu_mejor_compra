@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
@@ -9,84 +7,114 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Mi Chat - Tu mejor compra</title>
+
     <!-- Bootstrap -->
     <link href="#{request.contextPath}/resources/css/bootstrap/bootstrap.css" rel="stylesheet"/>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <title>Mi Chat</title>
 
     <!-- CSS -->
     <link href="#{request.contextPath}/resources/css/michat.css" rel="stylesheet"/>
 
-    <!-- JQuery -->
-    <h:outputScript library="js" name="jquery/jquery-2.1.0-min.js"/>
-    <!-- JavaScript especifico de la pagina -->
-    <h:outputScript library="js" name="michat.js"/>
 </h:head>
 <h:body>
     <ui:debug hotkey="x"/>
 
     <div class="container">
-        <div class="row">
+        <div class="panel panel-default">
 
-            <div class="col-xs-12 cont-form cont-titulo" style="margin-bottom: 10px;">
-                <h1>Michat: Chat con Websockets y JSON.</h1>
+            <div class="panel-heading text-center">
+                <h3 style="margin-top: 0px;"><h:link outcome="index.xhtml" value="TuMejorCompra.com"/></h3>
+                <h3 class="panel-title">Michat: Chat con Websockets y JSON.</h3>
             </div>
 
-            <div class="col-xs-12 cont-form" style="margin-bottom: 10px;">
-                <form class="row form-nombre" id="form-nombre" action="">
-                    <input type="hidden" id="host" value="#{miChatBean.host}"/>
-                    <input type="hidden" id="puerto-websockets" value="#{miChatBean.puertoWebsockets}"/>
+            <div class="panel-body">
+                <div class="row">
 
-                    <!-- Agregado con Javascript en error -->
-                    <!-- <div class="col-xs-12 col-sm-12 altura-linea error-nombre" id="error-nombre">¡Se debe escribir un nombre!</div> -->
-                    <div class="col-xs-12 col-sm-10 altura-linea">
-                        <label class="etiqueta-nombre" for="nombre">Nombre</label>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form id="form-nombre" role="form" action="">
+                                    <input type="hidden" id="host" value="#{miChatBean.host}"/>
+                                    <input type="hidden" id="puerto-websockets" value="#{miChatBean.puertoWebsockets}"/>
 
-                        <div style="margin-left: 70px;">
-                            <input type="text" name="nombre" class="nombre" id="nombre"/>
+                                    <div id="error-nombre" class="alert alert-danger"
+                                         style="margin-bottom: 5px; display: none;">¡Se debe escribir un nombre!
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">Nombre</label>
+                                        <input id="nombre" type="text" name="nombre" class="form-control" placeholder="Nombre"/>
+                                        <span class="glyphicon glyphicon-remove form-control-feedback" style="display: none;"/>
+                                    </div>
+                                    <button id="boton-unirse" class="btn btn-primary">Unirse</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 altura-linea">
-                        <button class="boton-unirse" id="boton-unirse">Unirse</button>
-                    </div>
-                </form>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 cont-form">
-                <form class="row form-mensaje" id="form-mensaje" action="">
-                    <div class="col-xs-12 col-sm-4 col-sm-push-8" style="padding-top: 5px; padding-bottom: 5px;">
-                        <label class="etiqueta-lista-usuarios" for="lista-usuarios">Lista de usuarios</label>
-                        <ol class="lista-usuarios" id="lista-usuarios"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-8 col-sm-pull-4" style="padding-top: 5px; padding-bottom: 5px;">
-                        <label class="etiqueta-chat" for="chat">Chat</label>
-                        <textarea class="chat" id="chat" cols="" rows="" readonly="readonly"/>
-                    </div>
-
-                    <!-- Agregado con Javascript en error -->
-                    <!-- <div class="col-xs-12 col-sm-12 altura-linea error-mensaje" id="error-mensaje">¡Se debe escribir un mensaje!</div> -->
-                    <div class="col-xs-12 col-sm-10" id="contenedor-mensaje"
-                         style="padding-top: 5px; padding-bottom: 5px;">
-                        <label class="etiqueta-mensaje" for="mensaje">Mensaje</label>
-
-                        <div style="margin-left: 70px;">
-                            <input type="text" name="mensaje" class="mensaje" id="mensaje" disabled="disabled"/>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="panel panel-default" style="height: 140px;">
+                            <div class="panel-body" style="height: 100%;">
+                                <label for="lista-usuarios">Lista de usuarios</label>
+                                <ol id="lista-usuarios" class="lista-usuarios" style="height: calc( 100% - 25px );"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-2" style="padding-top: 5px; padding-bottom: 5px;">
-                        <button class="submit" id="boton-mensaje" disabled="disabled">Enviar</button>
+
+                    <div class="col-xs-12">
+                        <div class="panel panel-default" style="margin-bottom: 0px;">
+                            <div class="panel-body">
+                                <form id="form-mensaje" action="">
+
+                                    <label for="chat">Chat</label>
+                                    <textarea id="chat" class="chat" cols="" rows="" readonly="readonly"/>
+
+                                    <div id="error-mensaje" class="alert alert-danger"
+                                         style="margin-top: 20px; margin-bottom: 5px; display: none;">¡Se debe escribir un mensaje!
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="mensaje" class="control-label">Mensaje</label>
+                                        <input id="mensaje" type="text" name="mensaje" class="form-control" placeholder="Mensaje"
+                                               disabled="disabled"/>
+                                        <span class="glyphicon glyphicon-remove form-control-feedback" style="display: none;"/>
+                                    </div>
+
+                                    <div>
+                                        <button id="boton-mensaje" class="btn btn-primary" disabled="disabled">Enviar</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </form>
+
+                </div>
             </div>
+
+            <div class="panel-footer">Sugerencias y/o informacion al correo anfe0690 arroba gmail.com.</div>
+
         </div>
     </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <h:outputScript name="js/bootstrap/bootstrap.min.js"/>
+    <!--<script src="js/bootstrap.min.js"></script>-->
+
+    <!-- Javascript layout -->
+    <h:outputScript name="js/layout.js"/>
+    <!-- JavaScript especifico de la pagina -->
+    <h:outputScript name="js/michat.js"/>
 
 </h:body>
 </html>

@@ -19,7 +19,7 @@ function conectarWebSocket(event) {
 
     var nombreInput = $("#nombre");
     if (nombreInput.val().trim()) {
-        $("#error-nombre").remove();
+        $('#error-nombre').hide().next().removeClass('has-error has-feedback').find('.glyphicon').hide();
 
         wsocket = new WebSocket("ws://" + $("#host").val() + ":" + $("#puerto-websockets").val() + "/michat");
         wsocket.onmessage = onMessage;
@@ -33,16 +33,12 @@ function conectarWebSocket(event) {
             nombreInput.prop("disabled", true);
             $("#boton-unirse").prop("disabled", true);
 
-            $("#mensaje").prop("disabled", false);
-            $("#mensaje").focus();
+            $("#mensaje").prop("disabled", false).focus();
             $("#boton-mensaje").prop("disabled", false);
-
         };
     } else {
-        if ($("#error-nombre").length === 0) {
-            $("<div class=\"col-xs-12 col-sm-12 altura-linea error-nombre\" id=\"error-nombre\">¡Se debe escribir un nombre!</div>")
-                .insertAfter("#puerto-websockets");
-        }
+        console.warn('¡Nombre vacio!');
+        $('#error-nombre').show().next().addClass('has-error has-feedback').find('.glyphicon').show();
         nombreInput.val("");
         nombreInput.focus();
     }
@@ -72,7 +68,7 @@ function sendMessage(event) {
 
     var inputMensaje = $("#mensaje");
     if (inputMensaje.val().trim()) {
-        $("#error-mensaje").remove();
+        $('#error-mensaje').hide().next().removeClass('has-error has-feedback').find('.glyphicon').hide();
 
         var mensajeJson = {
             K_TIPO: V_TIPO_MENSAJE,
@@ -86,10 +82,8 @@ function sendMessage(event) {
         inputMensaje.focus();
     }
     else {
-        if ($("#error-mensaje").length === 0) {
-            $("<div class=\"col-xs-12 col-sm-12 altura-linea error-mensaje\" id=\"error-mensaje\">¡Se debe escribir un mensaje!</div>")
-                .insertBefore("#contenedor-mensaje");
-        }
+        console.warn('¡Mensaje vacio!');
+        $('#error-mensaje').show().next().addClass('has-error has-feedback').find('.glyphicon').show();
         inputMensaje.val("");
         inputMensaje.focus();
     }
