@@ -112,7 +112,7 @@
                                 <h:outputText value="#{sesionBean.usuario.nombre}"/>
                             </span>
                             <c:if test="#{not facesContext.viewRoot.viewId.endsWith('perfil.xhtml')}">
-                                <h:link styleClass="navbar-link" style="margin-right: 5px;" outcome="perfil.xhtml" value="perfil"/>
+                                <h:link  style="margin-right: 5px;" outcome="perfil.xhtml" value="perfil"/>
                             </c:if>
                             <h:form id="form-cerrar-sesion">
                                 <button jsf:id="btn-cerrar-sesion" type="submit" class="btn btn-default navbar-btn" style="width: 100%;"
