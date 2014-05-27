@@ -20,23 +20,37 @@
                         <h:form id="form-iniciar-sesion" pt:role="form">
                             <f:event type="postValidate" listener="#{sesionBean.validarUsuarioContrasena}"/>
 
-                            <div class="form-group #{view.findComponent(':form-iniciar-sesion:nombre-usuario').valid ? '' : 'has-error has-feedback'}">
+                            <h:panelGroup layout="block" styleClass="alert alert-danger alert-dismissable" style="margin-bottom: 5px;"
+                                          rendered="#{not empty facesContext.getMessageList('form-iniciar-sesion:nombre-usuario')}">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
+                                <h:outputText value="#{facesContext.getMessageList('form-iniciar-sesion:nombre-usuario')[0].summary}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup id="cont-nombre-usuario" layout="block"
+                                          styleClass="form-group #{component.findComponent('nombre-usuario').valid ? '' : 'has-error has-feedback'}">
                                 <h:outputLabel for="nombre-usuario" styleClass="control-label" value="Usuario"/>
                                 <h:inputText id="nombre-usuario" styleClass="form-control" pt:placeholder="Usuario"
                                              value="#{sesionBean.campoNombreUsuario}"/>
-                                <h:panelGroup layout="span" class="glyphicon glyphicon-remove form-control-feedback"
-                                        rendered="#{not view.findComponent(':form-iniciar-sesion:nombre-usuario').valid}"/>
-                            </div>
+                                <h:panelGroup layout="span" styleClass="glyphicon glyphicon-remove form-control-feedback"
+                                              rendered="#{not component.findComponent('nombre-usuario').valid}"/>
+                            </h:panelGroup>
 
-                            <div class="form-group #{view.findComponent(':form-iniciar-sesion:contrasena-usuario').valid ? '' : 'has-error has-feedback'}"
-                                 style="margin-bottom: 0px;">
+                            <h:panelGroup layout="block" styleClass="alert alert-danger alert-dismissable" style="margin-bottom: 5px;"
+                                          rendered="#{not empty facesContext.getMessageList('form-iniciar-sesion:contrasena-usuario')}">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
+                                <h:outputText value="#{facesContext.getMessageList('form-iniciar-sesion:contrasena-usuario')[0].summary}"/>
+                            </h:panelGroup>
+
+                            <h:panelGroup id="cont-contrasena-usuario" layout="block"
+                                          styleClass="form-group #{component.findComponent('contrasena-usuario').valid ? '' : 'has-error has-feedback'}"
+                                          style="margin-bottom: 0px;">
                                 <h:outputLabel for="contrasena-usuario" styleClass="control-label" value="Contraseña"/>
                                 <h:inputSecret id="contrasena-usuario" styleClass="form-control" pt:placeholder="Contraseña"
                                                value="#{sesionBean.campoContrasena}"/>
                                 <h:panelGroup layout="span" class="glyphicon glyphicon-remove form-control-feedback"
-                                              rendered="#{not view.findComponent(':form-iniciar-sesion:contrasena-usuario').valid}"/>
+                                              rendered="#{not component.findComponent('contrasena-usuario').valid}"/>
                                 <p class="help-block">Las posibles combinaciones son: andres = 123, carlos = 456 y fernando = 789.</p>
-                            </div>
+                            </h:panelGroup>
 
                             <h:commandButton id="btn-iniciar-sesion" styleClass="btn btn-default" style="display: none;"
                                              value="Iniciar sesion"

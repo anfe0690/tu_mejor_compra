@@ -6,18 +6,9 @@ import com.anfe0690.tu_mejor_compra.ejb.ManejadorDeUsuarios;
 import com.anfe0690.tu_mejor_compra.entity.Categoria;
 import com.anfe0690.tu_mejor_compra.entity.Producto;
 import com.anfe0690.tu_mejor_compra.entity.Usuario;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -29,8 +20,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Named
 @ViewScoped
@@ -74,7 +70,6 @@ public class CrearProductoBean implements Serializable {
 			((UIInput) toValidate).setValid(false);
 			context.addMessage(toValidate.getClientId(context),
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se debe seleccionar un archivo!", null));
-//			context.renderResponse();
 			return;
 		}
 
@@ -90,7 +85,6 @@ public class CrearProductoBean implements Serializable {
 			context.addMessage(toValidate.getClientId(context),
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"El tipo de archivo seleccionado no es del tipo de imagen permitido jpg/jpeg, png o gif.", null));
-//			context.renderResponse();
 			return;
 		}
 
@@ -101,7 +95,6 @@ public class CrearProductoBean implements Serializable {
 			context.addMessage(toValidate.getClientId(context),
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"El tamaño de la imagen no puede ser superior a 200000 bytes, se encontro: " + f.getSize() + " bytes", null));
-//			context.renderResponse();
 		}
 	}
 
@@ -170,7 +163,6 @@ public class CrearProductoBean implements Serializable {
 	}
 
 	public String crearProducto() {
-		logger.trace("crearProducto()");
 		nombre = nombre.trim();
 		precio = precio.trim();
 		// form-data; name="form_crear_producto:file"; filename="Crysis.jpg"

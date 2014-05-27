@@ -1,62 +1,59 @@
+$(document).ready(function () {
 
-$(document).ready(function() {
+    var inputFile = document.getElementById("form_crear_producto:file");
+    inputFile.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
 
-	var inputFile = document.getElementById("form_crear_producto:file");
-	inputFile.addEventListener("change", function() {
-		if (this.files && this.files[0]) {
-			var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("form_crear_producto:imagen").setAttribute("src", e.target.result);
+            };
 
-			reader.onload = function(e) {
-				document.getElementById("form_crear_producto:imagen").setAttribute("src", e.target.result);
-			};
-
-			reader.readAsDataURL(this.files[0]);
-		} else {
-			document.getElementById("form_crear_producto:imagen").setAttribute("src",
-					"/javax.faces.resource/sel-imagen.png.xhtml?ln=images");
-		}
-	});
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            document.getElementById("form_crear_producto:imagen").setAttribute("src",
+                "/javax.faces.resource/sel-imagen.png.xhtml?ln=images");
+        }
+    });
 
 });
 
-function miAjaxEvent(event) {
-//	console.log("event.source.id = " + event.source.id);
+function archivoAjaxEvent(event) {
 //	console.log("event.status = " + event.status);
 
-	if (event.source.id === "form_crear_producto:file") {
-		if (event.status === "begin") {
-			$("#form_crear_producto\\:loading-file-gif").css("display", "inline");
-		}
-		else if (event.status === "complete") {
-			$("#form_crear_producto\\:loading-file-gif").css("display", "none");
-		}
-	}
-	else if (event.source.id === "form_crear_producto:nombre-producto") {
-		if (event.status === "begin") {
-			$("#form_crear_producto\\:loading-nombre-gif").css("display", "inline");
-		}
-		else if (event.status === "complete") {
-			$("#form_crear_producto\\:loading-nombre-gif").css("display", "none");
-		}
-	}
-	else if (event.source.id === "form_crear_producto:precio-producto") {
-		if (event.status === "begin") {
-			$("#form_crear_producto\\:loading-precio-gif").css("display", "inline");
-		}
-		else if (event.status === "complete") {
-			$("#form_crear_producto\\:loading-precio-gif").css("display", "none");
-		}
-	}
-
-	else if (event.source.id === "form_crear_producto:boton-crear-producto") {
-		if (event.status === "begin") {
-			$("#form_crear_producto\\:loading-submit-gif").css("display", "inline");
-		}
-		else if (event.status === "complete") {
-			$("#form_crear_producto\\:loading-submit-gif").css("display", "none");
-		}
-	}
-
+    if (event.status === 'begin') {
+        $('#archivo-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#archivo-ajax-gif').hide();
+    }
 }
-;
 
+function nombreAjaxEvent(event){
+//	console.log("event.status = " + event.status);
+
+    if (event.status === 'begin') {
+        $('#form_crear_producto\\:nombre-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form_crear_producto\\:nombre-ajax-gif').hide();
+    }
+}
+
+function precioAjaxEvent(event){
+//	console.log("event.status = " + event.status);
+
+    if (event.status === 'begin') {
+        $('#form_crear_producto\\:precio-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form_crear_producto\\:precio-ajax-gif').hide();
+    }
+}
+
+function crearAjaxEvent(event){
+//	console.log("event.status = " + event.status);
+
+    if (event.status === 'begin') {
+        $('#form_crear_producto\\:crear-ajax-gif').show();
+    } else if (event.status === 'success') {
+        $('#form_crear_producto\\:crear-ajax-gif').hide();
+    }
+}

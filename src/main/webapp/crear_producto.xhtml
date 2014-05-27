@@ -1,92 +1,124 @@
 <ui:composition template="WEB-INF/layout/layout.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-				xmlns:p="http://primefaces.org/ui">
-	<ui:define name="title">Crear producto</ui:define>
-	<ui:define name="css">
-		<h:outputStylesheet library="css" name="crear_producto.css"/>
-	</ui:define>
-	<ui:define name="js">
-		<h:outputScript library="js" name="crear_producto.js"/>
-	</ui:define>
-	<ui:define name="content">
-		<f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
-		<section class="row">
-			<h:form class="col-xs-12 tema b-crear_producto" id="form_crear_producto" enctype="multipart/form-data" >
-				<div class="row">
-					<h1 class="col-xs-12 titulo-bloque">Crear Producto</h1>
-					<div class="col-xs-12">
-						<div class="row">
-							<div class="col-md-6 control-imagen">
-								<h:graphicImage styleClass="imagen" id="imagen" library="images" name="sel-imagen.png" />
-								<br/>
-								<p:message id="error-archivo" for="file" 
-										   showSummary="true"
-										   showDetail="false"/>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-								<div class="altura-linea cont-selector-imagen">
-									<h:inputFile styleClass="selector-imagen" id="file" value="#{crearProductoBean.file}"
-												 pt:required="required"
-												 pt:accept="image/*"
-												 validator="#{crearProductoBean.validarImagenProducto}">
-										<f:ajax event="change" render="error-archivo :footer" onevent="miAjaxEvent" />
-									</h:inputFile>
-									<h:graphicImage id="loading-file-gif" library="images" name="ajax-loading.gif" width="25" height="25"
-													style="display: none;"/>
-								</div>
-							</div>
-							<div class="col-md-6 control-datos">
-								<p class="etiqueta-campo">Nombre de producto <h:graphicImage id="loading-nombre-gif"
-																							 library="images" name="ajax-loading.gif"
-																							 width="25" height="25" style="display: none;"/></p>
-								<p:message id="error-nombre" for="nombre-producto" 
-										   showSummary="true" showDetail="false"/>
-								<div class="altura-linea espacio-campo">
-									<p:inputText styleClass="nombre-producto" id="nombre-producto" value="#{crearProductoBean.nombre}"
-												 pt:required="required"
-												 pt:placeholder="Nombre de producto"
-												 validator="#{crearProductoBean.validarNombreProducto}">
-										<f:ajax render="error-nombre nombre-producto :footer" onevent="miAjaxEvent" />
-									</p:inputText>
-								</div>
-								<p class="etiqueta-campo">Precio (Pesos) <h:graphicImage id="loading-precio-gif"
-																						 library="images" name="ajax-loading.gif"
-																						 width="25" height="25" style="display: none;"/></p>
-								<p:message id="error-precio" for="precio-producto" 
-										   showSummary="true" showDetail="false"/>
-								<div class="altura-linea espacio-campo">
-									<p:inputText styleClass="precio-producto" id="precio-producto" value="#{crearProductoBean.precio}"
-												 pt:required="required"
-												 pt:placeholder="Precio de producto"
-												 validator="#{crearProductoBean.validarPrecioProducto}">
-										<f:ajax render="error-precio precio-producto :footer" onevent="miAjaxEvent" />
-									</p:inputText>
-								</div>
-								<p class="etiqueta-campo">Categoria</p>
-								<div class="altura-linea">
-									<h:selectOneMenu styleClass="categoria" value="#{crearProductoBean.categoria}">
-										<f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
-										<f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
-										<f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
-									</h:selectOneMenu>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-12 altura-linea">
-						<h:commandButton styleClass="boton-submit" id="boton-crear-producto" value="Crear"
-										 action="#{crearProductoBean.crearProducto()}" >
-							<f:ajax execute="@form" render="error-archivo error-nombre nombre-producto error-precio precio-producto :footer"
-									onevent="miAjaxEvent" />
-						</h:commandButton>
-						<h:graphicImage id="loading-submit-gif" library="images" name="ajax-loading.gif" width="25" height="25"
-										style="display: none; margin-left: 10px;"/>
-					</div>
-				</div>
-			</h:form>
-		</section>
-	</ui:define>
+    <ui:define name="title">Crear producto - Tu mejor compra</ui:define>
+    <ui:define name="css">
+        <link href="#{request.contextPath}/resources/css/crear_producto.css" rel="stylesheet"/>
+    </ui:define>
+    <ui:define name="js">
+        <h:outputScript name="js/crear_producto.js"/>
+    </ui:define>
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{sesionBean.redireccionarSinSesion}"/>
+
+        <div class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Crear producto</h3>
+                </div>
+                <div class="panel-body b-crear_producto">
+                    <h:form id="form_crear_producto" enctype="multipart/form-data">
+                        <div class="row">
+
+                            <div class="col-md-6 control-imagen">
+
+                                <div style="display: inline-block; position: relative; width: 100%; max-width: 402px; margin-bottom: 5px;">
+                                    <div style="margin-top: 100%;"></div>
+                                    <div class="cont-imagen">
+                                        <div style="display: table; width: 100%; height: 100%; ">
+                                            <div style="display: table-cell; vertical-align: middle;">
+                                                <h:graphicImage styleClass="imagen" id="imagen" name="images/sel-imagen.png"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="archivo-ajax-gif" style="margin-bottom: 5px; display: none;">
+                                    <h:graphicImage id="loading-file-gif" name="images/ajax-loading.gif" width="25" height="25"/>
+                                </div>
+
+                                <h:panelGroup id="msg-error-file" layout="block"
+                                              styleClass="alert alert-danger #{(empty facesContext.getMessageList('form_crear_producto:file')) ?'oculto':''}"
+                                              style="margin-bottom: 8px;">
+                                    <h:outputText value="#{facesContext.getMessageList('form_crear_producto:file')[0].summary}"/>
+                                </h:panelGroup>
+
+                                <div class="form-group">
+                                    <h:inputFile id="file" styleClass="form-control" value="#{crearProductoBean.file}"
+                                                 pt:accept="image/*" validator="#{crearProductoBean.validarImagenProducto}">
+                                        <f:ajax event="change" execute="@this" render="msg-error-file" onevent="archivoAjaxEvent"/>
+                                    </h:inputFile>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 control-datos">
+
+                                <h:panelGroup id="msg-error-nombre-producto" layout="block" style="margin-bottom: 8px;"
+                                              styleClass="alert alert-danger #{(empty facesContext.getMessageList('form_crear_producto:nombre-producto')) ?'oculto':''}">
+                                    <h:outputText value="#{facesContext.getMessageList('form_crear_producto:nombre-producto')[0].summary}"/>
+                                </h:panelGroup>
+                                <h:panelGroup id="cont-nombre-producto" layout="block"
+                                              styleClass="form-group #{component.findComponent('nombre-producto').valid ? '':'has-error has-feedback'}">
+                                    <h:outputLabel for="nombre-producto" styleClass="control-label" value="Nombre producto"/>
+                                    <h:graphicImage id="nombre-ajax-gif" name="images/ajax-loading.gif" width="20" height="20"
+                                                    style="margin-left: 5px; display: none;"/>
+                                    <h:inputText id="nombre-producto" styleClass="form-control" value="#{crearProductoBean.nombre}"
+                                                 pt:placeholder="Nombre de producto" validator="#{crearProductoBean.validarNombreProducto}">
+                                        <f:ajax execute="@this" render="msg-error-nombre-producto cont-nombre-producto" onevent="nombreAjaxEvent"/>
+                                    </h:inputText>
+                                    <h:panelGroup layout="span" styleClass="glyphicon glyphicon-remove form-control-feedback"
+                                                  rendered="#{not component.findComponent('nombre-producto').valid}"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup id="msg-error-precio-producto" layout="block" style="margin-bottom: 8px;"
+                                              styleClass="alert alert-danger #{(empty facesContext.getMessageList('form_crear_producto:precio-producto')) ?'oculto':''}">
+                                    <h:outputText value="#{facesContext.getMessageList('form_crear_producto:precio-producto')[0].summary}"/>
+                                </h:panelGroup>
+                                <h:panelGroup id="cont-precio-producto" layout="block"
+                                              styleClass="form-group #{component.findComponent('precio-producto').valid ? '':'has-error has-feedback'}">
+                                    <h:outputLabel for="precio-producto" styleClass="control-label" value="Precio producto"/>
+                                    <h:graphicImage id="precio-ajax-gif" name="images/ajax-loading.gif" width="20" height="20"
+                                                    style="margin-left: 5px; display: none;"/>
+                                    <h:inputText id="precio-producto" styleClass="form-control" value="#{crearProductoBean.precio}"
+                                                 pt:placeholder="Precio de producto" validator="#{crearProductoBean.validarPrecioProducto}">
+                                        <f:ajax execute="@this" render="msg-error-precio-producto cont-precio-producto" onevent="precioAjaxEvent"/>
+                                    </h:inputText>
+                                    <h:panelGroup layout="span" styleClass="glyphicon glyphicon-remove form-control-feedback"
+                                                  rendered="#{not component.findComponent('precio-producto').valid}"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <h:outputLabel for="categoria-producto" styleClass="control-label" value="Categoria" />
+                                    <h:selectOneMenu id="categoria-producto" styleClass="form-control" value="#{crearProductoBean.categoria}">
+                                        <f:selectItem itemLabel="Telefono inteligente" itemValue="TELEFONOS_INTELIGENTES"/>
+                                        <f:selectItem itemLabel="Consolas de video juegos" itemValue="CONSOLAS_VIDEO_JUEGOS"/>
+                                        <f:selectItem itemLabel="Tabletas" itemValue="TABLETAS"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
+                            </div>
+
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button jsf:id="boton-crear-producto" type="submit" class="btn btn-primary"
+                                    jsf:action="#{crearProductoBean.crearProducto()}">
+                                <span class="glyphicon glyphicon-plus"/> Crear
+                                <f:ajax execute="@form" onevent="crearAjaxEvent"
+                                        render="msg-error-file msg-error-nombre-producto cont-nombre-producto msg-error-precio-producto cont-precio-producto"/>
+                            </button>
+                            <h:graphicImage id="crear-ajax-gif" name="images/ajax-loading.gif" width="25" height="25"
+                                            style="margin-left: 10px; display: none;"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
 </ui:composition>

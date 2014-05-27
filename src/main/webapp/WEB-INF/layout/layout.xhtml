@@ -42,9 +42,9 @@
         <ui:include src="sesion.xhtml"/>
 
         <div class="row">
-            <div class="col-xs-12">
+            <h:panelGroup id="faces-messages" layout="block" styleClass="col-xs-12">
                 <h:messages style="display: none;" />
-                <c:forEach items="#{facesContext.messageList}" var="mensaje">
+                <c:forEach items="#{globalFacesMessages.globalFacesMessages}" var="mensaje">
                     <c:choose>
 
                         <c:when test="#{mensaje.severity.toString().startsWith('ERROR')}">
@@ -70,7 +70,7 @@
 
                     </c:choose>
                 </c:forEach>
-            </div>
+            </h:panelGroup>
         </div>
 
         <div class="row">

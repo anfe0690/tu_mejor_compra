@@ -70,14 +70,14 @@ public class SesionBean implements Serializable {
 		if (inputUsuario.getLocalValue() == null || inputUsuario.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Nombre de usuario vacio!.");
             inputUsuario.setValid(false);
-			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!.", null));
+			context.addMessage(inputUsuario.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario vacio!.", null));
 		}
 
 		// Comprobar si la contraseña esta vacia
 		if (inputContraseña.getLocalValue() == null || inputContraseña.getLocalValue().toString().trim().isEmpty()) {
 			logger.warn("Contraseña vacia!.");
             inputContraseña.setValid(false);
-			context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!.", null));
+			context.addMessage(inputContraseña.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña vacia!.", null));
 			return;
 		}
 
@@ -88,7 +88,8 @@ public class SesionBean implements Serializable {
                 logger.warn("Usuario y/o contraseña incorrectos: u=\"{}\" c=\"{}\".", inputUsuario.getLocalValue(), inputContraseña.getLocalValue());
                 inputUsuario.setValid(false);
                 inputContraseña.setValid(false);
-                context.addMessage(form.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos.", null));
+                context.addMessage(inputUsuario.getClientId(),
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseña incorrectos.", null));
             }
         }
 	}

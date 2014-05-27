@@ -1,69 +1,33 @@
-.b-crear_producto{
-	text-align: center;
-	padding: 15px;
+.b-crear_producto {
 
-	.crear-producto-error{
-		display: block;
-	}
-	
-	.ui-message{
-		width: 100%;
-		margin: 0px;
-	}
+  .oculto{
+    display: none;
+  }
 
-	.control-imagen{
-		margin-bottom: 20px;
-		
-		.imagen{
-			width: 100%;
-			max-width: 400px;
-			max-height: 400px;
-			border: 1px solid black;
-			margin-bottom: 10px;
-		}
-		
-		.cont-selector-imagen{
-			width: 100%;
-			text-align: center;
-		}
+  .control-imagen {
+    text-align: center;
+    margin-bottom: 10px;
 
-		.selector-imagen{
-			max-width: 100%;
-			display: inline-block;
-			height: 100%;
-		}
-		
-	}
+    .cont-imagen {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px dashed;
 
-	.control-datos{
-		text-align: left;
-		margin-bottom: 10px;
+      .imagen {
+        max-width: 100%;
+        max-height: 100%;
+      }
 
-		.etiqueta-campo{
-			margin: 0px;
-			line-height: 25px;
-			height: 25px;
-		}
+    }
 
-		.espacio-campo{
-			margin-bottom: 10px;
-		}
+  }
 
-		.nombre-producto{
-			width: 100%;
-		}
-
-		.precio-producto{
-			width: 100%;
-		}
-
-		.categoria{
-			height: 100%;
-		}
-	}
-
-	.boton-submit{
-		height: 100%;
-	}
+  .control-datos {
+    text-align: left;
+    margin-bottom: 10px;
+  }
 
 }

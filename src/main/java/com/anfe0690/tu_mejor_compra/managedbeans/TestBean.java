@@ -1,11 +1,12 @@
 package com.anfe0690.tu_mejor_compra.managedbeans;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Named
 @RequestScoped
@@ -32,7 +33,6 @@ public class TestBean {
 	}
 
 	public void setValorPrueba(String valorPrueba) {
-		logger.trace("setValorPrueba(\"{}\")", valorPrueba);
 		this.valorPrueba = valorPrueba;
 	}
 
