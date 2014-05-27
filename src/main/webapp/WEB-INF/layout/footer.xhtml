@@ -2,15 +2,22 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <h:panelGroup styleClass="row" id="footer" layout="block">
-        <footer class="col-xs-12 tema b-footer">
-            <p style="margin-bottom: 10px;">Aplicacion de compras y ventas de productos en donde se aplican conceptos de Java 7 EE como:
-                Context and dependency injection (CDI), Bean validation, Java persistence API, Enterprise JavaBeans y Java server faces.</p>
+    <h:panelGroup id="footer" layout="block" styleClass="row">
+        <footer class="col-xs-12 b-footer">
+            <div class="panel panel-default">
+                <div class="panel-body" style="background-color: #f5f5f5;">
+                    <h4 class="text-center">TuMejorCompra.com</h4>
+                    <p style="margin-bottom: 10px;">Aplicacion de compras y ventas de productos en donde se aplican tecnologias de Java 7 EE como:
+                        Context and dependency injection (CDI), Bean validation, Java persistence API, Enterprise JavaBeans y Java server faces.</p>
 
-            <p>Un ejercicio de Websocket con JSON se encuentra en el siguiente link: <h:link
-                    outcome="michat.xhtml"
-                    value="michat.xhtml"/>. Sugerencias y/o informacion al correo anfe0690 arroba gmail.com.</p>
+                    <p style="margin-bottom: 10px;">El codigo fuente se encuentra en la direccion <h:outputLink style="word-wrap: break-word;"
+                            value="https://github.com/anfe0690/tu_mejor_compra">https://github.com/anfe0690/tu_mejor_compra</h:outputLink>.</p>
 
+                    <p>Un ejercicio de Websocket con JSON se encuentra en el siguiente link: <h:link
+                            outcome="michat.xhtml"
+                            value="michat.xhtml"/>. Sugerencias y/o informacion al correo anfe0690 arroba gmail.com.</p>
+                </div>
+            </div>
         </footer>
     </h:panelGroup>
 
