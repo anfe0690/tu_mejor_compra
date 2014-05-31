@@ -18,5 +18,6 @@ Este diseño fue desarrollado con el framework **Bootstrap**.
 Sitio para escritorio y sitio para moviles
 ------------------------------------------
 
-Este diseño fue desarrollado con el framework **PrimeFaces**. Este se puede comprobar en la direccion http://tumejorcompra-anfe0690.rhcloud.com/. Si
-presenta algun problema la pagina, espera unos minutos y vuelves a intentar.
+Este diseño fue desarrollado con el framework **PrimeFaces**. Este se puede comprobar en la direccion http://tumejorcompra-anfe0690.rhcloud.com/.
+
+**Nota**: Si presenta algun problema las paginas de pruebas, espera unos minutos y vuelves a intentar.
