@@ -9,7 +9,7 @@ La aplicacion se dividio en 2 branches. Estos representan el tipo de diseño que
 Responsive Design
 -------------------------
 
-Este diseño fue desarrollado con el framework **Bootstrap**.
+Este diseño fue desarrollado con el framework **Bootstrap**. Este se puede comprobar en la direccion http://tmcbootstrap-anfe0690.rhcloud.com/.
 
 
 Sitio para escritorio y sitio para moviles
