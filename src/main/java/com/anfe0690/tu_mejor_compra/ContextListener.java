@@ -29,7 +29,7 @@ public class ContextListener implements ServletContextListener {
             System.setProperty(K_DIR_DATOS, System.getenv("OPENSHIFT_DATA_DIR"));
             System.setProperty(K_SERVIDOR, V_SERVIDOR_WILDFLY_REMOTO);
         } else {
-            System.setProperty(K_DIR_DATOS, "C:\\Users\\Andres\\Downloads\\test\\TuMejorCompra\\img\\");
+            System.setProperty(K_DIR_DATOS, "D:\\test\\TuMejorCompra\\img\\");
             System.setProperty(K_SERVIDOR, V_SERVIDOR_WILDFLY_LOCAL);
         }
         logger.info("{} = {}", K_SERVIDOR, System.getProperty(K_SERVIDOR));
