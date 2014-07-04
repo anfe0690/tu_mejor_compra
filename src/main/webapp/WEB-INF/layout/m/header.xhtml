@@ -4,7 +4,8 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:pm="http://primefaces.org/mobile">
+                xmlns:pm="http://primefaces.org/mobile"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <div data-role="panel" data-display="overlay" id="panel-lateral" class="panel-lateral">
         <h:form id="form-sesion" style="margin: -1em;">
@@ -80,18 +81,20 @@
         </button>
 
         <div id="cont-form-buscar" style="padding-left: .3125em; padding-right: .3125em; margin-bottom: 5px; display: none;">
-
-            <form action="buscar.xhtml" id="form-buscar">
+			
+			<h:form id="form-buscar">
                 <label for="input-buscar" class="ui-hidden-accessible">Buscar productos:</label>
                 <div style="display: table; width: 100%; table-layout: fixed;">
                     <div style="display: table-cell; vertical-align: middle;">
-                        <input id="input-buscar" type="search" name="valor" placeholder="Buscar productos" value="#{headerBean.valor}"/>
+						<h:inputText id="input-buscar" pt:type="search" pt:placeholder="Buscar Productos"
+									 value="#{headerBean.valor}"/>
                     </div>
                     <div style="display: table-cell; vertical-align: middle; width: 70px" class="cont-btn-submit">
-                        <input id="btn-submit" type="submit" value="Buscar"/>
+						<h:commandButton id="btn-submit" value="Buscar"
+										 action="#{headerBean.buscar()}"/>
                     </div>
                 </div>
-            </form>
+            </h:form>
 
         </div>
     </pm:header>

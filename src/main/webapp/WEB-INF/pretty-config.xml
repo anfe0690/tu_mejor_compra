@@ -1,0 +1,83 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<!-- Escritorio -->
+	<url-mapping id="admin">
+		<pattern value="/admin" />
+		<view-id value="/admin.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="buscar">
+		<pattern value="/buscar" />
+		<view-id value="/buscar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="categoria">
+		<pattern value="/categoria" />
+		<view-id value="/categoria.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="crear_producto">
+		<pattern value="/crear_producto" />
+		<view-id value="/crear_producto.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="index">
+		<pattern value="/index" />
+		<view-id value="/index.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="michat">
+		<pattern value="/michat" />
+		<view-id value="/michat.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="perfil">
+		<pattern value="/perfil" />
+		<view-id value="/perfil.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="producto">
+		<pattern value="/producto" />
+		<view-id value="/producto.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="test">
+		<pattern value="/test" />
+		<view-id value="/test.xhtml" />
+	</url-mapping>
+	
+	<!-- Mobile -->
+	<url-mapping id="m-buscar">
+		<pattern value="/m/buscar" />
+		<view-id value="/m/buscar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="m-categoria">
+		<pattern value="/m/categoria" />
+		<view-id value="/m/categoria.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="m-crear_producto">
+		<pattern value="/m/crear_producto" />
+		<view-id value="/m/crear_producto.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="m-index">
+		<pattern value="/m/index" />
+		<view-id value="/m/index.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="m-perfil">
+		<pattern value="/m/perfil" />
+		<view-id value="/m/perfil.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="m-producto">
+		<pattern value="/m/producto" />
+		<view-id value="/m/producto.xhtml" />
+	</url-mapping>
+	
+</pretty-config>

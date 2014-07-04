@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@WebFilter("*.xhtml")
+@WebFilter(value = "*.xhtml", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class DesktopMobileFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(DesktopMobileFilter.class);

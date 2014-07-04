@@ -43,6 +43,10 @@ public class HeaderBean {
         return rs;
     }
 
+	public String buscar(){
+		return "buscar?faces-redirect=true&amp;valor=" + valor;
+	}
+	
     // Getters and setters
     public String getValor() {
         return valor;
