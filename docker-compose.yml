@@ -1,0 +1,27 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    depends_on:
+      - "db"
+    #extra_hosts:
+    #healthcheck:
+    #network_mode:
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks:
+      tmcnet:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    ports:
+      - "3306:3306"
+    networks:
+      tmcnet:
+
+networks:
+  tmcnet:

@@ -1,0 +1,8 @@
+FROM mysql:8
+
+ENV MYSQL_DATABASE tmc
+ENV MYSQL_ROOT_PASSWORD Root123!
+
+ADD backup.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306
