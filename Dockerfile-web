@@ -1,0 +1,30 @@
+FROM jboss/wildfly:17.0.1.Final
+
+ENV OPENSHIFT_DATA_DIR /opt/jboss/files/
+ADD --chown=jboss:root src/main/webapp/resources/images/restaurar $OPENSHIFT_DATA_DIR
+
+RUN /opt/jboss/wildfly/bin/add-user.sh -u admin -p Admin123! --silent
+
+ADD --chown=jboss:root https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar /opt/jboss/
+ENV JBOSS_CLI /opt/jboss/wildfly/bin/jboss-cli.sh
+RUN echo "=> Starting WildFly server" && \
+        bash -c '$JBOSS_HOME/bin/standalone.sh &' && \
+    echo "=> Waiting for the server to boot" && \
+        bash -c 'until `$JBOSS_CLI -c ":read-attribute(name=server-state)" 2> /dev/null | grep -q running`; do echo `$JBOSS_CLI -c ":read-attribute(name=server-state)" 2> /dev/null`; sleep 1; done' && \
+    echo "=> Deploying driver" && \
+        $JBOSS_CLI -c "deploy /opt/jboss/mysql-connector-java-8.0.16.jar" && \
+    echo "=> Creating datasource" && \
+        $JBOSS_CLI -c "data-source add --name=MySQLDS --jndi-name=java:jboss/datasources/MySQLDS --driver-name=mysql-connector-java-8.0.16.jar --connection-url=jdbc:mysql://db:3306/tmc --user-name=root --password=Root123"'!' && \
+    echo "=> Shutting down WildFly and Cleaning up" && \
+        $JBOSS_CLI -c ":shutdown" && \
+        rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/ $JBOSS_HOME/standalone/log/*
+
+ADD target/tu_mejor_compra-1.0.war /opt/jboss/wildfly/standalone/deployments/
+
+ADD --chown=jboss:root wait-for-it.sh /opt/jboss/
+RUN chmod +x /opt/jboss/wait-for-it.sh
+
+EXPOSE 8080
+EXPOSE 9990
+
+CMD ["/opt/jboss/wait-for-it.sh", "db:3306", "--", "/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]

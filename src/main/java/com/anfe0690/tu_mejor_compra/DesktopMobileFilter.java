@@ -76,8 +76,8 @@ public class DesktopMobileFilter implements Filter {
                     Path path = Paths.get(requestWithoutContext);
 //                    logger.debug("path.getRoot()=\"{}\"", path.getRoot());
 //                    logger.debug("path.getName(0)=\"{}\"", path.getName(0));
-
-                    if (path.getName(0).toString().equals("m")) {
+                    
+                    if ( path.getNameCount() > 0 && path.getName(0).toString().equals("m")) {
                         logger.info("Redireccion a version Desktop...");
                         HttpServletResponse res = (HttpServletResponse) response;
 
