@@ -10,13 +10,23 @@ La aplicacion se dividio en 2 branches. Estos representan el tipo de diseño que
 Responsive Design
 -------------------------
 
-Este diseño fue desarrollado con el framework **Bootstrap**. Este se puede comprobar en la direccion http://tmcbootstrap-anfe0690.rhcloud.com/.
-
+Este diseño fue desarrollado con el framework **Bootstrap**.
+Para observar la ejecucion correr lo siguiente en la carpeta raiz:
+```
+mvn clean package
+docker-compose build
+docker-compose up
+```
+Luego ir a la URL: `http://localhost:8080/`
 
 Sitio para escritorio y sitio para moviles
 ------------------------------------------
 
-Este diseño fue desarrollado con el framework **PrimeFaces**. Este se puede comprobar en la direccion http://tumejorcompra-anfe0690.rhcloud.com/.
-
-**Nota**: Si presenta algun problema las paginas de pruebas, espera unos minutos y vuelves a intentar.
-
+Este diseño fue desarrollado con el framework **PrimeFaces**.
+Para observar la ejecucion correr lo siguiente en la carpeta raiz:
+```
+mvn clean package
+docker-compose build
+docker-compose up
+```
+Luego ir a la URL: `http://localhost:8080/`
